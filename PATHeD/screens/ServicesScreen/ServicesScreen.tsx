@@ -4,6 +4,7 @@ import NavigationButton from '../../components/NavigationButton/NavigationButton
 import styles from './style';
 import globalStyle from '../../assets/styles/globalStyle';
 import {useTranslation} from 'react-i18next';
+import {Routes} from "../../navigation/Routes";
 
 // @ts-ignore
 const ServicesScreen = ({navigation}) => {
@@ -33,15 +34,16 @@ const ServicesScreen = ({navigation}) => {
           titleStyle={globalStyle.descriptionBlackL1}
         />
 
-        <NavigationButton
-          type={'withIcon'}
-          title={t('services.smartwatch-registry.title')}
-          image={require('../../assets/images/forNavigation/watch_data.png')}
-          onPress={() => {
-            navigation.navigate('Alerts'); // TO BE IMPLEMENTED
-          }}
-          titleStyle={globalStyle.descriptionBlackL1}
-        />
+          <NavigationButton
+              type={'withIcon'}
+              title={t('services.smartwatch-registry.title')}
+              image={require('../../assets/images/forNavigation/watch_data.png')}
+              onPress={() => {
+                  navigation.navigate(Routes.SmartwatchScreen);
+              }}
+              titleStyle={globalStyle.descriptionBlackL1}
+          />
+
       </ScrollView>
     </SafeAreaView>
   );

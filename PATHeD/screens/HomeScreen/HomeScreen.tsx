@@ -14,7 +14,9 @@ import globalStyle from '../../assets/styles/globalStyle';
 import {useTranslation} from 'react-i18next';
 import {useRecoilState} from 'recoil';
 import {userState} from '../../features/recoil/atoms/User/userState';
+import {Routes} from "../../navigation/Routes";
 
+// @ts-ignore
 const MyHealthScreen = ({navigation}) => {
   const {t} = useTranslation();
   const [user, _] = useRecoilState(userState);
@@ -49,6 +51,26 @@ const MyHealthScreen = ({navigation}) => {
           bottomBorderStyle={globalStyle.bottomBorderL3}
           titleStyle={globalStyle.descriptionBlackL1}
         />
+
+
+
+
+          <NavigationButton
+              type={'withIcon'}
+              title={t('Smartwatch.title')}
+              image={require('../../assets/images/forNavigation/watch_data.png')}
+              onPress={() => {
+                  console.log('Navigating to SmartwatchScreen');
+                  navigation.navigate(Routes.SmartwatchScreen);
+              }}
+              bottomBorderStyle={globalStyle.bottomBorderL3}
+              titleStyle={globalStyle.descriptionBlackL1}
+          />
+
+
+
+
+
         <NavigationButton
           type={'withIcon'}
           title={t('patientSummary.title')}
