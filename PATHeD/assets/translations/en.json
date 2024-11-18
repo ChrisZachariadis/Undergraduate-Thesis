@@ -1,0 +1,270 @@
+{
+  "general": {
+    "search": "Search...",
+    "loading": "Loading...",
+    "continue": "Continue",
+    "back": "Back",
+    "language" : "Language",
+    "change-language": "Change Language",
+    "view-language": "You are currently viewing the language in:",
+    "english": "English",
+    "greek": "Ελληνικά",
+    "portuguese": "Português",
+    "hungarian": "Magyar",
+    "czech": "Čeština",
+    "slovak": "Slovenský",
+    "spanish": "Español",
+    "french": "Français",
+    "dutch": "Nederlands",
+    "no-data": "No available data",
+    "no-known": "There are no known information",
+    "doctor": "General Practitioner",
+    "status": "Clinical Status",
+    "criticality": "Criticality",
+    "severity": "Severity",
+    "certainty": "Certainty",
+    "description": "Description",
+    "translate-summary": "Translate Patient Summary"
+  },
+  "dictionary": {
+    "from": "From",
+    "until": "Until",
+    "present": "Present",
+    "about" : "About"
+  },
+  "dates": {
+    "birth": "Date of birth",
+    "arrival": "Arrival Date",
+    "departure": "Departure Date",
+    "onset": "Onset Date",
+    "last-occurrence": "Last Occurrence Date",
+    "resolution": "Resolution Date",
+    "procedure": "Procedure Date",
+    "assessment": "Assessment Date",
+    "removal": "Removal Date",
+    "end": "End Date",
+    "expected-delivery": "Expected Delivery Date",
+    "observation": "Observation Date",
+    "outcome": "Birthdays",
+    "vaccination": "Vaccination Date",
+    "lastSynchronized": "Last Synced"
+  },
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "incorrect": "Incorrect username or password",
+    "sign": "Sign In",
+    "forgot": "Forgot your password?",
+    "new-account": "Don't have an account?",
+    "join": "Join now",
+    "keep-logged": "Keep me logged in",
+    "alert-disabled-logged": "Disabled Feature",
+    "alert-disabled-description": "You cannot use this feature because your phone is not secured. To secure your phone visit the Settings of your phone, and in the Security tab, choose a screen lock or add biometric authentication.",
+    "biometrics-instruction": "Confirm your identity to reconnect",
+    "biometrics-error": "Wrong Credentials, Please try again",
+    "token-alert-title": "Session Expired",
+    "token-alert-description" : "Your session is expired. By pressing \"Continue\" you will be redirected back to the Login Screen",
+    "token-authentication-description" : "Your session is expired. By pressing \"Continue\" you be asked to authenticate yourself in order to login back to the application"
+  },
+  "patientSummary": {
+    "title": "Patient Summary",
+    "profile": {
+      "title": "Profile",
+      "personal-details": "Personal Details",
+      "primary-id": "Primary Identification Number",
+      "secondary-id": "Secondary Identification Number",
+      "gender": "Gender",
+      "communication-language": "Communication Language",
+      "contact-details": "Contact Details",
+      "email": "Email",
+      "mobile-phone": "Mobile Telephone Number",
+      "home-phone": "Home Telephone Number",
+      "address": "Address",
+      "emergency": {
+        "contact": "Emergency Contact",
+        "name": "Full Name"
+      }
+    },
+    "alerts": {
+      "title": "Alerts"
+    },
+    "travel": {
+      "title": "Travel History"
+    },
+    "allergies": {
+      "title": "Allergies",
+      "type": "Type",
+      "substance": "Substance",
+      "manifestation": "Manifestation",
+      "exposure-route": "Exposure Route",
+      "category": "Category"
+    },
+    "problems": {
+      "title": "Medical Problems",
+      "current" : "Current Problems",
+      "resolved": "Resolved Problems",
+      "procedures": "Procedures",
+      "functional-status": "Functional Status",
+      "body-site": "Body site"
+    },
+    "social-history": {
+      "title": "Social History",
+      "frequency": "Frequency of activity"
+    },
+    "devices": {
+      "title": "Devices"
+    },
+    "medication-summary": {
+      "title": "Medication Summary",
+      "strength": "Medication Strength",
+      "frequency": "Frequency of Intake",
+      "dosage": "Dosage of Medication",
+      "form": "Form of Medication",
+      "administration": "Administration Route"
+    },
+    "gynaecological": {
+      "title": "Gynaecological",
+      "abortions": "Number of Abortions",
+      "children": "Number of Children"
+    },
+    "immunization": {
+      "title": "Immunization",
+      "doses": "Number of Doses",
+      "brand": "Brand",
+      "disease": "Targeted Disease or Agent",
+      "holder": "Marketing Authorisation Holder",
+      "batch": "Batch / Lot Number",
+      "administering-center": "Administering Center",
+      "country": "Country of Vaccination",
+      "administered": "Status of Vaccination"
+    },
+    "plan-of-care": {
+      "title": "Plan of Care",
+      "recommendation": "Therapeutic Recommendation"
+    },
+    "clinical": {
+      "title": "Clinical Examination"
+    },
+    "laboratory": {
+      "title": "Laboratory"
+    },
+    "imaging": {
+      "title": "Imaging"
+    },
+    "episodes-care": {
+      "title": "Episodes of Care"
+    }
+  },
+  "services": {
+    "title": "Services",
+    "doctor-registry": {
+      "title": "Doctors' Registry"
+    },
+    "pharmacist-registry": {
+      "title": "Pharmacists' Registry"
+    },
+    "smartwatch-registry": {
+      "title": "Smartwatch Data Collection"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "terms": "Terms of Use",
+    "terms-description": "Thank you for considering using our mobile app to store and process your medical data. By accessing and using the app, you agree to be bound by the following terms and conditions (the \"Terms\"). If you do not agree to these Terms, please do not use the app. \n\n Privacy and Security: The app collects, stores, and processes your medical data in accordance with our privacy policy, which can be found [insert link to privacy policy]. We take steps to ensure the security of your medical data, but we cannot guarantee that your data will be completely secure. You are responsible for keeping your login information confidential and for any activity that occurs on your account. \n\n Use of the App: You may use the app for personal, non-commercial purposes only. You may not use the app for any illegal or unauthorized purpose, or in any way that could damage, disable, overburden, or impair the app or our servers. You may not attempt to gain unauthorized access to the app or its servers or to any other user's account. \n\n Intellectual Property: The app and all content and materials included on it, including but not limited to text, graphics, images, and software, are the property of eHealth Lab or its licensors and are protected by copyright and other intellectual property laws. You may not use any content or materials on the app for any commercial purpose without the express written consent of eHealth Lab. \n\n Disclaimer of Warranties: The app is provided on an \"as is\" and \"as available\" basis. We make no representations or warranties of any kind, express or implied, as to the operation of the app or the information, content, materials, or products included on the app. We do not warrant that the app will be available at all times or that it will be free from errors or viruses. \n\n Limitation of Liability: We will not be liable for any damages of any kind arising from the use of the app, including but not limited to direct, indirect, incidental, punitive, and consequential damages. \n\n Governing Law: These Terms and your use of the app are governed by and construed in accordance with the laws of Cyprus without giving effect to any principles of conflicts of law. \n\n Changes to These Terms: We reserve the right to modify these Terms at any time. Any changes to these Terms will be effective immediately upon posting on the app. Your continued use of the app after any changes have been made will constitute your acceptance of the revised Terms. \n\n Termination: We reserve the right to terminate your access to the app at any time, for any reason, without notice. \n\n By using the app, you acknowledge that you have read and understand these Terms and agree to be bound by them. If you have any questions about these Terms, please contact us at [contact information].",
+    "privacy-policy": "Privacy Policy",
+    "privacy-policy-description": "Thank you for considering using our mobile app to store and process your health records. At eHealth Lab, we take the privacy of our users very seriously. This privacy policy (the \"Policy\") explains how we collect, use, and share your personal information when you use the app. \n\n By accessing and using the app, you agree to the collection, use, and sharing of your personal information as described in this Policy. If you do not agree with our policies and practices, do not use the app. \n\n Collection of Personal Information: We collect personal information from you when you create an account and use the app. The personal information we collect may include your name, email address, age, gender, and health data. We may also collect information about your device, including the device's unique identifier, IP address, and operating system. \n\n Use of Personal Information: We use your personal information to provide the app's services and to improve the app. We may also use your personal information for research and development purposes and to personalize your experience on the app. \n\n Sharing of Personal Information: We may share your personal information with third parties in the following circumstances: \n\n With your consent: We may share your personal information with third parties if you have given us your explicit consent to do so. \n\n For legal reasons: We may share your personal information if we are required to do so by law or if we believe that such action is necessary to comply with legal proceedings or to protect the rights, property, or safety of eHealth Lab, our users, or others. With service providers: We may share your personal information with third-party service providers that perform functions on our behalf, such as hosting the app or analyzing data. These service providers are contractually obligated to protect the privacy of your personal information and may only use your personal information as directed by us. \n\n Data Management After Account Termination: If you decide to terminate your account, we will delete your personal information from our servers within a reasonable timeframe. However, some of your personal information may remain in backup copies or records that are not publicly accessible. \n\n Changes to this Policy: We may update this Policy from time to time to reflect changes to our practices or for other operational, legal, or regulatory reasons. We encourage you to review the Policy periodically for the latest information on our privacy practices. \n\n By using the app, you acknowledge that you have read and understand this Policy and agree to be bound by it. If you have any questions about this Policy, please contact us at [contact information].",
+    "about-description": "We want to thank our Professor Constantinos Pattichis, Ioannis Constantinou, Constantinos Yiasemi and the whole eHealth Lab team for the collaboration we had during the project and their guidance.",
+    "logout": "Logout"
+  },
+  "myHealth" : {
+    "title": "MyHealth"
+  },
+  "shl":{
+    "title": "Smart Health Links",
+    "create": "Create",
+    "previous": "My Smart Health Links",
+    "info-title": "What are Smart Health Links?",
+    "selection-title": "Resource Selection",
+    "generation-title": "Generate Smart Health Link",
+    "info": "SMART Health Links are used to securely share your healthcare data using passcode-protected URLs with configurable expiration dates. They update automatically and eliminate the need for individuals to share their records more than once.\n\n When you share your SMART Health Link, healthcare providers or trusted individuals can view your detailed health information by scanning the QR code and entering the passcode.\n\n Additionally an audit log reports when your SMART Health was accessed, and users can deactivate at any point in time.",
+    "confirm": "Confirm",
+    "continue": "Continue",
+    "go-back": "Back",
+    "confirm-promt": "This are the resources you have selected to share. Press confirm if they are correct.",
+    "select-all": "Select all resources",
+    "select-promt": "Please select the resources you want to share with the Smart Health Link.",
+    "summary": {
+      "show-all" : "Categories",
+      "select-category": "Select Category",
+      "allergy": "Allergy",
+      "intolerance": "Intolerance",
+      "careplan": "Plan of Treatment",
+      "problem": "Current Problem",
+      "pastillness": "Past Illness",
+      "device": "Device",
+      "diagnosis": "Diagnostic Result",
+      "procedure": "Procedure",
+      "immunization": "Immunization",
+      "vital-sign": "Vital Sign",
+      "measurment": "Measurment",
+      "social-history": "Social History",
+      "no-drinker": "No Drinker",
+      "smoking-product": "Smoking Product",
+      "smoking-quantity": "Packs per Year",
+      "activity": "Activity",
+      "pregnancy": "Pregnancy",
+      "expectedDate": "Expected Date",
+      "travel-history": "Travel History",
+      "country": "Country",
+      "unknown": "Unknown category",
+      "imaging": "Imaging",
+      "medication": "Medication",
+      "quantity": "Quantity",
+      "issuedDate": "Issued Date",
+      "consent": "Consent",
+      "provider-role": "Provider Role"
+    },
+    "generation":{
+      "1h": "1 Hour",
+      "4h": "4 Hours",
+      "12h": "12 Hours",
+      "1d": "1 Day",
+      "1w": "1 Week",
+      "1m": "1 Month",
+      "3m": "3 Months",
+      "6m": "6 Months",
+      "1y": "1 Year",
+      "password-error": "Password must be at least 6 characters long",
+      "label-title": "Label (Optional)",
+      "label-placeholder": "Enter the label here",
+      "passcode-title": "Passcode",
+      "passcode-placeholder": "Enter your passcode here",
+      "expiration-title": "Expiration Time"
+    },
+    "viewing": {
+      "published-date": "Published on",
+      "expiration-date": "Expires on",
+      "access-count": "Views",
+      "failed-attempts": "Failed attempts",
+      "pin": "Access Code",
+      "unknown-pin": "Not stored in Device",
+      "more-info": "Additional Information",
+      "share": "Share",
+      "copy": "Copy",
+      "copy-alert": "Link copied to clipboard",
+      "copy-alert-continue": "Continue",
+      "alert-cancel": "Cancel",
+      "open": "Open",
+      "instructions-placeholder": "Instructions",
+      "instructions": "1. Present the QR code to the receiver\n2. Receiver scan the QR code with his camera of smartphone\n3. They will be redirected to our website to view your resources\n4. Share the Access Code with them to allow them to access the resources",
+      "open-alert-title": "Open Link",
+      "open-alert-description": "You are about to open a link in your browser to your Patient Summary. Do you want to continue?",
+      "open-alert-continue": "Continue",
+      "open-alert-cancel": "Cancel",
+      "emai-subject": "Share my Patient Symmary",
+      "email-body-partA": "Greetings,\n\nI would like to share with you my Patient Summary. Please find the link below:\n\n",
+      "email-body-partB": "\n\nFeel free to contact me for any further information.\n\nBest Regards,\n"
+    }
+  }
+}

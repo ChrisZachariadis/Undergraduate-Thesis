@@ -1,0 +1,132 @@
+{
+  "general": {
+    "search": "Pesquisa...",
+    "loading": "Carregando...",
+    "continue": "Continuar",
+    "back": "Voltar",
+    "language": "Língua",
+    "change-language": "Mudar Língua",
+    "view-language": "Você está visualizando o idioma em:",
+    "no-data": "Não há dados disponíveis",
+    "no-known": "Não há informações conhecidas",
+    "doctor": "Doutor",
+    "status": "Estado Clínico",
+    "criticality": "Criticidade",
+    "severity": "Severidade",
+    "certainty": "Certeza",
+    "description": "Descrição",
+    "translate-summary": "Traduzir Resumo do Paciente"
+  },
+  "dictionary": {
+    "from": "De",
+    "until": "Até",
+    "present": "Presente",
+    "about": "Sobre"
+  },
+  "dates": {
+    "birth": "Data de Nascimento",
+    "arrival": "Data de Chegada",
+    "departure": "Data de Partida",
+    "onset": "Data de Início",
+    "last-occurrence": "Data da Última Ocorrência",
+    "resolution": "Data de Resolução",
+    "procedure": "Data do Procedimento",
+    "assessment": "Data de Avaliação",
+    "removal": "Data de Remoção",
+    "end": "Data de Término",
+    "expected-delivery": "Data Prevista de Parto",
+    "observation": "Data de Observação",
+    "outcome": "Aniversário",
+    "vaccination": "Data de Vacinação",
+    "lastSynchronized": "Última sincronização"
+  },
+  "patientSummary": {
+    "title": "Resumo do Paciente",
+    "profile": {
+      "title": "Perfil",
+      "personal-details": "Detalhes Pessoais",
+      "primary-id": "Número de Identificação Primário",
+      "secondary-id": "Número de Identificação Secundário",
+      "gender": "Gênero",
+      "communication-language": "Língua de Comunicação",
+      "contact-details": "Detalhes de Contato",
+      "email": "Email",
+      "mobile-phone": "Número de Telefone Móvel",
+      "home-phone": "Número de Telefone Residencial",
+      "address": "Endereço",
+      "emergency": {
+        "contact": "Contato de Emergência",
+        "name": "Nome Completo"
+      }
+    },
+    "alerts": {
+      "title": "Alertas"
+    },
+    "travel": {
+      "title": "Histórico de Viagens"
+    },
+    "allergies": {
+      "title": "Alergias",
+      "type": "Tipo",
+      "substance": "Substância",
+      "manifestation": "Manifestação",
+      "exposure-route": "Rota de Exposição",
+      "category": "Categoria"
+    },
+    "problems": {
+      "title": "Problemas Médicos",
+      "current": "Problemas Atuais",
+      "resolved": "Problemas Resolvidos",
+      "procedures": "Procedimentos",
+      "functional-status": "Estado Funcional",
+      "body-site": "Localização no Corpo"
+    },
+    "social-history": {
+      "title": "Histórico Social",
+      "frequency": "Frequência da atividade"
+    },
+    "devices": {
+      "title": "Dispositivos"
+    },
+    "medication-summary": {
+      "title": "Resumo da Medicação",
+      "strength": "Potência da Medicação",
+      "frequency": "Frequência de Ingestão",
+      "dosage": "Dosagem da Medicação",
+      "form": "Forma da Medicação",
+      "administration": "Rota de Administração"
+    },
+    "gynaecological": {
+      "title": "Ginecológico",
+      "abortions": "Número de Abortos",
+      "children": "Número de Filhos"
+    },
+    "immunization": {
+      "title": "Imunização",
+      "doses": "Número de Doses",
+      "brand": "Marca",
+      "disease": "Doença ou Agente Alvo",
+      "holder": "Titular da Autorização de Comercialização",
+      "batch": "Número do Lote",
+      "administering-center": "Centro Administrador",
+      "country": "País da Vacinação",
+      "administered": "Estado da Vacinação"
+    },
+    "plan-of-care": {
+      "title": "Plano de Cuidado",
+      "recommendation": "Recomendação Terapêutica"
+    },
+    "clinical": {
+      "title": "Exame Clínico"
+    },
+    "laboratory": {
+      "title": "Laboratório"
+    },
+    "imaging": {
+      "title": "Imagem"
+    },
+    "episodes-care": {
+      "title": "Episódios de Cuidado"
+    }
+  }
+}

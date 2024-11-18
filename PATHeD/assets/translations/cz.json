@@ -1,0 +1,132 @@
+{
+  "general": {
+    "search": "Hledání...",
+    "loading": "Načítání...",
+    "continue": "Pokračovat",
+    "back": "Zpět",
+    "language": "Jazyk",
+    "change-language": "Změnit jazyk",
+    "view-language": "Aktuálně zobrazovaný jazyk je:",
+    "no-data": "Nejsou dostupná žádná data",
+    "no-known": "Nejsou známy žádné informace",
+    "doctor": "Doktor",
+    "status": "Klinický stav",
+    "criticality": "Kritičnost",
+    "severity": "Závažnost",
+    "certainty": "Jistota",
+    "description": "Popis",
+    "translate-summary": "Přeložte shrnutí pacienta"
+  },
+  "dictionary": {
+    "from": "Od",
+    "until": "Do",
+    "present": "Přítomný",
+    "about": "O"
+  },
+  "dates": {
+    "birth": "Datum narození",
+    "arrival": "Datum příjezdu",
+    "departure": "Datum odjezdu",
+    "onset": "Datum začátku",
+    "last-occurrence": "Datum posledního výskytu",
+    "resolution": "Datum řešení",
+    "procedure": "Datum zákroku",
+    "assessment": "Datum hodnocení",
+    "removal": "Datum odstranění",
+    "end": "Datum ukončení",
+    "expected-delivery": "Předpokládaný datum porodu",
+    "observation": "Datum pozorování",
+    "outcome": "Narozeniny",
+    "vaccination": "Datum očkování",
+    "lastSynchronized": "Poslední synchronizace"
+  },
+  "patientSummary": {
+    "title": "Souhrn Pacienta",
+    "profile": {
+      "title": "Profil",
+      "personal-details": "Osobní Údaje",
+      "primary-id": "Primární Identifikační Číslo",
+      "secondary-id": "Sekundární Identifikační Číslo",
+      "gender": "Pohlaví",
+      "communication-language": "Jazyk Komunikace",
+      "contact-details": "Kontaktní Údaje",
+      "email": "Email",
+      "mobile-phone": "Mobilní Telefonní Číslo",
+      "home-phone": "Telefonní Číslo Domů",
+      "address": "Adresa",
+      "emergency": {
+        "contact": "Kontakt pro Nouzové Situace",
+        "name": "Celé Jméno"
+      }
+    },
+    "alerts": {
+      "title": "Upozornění"
+    },
+    "travel": {
+      "title": "Historie Cestování"
+    },
+    "allergies": {
+      "title": "Alergie",
+      "type": "Typ",
+      "substance": "Látka",
+      "manifestation": "Projev",
+      "exposure-route": "Cesta Expozice",
+      "category": "Kategorie"
+    },
+    "problems": {
+      "title": "Zdravotní Problémy",
+      "current": "Aktuální Problémy",
+      "resolved": "Vyřešené Problémy",
+      "procedures": "Procedury",
+      "functional-status": "Funkční Stav",
+      "body-site": "Místo na Těle"
+    },
+    "social-history": {
+      "title": "Sociální Historie",
+      "frequency": "Frekvence Aktivity"
+    },
+    "devices": {
+      "title": "Zařízení"
+    },
+    "medication-summary": {
+      "title": "Souhrn Medikace",
+      "strength": "Síla Léku",
+      "frequency": "Frekvence Příjmu",
+      "dosage": "Dávkování Léku",
+      "form": "Forma Léku",
+      "administration": "Způsob Podání"
+    },
+    "gynaecological": {
+      "title": "Gynekologické",
+      "abortions": "Počet Potratů",
+      "children": "Počet Dětí"
+    },
+    "immunization": {
+      "title": "Očkování",
+      "doses": "Počet Dávek",
+      "brand": "Značka",
+      "disease": "Cílená Nemoc nebo Agens",
+      "holder": "Držitel Povolení k Prodeji",
+      "batch": "Šarže / Číslo Várky",
+      "administering-center": "Místo Podání",
+      "country": "Země Očkování",
+      "administered": "Stav Očkování"
+    },
+    "plan-of-care": {
+      "title": "Plán Péče",
+      "recommendation": "Terapeutické Doporučení"
+    },
+    "clinical": {
+      "title": "Klinické Vyšetření"
+    },
+    "laboratory": {
+      "title": "Laboratoř"
+    },
+    "imaging": {
+      "title": "Zobrazovací Metody"
+    },
+    "episodes-care": {
+      "title": "Epizody Péče"
+    }
+  }
+}

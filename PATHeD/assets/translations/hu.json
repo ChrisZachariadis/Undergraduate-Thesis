@@ -1,0 +1,132 @@
+{
+  "general": {
+    "search": "Keresés...",
+    "loading": "Betöltés...",
+    "continue": "Folytatás",
+    "back": "Vissza",
+    "language": "Nyelv",
+    "change-language": "Nyelv megváltoztatása",
+    "view-language": "Az aktuálisan megjelenített nyelv:",
+    "no-data": "Nincs elérhető adat",
+    "no-known": "Nincsenek ismert információk",
+    "doctor": "Orvos",
+    "status": "Klinikai Állapot",
+    "criticality": "Kritikusság",
+    "severity": "Súlyosság",
+    "certainty": "Bizonyosság",
+    "description": "Leírás",
+    "translate-summary": "Fordítsa le a beteg összefoglalóját"
+  },
+  "dictionary": {
+    "from": "Tól",
+    "until": "Ig",
+    "present": "Jelenleg",
+    "about": "Körülbelül"
+  },
+  "dates": {
+    "birth": "Születési Dátum",
+    "arrival": "Érkezési Dátum",
+    "departure": "Indulási Dátum",
+    "onset": "Kezdés Dátuma",
+    "last-occurrence": "Utolsó Előfordulás Dátuma",
+    "resolution": "Megoldás Dátuma",
+    "procedure": "Beavatkozás Dátuma",
+    "assessment": "Értékelés Dátuma",
+    "removal": "Eltávolítás Dátuma",
+    "end": "Befejezés Dátuma",
+    "expected-delivery": "Várható Szülés Dátuma",
+    "observation": "Megfigyelés Dátuma",
+    "outcome": "Születésnapok",
+    "vaccination": "Oltás Dátuma",
+    "lastSynchronized": "Utolsó szinkronizálás"
+  },
+  "patientSummary": {
+    "title": "Páciens Összefoglaló",
+    "profile": {
+      "title": "Profil",
+      "personal-details": "Személyes Adatok",
+      "primary-id": "Elsődleges Azonosító Szám",
+      "secondary-id": "Másodlagos Azonosító Szám",
+      "gender": "Nem",
+      "communication-language": "Kommunikációs Nyelv",
+      "contact-details": "Kapcsolatfelvételi Adatok",
+      "email": "Email",
+      "mobile-phone": "Mobiltelefonszám",
+      "home-phone": "Otthoni Telefonszám",
+      "address": "Cím",
+      "emergency": {
+        "contact": "Vészhelyzeti Kapcsolat",
+        "name": "Teljes Név"
+      }
+    },
+    "alerts": {
+      "title": "Riasztások"
+    },
+    "travel": {
+      "title": "Utazási Előzmények"
+    },
+    "allergies": {
+      "title": "Allergiák",
+      "type": "Típus",
+      "substance": "Anyag",
+      "manifestation": "Megnyilvánulás",
+      "exposure-route": "Kitettségi Útvonal",
+      "category": "Kategória"
+    },
+    "problems": {
+      "title": "Orvosi Problémák",
+      "current": "Jelenlegi Problémák",
+      "resolved": "Megoldott Problémák",
+      "procedures": "Eljárások",
+      "functional-status": "Funkcionális Státusz",
+      "body-site": "Testrész"
+    },
+    "social-history": {
+      "title": "Szociális Anamnézis",
+      "frequency": "Tevékenység Gyakorisága"
+    },
+    "devices": {
+      "title": "Eszközök"
+    },
+    "medication-summary": {
+      "title": "Gyógyszerösszefoglaló",
+      "strength": "Gyógyszer Ereje",
+      "frequency": "Bevitel Gyakorisága",
+      "dosage": "Gyógyszer Adagja",
+      "form": "Gyógyszer Formája",
+      "administration": "Adagolási Útvonal"
+    },
+    "gynaecological": {
+      "title": "Nőgyógyászati",
+      "abortions": "Abortuszok Száma",
+      "children": "Gyermekek Száma"
+    },
+    "immunization": {
+      "title": "Immunizáció",
+      "doses": "Adagok Száma",
+      "brand": "Márka",
+      "disease": "Célzott Betegség vagy Ágens",
+      "holder": "Forgalomba Hozatali Engedély Birtokosa",
+      "batch": "Tétel / Sarzs Szám",
+      "administering-center": "Oltást Végző Központ",
+      "country": "Oltás Országa",
+      "administered": "Oltás Státusza"
+    },
+    "plan-of-care": {
+      "title": "Ellátási Terv",
+      "recommendation": "Terápiás Ajánlás"
+    },
+    "clinical": {
+      "title": "Klinikai Vizsgálat"
+    },
+    "laboratory": {
+      "title": "Laboratórium"
+    },
+    "imaging": {
+      "title": "Képalkotó Vizsgálatok"
+    },
+    "episodes-care": {
+      "title": "Ellátási Epizódok"
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "general": {
+    "search": "Zoeken...",
+    "loading": "Laden...",
+    "continue": "Doorgaan",
+    "back": "Terug",
+    "language": "Taal",
+    "change-language": "Taal wijzigen",
+    "view-language": "Huidige weergegeven taal:",
+    "no-data": "Geen gegevens beschikbaar",
+    "no-known": "Geen informatie bekend",
+    "doctor": "Dokter",
+    "status": "Klinische status",
+    "criticality": "Kritiekheid",
+    "severity": "Ernst",
+    "certainty": "Zekerheid",
+    "description": "Beschrijving",
+    "translate-summary": "Vertaal samenvatting van de patiënt"
+  },
+  "dictionary": {
+    "from": "Van",
+    "until": "Tot",
+    "present": "Aanwezig",
+    "about": "Over"
+  },
+  "dates": {
+    "birth": "Geboortedatum",
+    "arrival": "Aankomstdatum",
+    "departure": "Vertrekdatum",
+    "onset": "Aanvangsdatum",
+    "last-occurrence": "Datum laatste voorval",
+    "resolution": "Oplossingsdatum",
+    "procedure": "Datum van ingreep",
+    "assessment": "Beoordelingsdatum",
+    "removal": "Verwijderingsdatum",
+    "end": "Einddatum",
+    "expected-delivery": "Verwachte bevallingsdatum",
+    "observation": "Observatiedatum",
+    "outcome": "Verjaardag",
+    "vaccination": "Vaccinatiedatum",
+    "lastSynchronized": "Laatste synchronisatie"
+  },
+  "patientSummary": {
+    "title": "Patiëntoverzicht",
+    "profile": {
+      "title": "Profiel",
+      "personal-details": "Persoonlijke gegevens",
+      "primary-id": "Primair identificatienummer",
+      "secondary-id": "Secundair identificatienummer",
+      "gender": "Geslacht",
+      "communication-language": "Communicatietaal",
+      "contact-details": "Contactgegevens",
+      "email": "E-mail",
+      "mobile-phone": "Mobiel telefoonnummer",
+      "home-phone": "Telefoonnummer thuis",
+      "address": "Adres",
+      "emergency": {
+        "contact": "Noodcontact",
+        "name": "Volledige naam"
+      }
+    },
+    "alerts": {
+      "title": "Waarschuwingen"
+    },
+    "travel": {
+      "title": "Reisgeschiedenis"
+    },
+    "allergies": {
+      "title": "Allergieën",
+      "type": "Type",
+      "substance": "Stof",
+      "manifestation": "Manifestatie",
+      "exposure-route": "Blootstellingsroute",
+      "category": "Categorie"
+    },
+    "problems": {
+      "title": "Gezondheidsproblemen",
+      "current": "Huidige problemen",
+      "resolved": "Opgeloste problemen",
+      "procedures": "Procedures",
+      "functional-status": "Functionele status",
+      "body-site": "Lichaamslocatie"
+    },
+    "social-history": {
+      "title": "Sociale geschiedenis",
+      "frequency": "Activiteitsfrequentie"
+    },
+    "devices": {
+      "title": "Apparaten"
+    },
+    "medication-summary": {
+      "title": "Medicatieoverzicht",
+      "strength": "Sterkte van het medicijn",
+      "frequency": "Doseringfrequentie",
+      "dosage": "Dosering van het medicijn",
+      "form": "Vorm van het medicijn",
+      "administration": "Toedieningswijze"
+    },
+    "gynaecological": {
+      "title": "Gynaecologisch",
+      "abortions": "Aantal abortussen",
+      "children": "Aantal kinderen"
+    },
+    "immunization": {
+      "title": "Immunisatie",
+      "doses": "Aantal doses",
+      "brand": "Merk",
+      "disease": "Doelziekte of -agens",
+      "holder": "Vergunninghouder",
+      "batch": "Batch / Partijnummer",
+      "administering-center": "Toedieningscentrum",
+      "country": "Vaccinatieland",
+      "administered": "Vaccinatiestatus"
+    },
+    "plan-of-care": {
+      "title": "Zorgplan",
+      "recommendation": "Therapeutische aanbeveling"
+    },
+    "clinical": {
+      "title": "Klinisch onderzoek"
+    },
+    "laboratory": {
+      "title": "Laboratorium"
+    },
+    "imaging": {
+      "title": "Beeldvormende technieken"
+    },
+    "episodes-care": {
+      "title": "Zorgepisodes"
+    }
+  }
+}
