@@ -1,0 +1,5002 @@
+[
+  {
+    "Index": 1,
+    "Steps": 14189,
+    "Datetime": "01/02/2024"
+  },
+  {
+    "Index": 2,
+    "Steps": 11329,
+    "Datetime": "01/02/2024"
+  },
+  {
+    "Index": 3,
+    "Steps": 9067,
+    "Datetime": "01/02/2024"
+  },
+  {
+    "Index": 4,
+    "Steps": 5988,
+    "Datetime": "01/02/2024"
+  },
+  {
+    "Index": 5,
+    "Steps": 5783,
+    "Datetime": "01/03/2024"
+  },
+  {
+    "Index": 6,
+    "Steps": 7029,
+    "Datetime": "01/03/2024"
+  },
+  {
+    "Index": 7,
+    "Steps": 7759,
+    "Datetime": "01/03/2024"
+  },
+  {
+    "Index": 8,
+    "Steps": 8243,
+    "Datetime": "01/03/2024"
+  },
+  {
+    "Index": 9,
+    "Steps": 7626,
+    "Datetime": "01/04/2024"
+  },
+  {
+    "Index": 10,
+    "Steps": 14097,
+    "Datetime": "01/04/2024"
+  },
+  {
+    "Index": 11,
+    "Steps": 11000,
+    "Datetime": "01/04/2024"
+  },
+  {
+    "Index": 12,
+    "Steps": 14105,
+    "Datetime": "01/04/2024"
+  },
+  {
+    "Index": 13,
+    "Steps": 11956,
+    "Datetime": "01/05/2024"
+  },
+  {
+    "Index": 14,
+    "Steps": 11722,
+    "Datetime": "01/05/2024"
+  },
+  {
+    "Index": 15,
+    "Steps": 6646,
+    "Datetime": "01/06/2024"
+  },
+  {
+    "Index": 16,
+    "Steps": 11279,
+    "Datetime": "01/06/2024"
+  },
+  {
+    "Index": 17,
+    "Steps": 6384,
+    "Datetime": "01/06/2024"
+  },
+  {
+    "Index": 18,
+    "Steps": 12095,
+    "Datetime": "01/07/2024"
+  },
+  {
+    "Index": 19,
+    "Steps": 7382,
+    "Datetime": "01/08/2024"
+  },
+  {
+    "Index": 20,
+    "Steps": 8561,
+    "Datetime": "01/08/2024"
+  },
+  {
+    "Index": 21,
+    "Steps": 9472,
+    "Datetime": "01/09/2024"
+  },
+  {
+    "Index": 22,
+    "Steps": 11880,
+    "Datetime": "01/09/2024"
+  },
+  {
+    "Index": 23,
+    "Steps": 7462,
+    "Datetime": "01/09/2024"
+  },
+  {
+    "Index": 24,
+    "Steps": 8105,
+    "Datetime": "01/09/2024"
+  },
+  {
+    "Index": 25,
+    "Steps": 7834,
+    "Datetime": "01/10/2024"
+  },
+  {
+    "Index": 26,
+    "Steps": 12620,
+    "Datetime": "01/10/2024"
+  },
+  {
+    "Index": 27,
+    "Steps": 10304,
+    "Datetime": "01/10/2024"
+  },
+  {
+    "Index": 28,
+    "Steps": 5046,
+    "Datetime": "01/11/2024"
+  },
+  {
+    "Index": 29,
+    "Steps": 6657,
+    "Datetime": "01/11/2024"
+  },
+  {
+    "Index": 30,
+    "Steps": 14439,
+    "Datetime": "01/13/2024"
+  },
+  {
+    "Index": 31,
+    "Steps": 10649,
+    "Datetime": "01/13/2024"
+  },
+  {
+    "Index": 32,
+    "Steps": 12635,
+    "Datetime": "01/13/2024"
+  },
+  {
+    "Index": 33,
+    "Steps": 13774,
+    "Datetime": "01/14/2024"
+  },
+  {
+    "Index": 34,
+    "Steps": 9616,
+    "Datetime": "01/14/2024"
+  },
+  {
+    "Index": 35,
+    "Steps": 12090,
+    "Datetime": "01/14/2024"
+  },
+  {
+    "Index": 36,
+    "Steps": 7745,
+    "Datetime": "01/15/2024"
+  },
+  {
+    "Index": 37,
+    "Steps": 12416,
+    "Datetime": "01/15/2024"
+  },
+  {
+    "Index": 38,
+    "Steps": 13054,
+    "Datetime": "01/16/2024"
+  },
+  {
+    "Index": 39,
+    "Steps": 8981,
+    "Datetime": "01/16/2024"
+  },
+  {
+    "Index": 40,
+    "Steps": 9046,
+    "Datetime": "01/17/2024"
+  },
+  {
+    "Index": 41,
+    "Steps": 13394,
+    "Datetime": "01/17/2024"
+  },
+  {
+    "Index": 42,
+    "Steps": 7165,
+    "Datetime": "01/17/2024"
+  },
+  {
+    "Index": 43,
+    "Steps": 14030,
+    "Datetime": "01/17/2024"
+  },
+  {
+    "Index": 44,
+    "Steps": 7457,
+    "Datetime": "01/18/2024"
+  },
+  {
+    "Index": 45,
+    "Steps": 8047,
+    "Datetime": "01/18/2024"
+  },
+  {
+    "Index": 46,
+    "Steps": 12850,
+    "Datetime": "01/19/2024"
+  },
+  {
+    "Index": 47,
+    "Steps": 7733,
+    "Datetime": "01/19/2024"
+  },
+  {
+    "Index": 48,
+    "Steps": 5214,
+    "Datetime": "01/20/2024"
+  },
+  {
+    "Index": 49,
+    "Steps": 14479,
+    "Datetime": "01/20/2024"
+  },
+  {
+    "Index": 50,
+    "Steps": 9297,
+    "Datetime": "01/21/2024"
+  },
+  {
+    "Index": 51,
+    "Steps": 7436,
+    "Datetime": "01/21/2024"
+  },
+  {
+    "Index": 52,
+    "Steps": 8589,
+    "Datetime": "01/21/2024"
+  },
+  {
+    "Index": 53,
+    "Steps": 10112,
+    "Datetime": "01/21/2024"
+  },
+  {
+    "Index": 54,
+    "Steps": 14450,
+    "Datetime": "01/23/2024"
+  },
+  {
+    "Index": 55,
+    "Steps": 8205,
+    "Datetime": "01/23/2024"
+  },
+  {
+    "Index": 56,
+    "Steps": 10164,
+    "Datetime": "01/23/2024"
+  },
+  {
+    "Index": 57,
+    "Steps": 10893,
+    "Datetime": "01/24/2024"
+  },
+  {
+    "Index": 58,
+    "Steps": 13159,
+    "Datetime": "01/24/2024"
+  },
+  {
+    "Index": 59,
+    "Steps": 8716,
+    "Datetime": "01/25/2024"
+  },
+  {
+    "Index": 60,
+    "Steps": 11781,
+    "Datetime": "01/25/2024"
+  },
+  {
+    "Index": 61,
+    "Steps": 5874,
+    "Datetime": "01/25/2024"
+  },
+  {
+    "Index": 62,
+    "Steps": 5770,
+    "Datetime": "01/25/2024"
+  },
+  {
+    "Index": 63,
+    "Steps": 12418,
+    "Datetime": "01/25/2024"
+  },
+  {
+    "Index": 64,
+    "Steps": 6511,
+    "Datetime": "01/26/2024"
+  },
+  {
+    "Index": 65,
+    "Steps": 8493,
+    "Datetime": "01/26/2024"
+  },
+  {
+    "Index": 66,
+    "Steps": 9979,
+    "Datetime": "01/26/2024"
+  },
+  {
+    "Index": 67,
+    "Steps": 8721,
+    "Datetime": "01/26/2024"
+  },
+  {
+    "Index": 68,
+    "Steps": 5903,
+    "Datetime": "01/26/2024"
+  },
+  {
+    "Index": 69,
+    "Steps": 11336,
+    "Datetime": "01/27/2024"
+  },
+  {
+    "Index": 70,
+    "Steps": 6888,
+    "Datetime": "01/27/2024"
+  },
+  {
+    "Index": 71,
+    "Steps": 13951,
+    "Datetime": "01/27/2024"
+  },
+  {
+    "Index": 72,
+    "Steps": 9931,
+    "Datetime": "01/28/2024"
+  },
+  {
+    "Index": 73,
+    "Steps": 5979,
+    "Datetime": "01/28/2024"
+  },
+  {
+    "Index": 74,
+    "Steps": 5322,
+    "Datetime": "01/28/2024"
+  },
+  {
+    "Index": 75,
+    "Steps": 11342,
+    "Datetime": "01/28/2024"
+  },
+  {
+    "Index": 76,
+    "Steps": 11839,
+    "Datetime": "01/28/2024"
+  },
+  {
+    "Index": 77,
+    "Steps": 11148,
+    "Datetime": "01/29/2024"
+  },
+  {
+    "Index": 78,
+    "Steps": 11860,
+    "Datetime": "01/30/2024"
+  },
+  {
+    "Index": 79,
+    "Steps": 6020,
+    "Datetime": "01/31/2024"
+  },
+  {
+    "Index": 80,
+    "Steps": 5785,
+    "Datetime": "01/31/2024"
+  },
+  {
+    "Index": 81,
+    "Steps": 7660,
+    "Datetime": "01/31/2024"
+  },
+  {
+    "Index": 82,
+    "Steps": 10856,
+    "Datetime": "02/01/2024"
+  },
+  {
+    "Index": 83,
+    "Steps": 13805,
+    "Datetime": "02/02/2024"
+  },
+  {
+    "Index": 84,
+    "Steps": 7331,
+    "Datetime": "02/02/2024"
+  },
+  {
+    "Index": 85,
+    "Steps": 6486,
+    "Datetime": "02/02/2024"
+  },
+  {
+    "Index": 86,
+    "Steps": 8750,
+    "Datetime": "02/03/2024"
+  },
+  {
+    "Index": 87,
+    "Steps": 9725,
+    "Datetime": "02/03/2024"
+  },
+  {
+    "Index": 88,
+    "Steps": 10966,
+    "Datetime": "02/04/2024"
+  },
+  {
+    "Index": 89,
+    "Steps": 10111,
+    "Datetime": "02/05/2024"
+  },
+  {
+    "Index": 90,
+    "Steps": 14578,
+    "Datetime": "02/05/2024"
+  },
+  {
+    "Index": 91,
+    "Steps": 13952,
+    "Datetime": "02/05/2024"
+  },
+  {
+    "Index": 92,
+    "Steps": 14421,
+    "Datetime": "02/05/2024"
+  },
+  {
+    "Index": 93,
+    "Steps": 12363,
+    "Datetime": "02/05/2024"
+  },
+  {
+    "Index": 94,
+    "Steps": 12893,
+    "Datetime": "02/05/2024"
+  },
+  {
+    "Index": 95,
+    "Steps": 9003,
+    "Datetime": "02/05/2024"
+  },
+  {
+    "Index": 96,
+    "Steps": 11651,
+    "Datetime": "02/05/2024"
+  },
+  {
+    "Index": 97,
+    "Steps": 9464,
+    "Datetime": "02/06/2024"
+  },
+  {
+    "Index": 98,
+    "Steps": 12787,
+    "Datetime": "02/06/2024"
+  },
+  {
+    "Index": 99,
+    "Steps": 6437,
+    "Datetime": "02/06/2024"
+  },
+  {
+    "Index": 100,
+    "Steps": 5945,
+    "Datetime": "02/07/2024"
+  },
+  {
+    "Index": 101,
+    "Steps": 8072,
+    "Datetime": "02/07/2024"
+  },
+  {
+    "Index": 102,
+    "Steps": 12165,
+    "Datetime": "02/10/2024"
+  },
+  {
+    "Index": 103,
+    "Steps": 6676,
+    "Datetime": "02/11/2024"
+  },
+  {
+    "Index": 104,
+    "Steps": 14915,
+    "Datetime": "02/11/2024"
+  },
+  {
+    "Index": 105,
+    "Steps": 12307,
+    "Datetime": "02/11/2024"
+  },
+  {
+    "Index": 106,
+    "Steps": 10294,
+    "Datetime": "02/11/2024"
+  },
+  {
+    "Index": 107,
+    "Steps": 10455,
+    "Datetime": "02/12/2024"
+  },
+  {
+    "Index": 108,
+    "Steps": 14872,
+    "Datetime": "02/12/2024"
+  },
+  {
+    "Index": 109,
+    "Steps": 12024,
+    "Datetime": "02/13/2024"
+  },
+  {
+    "Index": 110,
+    "Steps": 10941,
+    "Datetime": "02/13/2024"
+  },
+  {
+    "Index": 111,
+    "Steps": 12249,
+    "Datetime": "02/15/2024"
+  },
+  {
+    "Index": 112,
+    "Steps": 5236,
+    "Datetime": "02/15/2024"
+  },
+  {
+    "Index": 113,
+    "Steps": 14027,
+    "Datetime": "02/15/2024"
+  },
+  {
+    "Index": 114,
+    "Steps": 12194,
+    "Datetime": "02/16/2024"
+  },
+  {
+    "Index": 115,
+    "Steps": 5471,
+    "Datetime": "02/17/2024"
+  },
+  {
+    "Index": 116,
+    "Steps": 8117,
+    "Datetime": "02/17/2024"
+  },
+  {
+    "Index": 117,
+    "Steps": 13238,
+    "Datetime": "02/18/2024"
+  },
+  {
+    "Index": 118,
+    "Steps": 11617,
+    "Datetime": "02/18/2024"
+  },
+  {
+    "Index": 119,
+    "Steps": 13992,
+    "Datetime": "02/19/2024"
+  },
+  {
+    "Index": 120,
+    "Steps": 10113,
+    "Datetime": "02/19/2024"
+  },
+  {
+    "Index": 121,
+    "Steps": 8144,
+    "Datetime": "02/19/2024"
+  },
+  {
+    "Index": 122,
+    "Steps": 8459,
+    "Datetime": "02/20/2024"
+  },
+  {
+    "Index": 123,
+    "Steps": 11671,
+    "Datetime": "02/20/2024"
+  },
+  {
+    "Index": 124,
+    "Steps": 11478,
+    "Datetime": "02/20/2024"
+  },
+  {
+    "Index": 125,
+    "Steps": 13949,
+    "Datetime": "02/20/2024"
+  },
+  {
+    "Index": 126,
+    "Steps": 11639,
+    "Datetime": "02/20/2024"
+  },
+  {
+    "Index": 127,
+    "Steps": 12302,
+    "Datetime": "02/20/2024"
+  },
+  {
+    "Index": 128,
+    "Steps": 10654,
+    "Datetime": "02/21/2024"
+  },
+  {
+    "Index": 129,
+    "Steps": 10489,
+    "Datetime": "02/21/2024"
+  },
+  {
+    "Index": 130,
+    "Steps": 14014,
+    "Datetime": "02/23/2024"
+  },
+  {
+    "Index": 131,
+    "Steps": 11369,
+    "Datetime": "02/23/2024"
+  },
+  {
+    "Index": 132,
+    "Steps": 8007,
+    "Datetime": "02/23/2024"
+  },
+  {
+    "Index": 133,
+    "Steps": 14966,
+    "Datetime": "02/24/2024"
+  },
+  {
+    "Index": 134,
+    "Steps": 8773,
+    "Datetime": "02/24/2024"
+  },
+  {
+    "Index": 135,
+    "Steps": 5121,
+    "Datetime": "02/24/2024"
+  },
+  {
+    "Index": 136,
+    "Steps": 14897,
+    "Datetime": "02/24/2024"
+  },
+  {
+    "Index": 137,
+    "Steps": 5878,
+    "Datetime": "02/24/2024"
+  },
+  {
+    "Index": 138,
+    "Steps": 8721,
+    "Datetime": "02/24/2024"
+  },
+  {
+    "Index": 139,
+    "Steps": 11384,
+    "Datetime": "02/24/2024"
+  },
+  {
+    "Index": 140,
+    "Steps": 12100,
+    "Datetime": "02/25/2024"
+  },
+  {
+    "Index": 141,
+    "Steps": 11383,
+    "Datetime": "02/26/2024"
+  },
+  {
+    "Index": 142,
+    "Steps": 9304,
+    "Datetime": "02/26/2024"
+  },
+  {
+    "Index": 143,
+    "Steps": 8880,
+    "Datetime": "02/26/2024"
+  },
+  {
+    "Index": 144,
+    "Steps": 5377,
+    "Datetime": "02/28/2024"
+  },
+  {
+    "Index": 145,
+    "Steps": 11031,
+    "Datetime": "02/28/2024"
+  },
+  {
+    "Index": 146,
+    "Steps": 6079,
+    "Datetime": "02/28/2024"
+  },
+  {
+    "Index": 147,
+    "Steps": 5743,
+    "Datetime": "02/29/2024"
+  },
+  {
+    "Index": 148,
+    "Steps": 5105,
+    "Datetime": "03/01/2024"
+  },
+  {
+    "Index": 149,
+    "Steps": 14105,
+    "Datetime": "03/01/2024"
+  },
+  {
+    "Index": 150,
+    "Steps": 14406,
+    "Datetime": "03/01/2024"
+  },
+  {
+    "Index": 151,
+    "Steps": 13506,
+    "Datetime": "03/01/2024"
+  },
+  {
+    "Index": 152,
+    "Steps": 6616,
+    "Datetime": "03/01/2024"
+  },
+  {
+    "Index": 153,
+    "Steps": 7352,
+    "Datetime": "03/02/2024"
+  },
+  {
+    "Index": 154,
+    "Steps": 7309,
+    "Datetime": "03/02/2024"
+  },
+  {
+    "Index": 155,
+    "Steps": 12183,
+    "Datetime": "03/02/2024"
+  },
+  {
+    "Index": 156,
+    "Steps": 11758,
+    "Datetime": "03/02/2024"
+  },
+  {
+    "Index": 157,
+    "Steps": 9582,
+    "Datetime": "03/02/2024"
+  },
+  {
+    "Index": 158,
+    "Steps": 14204,
+    "Datetime": "03/02/2024"
+  },
+  {
+    "Index": 159,
+    "Steps": 6445,
+    "Datetime": "03/03/2024"
+  },
+  {
+    "Index": 160,
+    "Steps": 9000,
+    "Datetime": "03/03/2024"
+  },
+  {
+    "Index": 161,
+    "Steps": 13676,
+    "Datetime": "03/04/2024"
+  },
+  {
+    "Index": 162,
+    "Steps": 8083,
+    "Datetime": "03/04/2024"
+  },
+  {
+    "Index": 163,
+    "Steps": 6985,
+    "Datetime": "03/04/2024"
+  },
+  {
+    "Index": 164,
+    "Steps": 10435,
+    "Datetime": "03/04/2024"
+  },
+  {
+    "Index": 165,
+    "Steps": 14323,
+    "Datetime": "03/04/2024"
+  },
+  {
+    "Index": 166,
+    "Steps": 11655,
+    "Datetime": "03/06/2024"
+  },
+  {
+    "Index": 167,
+    "Steps": 12821,
+    "Datetime": "03/06/2024"
+  },
+  {
+    "Index": 168,
+    "Steps": 10768,
+    "Datetime": "03/06/2024"
+  },
+  {
+    "Index": 169,
+    "Steps": 7151,
+    "Datetime": "03/06/2024"
+  },
+  {
+    "Index": 170,
+    "Steps": 8767,
+    "Datetime": "03/07/2024"
+  },
+  {
+    "Index": 171,
+    "Steps": 5116,
+    "Datetime": "03/07/2024"
+  },
+  {
+    "Index": 172,
+    "Steps": 9270,
+    "Datetime": "03/08/2024"
+  },
+  {
+    "Index": 173,
+    "Steps": 7712,
+    "Datetime": "03/09/2024"
+  },
+  {
+    "Index": 174,
+    "Steps": 12662,
+    "Datetime": "03/09/2024"
+  },
+  {
+    "Index": 175,
+    "Steps": 7294,
+    "Datetime": "03/11/2024"
+  },
+  {
+    "Index": 176,
+    "Steps": 13355,
+    "Datetime": "03/11/2024"
+  },
+  {
+    "Index": 177,
+    "Steps": 6890,
+    "Datetime": "03/11/2024"
+  },
+  {
+    "Index": 178,
+    "Steps": 6330,
+    "Datetime": "03/12/2024"
+  },
+  {
+    "Index": 179,
+    "Steps": 10257,
+    "Datetime": "03/13/2024"
+  },
+  {
+    "Index": 180,
+    "Steps": 10810,
+    "Datetime": "03/13/2024"
+  },
+  {
+    "Index": 181,
+    "Steps": 14359,
+    "Datetime": "03/14/2024"
+  },
+  {
+    "Index": 182,
+    "Steps": 8182,
+    "Datetime": "03/14/2024"
+  },
+  {
+    "Index": 183,
+    "Steps": 8053,
+    "Datetime": "03/15/2024"
+  },
+  {
+    "Index": 184,
+    "Steps": 14101,
+    "Datetime": "03/15/2024"
+  },
+  {
+    "Index": 185,
+    "Steps": 9097,
+    "Datetime": "03/17/2024"
+  },
+  {
+    "Index": 186,
+    "Steps": 14447,
+    "Datetime": "03/17/2024"
+  },
+  {
+    "Index": 187,
+    "Steps": 11479,
+    "Datetime": "03/18/2024"
+  },
+  {
+    "Index": 188,
+    "Steps": 11270,
+    "Datetime": "03/19/2024"
+  },
+  {
+    "Index": 189,
+    "Steps": 11454,
+    "Datetime": "03/19/2024"
+  },
+  {
+    "Index": 190,
+    "Steps": 12616,
+    "Datetime": "03/19/2024"
+  },
+  {
+    "Index": 191,
+    "Steps": 8321,
+    "Datetime": "03/19/2024"
+  },
+  {
+    "Index": 192,
+    "Steps": 10791,
+    "Datetime": "03/19/2024"
+  },
+  {
+    "Index": 193,
+    "Steps": 12478,
+    "Datetime": "03/21/2024"
+  },
+  {
+    "Index": 194,
+    "Steps": 14821,
+    "Datetime": "03/21/2024"
+  },
+  {
+    "Index": 195,
+    "Steps": 9158,
+    "Datetime": "03/21/2024"
+  },
+  {
+    "Index": 196,
+    "Steps": 6062,
+    "Datetime": "03/21/2024"
+  },
+  {
+    "Index": 197,
+    "Steps": 5983,
+    "Datetime": "03/22/2024"
+  },
+  {
+    "Index": 198,
+    "Steps": 6556,
+    "Datetime": "03/22/2024"
+  },
+  {
+    "Index": 199,
+    "Steps": 12630,
+    "Datetime": "03/22/2024"
+  },
+  {
+    "Index": 200,
+    "Steps": 10967,
+    "Datetime": "03/22/2024"
+  },
+  {
+    "Index": 201,
+    "Steps": 11120,
+    "Datetime": "03/22/2024"
+  },
+  {
+    "Index": 202,
+    "Steps": 8745,
+    "Datetime": "03/22/2024"
+  },
+  {
+    "Index": 203,
+    "Steps": 11178,
+    "Datetime": "03/23/2024"
+  },
+  {
+    "Index": 204,
+    "Steps": 6093,
+    "Datetime": "03/23/2024"
+  },
+  {
+    "Index": 205,
+    "Steps": 12996,
+    "Datetime": "03/23/2024"
+  },
+  {
+    "Index": 206,
+    "Steps": 6559,
+    "Datetime": "03/23/2024"
+  },
+  {
+    "Index": 207,
+    "Steps": 12661,
+    "Datetime": "03/23/2024"
+  },
+  {
+    "Index": 208,
+    "Steps": 9352,
+    "Datetime": "03/24/2024"
+  },
+  {
+    "Index": 209,
+    "Steps": 13684,
+    "Datetime": "03/25/2024"
+  },
+  {
+    "Index": 210,
+    "Steps": 7339,
+    "Datetime": "03/25/2024"
+  },
+  {
+    "Index": 211,
+    "Steps": 6533,
+    "Datetime": "03/25/2024"
+  },
+  {
+    "Index": 212,
+    "Steps": 9904,
+    "Datetime": "03/26/2024"
+  },
+  {
+    "Index": 213,
+    "Steps": 14958,
+    "Datetime": "03/26/2024"
+  },
+  {
+    "Index": 214,
+    "Steps": 6177,
+    "Datetime": "03/27/2024"
+  },
+  {
+    "Index": 215,
+    "Steps": 12953,
+    "Datetime": "03/27/2024"
+  },
+  {
+    "Index": 216,
+    "Steps": 9028,
+    "Datetime": "03/27/2024"
+  },
+  {
+    "Index": 217,
+    "Steps": 10816,
+    "Datetime": "03/27/2024"
+  },
+  {
+    "Index": 218,
+    "Steps": 14781,
+    "Datetime": "03/27/2024"
+  },
+  {
+    "Index": 219,
+    "Steps": 7818,
+    "Datetime": "03/27/2024"
+  },
+  {
+    "Index": 220,
+    "Steps": 12790,
+    "Datetime": "03/28/2024"
+  },
+  {
+    "Index": 221,
+    "Steps": 7813,
+    "Datetime": "03/28/2024"
+  },
+  {
+    "Index": 222,
+    "Steps": 13364,
+    "Datetime": "03/28/2024"
+  },
+  {
+    "Index": 223,
+    "Steps": 6773,
+    "Datetime": "03/28/2024"
+  },
+  {
+    "Index": 224,
+    "Steps": 6849,
+    "Datetime": "03/29/2024"
+  },
+  {
+    "Index": 225,
+    "Steps": 9905,
+    "Datetime": "03/29/2024"
+  },
+  {
+    "Index": 226,
+    "Steps": 8511,
+    "Datetime": "03/30/2024"
+  },
+  {
+    "Index": 227,
+    "Steps": 9108,
+    "Datetime": "03/30/2024"
+  },
+  {
+    "Index": 228,
+    "Steps": 14757,
+    "Datetime": "03/30/2024"
+  },
+  {
+    "Index": 229,
+    "Steps": 11941,
+    "Datetime": "03/30/2024"
+  },
+  {
+    "Index": 230,
+    "Steps": 11573,
+    "Datetime": "03/30/2024"
+  },
+  {
+    "Index": 231,
+    "Steps": 7769,
+    "Datetime": "03/31/2024"
+  },
+  {
+    "Index": 232,
+    "Steps": 14936,
+    "Datetime": "03/31/2024"
+  },
+  {
+    "Index": 233,
+    "Steps": 10638,
+    "Datetime": "03/31/2024"
+  },
+  {
+    "Index": 234,
+    "Steps": 12495,
+    "Datetime": "04/01/2024"
+  },
+  {
+    "Index": 235,
+    "Steps": 10233,
+    "Datetime": "04/01/2024"
+  },
+  {
+    "Index": 236,
+    "Steps": 5652,
+    "Datetime": "04/01/2024"
+  },
+  {
+    "Index": 237,
+    "Steps": 12229,
+    "Datetime": "04/01/2024"
+  },
+  {
+    "Index": 238,
+    "Steps": 11851,
+    "Datetime": "04/01/2024"
+  },
+  {
+    "Index": 239,
+    "Steps": 9094,
+    "Datetime": "04/02/2024"
+  },
+  {
+    "Index": 240,
+    "Steps": 12400,
+    "Datetime": "04/02/2024"
+  },
+  {
+    "Index": 241,
+    "Steps": 8923,
+    "Datetime": "04/02/2024"
+  },
+  {
+    "Index": 242,
+    "Steps": 14030,
+    "Datetime": "04/02/2024"
+  },
+  {
+    "Index": 243,
+    "Steps": 9503,
+    "Datetime": "04/02/2024"
+  },
+  {
+    "Index": 244,
+    "Steps": 8778,
+    "Datetime": "04/03/2024"
+  },
+  {
+    "Index": 245,
+    "Steps": 11324,
+    "Datetime": "04/03/2024"
+  },
+  {
+    "Index": 246,
+    "Steps": 13040,
+    "Datetime": "04/03/2024"
+  },
+  {
+    "Index": 247,
+    "Steps": 5710,
+    "Datetime": "04/04/2024"
+  },
+  {
+    "Index": 248,
+    "Steps": 9547,
+    "Datetime": "04/04/2024"
+  },
+  {
+    "Index": 249,
+    "Steps": 10982,
+    "Datetime": "04/05/2024"
+  },
+  {
+    "Index": 250,
+    "Steps": 12855,
+    "Datetime": "04/05/2024"
+  },
+  {
+    "Index": 251,
+    "Steps": 6219,
+    "Datetime": "04/05/2024"
+  },
+  {
+    "Index": 252,
+    "Steps": 8879,
+    "Datetime": "04/05/2024"
+  },
+  {
+    "Index": 253,
+    "Steps": 7779,
+    "Datetime": "04/05/2024"
+  },
+  {
+    "Index": 254,
+    "Steps": 9168,
+    "Datetime": "04/06/2024"
+  },
+  {
+    "Index": 255,
+    "Steps": 10002,
+    "Datetime": "04/06/2024"
+  },
+  {
+    "Index": 256,
+    "Steps": 11475,
+    "Datetime": "04/07/2024"
+  },
+  {
+    "Index": 257,
+    "Steps": 9820,
+    "Datetime": "04/07/2024"
+  },
+  {
+    "Index": 258,
+    "Steps": 7877,
+    "Datetime": "04/07/2024"
+  },
+  {
+    "Index": 259,
+    "Steps": 9865,
+    "Datetime": "04/08/2024"
+  },
+  {
+    "Index": 260,
+    "Steps": 9346,
+    "Datetime": "04/08/2024"
+  },
+  {
+    "Index": 261,
+    "Steps": 9418,
+    "Datetime": "04/08/2024"
+  },
+  {
+    "Index": 262,
+    "Steps": 8211,
+    "Datetime": "04/09/2024"
+  },
+  {
+    "Index": 263,
+    "Steps": 11001,
+    "Datetime": "04/10/2024"
+  },
+  {
+    "Index": 264,
+    "Steps": 14052,
+    "Datetime": "04/10/2024"
+  },
+  {
+    "Index": 265,
+    "Steps": 13430,
+    "Datetime": "04/10/2024"
+  },
+  {
+    "Index": 266,
+    "Steps": 5970,
+    "Datetime": "04/10/2024"
+  },
+  {
+    "Index": 267,
+    "Steps": 14189,
+    "Datetime": "04/11/2024"
+  },
+  {
+    "Index": 268,
+    "Steps": 6147,
+    "Datetime": "04/11/2024"
+  },
+  {
+    "Index": 269,
+    "Steps": 14736,
+    "Datetime": "04/11/2024"
+  },
+  {
+    "Index": 270,
+    "Steps": 14835,
+    "Datetime": "04/12/2024"
+  },
+  {
+    "Index": 271,
+    "Steps": 5824,
+    "Datetime": "04/12/2024"
+  },
+  {
+    "Index": 272,
+    "Steps": 6460,
+    "Datetime": "04/12/2024"
+  },
+  {
+    "Index": 273,
+    "Steps": 9502,
+    "Datetime": "04/12/2024"
+  },
+  {
+    "Index": 274,
+    "Steps": 9471,
+    "Datetime": "04/13/2024"
+  },
+  {
+    "Index": 275,
+    "Steps": 13544,
+    "Datetime": "04/13/2024"
+  },
+  {
+    "Index": 276,
+    "Steps": 7810,
+    "Datetime": "04/13/2024"
+  },
+  {
+    "Index": 277,
+    "Steps": 13888,
+    "Datetime": "04/13/2024"
+  },
+  {
+    "Index": 278,
+    "Steps": 13302,
+    "Datetime": "04/13/2024"
+  },
+  {
+    "Index": 279,
+    "Steps": 11741,
+    "Datetime": "04/14/2024"
+  },
+  {
+    "Index": 280,
+    "Steps": 10247,
+    "Datetime": "04/14/2024"
+  },
+  {
+    "Index": 281,
+    "Steps": 7767,
+    "Datetime": "04/15/2024"
+  },
+  {
+    "Index": 282,
+    "Steps": 7158,
+    "Datetime": "04/15/2024"
+  },
+  {
+    "Index": 283,
+    "Steps": 7974,
+    "Datetime": "04/16/2024"
+  },
+  {
+    "Index": 284,
+    "Steps": 14641,
+    "Datetime": "04/16/2024"
+  },
+  {
+    "Index": 285,
+    "Steps": 10706,
+    "Datetime": "04/17/2024"
+  },
+  {
+    "Index": 286,
+    "Steps": 12764,
+    "Datetime": "04/17/2024"
+  },
+  {
+    "Index": 287,
+    "Steps": 10939,
+    "Datetime": "04/17/2024"
+  },
+  {
+    "Index": 288,
+    "Steps": 10311,
+    "Datetime": "04/18/2024"
+  },
+  {
+    "Index": 289,
+    "Steps": 6650,
+    "Datetime": "04/18/2024"
+  },
+  {
+    "Index": 290,
+    "Steps": 14079,
+    "Datetime": "04/18/2024"
+  },
+  {
+    "Index": 291,
+    "Steps": 8190,
+    "Datetime": "04/19/2024"
+  },
+  {
+    "Index": 292,
+    "Steps": 10389,
+    "Datetime": "04/19/2024"
+  },
+  {
+    "Index": 293,
+    "Steps": 8142,
+    "Datetime": "04/20/2024"
+  },
+  {
+    "Index": 294,
+    "Steps": 11493,
+    "Datetime": "04/21/2024"
+  },
+  {
+    "Index": 295,
+    "Steps": 9258,
+    "Datetime": "04/21/2024"
+  },
+  {
+    "Index": 296,
+    "Steps": 14139,
+    "Datetime": "04/21/2024"
+  },
+  {
+    "Index": 297,
+    "Steps": 10919,
+    "Datetime": "04/21/2024"
+  },
+  {
+    "Index": 298,
+    "Steps": 12230,
+    "Datetime": "04/21/2024"
+  },
+  {
+    "Index": 299,
+    "Steps": 12453,
+    "Datetime": "04/21/2024"
+  },
+  {
+    "Index": 300,
+    "Steps": 9442,
+    "Datetime": "04/21/2024"
+  },
+  {
+    "Index": 301,
+    "Steps": 14148,
+    "Datetime": "04/22/2024"
+  },
+  {
+    "Index": 302,
+    "Steps": 14703,
+    "Datetime": "04/22/2024"
+  },
+  {
+    "Index": 303,
+    "Steps": 14801,
+    "Datetime": "04/23/2024"
+  },
+  {
+    "Index": 304,
+    "Steps": 10359,
+    "Datetime": "04/23/2024"
+  },
+  {
+    "Index": 305,
+    "Steps": 12861,
+    "Datetime": "04/23/2024"
+  },
+  {
+    "Index": 306,
+    "Steps": 7932,
+    "Datetime": "04/24/2024"
+  },
+  {
+    "Index": 307,
+    "Steps": 12963,
+    "Datetime": "04/24/2024"
+  },
+  {
+    "Index": 308,
+    "Steps": 8666,
+    "Datetime": "04/25/2024"
+  },
+  {
+    "Index": 309,
+    "Steps": 5376,
+    "Datetime": "04/26/2024"
+  },
+  {
+    "Index": 310,
+    "Steps": 8572,
+    "Datetime": "04/26/2024"
+  },
+  {
+    "Index": 311,
+    "Steps": 5038,
+    "Datetime": "04/26/2024"
+  },
+  {
+    "Index": 312,
+    "Steps": 9247,
+    "Datetime": "04/27/2024"
+  },
+  {
+    "Index": 313,
+    "Steps": 10150,
+    "Datetime": "04/27/2024"
+  },
+  {
+    "Index": 314,
+    "Steps": 10736,
+    "Datetime": "04/27/2024"
+  },
+  {
+    "Index": 315,
+    "Steps": 7631,
+    "Datetime": "04/28/2024"
+  },
+  {
+    "Index": 316,
+    "Steps": 9404,
+    "Datetime": "04/28/2024"
+  },
+  {
+    "Index": 317,
+    "Steps": 7452,
+    "Datetime": "04/29/2024"
+  },
+  {
+    "Index": 318,
+    "Steps": 14242,
+    "Datetime": "04/29/2024"
+  },
+  {
+    "Index": 319,
+    "Steps": 14000,
+    "Datetime": "04/30/2024"
+  },
+  {
+    "Index": 320,
+    "Steps": 8354,
+    "Datetime": "04/30/2024"
+  },
+  {
+    "Index": 321,
+    "Steps": 11098,
+    "Datetime": "04/30/2024"
+  },
+  {
+    "Index": 322,
+    "Steps": 13468,
+    "Datetime": "04/30/2024"
+  },
+  {
+    "Index": 323,
+    "Steps": 10057,
+    "Datetime": "04/30/2024"
+  },
+  {
+    "Index": 324,
+    "Steps": 10211,
+    "Datetime": "04/30/2024"
+  },
+  {
+    "Index": 325,
+    "Steps": 8990,
+    "Datetime": "04/30/2024"
+  },
+  {
+    "Index": 326,
+    "Steps": 14892,
+    "Datetime": "05/01/2024"
+  },
+  {
+    "Index": 327,
+    "Steps": 8196,
+    "Datetime": "05/01/2024"
+  },
+  {
+    "Index": 328,
+    "Steps": 6100,
+    "Datetime": "05/01/2024"
+  },
+  {
+    "Index": 329,
+    "Steps": 12661,
+    "Datetime": "05/02/2024"
+  },
+  {
+    "Index": 330,
+    "Steps": 7856,
+    "Datetime": "05/02/2024"
+  },
+  {
+    "Index": 331,
+    "Steps": 6341,
+    "Datetime": "05/02/2024"
+  },
+  {
+    "Index": 332,
+    "Steps": 5994,
+    "Datetime": "05/02/2024"
+  },
+  {
+    "Index": 333,
+    "Steps": 8235,
+    "Datetime": "05/03/2024"
+  },
+  {
+    "Index": 334,
+    "Steps": 9017,
+    "Datetime": "05/03/2024"
+  },
+  {
+    "Index": 335,
+    "Steps": 11243,
+    "Datetime": "05/03/2024"
+  },
+  {
+    "Index": 336,
+    "Steps": 6882,
+    "Datetime": "05/04/2024"
+  },
+  {
+    "Index": 337,
+    "Steps": 13013,
+    "Datetime": "05/04/2024"
+  },
+  {
+    "Index": 338,
+    "Steps": 11886,
+    "Datetime": "05/04/2024"
+  },
+  {
+    "Index": 339,
+    "Steps": 9944,
+    "Datetime": "05/05/2024"
+  },
+  {
+    "Index": 340,
+    "Steps": 8094,
+    "Datetime": "05/05/2024"
+  },
+  {
+    "Index": 341,
+    "Steps": 14843,
+    "Datetime": "05/05/2024"
+  },
+  {
+    "Index": 342,
+    "Steps": 5086,
+    "Datetime": "05/05/2024"
+  },
+  {
+    "Index": 343,
+    "Steps": 5471,
+    "Datetime": "05/06/2024"
+  },
+  {
+    "Index": 344,
+    "Steps": 8620,
+    "Datetime": "05/06/2024"
+  },
+  {
+    "Index": 345,
+    "Steps": 10914,
+    "Datetime": "05/06/2024"
+  },
+  {
+    "Index": 346,
+    "Steps": 9676,
+    "Datetime": "05/07/2024"
+  },
+  {
+    "Index": 347,
+    "Steps": 13668,
+    "Datetime": "05/07/2024"
+  },
+  {
+    "Index": 348,
+    "Steps": 5314,
+    "Datetime": "05/07/2024"
+  },
+  {
+    "Index": 349,
+    "Steps": 9956,
+    "Datetime": "05/07/2024"
+  },
+  {
+    "Index": 350,
+    "Steps": 5092,
+    "Datetime": "05/08/2024"
+  },
+  {
+    "Index": 351,
+    "Steps": 10883,
+    "Datetime": "05/09/2024"
+  },
+  {
+    "Index": 352,
+    "Steps": 12288,
+    "Datetime": "05/09/2024"
+  },
+  {
+    "Index": 353,
+    "Steps": 9949,
+    "Datetime": "05/10/2024"
+  },
+  {
+    "Index": 354,
+    "Steps": 14771,
+    "Datetime": "05/10/2024"
+  },
+  {
+    "Index": 355,
+    "Steps": 7274,
+    "Datetime": "05/11/2024"
+  },
+  {
+    "Index": 356,
+    "Steps": 8789,
+    "Datetime": "05/11/2024"
+  },
+  {
+    "Index": 357,
+    "Steps": 10008,
+    "Datetime": "05/11/2024"
+  },
+  {
+    "Index": 358,
+    "Steps": 10525,
+    "Datetime": "05/12/2024"
+  },
+  {
+    "Index": 359,
+    "Steps": 12285,
+    "Datetime": "05/12/2024"
+  },
+  {
+    "Index": 360,
+    "Steps": 5555,
+    "Datetime": "05/12/2024"
+  },
+  {
+    "Index": 361,
+    "Steps": 10039,
+    "Datetime": "05/12/2024"
+  },
+  {
+    "Index": 362,
+    "Steps": 6305,
+    "Datetime": "05/12/2024"
+  },
+  {
+    "Index": 363,
+    "Steps": 12267,
+    "Datetime": "05/13/2024"
+  },
+  {
+    "Index": 364,
+    "Steps": 13994,
+    "Datetime": "05/13/2024"
+  },
+  {
+    "Index": 365,
+    "Steps": 12414,
+    "Datetime": "05/13/2024"
+  },
+  {
+    "Index": 366,
+    "Steps": 11999,
+    "Datetime": "05/14/2024"
+  },
+  {
+    "Index": 367,
+    "Steps": 5301,
+    "Datetime": "05/14/2024"
+  },
+  {
+    "Index": 368,
+    "Steps": 7885,
+    "Datetime": "05/15/2024"
+  },
+  {
+    "Index": 369,
+    "Steps": 13202,
+    "Datetime": "05/15/2024"
+  },
+  {
+    "Index": 370,
+    "Steps": 13477,
+    "Datetime": "05/16/2024"
+  },
+  {
+    "Index": 371,
+    "Steps": 12283,
+    "Datetime": "05/16/2024"
+  },
+  {
+    "Index": 372,
+    "Steps": 10392,
+    "Datetime": "05/16/2024"
+  },
+  {
+    "Index": 373,
+    "Steps": 7288,
+    "Datetime": "05/16/2024"
+  },
+  {
+    "Index": 374,
+    "Steps": 8647,
+    "Datetime": "05/17/2024"
+  },
+  {
+    "Index": 375,
+    "Steps": 13755,
+    "Datetime": "05/17/2024"
+  },
+  {
+    "Index": 376,
+    "Steps": 5088,
+    "Datetime": "05/18/2024"
+  },
+  {
+    "Index": 377,
+    "Steps": 8674,
+    "Datetime": "05/18/2024"
+  },
+  {
+    "Index": 378,
+    "Steps": 10094,
+    "Datetime": "05/19/2024"
+  },
+  {
+    "Index": 379,
+    "Steps": 6941,
+    "Datetime": "05/19/2024"
+  },
+  {
+    "Index": 380,
+    "Steps": 7473,
+    "Datetime": "05/20/2024"
+  },
+  {
+    "Index": 381,
+    "Steps": 13178,
+    "Datetime": "05/20/2024"
+  },
+  {
+    "Index": 382,
+    "Steps": 6564,
+    "Datetime": "05/21/2024"
+  },
+  {
+    "Index": 383,
+    "Steps": 13096,
+    "Datetime": "05/21/2024"
+  },
+  {
+    "Index": 384,
+    "Steps": 6861,
+    "Datetime": "05/21/2024"
+  },
+  {
+    "Index": 385,
+    "Steps": 11836,
+    "Datetime": "05/21/2024"
+  },
+  {
+    "Index": 386,
+    "Steps": 10905,
+    "Datetime": "05/21/2024"
+  },
+  {
+    "Index": 387,
+    "Steps": 11041,
+    "Datetime": "05/21/2024"
+  },
+  {
+    "Index": 388,
+    "Steps": 10629,
+    "Datetime": "05/22/2024"
+  },
+  {
+    "Index": 389,
+    "Steps": 7171,
+    "Datetime": "05/23/2024"
+  },
+  {
+    "Index": 390,
+    "Steps": 10310,
+    "Datetime": "05/24/2024"
+  },
+  {
+    "Index": 391,
+    "Steps": 12857,
+    "Datetime": "05/24/2024"
+  },
+  {
+    "Index": 392,
+    "Steps": 14594,
+    "Datetime": "05/24/2024"
+  },
+  {
+    "Index": 393,
+    "Steps": 10246,
+    "Datetime": "05/24/2024"
+  },
+  {
+    "Index": 394,
+    "Steps": 14985,
+    "Datetime": "05/24/2024"
+  },
+  {
+    "Index": 395,
+    "Steps": 9867,
+    "Datetime": "05/24/2024"
+  },
+  {
+    "Index": 396,
+    "Steps": 13429,
+    "Datetime": "05/24/2024"
+  },
+  {
+    "Index": 397,
+    "Steps": 10969,
+    "Datetime": "05/24/2024"
+  },
+  {
+    "Index": 398,
+    "Steps": 9324,
+    "Datetime": "05/25/2024"
+  },
+  {
+    "Index": 399,
+    "Steps": 13656,
+    "Datetime": "05/25/2024"
+  },
+  {
+    "Index": 400,
+    "Steps": 11618,
+    "Datetime": "05/26/2024"
+  },
+  {
+    "Index": 401,
+    "Steps": 8001,
+    "Datetime": "05/26/2024"
+  },
+  {
+    "Index": 402,
+    "Steps": 10579,
+    "Datetime": "05/27/2024"
+  },
+  {
+    "Index": 403,
+    "Steps": 5509,
+    "Datetime": "05/27/2024"
+  },
+  {
+    "Index": 404,
+    "Steps": 7379,
+    "Datetime": "05/28/2024"
+  },
+  {
+    "Index": 405,
+    "Steps": 9573,
+    "Datetime": "05/28/2024"
+  },
+  {
+    "Index": 406,
+    "Steps": 13684,
+    "Datetime": "05/29/2024"
+  },
+  {
+    "Index": 407,
+    "Steps": 7843,
+    "Datetime": "05/30/2024"
+  },
+  {
+    "Index": 408,
+    "Steps": 10063,
+    "Datetime": "05/30/2024"
+  },
+  {
+    "Index": 409,
+    "Steps": 12842,
+    "Datetime": "05/30/2024"
+  },
+  {
+    "Index": 410,
+    "Steps": 10937,
+    "Datetime": "05/30/2024"
+  },
+  {
+    "Index": 411,
+    "Steps": 10417,
+    "Datetime": "05/31/2024"
+  },
+  {
+    "Index": 412,
+    "Steps": 14141,
+    "Datetime": "05/31/2024"
+  },
+  {
+    "Index": 413,
+    "Steps": 11924,
+    "Datetime": "06/02/2024"
+  },
+  {
+    "Index": 414,
+    "Steps": 12487,
+    "Datetime": "06/02/2024"
+  },
+  {
+    "Index": 415,
+    "Steps": 8957,
+    "Datetime": "06/03/2024"
+  },
+  {
+    "Index": 416,
+    "Steps": 13803,
+    "Datetime": "06/03/2024"
+  },
+  {
+    "Index": 417,
+    "Steps": 5738,
+    "Datetime": "06/04/2024"
+  },
+  {
+    "Index": 418,
+    "Steps": 10106,
+    "Datetime": "06/04/2024"
+  },
+  {
+    "Index": 419,
+    "Steps": 11907,
+    "Datetime": "06/04/2024"
+  },
+  {
+    "Index": 420,
+    "Steps": 13739,
+    "Datetime": "06/05/2024"
+  },
+  {
+    "Index": 421,
+    "Steps": 7349,
+    "Datetime": "06/05/2024"
+  },
+  {
+    "Index": 422,
+    "Steps": 14767,
+    "Datetime": "06/05/2024"
+  },
+  {
+    "Index": 423,
+    "Steps": 10777,
+    "Datetime": "06/05/2024"
+  },
+  {
+    "Index": 424,
+    "Steps": 11324,
+    "Datetime": "06/06/2024"
+  },
+  {
+    "Index": 425,
+    "Steps": 7377,
+    "Datetime": "06/06/2024"
+  },
+  {
+    "Index": 426,
+    "Steps": 13879,
+    "Datetime": "06/07/2024"
+  },
+  {
+    "Index": 427,
+    "Steps": 7756,
+    "Datetime": "06/07/2024"
+  },
+  {
+    "Index": 428,
+    "Steps": 14368,
+    "Datetime": "06/07/2024"
+  },
+  {
+    "Index": 429,
+    "Steps": 14796,
+    "Datetime": "06/07/2024"
+  },
+  {
+    "Index": 430,
+    "Steps": 12708,
+    "Datetime": "06/08/2024"
+  },
+  {
+    "Index": 431,
+    "Steps": 7349,
+    "Datetime": "06/09/2024"
+  },
+  {
+    "Index": 432,
+    "Steps": 5390,
+    "Datetime": "06/09/2024"
+  },
+  {
+    "Index": 433,
+    "Steps": 11509,
+    "Datetime": "06/12/2024"
+  },
+  {
+    "Index": 434,
+    "Steps": 10091,
+    "Datetime": "06/12/2024"
+  },
+  {
+    "Index": 435,
+    "Steps": 5475,
+    "Datetime": "06/12/2024"
+  },
+  {
+    "Index": 436,
+    "Steps": 13595,
+    "Datetime": "06/13/2024"
+  },
+  {
+    "Index": 437,
+    "Steps": 14191,
+    "Datetime": "06/13/2024"
+  },
+  {
+    "Index": 438,
+    "Steps": 6630,
+    "Datetime": "06/13/2024"
+  },
+  {
+    "Index": 439,
+    "Steps": 7090,
+    "Datetime": "06/13/2024"
+  },
+  {
+    "Index": 440,
+    "Steps": 10312,
+    "Datetime": "06/14/2024"
+  },
+  {
+    "Index": 441,
+    "Steps": 8789,
+    "Datetime": "06/14/2024"
+  },
+  {
+    "Index": 442,
+    "Steps": 8552,
+    "Datetime": "06/14/2024"
+  },
+  {
+    "Index": 443,
+    "Steps": 12378,
+    "Datetime": "06/14/2024"
+  },
+  {
+    "Index": 444,
+    "Steps": 9889,
+    "Datetime": "06/15/2024"
+  },
+  {
+    "Index": 445,
+    "Steps": 8218,
+    "Datetime": "06/15/2024"
+  },
+  {
+    "Index": 446,
+    "Steps": 14571,
+    "Datetime": "06/15/2024"
+  },
+  {
+    "Index": 447,
+    "Steps": 6146,
+    "Datetime": "06/15/2024"
+  },
+  {
+    "Index": 448,
+    "Steps": 6388,
+    "Datetime": "06/15/2024"
+  },
+  {
+    "Index": 449,
+    "Steps": 5689,
+    "Datetime": "06/15/2024"
+  },
+  {
+    "Index": 450,
+    "Steps": 9817,
+    "Datetime": "06/16/2024"
+  },
+  {
+    "Index": 451,
+    "Steps": 8780,
+    "Datetime": "06/16/2024"
+  },
+  {
+    "Index": 452,
+    "Steps": 10832,
+    "Datetime": "06/16/2024"
+  },
+  {
+    "Index": 453,
+    "Steps": 14180,
+    "Datetime": "06/16/2024"
+  },
+  {
+    "Index": 454,
+    "Steps": 9485,
+    "Datetime": "06/16/2024"
+  },
+  {
+    "Index": 455,
+    "Steps": 8948,
+    "Datetime": "06/16/2024"
+  },
+  {
+    "Index": 456,
+    "Steps": 10446,
+    "Datetime": "06/17/2024"
+  },
+  {
+    "Index": 457,
+    "Steps": 8972,
+    "Datetime": "06/18/2024"
+  },
+  {
+    "Index": 458,
+    "Steps": 6107,
+    "Datetime": "06/18/2024"
+  },
+  {
+    "Index": 459,
+    "Steps": 7212,
+    "Datetime": "06/18/2024"
+  },
+  {
+    "Index": 460,
+    "Steps": 8187,
+    "Datetime": "06/19/2024"
+  },
+  {
+    "Index": 461,
+    "Steps": 8606,
+    "Datetime": "06/19/2024"
+  },
+  {
+    "Index": 462,
+    "Steps": 11622,
+    "Datetime": "06/20/2024"
+  },
+  {
+    "Index": 463,
+    "Steps": 10058,
+    "Datetime": "06/20/2024"
+  },
+  {
+    "Index": 464,
+    "Steps": 12501,
+    "Datetime": "06/20/2024"
+  },
+  {
+    "Index": 465,
+    "Steps": 5375,
+    "Datetime": "06/20/2024"
+  },
+  {
+    "Index": 466,
+    "Steps": 11049,
+    "Datetime": "06/20/2024"
+  },
+  {
+    "Index": 467,
+    "Steps": 8191,
+    "Datetime": "06/21/2024"
+  },
+  {
+    "Index": 468,
+    "Steps": 13854,
+    "Datetime": "06/21/2024"
+  },
+  {
+    "Index": 469,
+    "Steps": 13750,
+    "Datetime": "06/21/2024"
+  },
+  {
+    "Index": 470,
+    "Steps": 7600,
+    "Datetime": "06/22/2024"
+  },
+  {
+    "Index": 471,
+    "Steps": 12323,
+    "Datetime": "06/22/2024"
+  },
+  {
+    "Index": 472,
+    "Steps": 8836,
+    "Datetime": "06/22/2024"
+  },
+  {
+    "Index": 473,
+    "Steps": 11153,
+    "Datetime": "06/22/2024"
+  },
+  {
+    "Index": 474,
+    "Steps": 13752,
+    "Datetime": "06/22/2024"
+  },
+  {
+    "Index": 475,
+    "Steps": 7455,
+    "Datetime": "06/23/2024"
+  },
+  {
+    "Index": 476,
+    "Steps": 9767,
+    "Datetime": "06/23/2024"
+  },
+  {
+    "Index": 477,
+    "Steps": 8366,
+    "Datetime": "06/25/2024"
+  },
+  {
+    "Index": 478,
+    "Steps": 12468,
+    "Datetime": "06/25/2024"
+  },
+  {
+    "Index": 479,
+    "Steps": 11129,
+    "Datetime": "06/25/2024"
+  },
+  {
+    "Index": 480,
+    "Steps": 6486,
+    "Datetime": "06/25/2024"
+  },
+  {
+    "Index": 481,
+    "Steps": 9999,
+    "Datetime": "06/25/2024"
+  },
+  {
+    "Index": 482,
+    "Steps": 5064,
+    "Datetime": "06/25/2024"
+  },
+  {
+    "Index": 483,
+    "Steps": 9014,
+    "Datetime": "06/26/2024"
+  },
+  {
+    "Index": 484,
+    "Steps": 7227,
+    "Datetime": "06/26/2024"
+  },
+  {
+    "Index": 485,
+    "Steps": 9801,
+    "Datetime": "06/26/2024"
+  },
+  {
+    "Index": 486,
+    "Steps": 5310,
+    "Datetime": "06/26/2024"
+  },
+  {
+    "Index": 487,
+    "Steps": 14428,
+    "Datetime": "06/27/2024"
+  },
+  {
+    "Index": 488,
+    "Steps": 11997,
+    "Datetime": "06/27/2024"
+  },
+  {
+    "Index": 489,
+    "Steps": 7806,
+    "Datetime": "06/27/2024"
+  },
+  {
+    "Index": 490,
+    "Steps": 6802,
+    "Datetime": "06/28/2024"
+  },
+  {
+    "Index": 491,
+    "Steps": 10937,
+    "Datetime": "06/28/2024"
+  },
+  {
+    "Index": 492,
+    "Steps": 7964,
+    "Datetime": "06/29/2024"
+  },
+  {
+    "Index": 493,
+    "Steps": 13312,
+    "Datetime": "06/29/2024"
+  },
+  {
+    "Index": 494,
+    "Steps": 14247,
+    "Datetime": "06/29/2024"
+  },
+  {
+    "Index": 495,
+    "Steps": 11707,
+    "Datetime": "06/29/2024"
+  },
+  {
+    "Index": 496,
+    "Steps": 5078,
+    "Datetime": "06/30/2024"
+  },
+  {
+    "Index": 497,
+    "Steps": 5620,
+    "Datetime": "06/30/2024"
+  },
+  {
+    "Index": 498,
+    "Steps": 6123,
+    "Datetime": "06/30/2024"
+  },
+  {
+    "Index": 499,
+    "Steps": 8949,
+    "Datetime": "07/01/2024"
+  },
+  {
+    "Index": 500,
+    "Steps": 8248,
+    "Datetime": "07/01/2024"
+  },
+  {
+    "Index": 501,
+    "Steps": 13125,
+    "Datetime": "07/02/2024"
+  },
+  {
+    "Index": 502,
+    "Steps": 6339,
+    "Datetime": "07/02/2024"
+  },
+  {
+    "Index": 503,
+    "Steps": 13917,
+    "Datetime": "07/03/2024"
+  },
+  {
+    "Index": 504,
+    "Steps": 6105,
+    "Datetime": "07/03/2024"
+  },
+  {
+    "Index": 505,
+    "Steps": 9055,
+    "Datetime": "07/03/2024"
+  },
+  {
+    "Index": 506,
+    "Steps": 13309,
+    "Datetime": "07/03/2024"
+  },
+  {
+    "Index": 507,
+    "Steps": 14745,
+    "Datetime": "07/03/2024"
+  },
+  {
+    "Index": 508,
+    "Steps": 9454,
+    "Datetime": "07/04/2024"
+  },
+  {
+    "Index": 509,
+    "Steps": 11101,
+    "Datetime": "07/04/2024"
+  },
+  {
+    "Index": 510,
+    "Steps": 8414,
+    "Datetime": "07/04/2024"
+  },
+  {
+    "Index": 511,
+    "Steps": 11660,
+    "Datetime": "07/04/2024"
+  },
+  {
+    "Index": 512,
+    "Steps": 12751,
+    "Datetime": "07/04/2024"
+  },
+  {
+    "Index": 513,
+    "Steps": 7700,
+    "Datetime": "07/04/2024"
+  },
+  {
+    "Index": 514,
+    "Steps": 8370,
+    "Datetime": "07/04/2024"
+  },
+  {
+    "Index": 515,
+    "Steps": 5257,
+    "Datetime": "07/04/2024"
+  },
+  {
+    "Index": 516,
+    "Steps": 6720,
+    "Datetime": "07/05/2024"
+  },
+  {
+    "Index": 517,
+    "Steps": 14312,
+    "Datetime": "07/05/2024"
+  },
+  {
+    "Index": 518,
+    "Steps": 9834,
+    "Datetime": "07/05/2024"
+  },
+  {
+    "Index": 519,
+    "Steps": 10457,
+    "Datetime": "07/05/2024"
+  },
+  {
+    "Index": 520,
+    "Steps": 14157,
+    "Datetime": "07/05/2024"
+  },
+  {
+    "Index": 521,
+    "Steps": 7979,
+    "Datetime": "07/06/2024"
+  },
+  {
+    "Index": 522,
+    "Steps": 7598,
+    "Datetime": "07/06/2024"
+  },
+  {
+    "Index": 523,
+    "Steps": 10963,
+    "Datetime": "07/06/2024"
+  },
+  {
+    "Index": 524,
+    "Steps": 13648,
+    "Datetime": "07/06/2024"
+  },
+  {
+    "Index": 525,
+    "Steps": 8690,
+    "Datetime": "07/06/2024"
+  },
+  {
+    "Index": 526,
+    "Steps": 10698,
+    "Datetime": "07/06/2024"
+  },
+  {
+    "Index": 527,
+    "Steps": 7243,
+    "Datetime": "07/07/2024"
+  },
+  {
+    "Index": 528,
+    "Steps": 6237,
+    "Datetime": "07/07/2024"
+  },
+  {
+    "Index": 529,
+    "Steps": 12728,
+    "Datetime": "07/08/2024"
+  },
+  {
+    "Index": 530,
+    "Steps": 14322,
+    "Datetime": "07/08/2024"
+  },
+  {
+    "Index": 531,
+    "Steps": 6985,
+    "Datetime": "07/08/2024"
+  },
+  {
+    "Index": 532,
+    "Steps": 13794,
+    "Datetime": "07/09/2024"
+  },
+  {
+    "Index": 533,
+    "Steps": 9799,
+    "Datetime": "07/10/2024"
+  },
+  {
+    "Index": 534,
+    "Steps": 12963,
+    "Datetime": "07/10/2024"
+  },
+  {
+    "Index": 535,
+    "Steps": 14568,
+    "Datetime": "07/10/2024"
+  },
+  {
+    "Index": 536,
+    "Steps": 5228,
+    "Datetime": "07/10/2024"
+  },
+  {
+    "Index": 537,
+    "Steps": 12966,
+    "Datetime": "07/11/2024"
+  },
+  {
+    "Index": 538,
+    "Steps": 10891,
+    "Datetime": "07/11/2024"
+  },
+  {
+    "Index": 539,
+    "Steps": 10416,
+    "Datetime": "07/11/2024"
+  },
+  {
+    "Index": 540,
+    "Steps": 12204,
+    "Datetime": "07/12/2024"
+  },
+  {
+    "Index": 541,
+    "Steps": 9979,
+    "Datetime": "07/12/2024"
+  },
+  {
+    "Index": 542,
+    "Steps": 12789,
+    "Datetime": "07/12/2024"
+  },
+  {
+    "Index": 543,
+    "Steps": 8481,
+    "Datetime": "07/12/2024"
+  },
+  {
+    "Index": 544,
+    "Steps": 10047,
+    "Datetime": "07/13/2024"
+  },
+  {
+    "Index": 545,
+    "Steps": 13120,
+    "Datetime": "07/14/2024"
+  },
+  {
+    "Index": 546,
+    "Steps": 12714,
+    "Datetime": "07/14/2024"
+  },
+  {
+    "Index": 547,
+    "Steps": 9970,
+    "Datetime": "07/15/2024"
+  },
+  {
+    "Index": 548,
+    "Steps": 8983,
+    "Datetime": "07/15/2024"
+  },
+  {
+    "Index": 549,
+    "Steps": 5157,
+    "Datetime": "07/15/2024"
+  },
+  {
+    "Index": 550,
+    "Steps": 14377,
+    "Datetime": "07/15/2024"
+  },
+  {
+    "Index": 551,
+    "Steps": 14753,
+    "Datetime": "07/16/2024"
+  },
+  {
+    "Index": 552,
+    "Steps": 14502,
+    "Datetime": "07/16/2024"
+  },
+  {
+    "Index": 553,
+    "Steps": 6645,
+    "Datetime": "07/16/2024"
+  },
+  {
+    "Index": 554,
+    "Steps": 7346,
+    "Datetime": "07/16/2024"
+  },
+  {
+    "Index": 555,
+    "Steps": 12756,
+    "Datetime": "07/16/2024"
+  },
+  {
+    "Index": 556,
+    "Steps": 8889,
+    "Datetime": "07/17/2024"
+  },
+  {
+    "Index": 557,
+    "Steps": 9476,
+    "Datetime": "07/17/2024"
+  },
+  {
+    "Index": 558,
+    "Steps": 14578,
+    "Datetime": "07/18/2024"
+  },
+  {
+    "Index": 559,
+    "Steps": 12578,
+    "Datetime": "07/20/2024"
+  },
+  {
+    "Index": 560,
+    "Steps": 14446,
+    "Datetime": "07/20/2024"
+  },
+  {
+    "Index": 561,
+    "Steps": 8434,
+    "Datetime": "07/20/2024"
+  },
+  {
+    "Index": 562,
+    "Steps": 8261,
+    "Datetime": "07/21/2024"
+  },
+  {
+    "Index": 563,
+    "Steps": 8390,
+    "Datetime": "07/21/2024"
+  },
+  {
+    "Index": 564,
+    "Steps": 10129,
+    "Datetime": "07/21/2024"
+  },
+  {
+    "Index": 565,
+    "Steps": 10010,
+    "Datetime": "07/21/2024"
+  },
+  {
+    "Index": 566,
+    "Steps": 13154,
+    "Datetime": "07/22/2024"
+  },
+  {
+    "Index": 567,
+    "Steps": 11767,
+    "Datetime": "07/22/2024"
+  },
+  {
+    "Index": 568,
+    "Steps": 12931,
+    "Datetime": "07/22/2024"
+  },
+  {
+    "Index": 569,
+    "Steps": 7260,
+    "Datetime": "07/23/2024"
+  },
+  {
+    "Index": 570,
+    "Steps": 13203,
+    "Datetime": "07/24/2024"
+  },
+  {
+    "Index": 571,
+    "Steps": 13514,
+    "Datetime": "07/24/2024"
+  },
+  {
+    "Index": 572,
+    "Steps": 7038,
+    "Datetime": "07/25/2024"
+  },
+  {
+    "Index": 573,
+    "Steps": 9470,
+    "Datetime": "07/25/2024"
+  },
+  {
+    "Index": 574,
+    "Steps": 12034,
+    "Datetime": "07/25/2024"
+  },
+  {
+    "Index": 575,
+    "Steps": 14244,
+    "Datetime": "07/26/2024"
+  },
+  {
+    "Index": 576,
+    "Steps": 5356,
+    "Datetime": "07/26/2024"
+  },
+  {
+    "Index": 577,
+    "Steps": 8611,
+    "Datetime": "07/26/2024"
+  },
+  {
+    "Index": 578,
+    "Steps": 14886,
+    "Datetime": "07/26/2024"
+  },
+  {
+    "Index": 579,
+    "Steps": 12100,
+    "Datetime": "07/27/2024"
+  },
+  {
+    "Index": 580,
+    "Steps": 6585,
+    "Datetime": "07/28/2024"
+  },
+  {
+    "Index": 581,
+    "Steps": 6233,
+    "Datetime": "07/28/2024"
+  },
+  {
+    "Index": 582,
+    "Steps": 5473,
+    "Datetime": "07/28/2024"
+  },
+  {
+    "Index": 583,
+    "Steps": 5464,
+    "Datetime": "07/28/2024"
+  },
+  {
+    "Index": 584,
+    "Steps": 5429,
+    "Datetime": "07/29/2024"
+  },
+  {
+    "Index": 585,
+    "Steps": 14568,
+    "Datetime": "07/29/2024"
+  },
+  {
+    "Index": 586,
+    "Steps": 5121,
+    "Datetime": "07/30/2024"
+  },
+  {
+    "Index": 587,
+    "Steps": 5182,
+    "Datetime": "07/30/2024"
+  },
+  {
+    "Index": 588,
+    "Steps": 11375,
+    "Datetime": "07/31/2024"
+  },
+  {
+    "Index": 589,
+    "Steps": 6372,
+    "Datetime": "07/31/2024"
+  },
+  {
+    "Index": 590,
+    "Steps": 9444,
+    "Datetime": "07/31/2024"
+  },
+  {
+    "Index": 591,
+    "Steps": 6849,
+    "Datetime": "08/01/2024"
+  },
+  {
+    "Index": 592,
+    "Steps": 11236,
+    "Datetime": "08/02/2024"
+  },
+  {
+    "Index": 593,
+    "Steps": 10826,
+    "Datetime": "08/02/2024"
+  },
+  {
+    "Index": 594,
+    "Steps": 11616,
+    "Datetime": "08/03/2024"
+  },
+  {
+    "Index": 595,
+    "Steps": 7337,
+    "Datetime": "08/03/2024"
+  },
+  {
+    "Index": 596,
+    "Steps": 8753,
+    "Datetime": "08/03/2024"
+  },
+  {
+    "Index": 597,
+    "Steps": 11669,
+    "Datetime": "08/03/2024"
+  },
+  {
+    "Index": 598,
+    "Steps": 6790,
+    "Datetime": "08/04/2024"
+  },
+  {
+    "Index": 599,
+    "Steps": 13138,
+    "Datetime": "08/05/2024"
+  },
+  {
+    "Index": 600,
+    "Steps": 14784,
+    "Datetime": "08/05/2024"
+  },
+  {
+    "Index": 601,
+    "Steps": 13941,
+    "Datetime": "08/07/2024"
+  },
+  {
+    "Index": 602,
+    "Steps": 9821,
+    "Datetime": "08/08/2024"
+  },
+  {
+    "Index": 603,
+    "Steps": 6123,
+    "Datetime": "08/09/2024"
+  },
+  {
+    "Index": 604,
+    "Steps": 14793,
+    "Datetime": "08/09/2024"
+  },
+  {
+    "Index": 605,
+    "Steps": 14749,
+    "Datetime": "08/10/2024"
+  },
+  {
+    "Index": 606,
+    "Steps": 6813,
+    "Datetime": "08/10/2024"
+  },
+  {
+    "Index": 607,
+    "Steps": 13460,
+    "Datetime": "08/10/2024"
+  },
+  {
+    "Index": 608,
+    "Steps": 10857,
+    "Datetime": "08/10/2024"
+  },
+  {
+    "Index": 609,
+    "Steps": 5303,
+    "Datetime": "08/11/2024"
+  },
+  {
+    "Index": 610,
+    "Steps": 7275,
+    "Datetime": "08/11/2024"
+  },
+  {
+    "Index": 611,
+    "Steps": 7792,
+    "Datetime": "08/11/2024"
+  },
+  {
+    "Index": 612,
+    "Steps": 14554,
+    "Datetime": "08/13/2024"
+  },
+  {
+    "Index": 613,
+    "Steps": 9128,
+    "Datetime": "08/13/2024"
+  },
+  {
+    "Index": 614,
+    "Steps": 7473,
+    "Datetime": "08/14/2024"
+  },
+  {
+    "Index": 615,
+    "Steps": 14574,
+    "Datetime": "08/14/2024"
+  },
+  {
+    "Index": 616,
+    "Steps": 11429,
+    "Datetime": "08/14/2024"
+  },
+  {
+    "Index": 617,
+    "Steps": 8792,
+    "Datetime": "08/15/2024"
+  },
+  {
+    "Index": 618,
+    "Steps": 13192,
+    "Datetime": "08/15/2024"
+  },
+  {
+    "Index": 619,
+    "Steps": 13499,
+    "Datetime": "08/15/2024"
+  },
+  {
+    "Index": 620,
+    "Steps": 9236,
+    "Datetime": "08/15/2024"
+  },
+  {
+    "Index": 621,
+    "Steps": 9789,
+    "Datetime": "08/16/2024"
+  },
+  {
+    "Index": 622,
+    "Steps": 13495,
+    "Datetime": "08/16/2024"
+  },
+  {
+    "Index": 623,
+    "Steps": 11587,
+    "Datetime": "08/16/2024"
+  },
+  {
+    "Index": 624,
+    "Steps": 6445,
+    "Datetime": "08/17/2024"
+  },
+  {
+    "Index": 625,
+    "Steps": 12460,
+    "Datetime": "08/18/2024"
+  },
+  {
+    "Index": 626,
+    "Steps": 7442,
+    "Datetime": "08/18/2024"
+  },
+  {
+    "Index": 627,
+    "Steps": 7540,
+    "Datetime": "08/18/2024"
+  },
+  {
+    "Index": 628,
+    "Steps": 7735,
+    "Datetime": "08/18/2024"
+  },
+  {
+    "Index": 629,
+    "Steps": 6548,
+    "Datetime": "08/18/2024"
+  },
+  {
+    "Index": 630,
+    "Steps": 13191,
+    "Datetime": "08/19/2024"
+  },
+  {
+    "Index": 631,
+    "Steps": 11436,
+    "Datetime": "08/19/2024"
+  },
+  {
+    "Index": 632,
+    "Steps": 13048,
+    "Datetime": "08/20/2024"
+  },
+  {
+    "Index": 633,
+    "Steps": 9353,
+    "Datetime": "08/20/2024"
+  },
+  {
+    "Index": 634,
+    "Steps": 9951,
+    "Datetime": "08/20/2024"
+  },
+  {
+    "Index": 635,
+    "Steps": 5295,
+    "Datetime": "08/21/2024"
+  },
+  {
+    "Index": 636,
+    "Steps": 11955,
+    "Datetime": "08/21/2024"
+  },
+  {
+    "Index": 637,
+    "Steps": 8223,
+    "Datetime": "08/22/2024"
+  },
+  {
+    "Index": 638,
+    "Steps": 13454,
+    "Datetime": "08/22/2024"
+  },
+  {
+    "Index": 639,
+    "Steps": 12826,
+    "Datetime": "08/22/2024"
+  },
+  {
+    "Index": 640,
+    "Steps": 14414,
+    "Datetime": "08/22/2024"
+  },
+  {
+    "Index": 641,
+    "Steps": 5254,
+    "Datetime": "08/22/2024"
+  },
+  {
+    "Index": 642,
+    "Steps": 8515,
+    "Datetime": "08/22/2024"
+  },
+  {
+    "Index": 643,
+    "Steps": 8115,
+    "Datetime": "08/23/2024"
+  },
+  {
+    "Index": 644,
+    "Steps": 10779,
+    "Datetime": "08/23/2024"
+  },
+  {
+    "Index": 645,
+    "Steps": 7783,
+    "Datetime": "08/23/2024"
+  },
+  {
+    "Index": 646,
+    "Steps": 9198,
+    "Datetime": "08/23/2024"
+  },
+  {
+    "Index": 647,
+    "Steps": 14161,
+    "Datetime": "08/23/2024"
+  },
+  {
+    "Index": 648,
+    "Steps": 9722,
+    "Datetime": "08/24/2024"
+  },
+  {
+    "Index": 649,
+    "Steps": 10279,
+    "Datetime": "08/25/2024"
+  },
+  {
+    "Index": 650,
+    "Steps": 5849,
+    "Datetime": "08/25/2024"
+  },
+  {
+    "Index": 651,
+    "Steps": 7487,
+    "Datetime": "08/26/2024"
+  },
+  {
+    "Index": 652,
+    "Steps": 13991,
+    "Datetime": "08/26/2024"
+  },
+  {
+    "Index": 653,
+    "Steps": 13158,
+    "Datetime": "08/26/2024"
+  },
+  {
+    "Index": 654,
+    "Steps": 6017,
+    "Datetime": "08/27/2024"
+  },
+  {
+    "Index": 655,
+    "Steps": 8048,
+    "Datetime": "08/27/2024"
+  },
+  {
+    "Index": 656,
+    "Steps": 10731,
+    "Datetime": "08/27/2024"
+  },
+  {
+    "Index": 657,
+    "Steps": 5951,
+    "Datetime": "08/29/2024"
+  },
+  {
+    "Index": 658,
+    "Steps": 10431,
+    "Datetime": "08/29/2024"
+  },
+  {
+    "Index": 659,
+    "Steps": 8198,
+    "Datetime": "08/29/2024"
+  },
+  {
+    "Index": 660,
+    "Steps": 12399,
+    "Datetime": "08/29/2024"
+  },
+  {
+    "Index": 661,
+    "Steps": 13134,
+    "Datetime": "08/30/2024"
+  },
+  {
+    "Index": 662,
+    "Steps": 12754,
+    "Datetime": "08/30/2024"
+  },
+  {
+    "Index": 663,
+    "Steps": 12584,
+    "Datetime": "08/30/2024"
+  },
+  {
+    "Index": 664,
+    "Steps": 12811,
+    "Datetime": "08/31/2024"
+  },
+  {
+    "Index": 665,
+    "Steps": 11693,
+    "Datetime": "08/31/2024"
+  },
+  {
+    "Index": 666,
+    "Steps": 14264,
+    "Datetime": "08/31/2024"
+  },
+  {
+    "Index": 667,
+    "Steps": 9618,
+    "Datetime": "08/31/2024"
+  },
+  {
+    "Index": 668,
+    "Steps": 5038,
+    "Datetime": "09/01/2024"
+  },
+  {
+    "Index": 669,
+    "Steps": 12013,
+    "Datetime": "09/02/2024"
+  },
+  {
+    "Index": 670,
+    "Steps": 10331,
+    "Datetime": "09/03/2024"
+  },
+  {
+    "Index": 671,
+    "Steps": 14037,
+    "Datetime": "09/03/2024"
+  },
+  {
+    "Index": 672,
+    "Steps": 8409,
+    "Datetime": "09/03/2024"
+  },
+  {
+    "Index": 673,
+    "Steps": 5814,
+    "Datetime": "09/04/2024"
+  },
+  {
+    "Index": 674,
+    "Steps": 11334,
+    "Datetime": "09/04/2024"
+  },
+  {
+    "Index": 675,
+    "Steps": 9659,
+    "Datetime": "09/05/2024"
+  },
+  {
+    "Index": 676,
+    "Steps": 5129,
+    "Datetime": "09/06/2024"
+  },
+  {
+    "Index": 677,
+    "Steps": 6505,
+    "Datetime": "09/06/2024"
+  },
+  {
+    "Index": 678,
+    "Steps": 6367,
+    "Datetime": "09/06/2024"
+  },
+  {
+    "Index": 679,
+    "Steps": 11253,
+    "Datetime": "09/07/2024"
+  },
+  {
+    "Index": 680,
+    "Steps": 13382,
+    "Datetime": "09/07/2024"
+  },
+  {
+    "Index": 681,
+    "Steps": 13036,
+    "Datetime": "09/07/2024"
+  },
+  {
+    "Index": 682,
+    "Steps": 9659,
+    "Datetime": "09/07/2024"
+  },
+  {
+    "Index": 683,
+    "Steps": 7267,
+    "Datetime": "09/08/2024"
+  },
+  {
+    "Index": 684,
+    "Steps": 6370,
+    "Datetime": "09/08/2024"
+  },
+  {
+    "Index": 685,
+    "Steps": 9002,
+    "Datetime": "09/08/2024"
+  },
+  {
+    "Index": 686,
+    "Steps": 8660,
+    "Datetime": "09/08/2024"
+  },
+  {
+    "Index": 687,
+    "Steps": 7681,
+    "Datetime": "09/09/2024"
+  },
+  {
+    "Index": 688,
+    "Steps": 8090,
+    "Datetime": "09/09/2024"
+  },
+  {
+    "Index": 689,
+    "Steps": 9078,
+    "Datetime": "09/09/2024"
+  },
+  {
+    "Index": 690,
+    "Steps": 6867,
+    "Datetime": "09/10/2024"
+  },
+  {
+    "Index": 691,
+    "Steps": 12494,
+    "Datetime": "09/10/2024"
+  },
+  {
+    "Index": 692,
+    "Steps": 7454,
+    "Datetime": "09/10/2024"
+  },
+  {
+    "Index": 693,
+    "Steps": 12600,
+    "Datetime": "09/10/2024"
+  },
+  {
+    "Index": 694,
+    "Steps": 8793,
+    "Datetime": "09/10/2024"
+  },
+  {
+    "Index": 695,
+    "Steps": 12808,
+    "Datetime": "09/11/2024"
+  },
+  {
+    "Index": 696,
+    "Steps": 5544,
+    "Datetime": "09/11/2024"
+  },
+  {
+    "Index": 697,
+    "Steps": 12794,
+    "Datetime": "09/11/2024"
+  },
+  {
+    "Index": 698,
+    "Steps": 5204,
+    "Datetime": "09/11/2024"
+  },
+  {
+    "Index": 699,
+    "Steps": 10433,
+    "Datetime": "09/11/2024"
+  },
+  {
+    "Index": 700,
+    "Steps": 6321,
+    "Datetime": "09/12/2024"
+  },
+  {
+    "Index": 701,
+    "Steps": 7715,
+    "Datetime": "09/12/2024"
+  },
+  {
+    "Index": 702,
+    "Steps": 6027,
+    "Datetime": "09/12/2024"
+  },
+  {
+    "Index": 703,
+    "Steps": 10559,
+    "Datetime": "09/13/2024"
+  },
+  {
+    "Index": 704,
+    "Steps": 7416,
+    "Datetime": "09/13/2024"
+  },
+  {
+    "Index": 705,
+    "Steps": 5611,
+    "Datetime": "09/13/2024"
+  },
+  {
+    "Index": 706,
+    "Steps": 9096,
+    "Datetime": "09/13/2024"
+  },
+  {
+    "Index": 707,
+    "Steps": 8417,
+    "Datetime": "09/14/2024"
+  },
+  {
+    "Index": 708,
+    "Steps": 8404,
+    "Datetime": "09/15/2024"
+  },
+  {
+    "Index": 709,
+    "Steps": 7455,
+    "Datetime": "09/15/2024"
+  },
+  {
+    "Index": 710,
+    "Steps": 9492,
+    "Datetime": "09/15/2024"
+  },
+  {
+    "Index": 711,
+    "Steps": 7922,
+    "Datetime": "09/15/2024"
+  },
+  {
+    "Index": 712,
+    "Steps": 6486,
+    "Datetime": "09/16/2024"
+  },
+  {
+    "Index": 713,
+    "Steps": 7650,
+    "Datetime": "09/16/2024"
+  },
+  {
+    "Index": 714,
+    "Steps": 7778,
+    "Datetime": "09/16/2024"
+  },
+  {
+    "Index": 715,
+    "Steps": 14007,
+    "Datetime": "09/16/2024"
+  },
+  {
+    "Index": 716,
+    "Steps": 8646,
+    "Datetime": "09/16/2024"
+  },
+  {
+    "Index": 717,
+    "Steps": 13896,
+    "Datetime": "09/17/2024"
+  },
+  {
+    "Index": 718,
+    "Steps": 6655,
+    "Datetime": "09/17/2024"
+  },
+  {
+    "Index": 719,
+    "Steps": 13307,
+    "Datetime": "09/17/2024"
+  },
+  {
+    "Index": 720,
+    "Steps": 6978,
+    "Datetime": "09/18/2024"
+  },
+  {
+    "Index": 721,
+    "Steps": 5825,
+    "Datetime": "09/18/2024"
+  },
+  {
+    "Index": 722,
+    "Steps": 6886,
+    "Datetime": "09/18/2024"
+  },
+  {
+    "Index": 723,
+    "Steps": 6627,
+    "Datetime": "09/19/2024"
+  },
+  {
+    "Index": 724,
+    "Steps": 9465,
+    "Datetime": "09/19/2024"
+  },
+  {
+    "Index": 725,
+    "Steps": 9059,
+    "Datetime": "09/19/2024"
+  },
+  {
+    "Index": 726,
+    "Steps": 11830,
+    "Datetime": "09/20/2024"
+  },
+  {
+    "Index": 727,
+    "Steps": 7724,
+    "Datetime": "09/20/2024"
+  },
+  {
+    "Index": 728,
+    "Steps": 13525,
+    "Datetime": "09/20/2024"
+  },
+  {
+    "Index": 729,
+    "Steps": 7826,
+    "Datetime": "09/21/2024"
+  },
+  {
+    "Index": 730,
+    "Steps": 7659,
+    "Datetime": "09/22/2024"
+  },
+  {
+    "Index": 731,
+    "Steps": 5518,
+    "Datetime": "09/22/2024"
+  },
+  {
+    "Index": 732,
+    "Steps": 8804,
+    "Datetime": "09/23/2024"
+  },
+  {
+    "Index": 733,
+    "Steps": 12377,
+    "Datetime": "09/23/2024"
+  },
+  {
+    "Index": 734,
+    "Steps": 14621,
+    "Datetime": "09/23/2024"
+  },
+  {
+    "Index": 735,
+    "Steps": 7558,
+    "Datetime": "09/24/2024"
+  },
+  {
+    "Index": 736,
+    "Steps": 9633,
+    "Datetime": "09/24/2024"
+  },
+  {
+    "Index": 737,
+    "Steps": 12020,
+    "Datetime": "09/26/2024"
+  },
+  {
+    "Index": 738,
+    "Steps": 8055,
+    "Datetime": "09/26/2024"
+  },
+  {
+    "Index": 739,
+    "Steps": 12159,
+    "Datetime": "09/27/2024"
+  },
+  {
+    "Index": 740,
+    "Steps": 5772,
+    "Datetime": "09/27/2024"
+  },
+  {
+    "Index": 741,
+    "Steps": 5386,
+    "Datetime": "09/27/2024"
+  },
+  {
+    "Index": 742,
+    "Steps": 10511,
+    "Datetime": "09/28/2024"
+  },
+  {
+    "Index": 743,
+    "Steps": 14835,
+    "Datetime": "09/28/2024"
+  },
+  {
+    "Index": 744,
+    "Steps": 14266,
+    "Datetime": "09/28/2024"
+  },
+  {
+    "Index": 745,
+    "Steps": 12272,
+    "Datetime": "09/29/2024"
+  },
+  {
+    "Index": 746,
+    "Steps": 14198,
+    "Datetime": "09/29/2024"
+  },
+  {
+    "Index": 747,
+    "Steps": 11308,
+    "Datetime": "09/29/2024"
+  },
+  {
+    "Index": 748,
+    "Steps": 13494,
+    "Datetime": "09/29/2024"
+  },
+  {
+    "Index": 749,
+    "Steps": 12922,
+    "Datetime": "09/30/2024"
+  },
+  {
+    "Index": 750,
+    "Steps": 5541,
+    "Datetime": "09/30/2024"
+  },
+  {
+    "Index": 751,
+    "Steps": 12653,
+    "Datetime": "10/01/2024"
+  },
+  {
+    "Index": 752,
+    "Steps": 7711,
+    "Datetime": "10/01/2024"
+  },
+  {
+    "Index": 753,
+    "Steps": 10420,
+    "Datetime": "10/01/2024"
+  },
+  {
+    "Index": 754,
+    "Steps": 5641,
+    "Datetime": "10/02/2024"
+  },
+  {
+    "Index": 755,
+    "Steps": 13768,
+    "Datetime": "10/02/2024"
+  },
+  {
+    "Index": 756,
+    "Steps": 6433,
+    "Datetime": "10/02/2024"
+  },
+  {
+    "Index": 757,
+    "Steps": 11984,
+    "Datetime": "10/03/2024"
+  },
+  {
+    "Index": 758,
+    "Steps": 10483,
+    "Datetime": "10/04/2024"
+  },
+  {
+    "Index": 759,
+    "Steps": 7885,
+    "Datetime": "10/04/2024"
+  },
+  {
+    "Index": 760,
+    "Steps": 14784,
+    "Datetime": "10/04/2024"
+  },
+  {
+    "Index": 761,
+    "Steps": 5974,
+    "Datetime": "10/05/2024"
+  },
+  {
+    "Index": 762,
+    "Steps": 10899,
+    "Datetime": "10/06/2024"
+  },
+  {
+    "Index": 763,
+    "Steps": 14027,
+    "Datetime": "10/06/2024"
+  },
+  {
+    "Index": 764,
+    "Steps": 6236,
+    "Datetime": "10/06/2024"
+  },
+  {
+    "Index": 765,
+    "Steps": 11646,
+    "Datetime": "10/07/2024"
+  },
+  {
+    "Index": 766,
+    "Steps": 12692,
+    "Datetime": "10/07/2024"
+  },
+  {
+    "Index": 767,
+    "Steps": 7394,
+    "Datetime": "10/07/2024"
+  },
+  {
+    "Index": 768,
+    "Steps": 8882,
+    "Datetime": "10/07/2024"
+  },
+  {
+    "Index": 769,
+    "Steps": 12262,
+    "Datetime": "10/07/2024"
+  },
+  {
+    "Index": 770,
+    "Steps": 10815,
+    "Datetime": "10/07/2024"
+  },
+  {
+    "Index": 771,
+    "Steps": 11258,
+    "Datetime": "10/08/2024"
+  },
+  {
+    "Index": 772,
+    "Steps": 12470,
+    "Datetime": "10/08/2024"
+  },
+  {
+    "Index": 773,
+    "Steps": 11534,
+    "Datetime": "10/08/2024"
+  },
+  {
+    "Index": 774,
+    "Steps": 7674,
+    "Datetime": "10/08/2024"
+  },
+  {
+    "Index": 775,
+    "Steps": 5197,
+    "Datetime": "10/08/2024"
+  },
+  {
+    "Index": 776,
+    "Steps": 13265,
+    "Datetime": "10/08/2024"
+  },
+  {
+    "Index": 777,
+    "Steps": 11744,
+    "Datetime": "10/09/2024"
+  },
+  {
+    "Index": 778,
+    "Steps": 7606,
+    "Datetime": "10/09/2024"
+  },
+  {
+    "Index": 779,
+    "Steps": 13612,
+    "Datetime": "10/10/2024"
+  },
+  {
+    "Index": 780,
+    "Steps": 8189,
+    "Datetime": "10/11/2024"
+  },
+  {
+    "Index": 781,
+    "Steps": 14466,
+    "Datetime": "10/11/2024"
+  },
+  {
+    "Index": 782,
+    "Steps": 6300,
+    "Datetime": "10/11/2024"
+  },
+  {
+    "Index": 783,
+    "Steps": 9023,
+    "Datetime": "10/11/2024"
+  },
+  {
+    "Index": 784,
+    "Steps": 8044,
+    "Datetime": "10/11/2024"
+  },
+  {
+    "Index": 785,
+    "Steps": 8249,
+    "Datetime": "10/11/2024"
+  },
+  {
+    "Index": 786,
+    "Steps": 9234,
+    "Datetime": "10/11/2024"
+  },
+  {
+    "Index": 787,
+    "Steps": 12477,
+    "Datetime": "10/12/2024"
+  },
+  {
+    "Index": 788,
+    "Steps": 8109,
+    "Datetime": "10/12/2024"
+  },
+  {
+    "Index": 789,
+    "Steps": 14471,
+    "Datetime": "10/13/2024"
+  },
+  {
+    "Index": 790,
+    "Steps": 11378,
+    "Datetime": "10/13/2024"
+  },
+  {
+    "Index": 791,
+    "Steps": 5658,
+    "Datetime": "10/15/2024"
+  },
+  {
+    "Index": 792,
+    "Steps": 6146,
+    "Datetime": "10/15/2024"
+  },
+  {
+    "Index": 793,
+    "Steps": 14799,
+    "Datetime": "10/15/2024"
+  },
+  {
+    "Index": 794,
+    "Steps": 11665,
+    "Datetime": "10/16/2024"
+  },
+  {
+    "Index": 795,
+    "Steps": 9526,
+    "Datetime": "10/16/2024"
+  },
+  {
+    "Index": 796,
+    "Steps": 11951,
+    "Datetime": "10/16/2024"
+  },
+  {
+    "Index": 797,
+    "Steps": 6475,
+    "Datetime": "10/16/2024"
+  },
+  {
+    "Index": 798,
+    "Steps": 9955,
+    "Datetime": "10/17/2024"
+  },
+  {
+    "Index": 799,
+    "Steps": 14713,
+    "Datetime": "10/17/2024"
+  },
+  {
+    "Index": 800,
+    "Steps": 10266,
+    "Datetime": "10/17/2024"
+  },
+  {
+    "Index": 801,
+    "Steps": 10185,
+    "Datetime": "10/17/2024"
+  },
+  {
+    "Index": 802,
+    "Steps": 14266,
+    "Datetime": "10/18/2024"
+  },
+  {
+    "Index": 803,
+    "Steps": 11062,
+    "Datetime": "10/18/2024"
+  },
+  {
+    "Index": 804,
+    "Steps": 13071,
+    "Datetime": "10/18/2024"
+  },
+  {
+    "Index": 805,
+    "Steps": 12929,
+    "Datetime": "10/18/2024"
+  },
+  {
+    "Index": 806,
+    "Steps": 9576,
+    "Datetime": "10/19/2024"
+  },
+  {
+    "Index": 807,
+    "Steps": 7904,
+    "Datetime": "10/19/2024"
+  },
+  {
+    "Index": 808,
+    "Steps": 13653,
+    "Datetime": "10/19/2024"
+  },
+  {
+    "Index": 809,
+    "Steps": 8309,
+    "Datetime": "10/19/2024"
+  },
+  {
+    "Index": 810,
+    "Steps": 12518,
+    "Datetime": "10/20/2024"
+  },
+  {
+    "Index": 811,
+    "Steps": 8050,
+    "Datetime": "10/20/2024"
+  },
+  {
+    "Index": 812,
+    "Steps": 5775,
+    "Datetime": "10/21/2024"
+  },
+  {
+    "Index": 813,
+    "Steps": 7699,
+    "Datetime": "10/21/2024"
+  },
+  {
+    "Index": 814,
+    "Steps": 10172,
+    "Datetime": "10/21/2024"
+  },
+  {
+    "Index": 815,
+    "Steps": 10752,
+    "Datetime": "10/21/2024"
+  },
+  {
+    "Index": 816,
+    "Steps": 14403,
+    "Datetime": "10/21/2024"
+  },
+  {
+    "Index": 817,
+    "Steps": 13547,
+    "Datetime": "10/21/2024"
+  },
+  {
+    "Index": 818,
+    "Steps": 11298,
+    "Datetime": "10/22/2024"
+  },
+  {
+    "Index": 819,
+    "Steps": 12394,
+    "Datetime": "10/22/2024"
+  },
+  {
+    "Index": 820,
+    "Steps": 10945,
+    "Datetime": "10/23/2024"
+  },
+  {
+    "Index": 821,
+    "Steps": 5640,
+    "Datetime": "10/23/2024"
+  },
+  {
+    "Index": 822,
+    "Steps": 5183,
+    "Datetime": "10/23/2024"
+  },
+  {
+    "Index": 823,
+    "Steps": 13236,
+    "Datetime": "10/23/2024"
+  },
+  {
+    "Index": 824,
+    "Steps": 13835,
+    "Datetime": "10/23/2024"
+  },
+  {
+    "Index": 825,
+    "Steps": 12494,
+    "Datetime": "10/23/2024"
+  },
+  {
+    "Index": 826,
+    "Steps": 8759,
+    "Datetime": "10/24/2024"
+  },
+  {
+    "Index": 827,
+    "Steps": 5522,
+    "Datetime": "10/24/2024"
+  },
+  {
+    "Index": 828,
+    "Steps": 7363,
+    "Datetime": "10/24/2024"
+  },
+  {
+    "Index": 829,
+    "Steps": 9482,
+    "Datetime": "10/25/2024"
+  },
+  {
+    "Index": 830,
+    "Steps": 13530,
+    "Datetime": "10/25/2024"
+  },
+  {
+    "Index": 831,
+    "Steps": 6533,
+    "Datetime": "10/26/2024"
+  },
+  {
+    "Index": 832,
+    "Steps": 14889,
+    "Datetime": "10/26/2024"
+  },
+  {
+    "Index": 833,
+    "Steps": 7142,
+    "Datetime": "10/26/2024"
+  },
+  {
+    "Index": 834,
+    "Steps": 13471,
+    "Datetime": "10/26/2024"
+  },
+  {
+    "Index": 835,
+    "Steps": 14964,
+    "Datetime": "10/27/2024"
+  },
+  {
+    "Index": 836,
+    "Steps": 11784,
+    "Datetime": "10/27/2024"
+  },
+  {
+    "Index": 837,
+    "Steps": 12537,
+    "Datetime": "10/27/2024"
+  },
+  {
+    "Index": 838,
+    "Steps": 13314,
+    "Datetime": "10/28/2024"
+  },
+  {
+    "Index": 839,
+    "Steps": 12384,
+    "Datetime": "10/28/2024"
+  },
+  {
+    "Index": 840,
+    "Steps": 7068,
+    "Datetime": "10/28/2024"
+  },
+  {
+    "Index": 841,
+    "Steps": 8071,
+    "Datetime": "10/28/2024"
+  },
+  {
+    "Index": 842,
+    "Steps": 12124,
+    "Datetime": "10/28/2024"
+  },
+  {
+    "Index": 843,
+    "Steps": 14778,
+    "Datetime": "10/29/2024"
+  },
+  {
+    "Index": 844,
+    "Steps": 11374,
+    "Datetime": "10/29/2024"
+  },
+  {
+    "Index": 845,
+    "Steps": 8659,
+    "Datetime": "10/29/2024"
+  },
+  {
+    "Index": 846,
+    "Steps": 12042,
+    "Datetime": "10/29/2024"
+  },
+  {
+    "Index": 847,
+    "Steps": 10694,
+    "Datetime": "10/30/2024"
+  },
+  {
+    "Index": 848,
+    "Steps": 7377,
+    "Datetime": "10/30/2024"
+  },
+  {
+    "Index": 849,
+    "Steps": 8508,
+    "Datetime": "10/30/2024"
+  },
+  {
+    "Index": 850,
+    "Steps": 7233,
+    "Datetime": "10/31/2024"
+  },
+  {
+    "Index": 851,
+    "Steps": 5698,
+    "Datetime": "11/01/2024"
+  },
+  {
+    "Index": 852,
+    "Steps": 7148,
+    "Datetime": "11/02/2024"
+  },
+  {
+    "Index": 853,
+    "Steps": 6534,
+    "Datetime": "11/03/2024"
+  },
+  {
+    "Index": 854,
+    "Steps": 5398,
+    "Datetime": "11/04/2024"
+  },
+  {
+    "Index": 855,
+    "Steps": 5817,
+    "Datetime": "11/04/2024"
+  },
+  {
+    "Index": 856,
+    "Steps": 14122,
+    "Datetime": "11/05/2024"
+  },
+  {
+    "Index": 857,
+    "Steps": 11661,
+    "Datetime": "11/05/2024"
+  },
+  {
+    "Index": 858,
+    "Steps": 6719,
+    "Datetime": "11/05/2024"
+  },
+  {
+    "Index": 859,
+    "Steps": 13794,
+    "Datetime": "11/05/2024"
+  },
+  {
+    "Index": 860,
+    "Steps": 9408,
+    "Datetime": "11/06/2024"
+  },
+  {
+    "Index": 861,
+    "Steps": 7710,
+    "Datetime": "11/06/2024"
+  },
+  {
+    "Index": 862,
+    "Steps": 8591,
+    "Datetime": "11/06/2024"
+  },
+  {
+    "Index": 863,
+    "Steps": 11430,
+    "Datetime": "11/07/2024"
+  },
+  {
+    "Index": 864,
+    "Steps": 14125,
+    "Datetime": "11/08/2024"
+  },
+  {
+    "Index": 865,
+    "Steps": 14093,
+    "Datetime": "11/08/2024"
+  },
+  {
+    "Index": 866,
+    "Steps": 11701,
+    "Datetime": "11/08/2024"
+  },
+  {
+    "Index": 867,
+    "Steps": 5915,
+    "Datetime": "11/08/2024"
+  },
+  {
+    "Index": 868,
+    "Steps": 11542,
+    "Datetime": "11/09/2024"
+  },
+  {
+    "Index": 869,
+    "Steps": 10503,
+    "Datetime": "11/09/2024"
+  },
+  {
+    "Index": 870,
+    "Steps": 10691,
+    "Datetime": "11/10/2024"
+  },
+  {
+    "Index": 871,
+    "Steps": 13398,
+    "Datetime": "11/10/2024"
+  },
+  {
+    "Index": 872,
+    "Steps": 11510,
+    "Datetime": "11/10/2024"
+  },
+  {
+    "Index": 873,
+    "Steps": 7577,
+    "Datetime": "11/10/2024"
+  },
+  {
+    "Index": 874,
+    "Steps": 14627,
+    "Datetime": "11/11/2024"
+  },
+  {
+    "Index": 875,
+    "Steps": 12762,
+    "Datetime": "11/12/2024"
+  },
+  {
+    "Index": 876,
+    "Steps": 14092,
+    "Datetime": "11/12/2024"
+  },
+  {
+    "Index": 877,
+    "Steps": 14482,
+    "Datetime": "11/12/2024"
+  },
+  {
+    "Index": 878,
+    "Steps": 5062,
+    "Datetime": "11/12/2024"
+  },
+  {
+    "Index": 879,
+    "Steps": 6656,
+    "Datetime": "11/13/2024"
+  },
+  {
+    "Index": 880,
+    "Steps": 5662,
+    "Datetime": "11/14/2024"
+  },
+  {
+    "Index": 881,
+    "Steps": 13777,
+    "Datetime": "11/14/2024"
+  },
+  {
+    "Index": 882,
+    "Steps": 5962,
+    "Datetime": "11/14/2024"
+  },
+  {
+    "Index": 883,
+    "Steps": 11720,
+    "Datetime": "11/15/2024"
+  },
+  {
+    "Index": 884,
+    "Steps": 7783,
+    "Datetime": "11/15/2024"
+  },
+  {
+    "Index": 885,
+    "Steps": 10532,
+    "Datetime": "11/15/2024"
+  },
+  {
+    "Index": 886,
+    "Steps": 13513,
+    "Datetime": "11/16/2024"
+  },
+  {
+    "Index": 887,
+    "Steps": 5290,
+    "Datetime": "11/16/2024"
+  },
+  {
+    "Index": 888,
+    "Steps": 13532,
+    "Datetime": "11/16/2024"
+  },
+  {
+    "Index": 889,
+    "Steps": 7806,
+    "Datetime": "11/16/2024"
+  },
+  {
+    "Index": 890,
+    "Steps": 7543,
+    "Datetime": "11/17/2024"
+  },
+  {
+    "Index": 891,
+    "Steps": 13630,
+    "Datetime": "11/17/2024"
+  },
+  {
+    "Index": 892,
+    "Steps": 8771,
+    "Datetime": "11/17/2024"
+  },
+  {
+    "Index": 893,
+    "Steps": 10721,
+    "Datetime": "11/17/2024"
+  },
+  {
+    "Index": 894,
+    "Steps": 6044,
+    "Datetime": "11/18/2024"
+  },
+  {
+    "Index": 895,
+    "Steps": 14864,
+    "Datetime": "11/18/2024"
+  },
+  {
+    "Index": 896,
+    "Steps": 14579,
+    "Datetime": "11/19/2024"
+  },
+  {
+    "Index": 897,
+    "Steps": 10865,
+    "Datetime": "11/19/2024"
+  },
+  {
+    "Index": 898,
+    "Steps": 8758,
+    "Datetime": "11/19/2024"
+  },
+  {
+    "Index": 899,
+    "Steps": 8550,
+    "Datetime": "11/20/2024"
+  },
+  {
+    "Index": 900,
+    "Steps": 5467,
+    "Datetime": "11/21/2024"
+  },
+  {
+    "Index": 901,
+    "Steps": 6751,
+    "Datetime": "11/22/2024"
+  },
+  {
+    "Index": 902,
+    "Steps": 13623,
+    "Datetime": "11/22/2024"
+  },
+  {
+    "Index": 903,
+    "Steps": 6826,
+    "Datetime": "11/23/2024"
+  },
+  {
+    "Index": 904,
+    "Steps": 12597,
+    "Datetime": "11/23/2024"
+  },
+  {
+    "Index": 905,
+    "Steps": 8744,
+    "Datetime": "11/24/2024"
+  },
+  {
+    "Index": 906,
+    "Steps": 8683,
+    "Datetime": "11/24/2024"
+  },
+  {
+    "Index": 907,
+    "Steps": 12196,
+    "Datetime": "11/24/2024"
+  },
+  {
+    "Index": 908,
+    "Steps": 14200,
+    "Datetime": "11/24/2024"
+  },
+  {
+    "Index": 909,
+    "Steps": 10330,
+    "Datetime": "11/24/2024"
+  },
+  {
+    "Index": 910,
+    "Steps": 7232,
+    "Datetime": "11/24/2024"
+  },
+  {
+    "Index": 911,
+    "Steps": 12246,
+    "Datetime": "11/26/2024"
+  },
+  {
+    "Index": 912,
+    "Steps": 14663,
+    "Datetime": "11/26/2024"
+  },
+  {
+    "Index": 913,
+    "Steps": 6131,
+    "Datetime": "11/26/2024"
+  },
+  {
+    "Index": 914,
+    "Steps": 6300,
+    "Datetime": "11/26/2024"
+  },
+  {
+    "Index": 915,
+    "Steps": 11744,
+    "Datetime": "11/26/2024"
+  },
+  {
+    "Index": 916,
+    "Steps": 7766,
+    "Datetime": "11/26/2024"
+  },
+  {
+    "Index": 917,
+    "Steps": 7739,
+    "Datetime": "11/26/2024"
+  },
+  {
+    "Index": 918,
+    "Steps": 13863,
+    "Datetime": "11/26/2024"
+  },
+  {
+    "Index": 919,
+    "Steps": 6771,
+    "Datetime": "11/27/2024"
+  },
+  {
+    "Index": 920,
+    "Steps": 9247,
+    "Datetime": "11/27/2024"
+  },
+  {
+    "Index": 921,
+    "Steps": 9026,
+    "Datetime": "11/28/2024"
+  },
+  {
+    "Index": 922,
+    "Steps": 7518,
+    "Datetime": "11/28/2024"
+  },
+  {
+    "Index": 923,
+    "Steps": 13103,
+    "Datetime": "11/28/2024"
+  },
+  {
+    "Index": 924,
+    "Steps": 12338,
+    "Datetime": "11/28/2024"
+  },
+  {
+    "Index": 925,
+    "Steps": 13002,
+    "Datetime": "11/28/2024"
+  },
+  {
+    "Index": 926,
+    "Steps": 12280,
+    "Datetime": "11/29/2024"
+  },
+  {
+    "Index": 927,
+    "Steps": 7210,
+    "Datetime": "11/30/2024"
+  },
+  {
+    "Index": 928,
+    "Steps": 12280,
+    "Datetime": "11/30/2024"
+  },
+  {
+    "Index": 929,
+    "Steps": 5812,
+    "Datetime": "11/30/2024"
+  },
+  {
+    "Index": 930,
+    "Steps": 9828,
+    "Datetime": "11/30/2024"
+  },
+  {
+    "Index": 931,
+    "Steps": 7574,
+    "Datetime": "12/01/2024"
+  },
+  {
+    "Index": 932,
+    "Steps": 13832,
+    "Datetime": "12/02/2024"
+  },
+  {
+    "Index": 933,
+    "Steps": 8729,
+    "Datetime": "12/02/2024"
+  },
+  {
+    "Index": 934,
+    "Steps": 9582,
+    "Datetime": "12/02/2024"
+  },
+  {
+    "Index": 935,
+    "Steps": 8406,
+    "Datetime": "12/03/2024"
+  },
+  {
+    "Index": 936,
+    "Steps": 5303,
+    "Datetime": "12/04/2024"
+  },
+  {
+    "Index": 937,
+    "Steps": 11502,
+    "Datetime": "12/04/2024"
+  },
+  {
+    "Index": 938,
+    "Steps": 13483,
+    "Datetime": "12/04/2024"
+  },
+  {
+    "Index": 939,
+    "Steps": 13432,
+    "Datetime": "12/04/2024"
+  },
+  {
+    "Index": 940,
+    "Steps": 8120,
+    "Datetime": "12/05/2024"
+  },
+  {
+    "Index": 941,
+    "Steps": 13337,
+    "Datetime": "12/06/2024"
+  },
+  {
+    "Index": 942,
+    "Steps": 13046,
+    "Datetime": "12/06/2024"
+  },
+  {
+    "Index": 943,
+    "Steps": 14812,
+    "Datetime": "12/07/2024"
+  },
+  {
+    "Index": 944,
+    "Steps": 8078,
+    "Datetime": "12/07/2024"
+  },
+  {
+    "Index": 945,
+    "Steps": 9255,
+    "Datetime": "12/07/2024"
+  },
+  {
+    "Index": 946,
+    "Steps": 6550,
+    "Datetime": "12/07/2024"
+  },
+  {
+    "Index": 947,
+    "Steps": 11714,
+    "Datetime": "12/07/2024"
+  },
+  {
+    "Index": 948,
+    "Steps": 14869,
+    "Datetime": "12/08/2024"
+  },
+  {
+    "Index": 949,
+    "Steps": 13721,
+    "Datetime": "12/08/2024"
+  },
+  {
+    "Index": 950,
+    "Steps": 14623,
+    "Datetime": "12/08/2024"
+  },
+  {
+    "Index": 951,
+    "Steps": 10495,
+    "Datetime": "12/08/2024"
+  },
+  {
+    "Index": 952,
+    "Steps": 8000,
+    "Datetime": "12/09/2024"
+  },
+  {
+    "Index": 953,
+    "Steps": 10024,
+    "Datetime": "12/09/2024"
+  },
+  {
+    "Index": 954,
+    "Steps": 13186,
+    "Datetime": "12/10/2024"
+  },
+  {
+    "Index": 955,
+    "Steps": 5873,
+    "Datetime": "12/10/2024"
+  },
+  {
+    "Index": 956,
+    "Steps": 11857,
+    "Datetime": "12/11/2024"
+  },
+  {
+    "Index": 957,
+    "Steps": 7360,
+    "Datetime": "12/11/2024"
+  },
+  {
+    "Index": 958,
+    "Steps": 8929,
+    "Datetime": "12/11/2024"
+  },
+  {
+    "Index": 959,
+    "Steps": 9244,
+    "Datetime": "12/12/2024"
+  },
+  {
+    "Index": 960,
+    "Steps": 11291,
+    "Datetime": "12/12/2024"
+  },
+  {
+    "Index": 961,
+    "Steps": 12562,
+    "Datetime": "12/13/2024"
+  },
+  {
+    "Index": 962,
+    "Steps": 5989,
+    "Datetime": "12/13/2024"
+  },
+  {
+    "Index": 963,
+    "Steps": 12257,
+    "Datetime": "12/14/2024"
+  },
+  {
+    "Index": 964,
+    "Steps": 5249,
+    "Datetime": "12/15/2024"
+  },
+  {
+    "Index": 965,
+    "Steps": 6880,
+    "Datetime": "12/15/2024"
+  },
+  {
+    "Index": 966,
+    "Steps": 6441,
+    "Datetime": "12/15/2024"
+  },
+  {
+    "Index": 967,
+    "Steps": 10182,
+    "Datetime": "12/16/2024"
+  },
+  {
+    "Index": 968,
+    "Steps": 10462,
+    "Datetime": "12/17/2024"
+  },
+  {
+    "Index": 969,
+    "Steps": 8738,
+    "Datetime": "12/17/2024"
+  },
+  {
+    "Index": 970,
+    "Steps": 8560,
+    "Datetime": "12/17/2024"
+  },
+  {
+    "Index": 971,
+    "Steps": 14121,
+    "Datetime": "12/18/2024"
+  },
+  {
+    "Index": 972,
+    "Steps": 6009,
+    "Datetime": "12/18/2024"
+  },
+  {
+    "Index": 973,
+    "Steps": 7033,
+    "Datetime": "12/19/2024"
+  },
+  {
+    "Index": 974,
+    "Steps": 12038,
+    "Datetime": "12/20/2024"
+  },
+  {
+    "Index": 975,
+    "Steps": 12865,
+    "Datetime": "12/21/2024"
+  },
+  {
+    "Index": 976,
+    "Steps": 9861,
+    "Datetime": "12/21/2024"
+  },
+  {
+    "Index": 977,
+    "Steps": 14900,
+    "Datetime": "12/21/2024"
+  },
+  {
+    "Index": 978,
+    "Steps": 12866,
+    "Datetime": "12/21/2024"
+  },
+  {
+    "Index": 979,
+    "Steps": 5728,
+    "Datetime": "12/21/2024"
+  },
+  {
+    "Index": 980,
+    "Steps": 13953,
+    "Datetime": "12/21/2024"
+  },
+  {
+    "Index": 981,
+    "Steps": 13414,
+    "Datetime": "12/22/2024"
+  },
+  {
+    "Index": 982,
+    "Steps": 7626,
+    "Datetime": "12/22/2024"
+  },
+  {
+    "Index": 983,
+    "Steps": 8183,
+    "Datetime": "12/23/2024"
+  },
+  {
+    "Index": 984,
+    "Steps": 14996,
+    "Datetime": "12/23/2024"
+  },
+  {
+    "Index": 985,
+    "Steps": 14099,
+    "Datetime": "12/24/2024"
+  },
+  {
+    "Index": 986,
+    "Steps": 12833,
+    "Datetime": "12/25/2024"
+  },
+  {
+    "Index": 987,
+    "Steps": 6288,
+    "Datetime": "12/25/2024"
+  },
+  {
+    "Index": 988,
+    "Steps": 12087,
+    "Datetime": "12/25/2024"
+  },
+  {
+    "Index": 989,
+    "Steps": 6368,
+    "Datetime": "12/26/2024"
+  },
+  {
+    "Index": 990,
+    "Steps": 5840,
+    "Datetime": "12/26/2024"
+  },
+  {
+    "Index": 991,
+    "Steps": 11980,
+    "Datetime": "12/27/2024"
+  },
+  {
+    "Index": 992,
+    "Steps": 5372,
+    "Datetime": "12/27/2024"
+  },
+  {
+    "Index": 993,
+    "Steps": 5658,
+    "Datetime": "12/27/2024"
+  },
+  {
+    "Index": 994,
+    "Steps": 7359,
+    "Datetime": "12/28/2024"
+  },
+  {
+    "Index": 995,
+    "Steps": 13216,
+    "Datetime": "12/28/2024"
+  },
+  {
+    "Index": 996,
+    "Steps": 8090,
+    "Datetime": "12/28/2024"
+  },
+  {
+    "Index": 997,
+    "Steps": 12833,
+    "Datetime": "12/29/2024"
+  },
+  {
+    "Index": 998,
+    "Steps": 10383,
+    "Datetime": "12/29/2024"
+  },
+  {
+    "Index": 999,
+    "Steps": 14300,
+    "Datetime": "12/30/2024"
+  },
+  {
+    "Index": 1000,
+    "Steps": 14255,
+    "Datetime": "12/30/2024"
+  }
+]
