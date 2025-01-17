@@ -18,36 +18,24 @@ const SmartwatchDetailsScreen = () => {
         );
     }
 
-    // ------------------------
+
     //   Circle for Steps
-    // ------------------------
     // Safely calculate steps progress (0 to 1)
     const stepsGoal = dayData.stepsGoal || 1; // fallback to avoid division by zero
     const stepsProgress = dayData.steps / stepsGoal;
 
-    // ------------------------
-    //   Circle for Stress
-    // ------------------------
-    // We’ll assume averageStressLevel goes from 0–10 (adjust if your scale is different)
-    const averageStress = dayData.averageStressLevel || 0;
-    const maxStress = 10; // define the upper limit for your stress scale
-    const stressProgress = averageStress / maxStress; // yields a value between 0 and 1
+    //   Floors Climbed Circle
+    const floorsGoal = dayData.floorsClimbedGoal || 1; // fallback to avoid division by zero
+    const floorsProgress = dayData.floorsClimbed / floorsGoal;
 
-    // Function to determine circle color based on stress level
-    const getStressColor = (stressLevel) => {
-        if (stressLevel >= 7) return 'red';    // high stress
-        if (stressLevel >= 4) return 'orange'; // medium stress
-        return 'green';                        // low stress
-    };
+
 
     return (
         <ScrollView style={styles.container}>
             {/* Show the calendar date at the top */}
             <Text style={styles.dateText}>Day: {calendarDate}</Text>
 
-            {/* ------------------------- */}
             {/* Circular Progress: Steps */}
-            {/* ------------------------- */}
             <View style={styles.circleContainer}>
                 <Progress.Circle
                     size={120}
@@ -61,19 +49,17 @@ const SmartwatchDetailsScreen = () => {
                 />
             </View>
 
-            {/* -------------------------- */}
-            {/* Circular Progress: Stress */}
-            {/* -------------------------- */}
-            <View style={styles.circleContainer}>
+            {/* Floors Climbed Circle */}
+            <View style={styles.singleCircleContainer}>
                 <Progress.Circle
                     size={120}
-                    progress={stressProgress}          // between 0 and 1
+                    progress={floorsProgress}   // between 0 and 1
                     thickness={8}
                     showsText={true}
-                    color={getStressColor(averageStress)} // dynamically change color
+                    color="#4CAF50"            // floors circle color (green)
                     unfilledColor="#e0e0e0"
                     borderWidth={0}
-                    formatText={() => `Stress: ${averageStress}`}
+                    formatText={() => `${dayData.floorsClimbed}/${dayData.floorsClimbedGoal} floors `}
                 />
             </View>
 
