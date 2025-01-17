@@ -22,7 +22,9 @@ import GynecologicalHistoryScreen from '../screens/MedicalHistoryScreen/Contents
 import ImmunizationScreen from '../screens/MedicalHistoryScreen/Contents/Immunization/Screens/ImmunizationScreen';
 import PlanOfCareScreen from '../screens/MedicalHistoryScreen/Contents/PlanOfCare/Screens/PlanOfCareScreen';
 import ShlScreen from '../screens/ShlScreen/ShlScreen';
+
 import SmartwatchScreen from "../screens/SmartwatchScreen/SmartwatchScreen";
+import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen";
 
 const ICON_SIZE = scaleFontSize(25);
 const INACTIVE_COLOR = '#A4A4A4';
@@ -73,6 +75,11 @@ export const MyHealthStack = () => {
               name={Routes.SmartwatchScreen}
               component={SmartwatchScreen}
               options={{headerShown: true, headerTitle: 'Smartwatch Data'}}
+          />
+          <stack.Screen
+              name={"SmartwatchDetailsScreen"}
+              component={SmartwatchDetailsScreen}
+              options={{headerShown: true, headerTitle: 'Smartwatch Details Data'}}
           />
 
 
@@ -164,7 +171,7 @@ export const ServicesStack = () => {
     return (
         <stack.Navigator
             initialRouteName={Routes.ServicesScreen}
-      screenOptions={{
+            screenOptions={{
         headerShown: true,
         headerTransparent: true, // Set the background color to transparent
       }}>
