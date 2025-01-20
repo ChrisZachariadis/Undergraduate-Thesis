@@ -1,8 +1,6 @@
-// SmartwatchDetailsScreen.jsx
-
 import React from 'react';
-import { View, Text, ScrollView, Dimensions } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 import { LineChart } from 'react-native-chart-kit';
 
@@ -10,6 +8,7 @@ import styles from './style'; // Import styles from style.js
 
 const SmartwatchDetailsScreen = () => {
     const route = useRoute();
+    const navigation = useNavigation(); // <--- Add this
     const { calendarDate, dayData } = route.params || {};
 
     // Handle the case where dayData might be undefined
@@ -20,6 +19,10 @@ const SmartwatchDetailsScreen = () => {
             </View>
         );
     }
+
+    // Define circle size
+    const screenWidth = Dimensions.get('window').width;
+    const circleSize = screenWidth / 3; // Adjust the divisor to fit your design
 
     // Safely calculate steps progress (0 to 1)
     const stepsGoal = dayData.stepsGoal || 1;
@@ -35,7 +38,7 @@ const SmartwatchDetailsScreen = () => {
     const {
         timeOffsetHeartRateSamples = {},
         startTimeInSeconds = 0,
-        activeTimeInSeconds = 0, // Assuming this is a fixed offset to add to each sample
+        activeTimeInSeconds = 0, // Assuming this is a fixed offset
         startTimeOffsetInSeconds = 7200, // UTC+2 for Nicosia (adjust if necessary)
     } = dayData;
 
@@ -54,7 +57,7 @@ const SmartwatchDetailsScreen = () => {
         // Adjust to local timezone (Nicosia)
         const localEpochSec = sampleTimeSec + startTimeOffsetInSeconds;
 
-        const dateObj = new Date(localEpochSec * 1000); // Convert to milliseconds
+        const dateObj = new Date(localEpochSec * 1000); // Convert to ms
         const hour = dateObj.getHours(); // 0 - 23
 
         if (!hourMap[hour]) {
@@ -68,19 +71,18 @@ const SmartwatchDetailsScreen = () => {
     const hourlyAverages = Array.from({ length: 24 }, (_, index) => {
         const hourData = hourMap[index];
         if (hourData && hourData.count > 0) {
-            return parseFloat((hourData.totalHR / hourData.count).toFixed(0)); // Rounded to nearest integer
+            return parseFloat((hourData.totalHR / hourData.count).toFixed(0)); // Rounded
         } else {
-            return null; // Indicates no data for this hour
+            return null; // No data
         }
     });
 
     // Prepare labels and data for the chart
-    // Display labels at every 3-hour interval for better readability
     const labels = Array.from({ length: 24 }, (_, index) => {
         if (index % 3 === 0) {
-            return `${index}`; // "0", "3", "6", ..., "21"
+            return `${index}`; // Show "0", "3", "6", ...
         } else {
-            return ''; // Empty label for non-multiples of 3
+            return ''; // Empty label
         }
     });
 
@@ -99,22 +101,21 @@ const SmartwatchDetailsScreen = () => {
     };
 
     // Define chart configuration
-    const screenWidth = Dimensions.get('window').width;
     const chartConfig = {
         backgroundGradientFrom: '#ffffff',
         backgroundGradientTo: '#ffffff',
-        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Axis and label color
-        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Label text color
+        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Axis/label color
+        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
         propsForDots: {
             r: '3',
             strokeWidth: '1',
-            stroke: '#ADD8E6', // Light Blue stroke for dots
+            stroke: '#ADD8E6',
         },
-        decimalPlaces: 0, // No decimals
-        yAxisInterval: 10, // Optional: adjust based on your data range
+        decimalPlaces: 0,
+        yAxisInterval: 10,
         propsForBackgroundLines: {
-            strokeDasharray: '', // Solid lines
-            stroke: '#e0e0e0', // Light grey grid lines
+            strokeDasharray: '',
+            stroke: '#e0e0e0',
         },
     };
 
@@ -123,35 +124,74 @@ const SmartwatchDetailsScreen = () => {
             {/* Show the calendar date at the top */}
             <Text style={styles.dateText}>Day: {calendarDate}</Text>
 
-            {/* Circular Progress: Steps */}
-            <View style={styles.circleContainer}>
-                <Progress.Circle
-                    size={120}
-                    progress={stepsProgress}
-                    thickness={8}
-                    showsText={true}
-                    color="#0C6C79"
-                    unfilledColor="#e0e0e0"
-                    borderWidth={0}
-                    formatText={() => `${dayData.steps}/${dayData.stepsGoal} steps`}
-                />
+            {/* Circles Row */}
+            <View style={styles.StepsFloorsContainer}>
+                {/* Steps Circle with Title */}
+                <View style={styles.Frame}>
+                    <View style={styles.circleWithTitle}>
+                        <Text style={styles.circleTitle}>Steps</Text>
+                        <TouchableOpacity
+                            onPress={() => {
+                                // Navigate to StepsDetails and pass dayData or any other params
+                                navigation.navigate('StepsDetailsScreen', { dayData });
+                            }}
+                        >
+                            <View style={[styles.stepsCircleWrapper, { width: circleSize, height: circleSize }]}>
+                                <Progress.Circle
+                                    size={circleSize}
+                                    progress={stepsProgress}
+                                    thickness={8}
+                                    color="#0C6C79"
+                                    unfilledColor="#f0f0f0"
+                                    borderWidth={0}
+                                    showsText={false}
+                                />
+                                <View style={styles.stepsOverlayTextContainer}>
+                                    <Text style={styles.stepsText}>
+                                        {dayData.steps}
+                                    </Text>
+                                    <Text style={styles.stepsGoalText}>
+                                        {`${dayData.stepsGoal} steps`}
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                {/* Floors Climbed Circle with Title */}
+                <View style={styles.Frame}>
+                    <View style={styles.circleWithTitle}>
+                        <Text style={styles.circleTitle}>Floors Climbed</Text>
+                        <TouchableOpacity
+                            onPress={() => {
+                                // Navigate to FloorsDetails and pass dayData or any other params
+                                navigation.navigate('FloorsDetailsScreen', { dayData });
+                            }}
+                        >
+                            <View style={[styles.floorsCircleWrapper, { width: circleSize, height: circleSize }]}>
+                                <Progress.Circle
+                                    size={circleSize}
+                                    progress={floorsProgress}
+                                    thickness={8}
+                                    color="#4CAF50"
+                                    unfilledColor="#f0f0f0"
+                                    borderWidth={0}
+                                    showsText={false}
+                                />
+                                <View style={styles.floorsOverlayTextContainer}>
+                                    <Text style={styles.floorsText}>
+                                        {dayData.floorsClimbed}
+                                    </Text>
+                                    <Text style={styles.floorsGoalText}>
+                                        {`${dayData.floorsClimbedGoal} floors`}
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
-
-            {/* Floors Climbed Circle */}
-            <View style={styles.singleCircleContainer}>
-                <Progress.Circle
-                    size={120}
-                    progress={floorsProgress}
-                    thickness={8}
-                    showsText={true}
-                    color="#4CAF50"
-                    unfilledColor="#e0e0e0"
-                    borderWidth={0}
-                    formatText={() => `${dayData.floorsClimbed}/${dayData.floorsClimbedGoal} floors`}
-                />
-            </View>
-
-
 
             {/* Hourly Average Heart Rate Chart */}
             <Text style={[styles.label, { marginTop: 24, fontWeight: 'bold', fontSize: 18 }]}>
@@ -160,22 +200,23 @@ const SmartwatchDetailsScreen = () => {
             {hourlyAverages.some((hr) => hr !== null) ? (
                 <LineChart
                     data={chartData}
-                    width={screenWidth - 32} // Adjust based on your container's padding
+                    width={screenWidth - 32}
                     height={220}
                     chartConfig={chartConfig}
-                    yAxisSuffix="" // Remove "bpm" suffix
-                    fromZero={true} // Start y-axis at 0
-                    bezier // Smooth curves
-                    segments={4} // Number of horizontal grid lines
+                    yAxisSuffix=" bpm"
+                    fromZero
+                    bezier
+                    segments={4}
                     style={{
                         borderRadius: 8,
                         marginVertical: 16,
                     }}
-                    withDots={true}
+                    withDots
                     withShadow={false}
-                    withVerticalLabels={true}
-                    withHorizontalLabels={true}
+                    withVerticalLabels
+                    withHorizontalLabels
                     transparent={false}
+
                 />
             ) : (
                 <Text style={styles.label}>No heart rate data available.</Text>
@@ -183,14 +224,13 @@ const SmartwatchDetailsScreen = () => {
 
             {/* Other Data Fields */}
             <Text style={styles.label}>Avg Heart Rate: {dayData.averageHeartRateInBeatsPerMinute}</Text>
-            <Text style={styles.label}>Floors Climbed: {dayData.floorsClimbed}</Text>
-            <Text style={styles.label}>Floors Goal: {dayData.floorsClimbedGoal}</Text>
             <Text style={styles.label}>BMR Kilocalories: {dayData.bmrKilocalories}</Text>
             <Text style={styles.label}>Distance (m): {dayData.distanceInMeters}</Text>
             <Text style={styles.label}>Duration (sec): {dayData.durationInSeconds}</Text>
+            <Text style={styles.label}>Floors Climbed: {dayData.floorsClimbed}</Text>
+            <Text style={styles.label}>Floors Goal: {dayData.floorsClimbedGoal}</Text>
         </ScrollView>
     );
-
 };
 
 export default SmartwatchDetailsScreen;

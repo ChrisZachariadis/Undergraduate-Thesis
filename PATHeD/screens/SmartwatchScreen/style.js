@@ -32,13 +32,72 @@ const styles = StyleSheet.create({
         marginBottom: 4,
         color: '#333',
     },
-    circleContainer: { // Added to match component
+    StepsFloorsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         alignItems: 'center',
         marginVertical: 16,
     },
-    singleCircleContainer: { // Added to match component
+    circleWithTitle: {
         alignItems: 'center',
-        marginVertical: 16,
+    },
+    circleTitle: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#333',
+        marginBottom: 8,
+        textAlign: 'center',
+    },
+    Frame: {
+        borderWidth: 0.5,
+        borderColor: '#eae9e9',
+        borderRadius: 8,
+        padding: 18,
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',
+        shadowOpacity: 0.05,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    stepsCircleWrapper: {
+        position: 'relative',
+    },
+    stepsOverlayTextContainer: {
+        position: 'absolute',
+        top: '30%', // Adjust as needed
+        width: '100%',
+        alignItems: 'center',
+    },
+    stepsText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#0C6C79',
+    },
+    stepsGoalText: {
+        fontSize: 12,
+        color: '#888',
+        textAlign: 'center',
+    },
+    floorsCircleWrapper: {
+        position: 'relative',
+    },
+    floorsOverlayTextContainer: {
+        position: 'absolute',
+        top: '30%', // Adjust as needed
+        width: '100%',
+        alignItems: 'center',
+    },
+    floorsText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#4CAF50',
+    },
+    floorsGoalText: {
+        fontSize: 12,
+        color: '#888',
+        textAlign: 'center',
     },
     chartContainer: { // New style for the chart
         marginTop: 16,

@@ -25,6 +25,8 @@ import ShlScreen from '../screens/ShlScreen/ShlScreen';
 
 import SmartwatchScreen from "../screens/SmartwatchScreen/SmartwatchScreen";
 import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen";
+import FloorsDetailsScreen from "../screens/SmartwatchScreen/FloorsDetailsScreen";
+import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen";
 
 const ICON_SIZE = scaleFontSize(25);
 const INACTIVE_COLOR = '#A4A4A4';
@@ -80,6 +82,16 @@ export const MyHealthStack = () => {
               name={"SmartwatchDetailsScreen"}
               component={SmartwatchDetailsScreen}
               options={{headerShown: true, headerTitle: 'Smartwatch Details Data'}}
+          />
+          <stack.Screen
+              name={"StepsDetailsScreen"}
+              component={StepsDetailsScreen}
+              options={{headerShown: true, headerTitle: 'Steps Details Data'}}
+          />
+          <stack.Screen
+              name={"FloorsDetailsScreen"}
+              component={FloorsDetailsScreen}
+              options={{headerShown: true, headerTitle: 'Floors Details Data'}}
           />
 
 
@@ -172,7 +184,7 @@ export const ServicesStack = () => {
         <stack.Navigator
             initialRouteName={Routes.ServicesScreen}
             screenOptions={{
-        headerShown: true,
+                headerShown: true,
         headerTransparent: true, // Set the background color to transparent
       }}>
       <stack.Screen
