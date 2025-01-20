@@ -1,3 +1,5 @@
+// FloorsDetailsScreen.jsx
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
@@ -13,6 +15,7 @@ const FloorsDetailsScreen = () => {
                 <>
                     <Text style={styles.text}>Floors Climbed: {dayData.floorsClimbed}</Text>
                     <Text style={styles.text}>Floors Goal: {dayData.floorsClimbedGoal}</Text>
+                    {/* Add more detailed information or charts as needed */}
                 </>
             ) : (
                 <Text style={styles.text}>No floors data passed.</Text>

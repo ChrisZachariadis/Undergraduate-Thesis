@@ -23,8 +23,8 @@ import ImmunizationScreen from '../screens/MedicalHistoryScreen/Contents/Immuniz
 import PlanOfCareScreen from '../screens/MedicalHistoryScreen/Contents/PlanOfCare/Screens/PlanOfCareScreen';
 import ShlScreen from '../screens/ShlScreen/ShlScreen';
 
-import SmartwatchScreen from "../screens/SmartwatchScreen/SmartwatchScreen";
-import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen";
+import SmartwatchScreen from "../screens/SmartwatchScreen/GarminDataScreen";
+import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen/SmartwatchDetailsScreen";
 import FloorsDetailsScreen from "../screens/SmartwatchScreen/FloorsDetailsScreen";
 import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen";
 
