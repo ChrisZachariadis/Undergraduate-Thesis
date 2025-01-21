@@ -27,6 +27,7 @@ import SmartwatchScreen from "../screens/SmartwatchScreen/GarminDataScreen";
 import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen/SmartwatchDetailsScreen";
 import FloorsDetailsScreen from "../screens/SmartwatchScreen/FloorsDetailsScreen";
 import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen";
+import HRDetailsScreen from "../screens/SmartwatchScreen/HRDetailsScreen/HRDetailsScreen";
 
 const ICON_SIZE = scaleFontSize(25);
 const INACTIVE_COLOR = '#A4A4A4';
@@ -72,7 +73,10 @@ export const MyHealthStack = () => {
               }}
           />
 
-          {/*SmartWatch stack screen*/}
+
+          {/****/}
+          {/*My SmartWatch Stack Screens*/}
+          {/****/}
           <stack.Screen
               name={Routes.SmartwatchScreen}
               component={SmartwatchScreen}
@@ -92,6 +96,11 @@ export const MyHealthStack = () => {
               name={"FloorsDetailsScreen"}
               component={FloorsDetailsScreen}
               options={{headerShown: true, headerTitle: 'Floors Details Data'}}
+          />
+          <stack.Screen
+              name={"HRDetailsScreen"}
+              component={HRDetailsScreen}
+              options={{headerShown: true, headerTitle: 'HR Details Data'}}
           />
 
 
