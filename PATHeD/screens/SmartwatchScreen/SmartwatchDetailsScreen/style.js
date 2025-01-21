@@ -7,7 +7,7 @@ const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f5f5f5', // Slightly off-white for better contrast
         padding: 16,
     },
     // Container for Date and Navigation Arrows
@@ -32,6 +32,7 @@ export default StyleSheet.create({
     dateText: {
         fontSize: 18,
         fontWeight: 'bold',
+        color: '#333',
     },
     // Container for Steps and Floors Circles
     StepsFloorsContainer: {
@@ -90,39 +91,71 @@ export default StyleSheet.create({
     label: {
         fontSize: 16,
         marginVertical: 2,
+        color: '#333',
     },
     // Style for the Average Heart Rate Box
     heartRateBox: {
         borderWidth: 1,
-        borderColor: '#eae9e9',
-        borderRadius: 8,
-        padding: 16,
+        borderColor: '#e0e0e0',
+        borderRadius: 12,
+        padding: 20,
         backgroundColor: '#ffffff',
         shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 2,
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 4,
         marginVertical: 16,
     },
     heartRateHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 8,
+        marginBottom: 12,
     },
     heartRateTitle: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'red',
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#D32F2F', // A rich red color for emphasis
     },
     heartRateText: {
-        fontSize: 16,
+        fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
+        color: '#424242',
     },
     arrowText: {
-        fontSize: 18,
+        fontSize: 20,
         color: '#2196F3',
+    },
+    // Style for the BMR Kilocalories Box
+    kcalBox: {
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+        borderRadius: 12,
+        padding: 20,
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 4,
+        marginVertical: 16,
+    },
+    kcalHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    kcalTitle: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#FF5722', // A vibrant orange color for the fire theme
+    },
+    kcalText: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#424242',
     },
     // Style for the Chart Title
     chartTitle: {
@@ -130,5 +163,28 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 18,
         textAlign: 'center',
+        color: '#333',
     },
+
+    seeAllButton: {
+        position: 'absolute', // Ensures the button stays at the bottom-right
+        bottom: 16, // Adjusts distance from the bottom edge
+        right: 16, // Adjusts distance from the right edge
+        backgroundColor: '#2196F3', // Primary blue color
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 4,
+    },
+    seeAllButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+
+
 });

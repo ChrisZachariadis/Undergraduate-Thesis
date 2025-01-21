@@ -12,20 +12,45 @@ export default StyleSheet.create({
     },
     // Title Style
     title: {
+        marginTop: 40,
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#4CAF50', // Green color to match the bar chart
+        color: '#4CAF50', // Green color to match the chart
         textAlign: 'center',
         marginBottom: 16,
     },
-    // Navigation Container
+    // Time Range Selector Styles
+    rangeSelector: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 16,
+    },
+    rangeButton: {
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 20,
+        backgroundColor: '#e0e0e0',
+        marginHorizontal: 5,
+    },
+    selectedRangeButton: {
+        backgroundColor: '#2196F3',
+    },
+    rangeButtonText: {
+        color: '#000',
+        fontSize: 14,
+        fontWeight: '600',
+    },
+    selectedRangeButtonText: {
+        color: '#fff',
+    },
+    // Conditional Navigation Container (if needed)
     navigationContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 16,
     },
-    // Navigation Buttons
+    // Navigation Buttons (if using navigation within HRDetailsScreen)
     navButton: {
         backgroundColor: '#2196F3', // Blue color for buttons
         paddingVertical: 8,
@@ -37,7 +62,7 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: '600',
     },
-    // Week Label
+    // Week Label (if applicable)
     weekLabel: {
         fontSize: 16,
         fontWeight: '500',
