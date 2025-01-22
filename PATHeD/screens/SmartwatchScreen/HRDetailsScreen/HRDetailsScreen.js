@@ -1,82 +1,89 @@
-// HRDetailsScreen.jsx
-
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import {
-    Dimensions,
     ScrollView,
     Text,
     View,
     TouchableOpacity,
     Modal,
-    StyleSheet,
+    Dimensions,
     TouchableWithoutFeedback,
 } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { BarChart, LineChart } from 'react-native-chart-kit';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowLeft, faArrowRight, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 
-import styles from './style'; // Import your HRDetailsScreen styles
-import data from '../data.json'; // Ensure the path is correct
+import styles from './style';
+import data from '../data.json';
 
-const screenWidth = Dimensions.get('window').width - 32; // Adjust for padding
+const screenWidth = Dimensions.get('window').width - 32;
 
 const HRDetailsScreen = () => {
     const route = useRoute();
+    const navigation = useNavigation();
     const { dayData } = route.params || {};
 
-    // Handle the case where dayData might be undefined
-    if (!dayData) {
-        return (
-            <View style={styles.noDataContainer}>
-                <Text style={styles.noDataText}>No data available</Text>
-            </View>
-        );
-    }
-
-    // State to manage the selected time range ('1d', '7d', '1m')
     const [selectedRange, setSelectedRange] = useState('7d');
-
-    // State for Modal visibility and selected chart element data
+    const [currentDate, setCurrentDate] = useState(moment(dayData?.calendarDate || new Date()));
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedElement, setSelectedElement] = useState({ label: '', value: 0 });
 
-    // Function to handle time range selection
-    const handleRangeChange = (range) => {
-        setSelectedRange(range);
-    };
+    // Navigation handlers
+    const handlePrevious = useCallback(() => {
+        setCurrentDate(prev => {
+            switch (selectedRange) {
+                case '1d':
+                    return prev.clone().subtract(1, 'day');
+                case '7d':
+                    return prev.clone().subtract(7, 'days');
+                case '1m':
+                    return prev.clone().subtract(1, 'month');
+                default:
+                    return prev;
+            }
+        });
+    }, [selectedRange]);
 
-    // Determine the date range based on selectedRange
+    const handleNext = useCallback(() => {
+        setCurrentDate(prev => {
+            switch (selectedRange) {
+                case '1d':
+                    return prev.clone().add(1, 'day');
+                case '7d':
+                    return prev.clone().add(7, 'days');
+                case '1m':
+                    return prev.clone().add(1, 'month');
+                default:
+                    return prev;
+            }
+        });
+    }, [selectedRange]);
+
     const dateRange = useMemo(() => {
-        const start = moment(dayData.calendarDate);
         switch (selectedRange) {
             case '1d':
-                // For 1 day, we'll display hourly data
-                return [start.format('YYYY-MM-DD')];
+                return [currentDate.format('YYYY-MM-DD')];
             case '7d':
-                // For 7 days
                 return Array.from({ length: 7 }, (_, i) =>
-                    start.clone().subtract(6 - i, 'days').format('YYYY-MM-DD')
+                    currentDate.clone().subtract(6 - i, 'days').format('YYYY-MM-DD')
                 );
             case '1m':
-                // For 1 month (30 days)
                 return Array.from({ length: 30 }, (_, i) =>
-                    start.clone().subtract(29 - i, 'days').format('YYYY-MM-DD')
+                    currentDate.clone().subtract(29 - i, 'days').format('YYYY-MM-DD')
                 );
             default:
-                return [start.format('YYYY-MM-DD')];
+                return [currentDate.format('YYYY-MM-DD')];
         }
-    }, [selectedRange, dayData.calendarDate]);
+    }, [selectedRange, currentDate]);
 
-    // Filter data for the date range
     const filteredData = useMemo(
         () => data.data.filter(entry => dateRange.includes(entry.calendarDate)),
         [data.data, dateRange]
     );
 
-    // Process heart rates based on selectedRange
     const { labels, heartRates, isLineChart } = useMemo(() => {
         if (selectedRange === '1d') {
-            // For 1d, display hourly data
             const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`);
             const hourlyData = Array.from({ length: 24 }, () => []);
 
@@ -93,8 +100,8 @@ const HRDetailsScreen = () => {
                     const sampleTimeSec = startTimeInSeconds + offsetSec + activeTimeInSeconds;
                     const localEpochSec = sampleTimeSec + startTimeOffsetInSeconds;
 
-                    const dateObj = new Date(localEpochSec * 1000); // Convert to ms
-                    const hour = dateObj.getHours(); // 0 - 23
+                    const dateObj = new Date(localEpochSec * 1000);
+                    const hour = dateObj.getHours();
 
                     if (hour >= 0 && hour < 24) {
                         hourlyData[hour].push(hr);
@@ -107,99 +114,120 @@ const HRDetailsScreen = () => {
                     const sum = arr.reduce((a, b) => a + b, 0);
                     return parseFloat((sum / arr.length).toFixed(0));
                 }
-                return 0; // Or null if you prefer
+                return 0;
             });
 
             return {
-                labels: hours, // These labels will be hidden in the chart
+                labels: hours,
                 heartRates: averagedHourly,
                 isLineChart: true,
             };
         } else {
-            // For '7d' and '1m', display daily averages
             const labels = dateRange.map(date => moment(date).format('MMM D'));
             const heartRates = dateRange.map(date => {
                 const entry = filteredData.find(e => e.calendarDate === date);
-                return entry ? entry.data.averageHeartRateInBeatsPerMinute : 0; // Or null
+                return entry ? entry.data.averageHeartRateInBeatsPerMinute : 0;
             });
 
             return {
-                labels, // These labels will be hidden in the chart
+                labels,
                 heartRates,
                 isLineChart: false,
             };
         }
     }, [selectedRange, filteredData, dateRange]);
 
-    // Define chart data structure
-    const heartRateChartData = useMemo(() => {
-        return {
-            labels, // Labels are still needed for tap functionality
-            datasets: [
-                {
-                    data: heartRates,
-                    color: () => '#FF6347', // Tomato color for HR chart
-                    strokeWidth: 2,
-                },
-            ],
-        };
-    }, [labels, heartRates]);
+    const heartRateChartData = useMemo(() => ({
+        labels,
+        datasets: [
+            {
+                data: heartRates,
+                color: () => '#FF6347',
+                strokeWidth: 2,
+            },
+        ],
+    }), [labels, heartRates]);
 
-    // Define chart configuration
     const chartConfig = useMemo(() => ({
         backgroundGradientFrom: '#ffffff',
         backgroundGradientTo: '#ffffff',
-        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Axis and label color
-        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Y-axis label text color
-        decimalPlaces: 0, // No decimals
-        yAxisInterval: 10, // Optional: adjust based on your data range
+        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+        decimalPlaces: 0,
+        yAxisInterval: 10,
         propsForBackgroundLines: {
-            strokeDasharray: '', // Solid lines
-            stroke: '#e0e0e0', // Light grey grid lines
+            strokeDasharray: '',
+            stroke: '#e0e0e0',
         },
         propsForDots: {
             r: '3',
             strokeWidth: '1',
-            stroke: '#FF6347', // Tomato stroke for dots
+            stroke: '#FF6347',
         },
     }), []);
 
-    // Handler for chart element tap
     const handleChartTap = (value, index) => {
-        const label = labels[index]; // Get the corresponding label (date or hour)
+        const label = labels[index];
         setSelectedElement({ label, value });
         setModalVisible(true);
     };
 
+    const renderNavigationHeader = () => {
+        const getHeaderTitle = () => {
+            switch (selectedRange) {
+                case '1d':
+                    return currentDate.format('MMMM D, YYYY');
+                case '7d':
+                    return `Week of ${currentDate.format('MMM D, YYYY')}`;
+                case '1m':
+                    return currentDate.format('MMMM YYYY');
+                default:
+                    return '';
+            }
+        };
+
+        return (
+            <View style={styles.dateContainer}>
+                <TouchableOpacity onPress={handlePrevious} style={styles.navigationButton}>
+                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000" />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => {}}>
+                    <View style={styles.dateWrapper}>
+                        <FontAwesomeIcon icon={faCalendar} size={20} color="#2196F3" style={styles.calendarIcon} />
+                        <Text style={styles.dateText}>{getHeaderTitle()}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleNext} style={styles.navigationButton}>
+                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000" />
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     return (
         <ScrollView style={styles.container}>
-            {/* Title */}
-            <Text style={styles.title}>Heart Rate Details</Text>
+            <View style={styles.headerContainer}>
+                <Text style={styles.title}>Heart Rate</Text>
+            </View>
 
-            {/* Time Range Selection */}
+            {renderNavigationHeader()}
+
             <View style={styles.rangeSelector}>
-                {['1d', '7d', '1m'].map((range) => (
+                {['1d', '7d', '1m'].map(range => (
                     <TouchableOpacity
                         key={range}
-                        style={[
-                            styles.rangeButton,
-                            selectedRange === range && styles.selectedRangeButton,
-                        ]}
-                        onPress={() => handleRangeChange(range)}
+                        style={[styles.rangeButton, selectedRange === range && styles.selectedRangeButton]}
+                        onPress={() => setSelectedRange(range)}
                     >
-                        <Text
-                            style={[
-                                styles.rangeButtonText,
-                                selectedRange === range && styles.selectedRangeButtonText,
-                            ]}
-                        >
-                            {range}
+                        <Text style={[styles.rangeButtonText, selectedRange === range && styles.selectedRangeButtonText]}>
+                            {range === '1d' ? 'Day' : range === '7d' ? 'Week' : 'Month'}
                         </Text>
                     </TouchableOpacity>
                 ))}
             </View>
 
-            {/* Conditional Chart Rendering */}
             {heartRateChartData.datasets[0].data.some(hr => hr !== 0) ? (
                 isLineChart ? (
                     <LineChart
@@ -209,17 +237,9 @@ const HRDetailsScreen = () => {
                         chartConfig={chartConfig}
                         yAxisSuffix=" bpm"
                         fromZero={true}
-                        bezier // Smooth curves
-                        segments={4} // Number of horizontal grid lines
-                        style={{
-                            borderRadius: 8,
-                            marginVertical: 16,
-                        }}
-                        withDots={true}
-                        withShadow={false}
-                        withVerticalLabels={false} // Hide x-axis labels
-                        withHorizontalLabels={true} // Keep y-axis labels
-                        transparent={false}
+                        bezier
+                        segments={4}
+                        style={{ borderRadius: 8, marginVertical: 16 }}
                         onDataPointClick={({ value, index }) => handleChartTap(value, index)}
                     />
                 ) : (
@@ -227,17 +247,11 @@ const HRDetailsScreen = () => {
                         data={heartRateChartData}
                         width={screenWidth}
                         height={220}
-                        yAxisLabel=""
                         yAxisSuffix=" bpm"
                         fromZero={true}
                         showValuesOnTopOfBars={true}
                         chartConfig={chartConfig}
-                        style={{
-                            marginVertical: 8,
-                            borderRadius: 16,
-                        }}
-                        verticalLabelRotation={selectedRange === '1d' ? 0 : 30}
-                        withVerticalLabels={false} // Hide x-axis labels
+                        style={{ marginVertical: 8, borderRadius: 16 }}
                         onDataPointClick={({ value, index }) => handleChartTap(value, index)}
                     />
                 )
@@ -247,70 +261,25 @@ const HRDetailsScreen = () => {
                 </View>
             )}
 
-            {/* Modal for Displaying Selected Chart Element Info */}
-            <Modal
-                transparent={true}
-                visible={modalVisible}
-                animationType="fade"
-                onRequestClose={() => setModalVisible(false)}
-            >
+            <Modal transparent={true} visible={modalVisible} animationType="fade" onRequestClose={() => setModalVisible(false)}>
                 <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-                    <View style={modalStyles.modalBackground}>
-                        <TouchableWithoutFeedback>
-                            <View style={modalStyles.modalContainer}>
-                                <Text style={modalStyles.modalTitle}>Heart Rate Details</Text>
-                                <Text style={modalStyles.modalText}>{selectedElement.label}</Text>
-                                <Text style={modalStyles.modalText}>BPM: {selectedElement.value}</Text>
-                                <TouchableOpacity
-                                    style={modalStyles.closeButton}
-                                    onPress={() => setModalVisible(false)}
-                                >
-                                    <Text style={modalStyles.closeButtonText}>Close</Text>
-                                </TouchableOpacity>
+                    <View style={styles.modalOverlay}>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.modalHeader}>
+                                {/*<FontAwesomeIcon icon={faHeart} size={24} color="#FF4081" />*/}
+                                <Text style={styles.modalTitle}>Heart Rate Details</Text>
                             </View>
-                        </TouchableWithoutFeedback>
+                            <Text style={styles.modalText}>Time: {selectedElement.label}</Text>
+                            <Text style={styles.modalText}>Heart Rate: {selectedElement.value} BPM</Text>
+                            <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
+                                <Text style={styles.closeButtonText}>Close</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>
         </ScrollView>
     );
 };
-
-// Styles for Modal
-const modalStyles = StyleSheet.create({
-    modalBackground: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    modalContainer: {
-        width: '80%',
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        padding: 20,
-        alignItems: 'center',
-    },
-    modalTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    modalText: {
-        fontSize: 16,
-        marginVertical: 5,
-    },
-    closeButton: {
-        marginTop: 15,
-        backgroundColor: '#2196F3',
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-    },
-    closeButtonText: {
-        color: '#fff',
-        fontSize: 16,
-    },
-});
 
 export default HRDetailsScreen;

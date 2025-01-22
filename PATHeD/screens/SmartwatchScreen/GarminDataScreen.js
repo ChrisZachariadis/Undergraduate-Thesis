@@ -1,114 +1,100 @@
-// GarminDataScreen.jsx
+// GarminDataScreen.js
 
-import React from 'react';
-import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, Pressable, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import data from './data.json';
 import styles from './style';
-import ProgressCircle from './components/DayDetailView/ProgressCircle'; // Adjust path if needed
 
 const GarminDataScreen = () => {
     const navigation = useNavigation();
+    const [isConnected, setIsConnected] = useState(false);
 
-    // The JSON has a "data" key which is an array:
-    const garminEntries = data.data; // e.g., [ { calendarDate: '2025-01-20', data: {...} }, ...]
+    const garminEntries = data.data;
 
-    // --- Determine today's date in YYYY-MM-DD format ---
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const todayStr = `${year}-${month}-${day}`; // e.g., "2025-01-20"
+    const todayStr = new Date().toISOString().split('T')[0];
 
-    // --- Find the "today" entry if it exists ---
     const todayEntry = garminEntries.find(entry => entry.calendarDate === todayStr);
     const otherEntries = garminEntries.filter(entry => entry.calendarDate !== todayStr);
 
+    const handleGarminConnect = () => {
+        Linking.openURL('https://garmin-ucy.3ahealth.com/garmin/login?userId=3cdf364a-da5b-453f-b0e7-6983f2f1e310');
+        setIsConnected(true);
+    };
+
     return (
-        <ScrollView style={styles.container}>
-
-            {/* 1) Show "Today" details (if found) */}
-            {todayEntry ? (
-                <View style={styles.todayContainer}>
-                    <Text style={styles.title}>Today's Details ({todayEntry.calendarDate})</Text>
-
-                    {/* Reuse ProgressCircle components */}
-                    <View style={styles.StepsFloorsContainer}>
-                        {/* Steps Circle */}
-                        <ProgressCircle
-                            title="Steps"
-                            progress={todayEntry.data.steps / (todayEntry.data.stepsGoal || 1)}
-                            value={todayEntry.data.steps}
-                            goal={todayEntry.data.stepsGoal}
-                            color="#0C6C79"
-                            onPress={() =>
-                                navigation.navigate('StepsDetailsScreen', { dayData: todayEntry.data })
-                            }
-                            size={100} // Slightly smaller for summary
-                            unit="steps"
-                        />
-
-                        {/* Floors Climbed Circle */}
-                        <ProgressCircle
-                            title="Floors Climbed"
-                            progress={todayEntry.data.floorsClimbed / (todayEntry.data.floorsClimbedGoal || 1)}
-                            value={todayEntry.data.floorsClimbed}
-                            goal={todayEntry.data.floorsClimbedGoal}
-                            color="#4CAF50"
-                            onPress={() =>
-                                navigation.navigate('FloorsDetailsScreen', { dayData: todayEntry.data })
-                            }
-                            size={100} // Slightly smaller for summary
-                            unit="floors"
-                        />
-                    </View>
-
-                    {/* Optionally, add more summary details here */}
-                    <Pressable
-                        style={styles.detailButton}
-                        onPress={() =>
-                            navigation.navigate('SmartwatchDetailsScreen', {
-                                calendarDate: todayEntry.calendarDate,
-                                dayData: todayEntry.data,
-                            })
-                        }
-                    >
-                        <Text style={styles.detailButtonText}>View Full Graph & Detail</Text>
+        <View style={styles.container}>
+            {!isConnected && (
+                <View style={styles.topSection}>
+                    <Pressable style={styles.connectButton} onPress={handleGarminConnect}>
+                        <Text style={styles.connectButtonText}>Garmin Connect</Text>
                     </Pressable>
-                </View>
-            ) : (
-                <View style={styles.noTodayContainer}>
-                    <Text style={styles.title}>No data for today</Text>
                 </View>
             )}
 
-            {/* 2) Display the other days below in a pressable list */}
-            {otherEntries.map((entry, index) => {
-                const { calendarDate, data: dayData } = entry;
-                return (
-                    <Pressable
-                        key={index}
-                        style={styles.dayContainer}
-                        onPress={() =>
-                            navigation.navigate('SmartwatchDetailsScreen', {
-                                calendarDate: calendarDate,
-                                dayData: dayData,
-                            })
-                        }
-                    >
-                        <Text style={styles.dateText}>{calendarDate}</Text>
-                        <Text style={styles.label}>
-                            Steps: {dayData.steps} / Goal: {dayData.stepsGoal}
-                        </Text>
-                        <Text style={styles.label}>
-                            Avg Heart Rate: {dayData.averageHeartRateInBeatsPerMinute || 'N/A'}
-                        </Text>
-                    </Pressable>
-                );
-            })}
+            {isConnected && (
+                <ScrollView>
+                    {todayEntry ? (
+                        <View style={[styles.entryBox, styles.todayMargin]}>
+                            <View style={styles.entryHeader}>
+                                <Text style={styles.entryTitle}>Today: {todayEntry.calendarDate}</Text>
+                                <Pressable
+                                    onPress={() =>
+                                        navigation.navigate('SmartwatchDetailsScreen', {
+                                            calendarDate: todayEntry.calendarDate,
+                                            dayData: todayEntry.data,
+                                        })
+                                    }
+                                >
+                                    <Text style={styles.viewDetailsText}>View Details</Text>
+                                </Pressable>
+                            </View>
+                            <Text style={styles.entryLabel}>
+                                Steps: {todayEntry.data.steps} / Goal: {todayEntry.data.stepsGoal}
+                            </Text>
+                            <Text style={styles.entryLabel}>
+                                Floors Climbed: {todayEntry.data.floorsClimbed} / Goal: {todayEntry.data.floorsClimbedGoal}
+                            </Text>
+                            <Text style={styles.entryLabel}>
+                                Average Heart Rate: {todayEntry.data.averageHeartRateInBeatsPerMinute || 'N/A'}
+                            </Text>
+                        </View>
+                    ) : (
+                        <View style={styles.noTodayContainer}>
+                            <Text style={styles.title}>No data for today</Text>
+                        </View>
+                    )}
 
-        </ScrollView>
+                    {otherEntries.map((entry, index) => (
+                        <View key={index} style={styles.entryBox}>
+                            <View style={styles.entryHeader}>
+                                <Text style={styles.entryTitle}>{entry.calendarDate}</Text>
+                                <Pressable
+                                    onPress={() =>
+                                        navigation.navigate('SmartwatchDetailsScreen', {
+                                            calendarDate: entry.calendarDate,
+                                            dayData: entry.data,
+                                        })
+                                    }
+                                >
+                                    <Text style={styles.viewDetailsText}>View Details</Text>
+                                </Pressable>
+                            </View>
+                            <Text style={styles.entryLabel}>
+                                Steps: {entry.data.steps} / Goal: {entry.data.stepsGoal}
+                            </Text>
+                            <Text style={styles.entryLabel}>
+                                Floors Climbed: {entry.data.floorsClimbed} / Goal: {entry.data.floorsClimbedGoal}
+                            </Text>
+                            <Text style={styles.entryLabel}>
+                                Avg Heart Rate: {entry.data.averageHeartRateInBeatsPerMinute || 'N/A'}
+                            </Text>
+                        </View>
+                    ))}
+                </ScrollView>
+            )}
+        </View>
     );
 };
 

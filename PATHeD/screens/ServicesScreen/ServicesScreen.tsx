@@ -34,12 +34,15 @@ const ServicesScreen = ({navigation}) => {
           titleStyle={globalStyle.descriptionBlackL1}
         />
 
+
           <NavigationButton
               type={'withIcon'}
               title={t('services.smartwatch-registry.title')}
               image={require('../../assets/images/forNavigation/watch_data.png')}
               onPress={() => {
                   navigation.navigate(Routes.SmartwatchScreen);
+                  // navigation.navigate('SmartwatchDetailsScreen');
+
               }}
               titleStyle={globalStyle.descriptionBlackL1}
           />

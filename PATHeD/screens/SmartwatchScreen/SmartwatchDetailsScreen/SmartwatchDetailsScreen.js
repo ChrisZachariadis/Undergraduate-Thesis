@@ -1,17 +1,19 @@
-import React, { useMemo } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View, Modal } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHeart, faArrowLeft, faArrowRight, faFire } from '@fortawesome/free-solid-svg-icons';
+import {faHeart, faArrowLeft, faArrowRight, faFire, faBrain} from '@fortawesome/free-solid-svg-icons';
+import { Calendar } from 'react-native-calendars';
 
-import styles from './style'; // Import your updated styles
-import ProgressCircle from '../components/DayDetailView/ProgressCircle'; // Adjust the path as necessary
+import styles from './style';
+import ProgressCircle from '../components/DayDetailView/ProgressCircle';
 import data from '../data.json';
 
 const SmartwatchDetailsScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
     const { calendarDate, dayData } = route.params || {};
+    const [isCalendarVisible, setIsCalendarVisible] = useState(false);
 
     if (!dayData) {
         return (
@@ -32,6 +34,35 @@ const SmartwatchDetailsScreen = () => {
         () => allEntries.findIndex(entry => entry.calendarDate === calendarDate),
         [allEntries, calendarDate]
     );
+
+    // Create an object of marked dates for the calendar
+    const markedDates = useMemo(() => {
+        const dates = {};
+        allEntries.forEach(entry => {
+            dates[entry.calendarDate] = {
+                marked: true,
+                dotColor: '#2196F3'
+            };
+        });
+        // Highlight current selected date
+        dates[calendarDate] = {
+            ...dates[calendarDate],
+            selected: true,
+            selectedColor: '#2196F3'
+        };
+        return dates;
+    }, [allEntries, calendarDate]);
+
+    const handleDateSelect = (day) => {
+        const selectedEntry = allEntries.find(entry => entry.calendarDate === day.dateString);
+        if (selectedEntry) {
+            navigation.navigate('SmartwatchDetailsScreen', {
+                calendarDate: selectedEntry.calendarDate,
+                dayData: selectedEntry.data,
+            });
+        }
+        setIsCalendarVisible(false);
+    };
 
     const handlePreviousDay = () => {
         if (currentIndex > 0) {
@@ -59,7 +90,7 @@ const SmartwatchDetailsScreen = () => {
 
     return (
         <View style={styles.container}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 {/* Date with Navigation Arrows */}
                 <View style={styles.dateContainer}>
                     <TouchableOpacity onPress={handlePreviousDay} disabled={currentIndex === 0}>
@@ -70,7 +101,9 @@ const SmartwatchDetailsScreen = () => {
                         />
                     </TouchableOpacity>
 
-                    <Text style={styles.dateText}> Day: {calendarDate} </Text>
+                    <TouchableOpacity onPress={() => setIsCalendarVisible(true)}>
+                        <Text style={styles.dateText}> Day: {calendarDate} </Text>
+                    </TouchableOpacity>
 
                     <TouchableOpacity onPress={handleNextDay} disabled={currentIndex === allEntries.length - 1}>
                         <FontAwesomeIcon
@@ -80,6 +113,39 @@ const SmartwatchDetailsScreen = () => {
                         />
                     </TouchableOpacity>
                 </View>
+
+                {/* Calendar Modal */}
+                <Modal
+                    visible={isCalendarVisible}
+                    transparent={true}
+                    animationType="fade"
+                    onRequestClose={() => setIsCalendarVisible(false)}
+                >
+                    <View style={styles.modalOverlay}>
+                        <View style={styles.calendarContainer}>
+                            <Calendar
+                                markedDates={markedDates}
+                                onDayPress={handleDateSelect}
+                                theme={{
+                                    backgroundColor: '#ffffff',
+                                    calendarBackground: '#ffffff',
+                                    textSectionTitleColor: '#b6c1cd',
+                                    selectedDayBackgroundColor: '#2196F3',
+                                    selectedDayTextColor: '#ffffff',
+                                    todayTextColor: '#2196F3',
+                                    dayTextColor: '#2d4150',
+                                    textDisabledColor: '#d9e1e8',
+                                }}
+                            />
+                            <TouchableOpacity
+                                style={styles.closeButton}
+                                onPress={() => setIsCalendarVisible(false)}
+                            >
+                                <Text style={styles.closeButtonText}>Close</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
 
                 {/* Circles Row */}
                 <View style={styles.StepsFloorsContainer}>
@@ -145,6 +211,36 @@ const SmartwatchDetailsScreen = () => {
                         {dayData.bmrKilocalories} kcal
                     </Text>
                 </View>
+
+
+            {/* Stress Levels in a Styled Box */}
+            <View style={styles.stressBox}>
+                <View style={styles.stressHeader}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <FontAwesomeIcon icon={faBrain} size={24} color="#8E44AD" />
+                        <Text style={styles.stressTitle}> Stress Levels</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => navigation.navigate('StressDetailsScreen', { dayData })}>
+                        <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.stressDetailsContainer}>
+                    <View style={styles.stressDetail}>
+                        <Text style={styles.stressLabel}>Average</Text>
+                        <Text style={styles.stressText}>{dayData.averageStressLevel}</Text>
+                    </View>
+                    <View style={styles.stressDetail}>
+                        <Text style={styles.stressLabel}>Maximum</Text>
+                        <Text style={styles.stressText}>{dayData.maxStressLevel}</Text>
+                    </View>
+                    <View style={styles.stressDetail}>
+                        <Text style={styles.stressLabel}>Duration</Text>
+                        <Text style={styles.stressText}>
+                            {Math.round(dayData.stressDurationInSeconds / 60)} min
+                        </Text>
+                    </View>
+                </View>
+            </View>
             </ScrollView>
 
             {/* See All Button */}
@@ -155,7 +251,8 @@ const SmartwatchDetailsScreen = () => {
                 <Text style={styles.seeAllButtonText}>See All</Text>
             </TouchableOpacity>
         </View>
-    );
+
+);
 };
 
 export default SmartwatchDetailsScreen;

@@ -8,12 +8,57 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         padding: 16,
     },
-    todayContainer: {
-        padding: 16,
-        marginBottom: 16,
-        backgroundColor: '#e6faff',
+    topSection: {
+        alignItems: 'center',
+        paddingTop: '20%',
+    },
+    connectButton: {
+        backgroundColor: '#023457',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
         borderRadius: 8,
+        alignItems: 'center',
+    },
+    connectButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    entryBox: {
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+        borderRadius: 12,
+        padding: 16,
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 4,
+        marginVertical: 12,
+    },
+    todayMargin: {
         marginTop: 40,
+    },
+    entryHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    entryTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    viewDetailsText: {
+        fontSize: 14,
+        color: '#2196F3',
+        fontWeight: 'bold',
+    },
+    entryLabel: {
+        fontSize: 16,
+        color: '#555',
+        marginVertical: 2,
     },
     noTodayContainer: {
         padding: 16,
@@ -21,41 +66,11 @@ export default StyleSheet.create({
         backgroundColor: '#ffe6e6',
         borderRadius: 8,
         alignItems: 'center',
+        marginTop: 40,
     },
     title: {
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 8,
-    },
-    label: {
-        fontSize: 16,
-        marginVertical: 2,
-    },
-    detailButton: {
-        marginTop: 12,
-        backgroundColor: '#2196F3',
-        borderRadius: 4,
-        paddingHorizontal: 10,
-        paddingVertical: 8,
-        alignSelf: 'flex-start',
-    },
-    detailButtonText: {
-        color: '#fff',
-        fontSize: 14,
-    },
-    dayContainer: {
-        backgroundColor: '#fafafa',
-        padding: 12,
-        marginBottom: 8,
-        borderRadius: 8,
-    },
-    dateText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    StepsFloorsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginVertical: 16,
     },
 });

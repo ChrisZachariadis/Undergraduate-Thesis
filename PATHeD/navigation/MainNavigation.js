@@ -25,10 +25,11 @@ import ShlScreen from '../screens/ShlScreen/ShlScreen';
 
 import SmartwatchScreen from "../screens/SmartwatchScreen/GarminDataScreen";
 import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen/SmartwatchDetailsScreen";
-import FloorsDetailsScreen from "../screens/SmartwatchScreen/FloorsDetailsScreen";
-import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen";
+import FloorsDetailsScreen from "../screens/SmartwatchScreen/FloorsDetailsScreen/FloorsDetailsScreen";
+import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen/StepsDetailsScreen";
 import HRDetailsScreen from "../screens/SmartwatchScreen/HRDetailsScreen/HRDetailsScreen";
 import KcalDetailsScreen from "../screens/SmartwatchScreen/KcalDetailsScreen/KcalDetailsScreen";
+import StressDetailsScreen from "../screens/SmartwatchScreen/StressDetailsScreen/StressDetailsScreen";
 
 const ICON_SIZE = scaleFontSize(25);
 const INACTIVE_COLOR = '#A4A4A4';
@@ -107,6 +108,11 @@ export const MyHealthStack = () => {
               name={"KcalDetailsScreen"}
               component={KcalDetailsScreen}
               options={{headerShown: true, headerTitle: 'Kcal Details Data'}}
+          />
+          <stack.Screen
+              name={"StressDetailsScreen"}
+              component={StressDetailsScreen}
+              options={{headerShown: true, headerTitle: 'Stress Details Data'}}
           />
 
 

@@ -1,5 +1,3 @@
-// style.js
-
 import { StyleSheet, Dimensions } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
@@ -7,10 +5,9 @@ const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5', // Slightly off-white for better contrast
+        backgroundColor: '#f5f5f5',
         padding: 16,
     },
-    // Container for Date and Navigation Arrows
     dateContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -18,29 +15,27 @@ export default StyleSheet.create({
         marginBottom: 16,
         marginTop: 40,
     },
-    // Style for the Arrows
     arrow: {
         fontSize: 24,
-        color: '#2196F3',
+        color: '#023457',
         paddingHorizontal: 20,
     },
-    // Style when Arrows are Disabled
     disabledArrow: {
         color: '#ccc',
     },
-    // Style for the Date Text
     dateText: {
         fontSize: 18,
         fontWeight: 'bold',
         color: '#333',
+        paddingHorizontal: 20,
+        textDecorationLine: 'underline',
+        textDecorationColor: '#023457',
     },
-    // Container for Steps and Floors Circles
     StepsFloorsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginVertical: 16,
     },
-    // Frame for the Steps and Floors Circles
     Frame: {
         borderWidth: 0.5,
         borderColor: '#eae9e9',
@@ -52,48 +47,18 @@ export default StyleSheet.create({
         shadowRadius: 4,
         elevation: 2,
     },
-    // Container when No Data is Available
     noDataContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
     },
-    // Text when No Data is Available
     noDataText: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#555',
         textAlign: 'center',
     },
-    // Style for the Detail Button
-    detailButton: {
-        marginTop: 12,
-        backgroundColor: '#2196F3',
-        borderRadius: 4,
-        paddingHorizontal: 10,
-        paddingVertical: 8,
-        alignSelf: 'flex-start',
-    },
-    // Text inside the Detail Button
-    detailButtonText: {
-        color: '#fff',
-        fontSize: 14,
-    },
-    // Container for Each Day in the List
-    dayContainer: {
-        backgroundColor: '#fafafa',
-        padding: 12,
-        marginBottom: 8,
-        borderRadius: 8,
-    },
-    // General Label Style
-    label: {
-        fontSize: 16,
-        marginVertical: 2,
-        color: '#333',
-    },
-    // Style for the Average Heart Rate Box
     heartRateBox: {
         borderWidth: 1,
         borderColor: '#e0e0e0',
@@ -115,7 +80,7 @@ export default StyleSheet.create({
     heartRateTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#D32F2F', // A rich red color for emphasis
+        color: '#D32F2F',
     },
     heartRateText: {
         fontSize: 22,
@@ -123,11 +88,6 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#424242',
     },
-    arrowText: {
-        fontSize: 20,
-        color: '#2196F3',
-    },
-    // Style for the BMR Kilocalories Box
     kcalBox: {
         borderWidth: 1,
         borderColor: '#e0e0e0',
@@ -149,7 +109,7 @@ export default StyleSheet.create({
     kcalTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#FF5722', // A vibrant orange color for the fire theme
+        color: '#FF5722',
     },
     kcalText: {
         fontSize: 22,
@@ -157,20 +117,11 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#424242',
     },
-    // Style for the Chart Title
-    chartTitle: {
-        marginTop: 24,
-        fontWeight: 'bold',
-        fontSize: 18,
-        textAlign: 'center',
-        color: '#333',
-    },
-
     seeAllButton: {
-        position: 'absolute', // Ensures the button stays at the bottom-right
-        bottom: 16, // Adjusts distance from the bottom edge
-        right: 16, // Adjusts distance from the right edge
-        backgroundColor: '#2196F3', // Primary blue color
+        position: 'absolute',
+        bottom: 16,
+        right: 16,
+        backgroundColor: '#023457',
         paddingVertical: 10,
         paddingHorizontal: 16,
         borderRadius: 8,
@@ -185,6 +136,81 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    calendarContainer: {
+        width: '90%',
+        backgroundColor: '#ffffff',
+        borderRadius: 12,
+        padding: 16,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    closeButton: {
+        marginTop: 16,
+        backgroundColor: '#023457',
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    closeButtonText: {
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
 
 
+
+    stressBox: {
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+        borderRadius: 12,
+        padding: 20,
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 4,
+        marginVertical: 16,
+    },
+    stressHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    stressTitle: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#8E44AD',
+    },
+    stressDetailsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8,
+    },
+    stressDetail: {
+        alignItems: 'center',
+        flex: 1,
+    },
+    stressLabel: {
+        fontSize: 14,
+        color: '#666',
+        marginBottom: 4,
+    },
+    stressText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#424242',
+    },
 });
