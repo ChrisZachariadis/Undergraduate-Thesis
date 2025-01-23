@@ -1,5 +1,3 @@
-// GarminDataScreen.js
-
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Pressable, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -88,7 +86,7 @@ const GarminDataScreen = () => {
                                 Floors Climbed: {entry.data.floorsClimbed} / Goal: {entry.data.floorsClimbedGoal}
                             </Text>
                             <Text style={styles.entryLabel}>
-                                Avg Heart Rate: {entry.data.averageHeartRateInBeatsPerMinute || 'N/A'}
+                                Average Heart Rate: {entry.data.averageHeartRateInBeatsPerMinute || 'N/A'}
                             </Text>
                         </View>
                     ))}
