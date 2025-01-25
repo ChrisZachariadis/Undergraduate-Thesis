@@ -54,10 +54,12 @@ export default StyleSheet.create({
         padding: 20,
     },
     noDataText: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
         color: '#555',
         textAlign: 'center',
+        marginBottom: 16,
+        marginTop: 90,
     },
     heartRateBox: {
         borderWidth: 1,

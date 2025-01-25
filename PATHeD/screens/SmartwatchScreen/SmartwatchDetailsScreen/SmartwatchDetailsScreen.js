@@ -16,15 +16,6 @@ const SmartwatchDetailsScreen = () => {
     const [allEntries, setAllEntries] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false); // Tracks if data is fetched
 
-    // 1) If there's no local 'dayData' and we have NOT fetched from the server, show "No data fetched..."
-    if (!dayData && !isDataFetched) {
-        return (
-            <View style={styles.noDataContainer}>
-                <Text style={styles.noDataText}>No data fetched, try to sync</Text>
-            </View>
-        );
-    }
-
     const syncButtonHandler = async () => {
         try {
             const response = await fetch(
@@ -79,12 +70,13 @@ const SmartwatchDetailsScreen = () => {
                 dotColor: '#2196F3',
             };
         });
-        // Highlight current selected date
-        dates[calendarDate] = {
-            ...dates[calendarDate],
-            selected: true,
-            selectedColor: '#2196F3'
-        };
+        if (calendarDate) {
+            dates[calendarDate] = {
+                ...dates[calendarDate],
+                selected: true,
+                selectedColor: '#2196F3',
+            };
+        }
         return dates;
     }, [allEntries, calendarDate]);
 
@@ -127,11 +119,17 @@ const SmartwatchDetailsScreen = () => {
         <View style={styles.container}>
             {/* If data has not been fetched yet, show Sync button at top-right */}
             {!isDataFetched ? (
-                <View style={styles.syncButtonContainer}>
-                    <TouchableOpacity onPress={syncButtonHandler} style={styles.syncButton}>
-                        <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
-                    </TouchableOpacity>
-                </View>
+                <>
+                    {/* Display the message when there's no data */}
+                    <Text style={styles.noDataText}>
+                        No data available. Please sync to load data.
+                    </Text>
+                    <View style={styles.syncButtonContainer}>
+                        <TouchableOpacity onPress={syncButtonHandler} style={styles.syncButton}>
+                            <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
+                        </TouchableOpacity>
+                    </View>
+                </>
             ) : (
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {/* Date with Navigation Arrows */}
