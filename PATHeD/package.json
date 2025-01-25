@@ -57,7 +57,7 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^10.2.0",
-    "react-native-webview": "^13.12.5",
+    "react-native-webview": "^13.13.1",
     "react-native-wheel-scrollview-picker": "^2.0.4",
     "recoil": "^0.7.7",
     "victory-native": "^41.16.0"

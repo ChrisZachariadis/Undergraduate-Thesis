@@ -39,12 +39,10 @@ const HRDetailsScreen = () => {
     // State for the tooltip
     // ------------------------------------
     const [tooltipPos, setTooltipPos] = useState({
-        x: 0,
-        y: 0,
+        x: 0, // Dynamic x position
         visible: false,
         value: 0,
         label: '',
-        pointerDirection: 'down', // 'up' or 'down'
     });
 
     const [tooltipSize, setTooltipSize] = useState({ width: 0, height: 0 });
@@ -58,7 +56,7 @@ const HRDetailsScreen = () => {
             toValue: visible ? 1 : 0,
             duration: 300, // Duration of animation
             useNativeDriver: true,
-            easing: visible ? Easing.out(Easing.ease) : Easing.in(Easing.ease),
+            easing: Easing.out(Easing.ease),
         }).start();
     };
 
@@ -233,68 +231,28 @@ const HRDetailsScreen = () => {
     // ==========================================
     // 5) Tooltip click handler
     // ==========================================
-    const handleDataPointClick = ({ value, index, x, y }) => {
-        if (selectedRange === '1d') {
-            const hour = fullHours[index];
+    const handleDataPointClick = ({ value, index, x }) => {
+        const tooltipWidth = 120; // Adjusted width for better display
+        const fixedY = -60; // Fixed y position above the chart
 
-            const tooltipWidth = 120; // Adjusted width for better display
-            const tooltipHeight = 50; // Adjusted height for better display
+        let adjustedX = x - tooltipWidth / 2;
 
-            let adjustedX = x - tooltipWidth / 2;
-            let adjustedY = y - tooltipHeight - 10; // 10 pixels above the data point
-            let pointerDirection = 'down'; // Default direction
+        // Ensure the tooltip doesn't go off the left edge
+        if (adjustedX < 0) adjustedX = 0;
 
-            // Ensure the tooltip doesn't go off the left edge
-            if (adjustedX < 0) adjustedX = 0;
+        // Ensure the tooltip doesn't go off the right edge
+        if (adjustedX + tooltipWidth > screenWidth) adjustedX = screenWidth - tooltipWidth;
 
-            // Ensure the tooltip doesn't go off the right edge
-            if (adjustedX + tooltipWidth > screenWidth) adjustedX = screenWidth - tooltipWidth;
+        // Set tooltip position with fixed y and dynamic x
+        setTooltipPos({
+            x: adjustedX,
+            visible: true,
+            value,
+            label: selectedRange === '1d' ? `Hour ${fullHours[index]}:00` : labels[index],
+        });
 
-            // Ensure the tooltip doesn't go above the top edge
-            if (adjustedY < 0) {
-                adjustedY = y + 10; // Position below the data point
-                pointerDirection = 'up';
-            }
-
-            setTooltipPos({
-                x: adjustedX,
-                y: adjustedY,
-                visible: true,
-                value,
-                label: `Hour ${hour}:00`,
-                pointerDirection, // 'up' or 'down'
-            });
-
-            // Trigger fade-in animation
-            handleFadeAnimation(true);
-        } else {
-            // For 7d and 1m ranges, use the label as is
-            const tooltipWidth = 120;
-            const tooltipHeight = 50;
-
-            let adjustedX = x - tooltipWidth / 2;
-            let adjustedY = y - tooltipHeight - 10;
-            let pointerDirection = 'down';
-
-            if (adjustedX < 0) adjustedX = 0;
-            if (adjustedX + tooltipWidth > screenWidth) adjustedX = screenWidth - tooltipWidth;
-            if (adjustedY < 0) {
-                adjustedY = y + 10;
-                pointerDirection = 'up';
-            }
-
-            setTooltipPos({
-                x: adjustedX,
-                y: adjustedY,
-                visible: true,
-                value,
-                label: `${labels[index]}`,
-                pointerDirection,
-            });
-
-            // Trigger fade-in animation
-            handleFadeAnimation(true);
-        }
+        // Trigger fade-in animation
+        handleFadeAnimation(true);
     };
 
     // ==========================================
@@ -377,71 +335,67 @@ const HRDetailsScreen = () => {
                         ))}
                     </View>
 
-                    {heartRateChartData.datasets[0].data.some((hr) => hr !== 0) ? (
-                        isLineChart ? (
-                            <LineChart
-                                data={heartRateChartData}
-                                width={screenWidth}
-                                height={300} // Increased height for better visibility
-                                chartConfig={chartConfig}
-                                fromZero={true}
-                                bezier
-                                segments={4}
-                                style={styles.chartContainer}
-                                onDataPointClick={handleDataPointClick}
-                            />
+                    {/* =====================================
+                        7) Chart Wrapper with Tooltip
+                    ===================================== */}
+                    <View style={styles.chartWrapper}>
+                        {tooltipPos.visible && (
+                            <Animated.View
+                                style={[
+                                    styles.tooltipContainer,
+                                    {
+                                        left: tooltipPos.x,
+                                        // top is fixed in styles.tooltipContainer
+                                        opacity: fadeAnim, // Bind opacity to animated value
+                                    },
+                                ]}
+                                onLayout={(event) => {
+                                    const { width, height } = event.nativeEvent.layout;
+                                    setTooltipSize({ width, height });
+                                }}
+                            >
+                                <Text style={styles.tooltipText}>
+                                    {tooltipPos.label}: {tooltipPos.value} bpm
+                                </Text>
+                                <View style={styles.tooltipPointer} />
+                            </Animated.View>
+                        )}
+                        {heartRateChartData.datasets[0].data.some((hr) => hr !== 0) ? (
+                            isLineChart ? (
+                                <LineChart
+                                    data={heartRateChartData}
+                                    width={screenWidth}
+                                    height={400} // Increased height for better visibility
+                                    chartConfig={chartConfig}
+                                    fromZero={true}
+                                    bezier
+                                    segments={4}
+                                    style={styles.chartContainer}
+                                    onDataPointClick={handleDataPointClick}
+                                />
+                            ) : (
+                                <BarChart
+                                    data={heartRateChartData}
+                                    width={screenWidth}
+                                    height={300} // Increased height for better visibility
+                                    fromZero={true}
+                                    showValuesOnTopOfBars={true}
+                                    chartConfig={chartConfig}
+                                    style={styles.chartContainer}
+                                    onDataPointClick={handleDataPointClick}
+                                />
+                            )
                         ) : (
-                            <BarChart
-                                data={heartRateChartData}
-                                width={screenWidth}
-                                height={300} // Increased height for better visibility
-                                yAxisSuffix=" bpm"
-                                fromZero={true}
-                                showValuesOnTopOfBars={true}
-                                chartConfig={chartConfig}
-                                style={styles.chartContainer}
-                                onDataPointClick={handleDataPointClick}
-                            />
-                        )
-                    ) : (
-                        <View style={styles.noDataContainer}>
-                            <Text style={styles.noDataText}>
-                                No heart rate data available for this period.
-                            </Text>
-                        </View>
-                    )}
+                            <View style={styles.noDataContainer}>
+                                <Text style={styles.noDataText}>
+                                    No heart rate data available for this period.
+                                </Text>
+                            </View>
+                        )}
+                    </View>
                 </ScrollView>
 
-                {/* =====================================
-            8) Tooltip (small floating bubble)
-           ===================================== */}
-                {tooltipPos.visible && (
-                    <Animated.View
-                        style={[
-                            styles.tooltipContainer,
-                            {
-                                position: 'absolute',
-                                left: tooltipPos.x,
-                                top: tooltipPos.y,
-                                opacity: fadeAnim, // Bind opacity to animated value
-                            },
-                        ]}
-                        onLayout={(event) => {
-                            const { width, height } = event.nativeEvent.layout;
-                            setTooltipSize({ width, height });
-                        }}
-                    >
-                        <Text style={styles.tooltipText}>
-                            {tooltipPos.label}: {tooltipPos.value} bpm
-                        </Text>
-                        <View
-                            style={[
-                                styles.tooltipPointer,
-                                tooltipPos.pointerDirection === 'up' ? styles.pointerUp : styles.pointerDown,
-                            ]}
-                        />
-                    </Animated.View>
-                )}
+                {/* Tooltip is now inside the chartWrapper, so no need to render it here */}
             </View>
         </TouchableWithoutFeedback>
     );

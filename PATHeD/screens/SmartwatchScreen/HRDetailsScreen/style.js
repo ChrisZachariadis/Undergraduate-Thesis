@@ -1,7 +1,8 @@
 // style.js
 import { StyleSheet, Dimensions } from 'react-native';
 
-const screenWidth = Dimensions.get('window').width;
+const containerPadding = 16;
+const screenWidth = Dimensions.get('window').width - containerPadding * 2; // Adjusted for container padding
 
 export default StyleSheet.create({
     container: {
@@ -73,6 +74,13 @@ export default StyleSheet.create({
         marginRight: 8,
     },
     // Chart Styles
+    chartWrapper: {
+        position: 'relative',
+        width: screenWidth,
+        height: 400, // Match the chart's height
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     chartContainer: {
         marginVertical: 16,
         borderRadius: 8,
@@ -92,24 +100,23 @@ export default StyleSheet.create({
     },
     // Tooltip Styles
     tooltipContainer: {
+        position: 'absolute',
+        top: -60, // Fixed y position above the chart
+        width: 120, // Fixed width for the tooltip
         backgroundColor: '#fff',
-        paddingVertical: 8,
-        paddingHorizontal: 12,
-        borderRadius: 6,
         borderWidth: 1,
         borderColor: '#888',
-
-        // Shadow (iOS)
+        borderRadius: 6,
+        padding: 8,
+        // Shadow on iOS
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
         shadowRadius: 4,
-
-        // Elevation (Android)
+        // Elevation on Android
         elevation: 4,
-
-        // Align items to center for pointer
         alignItems: 'center',
+        zIndex: 1000, // Ensure the tooltip is above other elements
     },
     tooltipText: {
         color: '#000',
@@ -117,22 +124,19 @@ export default StyleSheet.create({
         fontSize: 14,
     },
     tooltipPointer: {
+        position: 'absolute',
+        bottom: -6, // Position the pointer at the bottom of the tooltip
+        left: '50%',
+        marginLeft: -6, // Half of the pointer's width to center it
         width: 0,
         height: 0,
         borderLeftWidth: 6,
         borderRightWidth: 6,
-        // borderTopWidth or borderBottomWidth will be set dynamically
+        borderTopWidth: 6,
+        borderStyle: 'solid',
+        backgroundColor: 'transparent',
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
-    },
-    pointerUp: {
-        borderBottomWidth: 10,
-        borderBottomColor: '#888',
-        marginTop: 2,
-    },
-    pointerDown: {
-        borderTopWidth: 10,
         borderTopColor: '#888',
-        marginTop: 2,
     },
 });
