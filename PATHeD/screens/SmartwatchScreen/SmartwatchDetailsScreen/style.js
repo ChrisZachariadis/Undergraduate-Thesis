@@ -168,9 +168,6 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-
-
-
     stressBox: {
         borderWidth: 1,
         borderColor: '#e0e0e0',
@@ -212,5 +209,22 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#424242',
+    },
+    syncButtonContainer: {
+        position: 'absolute',
+        top: 10, // adjust as needed
+        right: 16,
+        zIndex: 10,
+    },
+    syncButton: {
+        backgroundColor: '#023457',
+        padding: 12,
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 4,
     },
 });

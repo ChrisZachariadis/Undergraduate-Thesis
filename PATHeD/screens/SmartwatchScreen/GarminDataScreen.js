@@ -1,30 +1,27 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, Pressable, Linking, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState} from 'react';
+import {View, Text, ScrollView, Pressable, Linking, Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 // Import your styles, etc.
 import styles from './style';
 
 const GarminDataScreen = () => {
     const navigation = useNavigation();
-    // Track if the user is "connected" (meaning they've logged in or at least attempted)
-    const [isConnected, setIsConnected] = useState(false);
-    // Store fetched data here
-    const [garminData, setGarminData] = useState(null);
+    const [isConnected, setIsConnected] = useState(false); // Track connection state
+    const [garminData, setGarminData] = useState(null); // Store fetched data
+    const [isDataFetched, setIsDataFetched] = useState(false); // Track if data is fetched
 
-    // STEP 1: Open Garmin login page
+    // Open Garmin Connect login page
     const handleGarminConnect = () => {
         Linking.openURL(
             'https://garmin-ucy.3ahealth.com/garmin/login?userId=3cdf364a-da5b-453f-b0e7-6983f2f1e310'
         );
-        // Suppose we set isConnected to true after user clicks (or after successful OAuth callback)
-        setIsConnected(true);
+        setIsConnected(true); // Assume connection after user clicks
     };
 
-    // STEP 2: Fetch data from Garmin's endpoint (if user is "connected")
+    // Fetch data from Garmin endpoint
     const handleFetchGarminData = async () => {
         try {
-            // You can guard against not being connected:
             if (!isConnected) {
                 Alert.alert('Not connected', 'Please connect Garmin first.');
                 return;
@@ -59,6 +56,7 @@ const GarminDataScreen = () => {
 
             // If successful, store in state
             setGarminData(data);
+            setIsDataFetched(true); // Mark data as successfully fetched
             Alert.alert('Success', 'Garmin data loaded successfully!');
         } catch (error) {
             console.error('Garmin fetch error:', error);
@@ -77,7 +75,7 @@ const GarminDataScreen = () => {
         const entries = garminData.data || [];
 
         return (
-            <ScrollView>
+            <ScrollView style = {{ marginTop: 40}}>
                 {entries.map((entry, index) => (
                     <View key={index} style={styles.entryBox}>
                         <View style={styles.entryHeader}>
@@ -112,26 +110,27 @@ const GarminDataScreen = () => {
 
     return (
         <View style={styles.container}>
-            {/* Show Garmin Connect button if not connected */}
-            {!isConnected && (
+            {/* Show Garmin Connect and Fetch Data buttons if data is not fetched */}
+            {!isDataFetched && (
                 <View style={styles.topSection}>
-                    <Pressable style={styles.connectButton} onPress={handleGarminConnect}>
-                        <Text style={styles.connectButtonText}>Garmin Connect</Text>
-                    </Pressable>
+                    {/* Garmin Connect Button */}
+                    {!isConnected && (
+                        <Pressable style={styles.connectButton} onPress={handleGarminConnect}>
+                            <Text style={styles.connectButtonText}>Garmin Connect</Text>
+                        </Pressable>
+                    )}
+
+                    {/* Fetch Garmin Data Button */}
+                    {isConnected && (
+                        <Pressable style={styles.connectButton} onPress={handleFetchGarminData}>
+                            <Text style={styles.connectButtonText}>Fetch Garmin Data</Text>
+                        </Pressable>
+                    )}
                 </View>
             )}
 
-            {/* Add a button to fetch Garmin data once "connected" */}
-            {isConnected && (
-                <View style={styles.topSection}>
-                    <Pressable style={styles.connectButton} onPress={handleFetchGarminData}>
-                        <Text style={styles.connectButtonText}>Fetch Garmin Data</Text>
-                    </Pressable>
-                </View>
-            )}
-
-            {/* Render the fetched data */}
-            {renderGarminData()}
+            {/* Display fetched data */}
+            {isDataFetched && renderGarminData()}
         </View>
     );
 };

@@ -11,6 +11,7 @@ export default StyleSheet.create({
     topSection: {
         alignItems: 'center',
         paddingTop: '20%',
+        marginBottom: 20, // Adds spacing between Garmin Connect and Fetch Data buttons
     },
     connectButton: {
         backgroundColor: '#023457',
@@ -18,6 +19,7 @@ export default StyleSheet.create({
         paddingHorizontal: 16,
         borderRadius: 8,
         alignItems: 'center',
+        marginBottom: 10, // Adds spacing between the two buttons
     },
     connectButtonText: {
         color: '#fff',

@@ -1,35 +1,70 @@
 import React, { useMemo, useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View, Modal } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View, Modal, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {faHeart, faArrowLeft, faArrowRight, faFire, faBrain} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faArrowLeft, faArrowRight, faFire, faBrain, faSync } from '@fortawesome/free-solid-svg-icons';
 import { Calendar } from 'react-native-calendars';
 
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
-import data from '../data.json';
 
 const SmartwatchDetailsScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
     const { calendarDate, dayData } = route.params || {};
     const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+    const [allEntries, setAllEntries] = useState([]);
+    const [isDataFetched, setIsDataFetched] = useState(false); // Tracks if data is fetched
 
-    if (!dayData) {
+    // 1) If there's no local 'dayData' and we have NOT fetched from the server, show "No data fetched..."
+    if (!dayData && !isDataFetched) {
         return (
             <View style={styles.noDataContainer}>
-                <Text style={styles.noDataText}>No data available</Text>
+                <Text style={styles.noDataText}>No data fetched, try to sync</Text>
             </View>
         );
     }
 
-    const stepsGoal = dayData.stepsGoal || 1;
-    const stepsProgress = dayData.steps / stepsGoal;
+    const syncButtonHandler = async () => {
+        try {
+            const response = await fetch(
+                'https://garmin-ucy.3ahealth.com/garmin/dailies?garminUserId=3cdf364a-da5b-453f-b0e7-6983f2f1e310',
+                {
+                    method: 'GET',
+                    headers: {
+                        Cookie: 'garmin-ucy-3ahealth=MTczNzQ3MjUwNXxEWDhFQVFMX2dBQUJFQUVRQUFEX2dQLUFBQUlHYzNSeWFXNW5EQmdBRm1kaGNtMXBibFJ2YTJWdVEzSmxaR1Z1ZEdsaGJITXNaMmwwYUhWaUxtTnZiUzluYjIxdlpIVnNaUzl2WVhWMGFERXZiMkYxZEdndVEzSmxaR1Z1ZEdsaGJIUF9nUU1CQVF0RGNtVmtaVzUwYVdGc2N3SF9nZ0FCQWdFRlZHOXJaVzRCREFBQkJsTmxZM0psZEFFTUFBQUFfNVhfZ2t3QkpEQm1aak13TVRFMUxXTmhNMlF0TkdSa1lTMDROalk0TFRBMVkyWTNOMk5rWldFd1l3RWpkbGxMU1RObVluQTNjRE5tVFdGUFp6Smlla0pSY2sxUmRIcGpSelJhWWpaVU9UUUFCbk4wY21sdVp3d09BQXhuWVhKdGFXNVZjMlZ5U1dRR2MzUnlhVzVuRENZQUpESmtZVFUzTldGakxUZGxOVFl0TkdFM09TMDVZbU5tTFRjNE9ESXhNekE1Tm1Fd05RPT18Q4_2DsOo6upcxw-wAzxfsEyqj38A3pYs7y27CmMQ85Y=',
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
 
-    const floorsGoal = dayData.floorsClimbedGoal || 1;
-    const floorsProgress = dayData.floorsClimbed / floorsGoal;
+            if (!response.ok) {
+                Alert.alert('Error', `Failed to fetch data: ${response.status}`);
+                return;
+            }
 
-    const allEntries = useMemo(() => data.data, []);
+            const data = await response.json();
+
+            if (data.error) {
+                Alert.alert('Error', data.error);
+                return;
+            }
+
+            setAllEntries(data.data || []); // Update the fetched entries
+            setIsDataFetched(true); // Mark data as successfully fetched
+            Alert.alert('Success', 'Garmin data loaded successfully!');
+        } catch (error) {
+            console.error('Garmin fetch error:', error);
+            Alert.alert('Error', error.message);
+        }
+    };
+
+    const stepsGoal = dayData?.stepsGoal || 1;
+    const stepsProgress = dayData?.steps / stepsGoal;
+
+    const floorsGoal = dayData?.floorsClimbedGoal || 1;
+    const floorsProgress = dayData?.floorsClimbed / floorsGoal;
+
     const currentIndex = useMemo(
         () => allEntries.findIndex(entry => entry.calendarDate === calendarDate),
         [allEntries, calendarDate]
@@ -41,7 +76,7 @@ const SmartwatchDetailsScreen = () => {
         allEntries.forEach(entry => {
             dates[entry.calendarDate] = {
                 marked: true,
-                dotColor: '#2196F3'
+                dotColor: '#2196F3',
             };
         });
         // Highlight current selected date
@@ -90,169 +125,178 @@ const SmartwatchDetailsScreen = () => {
 
     return (
         <View style={styles.container}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                {/* Date with Navigation Arrows */}
-                <View style={styles.dateContainer}>
-                    <TouchableOpacity onPress={handlePreviousDay} disabled={currentIndex === 0}>
-                        <FontAwesomeIcon
-                            icon={faArrowLeft}
-                            size={24}
-                            color={currentIndex === 0 ? 'gray' : 'black'}
-                        />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => setIsCalendarVisible(true)}>
-                        <Text style={styles.dateText}> Day: {calendarDate} </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={handleNextDay} disabled={currentIndex === allEntries.length - 1}>
-                        <FontAwesomeIcon
-                            icon={faArrowRight}
-                            size={24}
-                            color={currentIndex === allEntries.length - 1 ? 'gray' : 'black'}
-                        />
+            {/* If data has not been fetched yet, show Sync button at top-right */}
+            {!isDataFetched ? (
+                <View style={styles.syncButtonContainer}>
+                    <TouchableOpacity onPress={syncButtonHandler} style={styles.syncButton}>
+                        <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
                     </TouchableOpacity>
                 </View>
-
-                {/* Calendar Modal */}
-                <Modal
-                    visible={isCalendarVisible}
-                    transparent={true}
-                    animationType="fade"
-                    onRequestClose={() => setIsCalendarVisible(false)}
-                >
-                    <View style={styles.modalOverlay}>
-                        <View style={styles.calendarContainer}>
-                            <Calendar
-                                markedDates={markedDates}
-                                onDayPress={handleDateSelect}
-                                theme={{
-                                    backgroundColor: '#ffffff',
-                                    calendarBackground: '#ffffff',
-                                    textSectionTitleColor: '#b6c1cd',
-                                    selectedDayBackgroundColor: '#2196F3',
-                                    selectedDayTextColor: '#ffffff',
-                                    todayTextColor: '#2196F3',
-                                    dayTextColor: '#2d4150',
-                                    textDisabledColor: '#d9e1e8',
-                                }}
+            ) : (
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    {/* Date with Navigation Arrows */}
+                    <View style={styles.dateContainer}>
+                        <TouchableOpacity onPress={handlePreviousDay} disabled={currentIndex === 0}>
+                            <FontAwesomeIcon
+                                icon={faArrowLeft}
+                                size={24}
+                                color={currentIndex === 0 ? 'gray' : 'black'}
                             />
-                            <TouchableOpacity
-                                style={styles.closeButton}
-                                onPress={() => setIsCalendarVisible(false)}
-                            >
-                                <Text style={styles.closeButtonText}>Close</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => setIsCalendarVisible(true)}>
+                            <Text style={styles.dateText}> Day: {calendarDate} </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={handleNextDay} disabled={currentIndex === allEntries.length - 1}>
+                            <FontAwesomeIcon
+                                icon={faArrowRight}
+                                size={24}
+                                color={currentIndex === allEntries.length - 1 ? 'gray' : 'black'}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Calendar Modal */}
+                    <Modal
+                        visible={isCalendarVisible}
+                        transparent={true}
+                        animationType="fade"
+                        onRequestClose={() => setIsCalendarVisible(false)}
+                    >
+                        <View style={styles.modalOverlay}>
+                            <View style={styles.calendarContainer}>
+                                <Calendar
+                                    markedDates={markedDates}
+                                    onDayPress={handleDateSelect}
+                                    theme={{
+                                        backgroundColor: '#ffffff',
+                                        calendarBackground: '#ffffff',
+                                        textSectionTitleColor: '#b6c1cd',
+                                        selectedDayBackgroundColor: '#2196F3',
+                                        selectedDayTextColor: '#ffffff',
+                                        todayTextColor: '#2196F3',
+                                        dayTextColor: '#2d4150',
+                                        textDisabledColor: '#d9e1e8',
+                                    }}
+                                />
+                                <TouchableOpacity
+                                    style={styles.closeButton}
+                                    onPress={() => setIsCalendarVisible(false)}
+                                >
+                                    <Text style={styles.closeButtonText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    {/* Circles Row */}
+                    <View style={styles.StepsFloorsContainer}>
+                        <View style={styles.Frame}>
+                            <ProgressCircle
+                                title="Steps"
+                                progress={stepsProgress}
+                                value={dayData.steps}
+                                goal={dayData.stepsGoal}
+                                color="#0C6C79"
+                                onPress={() =>
+                                    navigation.navigate('StepsDetailsScreen', { dayData })
+                                }
+                                size={120}
+                                unit="steps"
+                            />
+                        </View>
+
+                        <View style={styles.Frame}>
+                            <ProgressCircle
+                                title="Floors Climbed"
+                                progress={floorsProgress}
+                                value={dayData.floorsClimbed}
+                                goal={dayData.floorsClimbedGoal}
+                                color="#4CAF50"
+                                onPress={() =>
+                                    navigation.navigate('FloorsDetailsScreen', { dayData })
+                                }
+                                size={120}
+                                unit="floors"
+                            />
+                        </View>
+                    </View>
+
+                    {/* Average Heart Rate in a Rectangle Box */}
+                    <View style={styles.heartRateBox}>
+                        <View style={styles.heartRateHeader}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <FontAwesomeIcon icon={faHeart} size={24} color="red" />
+                                <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
+                            </View>
+                            <TouchableOpacity onPress={() => navigation.navigate('HRDetailsScreen', { dayData })}>
+                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
                             </TouchableOpacity>
                         </View>
-                    </View>
-                </Modal>
-
-                {/* Circles Row */}
-                <View style={styles.StepsFloorsContainer}>
-                    <View style={styles.Frame}>
-                        <ProgressCircle
-                            title="Steps"
-                            progress={stepsProgress}
-                            value={dayData.steps}
-                            goal={dayData.stepsGoal}
-                            color="#0C6C79"
-                            onPress={() =>
-                                navigation.navigate('StepsDetailsScreen', { dayData })
-                            }
-                            size={120}
-                            unit="steps"
-                        />
-                    </View>
-
-                    <View style={styles.Frame}>
-                        <ProgressCircle
-                            title="Floors Climbed"
-                            progress={floorsProgress}
-                            value={dayData.floorsClimbed}
-                            goal={dayData.floorsClimbedGoal}
-                            color="#4CAF50"
-                            onPress={() =>
-                                navigation.navigate('FloorsDetailsScreen', { dayData })
-                            }
-                            size={120}
-                            unit="floors"
-                        />
-                    </View>
-                </View>
-
-                {/* Average Heart Rate in a Rectangle Box */}
-                <View style={styles.heartRateBox}>
-                    <View style={styles.heartRateHeader}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <FontAwesomeIcon icon={faHeart} size={24} color="red" />
-                            <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => navigation.navigate('HRDetailsScreen', { dayData })}>
-                            <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
-                        </TouchableOpacity>
-                    </View>
-                    <Text style={styles.heartRateText}>
-                        {dayData.averageHeartRateInBeatsPerMinute} bpm
-                    </Text>
-                </View>
-
-                {/* BMR Kilocalories in a Styled Box */}
-                <View style={styles.kcalBox}>
-                    <View style={styles.kcalHeader}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <FontAwesomeIcon icon={faFire} size={24} color="orange" />
-                            <Text style={styles.kcalTitle}> BMR Kilocalories</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => navigation.navigate('KcalDetailsScreen', { dayData })}>
-                            <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
-                        </TouchableOpacity>
-                    </View>
-                    <Text style={styles.kcalText}>
-                        {dayData.bmrKilocalories} kcal
-                    </Text>
-                </View>
-
-
-            {/* Stress Levels in a Styled Box */}
-            <View style={styles.stressBox}>
-                <View style={styles.stressHeader}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <FontAwesomeIcon icon={faBrain} size={24} color="#8E44AD" />
-                        <Text style={styles.stressTitle}> Stress Levels</Text>
-                    </View>
-                    <TouchableOpacity onPress={() => navigation.navigate('StressDetailsScreen', { dayData })}>
-                        <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.stressDetailsContainer}>
-                    <View style={styles.stressDetail}>
-                        <Text style={styles.stressLabel}>Average</Text>
-                        <Text style={styles.stressText}>{dayData.averageStressLevel}</Text>
-                    </View>
-                    <View style={styles.stressDetail}>
-                        <Text style={styles.stressLabel}>Maximum</Text>
-                        <Text style={styles.stressText}>{dayData.maxStressLevel}</Text>
-                    </View>
-                    <View style={styles.stressDetail}>
-                        <Text style={styles.stressLabel}>Duration</Text>
-                        <Text style={styles.stressText}>
-                            {Math.round(dayData.stressDurationInSeconds / 60)} min
+                        <Text style={styles.heartRateText}>
+                            {dayData.averageHeartRateInBeatsPerMinute} bpm
                         </Text>
                     </View>
-                </View>
-            </View>
-            </ScrollView>
+
+                    {/* BMR Kilocalories in a Styled Box */}
+                    <View style={styles.kcalBox}>
+                        <View style={styles.kcalHeader}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <FontAwesomeIcon icon={faFire} size={24} color="orange" />
+                                <Text style={styles.kcalTitle}> BMR Kilocalories</Text>
+                            </View>
+                            <TouchableOpacity onPress={() => navigation.navigate('KcalDetailsScreen', { dayData })}>
+                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={styles.kcalText}>
+                            {dayData.bmrKilocalories} kcal
+                        </Text>
+                    </View>
+
+                    {/* Stress Levels in a Styled Box */}
+                    <View style={styles.stressBox}>
+                        <View style={styles.stressHeader}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <FontAwesomeIcon icon={faBrain} size={24} color="#8E44AD" />
+                                <Text style={styles.stressTitle}> Stress Levels</Text>
+                            </View>
+                            <TouchableOpacity onPress={() => navigation.navigate('StressDetailsScreen', { dayData })}>
+                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.stressDetailsContainer}>
+                            <View style={styles.stressDetail}>
+                                <Text style={styles.stressLabel}>Average</Text>
+                                <Text style={styles.stressText}>{dayData.averageStressLevel}</Text>
+                            </View>
+                            <View style={styles.stressDetail}>
+                                <Text style={styles.stressLabel}>Maximum</Text>
+                                <Text style={styles.stressText}>{dayData.maxStressLevel}</Text>
+                            </View>
+                            <View style={styles.stressDetail}>
+                                <Text style={styles.stressLabel}>Duration</Text>
+                                <Text style={styles.stressText}>
+                                    {Math.round(dayData.stressDurationInSeconds / 60)} min
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </ScrollView>
+            )}
 
             {/* See All Button */}
-            <TouchableOpacity
-                style={styles.seeAllButton}
-                onPress={() => navigation.navigate('SmartwatchScreen')}
-            >
-                <Text style={styles.seeAllButtonText}>See All</Text>
-            </TouchableOpacity>
+            {isDataFetched && (
+                <TouchableOpacity
+                    style={styles.seeAllButton}
+                    onPress={() => navigation.navigate('SmartwatchScreen')}
+                >
+                    <Text style={styles.seeAllButtonText}>See All</Text>
+                </TouchableOpacity>
+            )}
         </View>
-
-);
+    );
 };
 
 export default SmartwatchDetailsScreen;
