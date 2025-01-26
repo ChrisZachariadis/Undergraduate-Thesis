@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View, Modal, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHeart, faArrowLeft, faArrowRight, faFire, faBrain, faSync } from '@fortawesome/free-solid-svg-icons';
 import { Calendar } from 'react-native-calendars';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
@@ -16,6 +17,24 @@ const SmartwatchDetailsScreen = () => {
     const [allEntries, setAllEntries] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false); // Tracks if data is fetched
 
+    // Function to load cached data
+    const loadCachedData = async () => {
+        try {
+            const cachedData = await AsyncStorage.getItem('@garminData');
+            if (cachedData) {
+                const parsedData = JSON.parse(cachedData);
+                setAllEntries(parsedData.data || []);
+                setIsDataFetched(true);
+                console.log('Cached data loaded successfully.');
+            } else {
+                console.log('No cached data found.');
+            }
+        } catch (error) {
+            console.error('Error loading cached data:', error);
+        }
+    };
+
+    // Sync Button Handler to fetch new data and update the cache
     const syncButtonHandler = async () => {
         try {
             const response = await fetch(
@@ -43,12 +62,20 @@ const SmartwatchDetailsScreen = () => {
 
             setAllEntries(data.data || []); // Update the fetched entries
             setIsDataFetched(true); // Mark data as successfully fetched
-            Alert.alert('Success', 'Garmin data loaded successfully!');
+
+            // Save the new data to AsyncStorage
+            await AsyncStorage.setItem('@garminData', JSON.stringify(data));
+            Alert.alert('Success', 'Garmin data synced and cached successfully!');
         } catch (error) {
             console.error('Garmin fetch error:', error);
             Alert.alert('Error', error.message);
         }
     };
+
+    // Load cached data on component mount
+    useEffect(() => {
+        loadCachedData();
+    }, []);
 
     const stepsGoal = dayData?.stepsGoal || 1;
     const stepsProgress = dayData?.steps / stepsGoal;
@@ -120,10 +147,7 @@ const SmartwatchDetailsScreen = () => {
             {/* If data has not been fetched yet, show Sync button at top-right */}
             {!isDataFetched ? (
                 <>
-                    {/* Display the message when there's no data */}
-                    <Text style={styles.noDataText}>
-                        No data available. Please sync to load data.
-                    </Text>
+                    <Text style={styles.noDataText}>No data available. Please sync to load data.</Text>
                     <View style={styles.syncButtonContainer}>
                         <TouchableOpacity onPress={syncButtonHandler} style={styles.syncButton}>
                             <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
@@ -284,15 +308,13 @@ const SmartwatchDetailsScreen = () => {
                 </ScrollView>
             )}
 
-            {/* See All Button */}
-            {isDataFetched && (
-                <TouchableOpacity
-                    style={styles.seeAllButton}
-                    onPress={() => navigation.navigate('SmartwatchScreen')}
-                >
-                    <Text style={styles.seeAllButtonText}>See All</Text>
-                </TouchableOpacity>
-            )}
+            {/* Sync Button to refresh the data */}
+            <TouchableOpacity
+                style={styles.syncButton}
+                onPress={syncButtonHandler}
+            >
+                <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
+            </TouchableOpacity>
         </View>
     );
 };
