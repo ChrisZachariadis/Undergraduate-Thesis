@@ -1,12 +1,9 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const screenWidth = Dimensions.get('window').width;
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f5f5f5',
-        padding: 16,
     },
     dateContainer: {
         flexDirection: 'row',
@@ -34,7 +31,7 @@ export default StyleSheet.create({
     StepsFloorsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginVertical: 16,
+        marginVertical: 8,
     },
     Frame: {
         borderWidth: 0.5,
@@ -61,18 +58,6 @@ export default StyleSheet.create({
         marginBottom: 16,
         marginTop: 90,
     },
-    heartRateBox: {
-        borderWidth: 1,
-        borderColor: '#e0e0e0',
-        borderRadius: 12,
-        padding: 20,
-        backgroundColor: '#ffffff',
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-        marginVertical: 16,
-    },
     heartRateHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -90,18 +75,6 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#424242',
     },
-    kcalBox: {
-        borderWidth: 1,
-        borderColor: '#e0e0e0',
-        borderRadius: 12,
-        padding: 20,
-        backgroundColor: '#ffffff',
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-        marginVertical: 16,
-    },
     kcalHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -118,25 +91,6 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#424242',
-    },
-    seeAllButton: {
-        position: 'absolute',
-        bottom: 16,
-        right: 16,
-        backgroundColor: '#023457',
-        paddingVertical: 10,
-        paddingHorizontal: 16,
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 4,
-    },
-    seeAllButtonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
     },
     modalOverlay: {
         flex: 1,
@@ -170,18 +124,6 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-    stressBox: {
-        borderWidth: 1,
-        borderColor: '#e0e0e0',
-        borderRadius: 12,
-        padding: 20,
-        backgroundColor: '#ffffff',
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-        marginVertical: 16,
-    },
     stressHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -212,21 +154,22 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: '#424242',
     },
-    syncButtonContainer: {
-        position: 'absolute',
-        top: 10, // adjust as needed
-        right: 16,
-        zIndex: 10,
-    },
+
     syncButton: {
+        position: 'absolute', // Make it float on top
+        top: 10, // Distance from the top of the screen
+        right: 10, // Distance from the right of the screen
         backgroundColor: '#023457',
-        padding: 12,
-        borderRadius: 50,
+        padding: 8, // Adjust size of the button
+        borderRadius: 16, // Round button
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 4,
+        elevation: 4, // Shadow on Android
+        zIndex: 1000, // Ensure it appears on top of all other elements
     },
+
+
 });

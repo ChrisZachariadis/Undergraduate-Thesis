@@ -30,6 +30,7 @@ import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen/S
 import HRDetailsScreen from "../screens/SmartwatchScreen/HRDetailsScreen/HRDetailsScreen";
 import KcalDetailsScreen from "../screens/SmartwatchScreen/KcalDetailsScreen/KcalDetailsScreen";
 import StressDetailsScreen from "../screens/SmartwatchScreen/StressDetailsScreen/StressDetailsScreen";
+import HRDetails from "../screens/SmartwatchScreen/HR2Details/HRDetails";
 
 const ICON_SIZE = scaleFontSize(25);
 const INACTIVE_COLOR = '#A4A4A4';
@@ -104,6 +105,13 @@ export const MyHealthStack = () => {
               component={HRDetailsScreen}
               options={{headerShown: true, headerTitle: 'HR Details Data'}}
           />
+          {/*Alternative HR graph*/}
+          <stack.Screen
+              name={"HRDetails"}
+              component={HRDetails}
+              options={{headerShown: true, headerTitle: 'HR Details Data'}}
+          />
+
           <stack.Screen
               name={"KcalDetailsScreen"}
               component={KcalDetailsScreen}

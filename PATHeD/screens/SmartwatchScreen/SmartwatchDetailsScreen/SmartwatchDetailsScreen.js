@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'; // Import 
 
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
+import Frame from "../components/Frame";
 
 const SmartwatchDetailsScreen = () => {
     const route = useRoute();
@@ -144,17 +145,21 @@ const SmartwatchDetailsScreen = () => {
 
     return (
         <View style={styles.container}>
+            {/* Sync Button to refresh the data */}
+            <TouchableOpacity
+                style={styles.syncButton}
+                onPress={syncButtonHandler}
+            >
+                <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
+            </TouchableOpacity>
+
             {/* If data has not been fetched yet, show Sync button at top-right */}
             {!isDataFetched ? (
                 <>
                     <Text style={styles.noDataText}>No data available. Please sync to load data.</Text>
-                    <View style={styles.syncButtonContainer}>
-                        <TouchableOpacity onPress={syncButtonHandler} style={styles.syncButton}>
-                            <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
-                        </TouchableOpacity>
-                    </View>
                 </>
             ) : (
+
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {/* Date with Navigation Arrows */}
                     <View style={styles.dateContainer}>
@@ -246,23 +251,25 @@ const SmartwatchDetailsScreen = () => {
                     </View>
 
                     {/* Average Heart Rate in a Rectangle Box */}
-                    <View style={styles.heartRateBox}>
+                    <Frame>
                         <View style={styles.heartRateHeader}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <FontAwesomeIcon icon={faHeart} size={24} color="red" />
                                 <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
                             </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('HRDetailsScreen', { dayData })}>
+                            {/*<TouchableOpacity onPress={() => navigation.navigate('HRDetailsScreen', { dayData })}>*/}
+                            <TouchableOpacity onPress={() => navigation.navigate('HRDetails')}>
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.heartRateText}>
                             {dayData.averageHeartRateInBeatsPerMinute} bpm
                         </Text>
-                    </View>
+                    {/*</View>*/}
+                    </Frame>
 
                     {/* BMR Kilocalories in a Styled Box */}
-                    <View style={styles.kcalBox}>
+                    <Frame>
                         <View style={styles.kcalHeader}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <FontAwesomeIcon icon={faFire} size={24} color="orange" />
@@ -275,10 +282,10 @@ const SmartwatchDetailsScreen = () => {
                         <Text style={styles.kcalText}>
                             {dayData.bmrKilocalories} kcal
                         </Text>
-                    </View>
+                    </Frame>
 
                     {/* Stress Levels in a Styled Box */}
-                    <View style={styles.stressBox}>
+                    <Frame>
                         <View style={styles.stressHeader}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <FontAwesomeIcon icon={faBrain} size={24} color="#8E44AD" />
@@ -304,17 +311,9 @@ const SmartwatchDetailsScreen = () => {
                                 </Text>
                             </View>
                         </View>
-                    </View>
+                    </Frame>
                 </ScrollView>
             )}
-
-            {/* Sync Button to refresh the data */}
-            <TouchableOpacity
-                style={styles.syncButton}
-                onPress={syncButtonHandler}
-            >
-                <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
-            </TouchableOpacity>
         </View>
     );
 };
