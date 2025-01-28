@@ -124,7 +124,7 @@ const GarminDataScreen = () => {
                                 onPress={() =>
                                     navigation.navigate('SmartwatchDetailsScreen', {
                                         calendarDate: entry.calendarDate,
-                                        dayData: entry.data,
+                                        // dayData: entry.data,
                                     })
                                 }
                             >
