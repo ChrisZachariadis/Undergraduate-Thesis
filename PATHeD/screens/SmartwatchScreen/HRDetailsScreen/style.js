@@ -1,4 +1,4 @@
-// style.js
+// styles.js
 import { StyleSheet, Dimensions } from 'react-native';
 
 const containerPadding = 16;

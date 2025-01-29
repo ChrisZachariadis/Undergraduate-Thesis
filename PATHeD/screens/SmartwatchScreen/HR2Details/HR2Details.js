@@ -1,22 +1,14 @@
 // HR2Details.js
-import React, { useEffect, useState } from 'react';
-import {
-    View,
-    Text,
-    ActivityIndicator,
-    StyleSheet,
-    Alert,
-    TouchableOpacity,
-    ScrollView,
-    Dimensions,
-} from 'react-native';
-import { BarChart } from 'react-native-gifted-charts';
+import React, {useEffect, useState} from 'react';
+import {View, Text, ActivityIndicator, Alert, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
+import {BarChart} from 'react-native-gifted-charts';
 import Frame from '../components/Frame';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import {styles} from './styles';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -39,25 +31,19 @@ const HR2Details = () => {
     const fetchHRData = async () => {
         try {
             const storedData = await AsyncStorage.getItem('@garminData');
-            if (storedData !== null) {
-                const parsedData = JSON.parse(storedData);
-                let processedData = [];
-                if (selectedIndex === 0) {
-                    // Day View
-                    processedData = processDailyData(parsedData.data, currentDay);
-                } else if (selectedIndex === 1) {
-                    // Week View
-                    processedData = processWeeklyData(parsedData.data, currentWeekStart);
-                } else if (selectedIndex === 2) {
-                    // Month View
-                    processedData = processMonthlyData(parsedData.data, currentMonthStart);
-                }
-                setChartData(processedData);
-            } else {
-                // No data found
-                Alert.alert('No Data', 'No heart rate data found in storage.');
-                setChartData([]);
+            const parsedData = JSON.parse(storedData);
+            let processedData = [];
+            if (selectedIndex === 0) {
+                // Day View
+                processedData = processDailyData(parsedData.data, currentDay);
+            } else if (selectedIndex === 1) {
+                // Week View
+                processedData = processWeeklyData(parsedData.data, currentWeekStart);
+            } else if (selectedIndex === 2) {
+                // Month View
+                processedData = processMonthlyData(parsedData.data, currentMonthStart);
             }
+            setChartData(processedData);
         } catch (err) {
             console.error('Error fetching HR data:', err);
             setError('Failed to load data.');
@@ -114,7 +100,7 @@ const HR2Details = () => {
 
     // Function to determine bar color based on HR value
     const getBarColor = (hr) => {
-        if (hr <= 30) return 'grey';
+        if (hr <= 20) return 'grey';
         return '#FF6347';
     };
 
@@ -231,7 +217,7 @@ const HR2Details = () => {
     if (isLoading) {
         return (
             <Frame style={styles.loadingFrame}>
-                <ActivityIndicator size="large" color="#FF6347" />
+                <ActivityIndicator size="large" color="#FF6347"/>
                 <Text style={styles.loadingText}>Loading...</Text>
             </Frame>
         );
@@ -276,15 +262,14 @@ const HR2Details = () => {
             <View style={styles.headerContainer}>
                 {/* Previous Period Arrow */}
                 <TouchableOpacity onPress={handlePrevious} style={styles.arrowButton}>
-                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000" />
+                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000"/>
                 </TouchableOpacity>
 
-                {/* Title */}
                 <Text style={styles.title}>Heart Rate Summary</Text>
 
                 {/* Next Period Arrow */}
                 <TouchableOpacity onPress={handleNext} style={styles.arrowButton}>
-                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000" />
+                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000"/>
                 </TouchableOpacity>
             </View>
 
@@ -304,10 +289,12 @@ const HR2Details = () => {
                 inactiveTextColor="#000"
             />
 
-            {/* Bar Chart (Graph) */}
             <View style={styles.graphContainer}>
                 {chartData.length > 0 ? (
-                    <ScrollView horizontal={selectedIndex === 2} contentContainerStyle={selectedIndex === 2 ? styles.scrollContainer : null}>
+                    <ScrollView
+                        horizontal={selectedIndex === 2}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={selectedIndex === 2 ? styles.scrollContainer : null}>
                         <BarChart
                             data={chartData}
                             width={chartWidth}
@@ -331,8 +318,8 @@ const HR2Details = () => {
                                             ? `${item.label}`
                                             : `Day ${item.label}`,
                                     `Average HR: ${item.value} bpm`,
-                                    [{ text: 'OK' }],
-                                    { cancelable: true }
+                                    [{text: 'OK'}],
+                                    {cancelable: true}
                                 );
                             }}
                         />
@@ -347,77 +334,4 @@ const HR2Details = () => {
 
     );
 };
-
-// Styles for the component
-const styles = StyleSheet.create({
-    container: {
-        marginTop: 50,
-        alignItems: 'center', // Centers everything except the graph
-    },
-    loadingFrame: {
-        marginTop: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    loadingText: {
-        marginTop: 10,
-        fontSize: 16,
-        color: '#555',
-    },
-    errorFrame: {
-        marginTop: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    errorText: {
-        fontSize: 16,
-        color: 'red',
-    },
-    headerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '80%',
-        marginBottom: 10,
-    },
-    arrowButton: {
-        padding: 10,
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    dateRangeText: {
-        fontSize: 16,
-        color: '#555',
-        marginBottom: 10,
-        textAlign: 'center',
-    },
-    segmentedControl: {
-        width: '80%',
-        marginBottom: 20,
-    },
-    graphContainer: {
-        alignSelf: 'stretch',
-    },
-    axisLabel: {
-        fontSize: 12,
-        color: 'grey',
-    },
-    noDataContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 200,
-    },
-    noDataText: {
-        fontSize: 16,
-        color: 'grey',
-    },
-    scrollContainer: {
-        paddingHorizontal: 10,
-    },
-});
-
-
 export default HR2Details;

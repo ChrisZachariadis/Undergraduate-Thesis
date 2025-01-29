@@ -1,4 +1,4 @@
-// style.js
+// styles.js
 
 import { StyleSheet } from 'react-native';
 

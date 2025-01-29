@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
+import { PieChart } from "react-native-gifted-charts";
 
 const StressDetailsScreen = ({ route }) => {
     const { dayData } = route.params || {};
@@ -12,34 +13,45 @@ const StressDetailsScreen = ({ route }) => {
         );
     }
 
+    // Convert stress durations from seconds to minutes
+    const restStress = Math.round(dayData.restStressDurationInSeconds / 60);
+    const lowStress = Math.round(dayData.lowStressDurationInSeconds / 60);
+    const mediumStress = Math.round(dayData.mediumStressDurationInSeconds / 60);
+    const highStress = Math.round(dayData.highStressDurationInSeconds / 60);
+
+    // Data for Pie Chart
+    const pieData = [
+        { value: restStress, label: 'Rest', color: '#1976D2' },   // Blue
+        { value: lowStress, label: 'Low', color: '#FFB74D' },    // Light Orange
+        { value: mediumStress, label: 'Medium', color: '#FB8C00' }, // Orange
+        { value: highStress, label: 'High', color: '#E65100' },  // Dark Orange
+    ];
+
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.title}>Stress Details</Text>
 
-            {/* Average Stress Level */}
-            <View style={styles.infoBox}>
-                <Text style={styles.label}>Average Stress Level</Text>
-                <Text style={styles.value}>{dayData.averageStressLevel}</Text>
+            {/* Pie Chart for Stress Levels */}
+            <View style={styles.chartContainer}>
+                <PieChart
+                    donut
+                    innerRadius={60}
+                    radius={80}
+                    data={pieData}
+                    showText
+                    textColor="white"
+                    textSize={14}
+                    width={Dimensions.get('window').width - 40}
+                />
             </View>
 
-            {/* Maximum Stress Level */}
-            <View style={styles.infoBox}>
-                <Text style={styles.label}>Maximum Stress Level</Text>
-                <Text style={styles.value}>{dayData.maxStressLevel}</Text>
-            </View>
-
-            {/* Stress Duration */}
-            <View style={styles.infoBox}>
-                <Text style={styles.label}>Stress Duration</Text>
-                <Text style={styles.value}>
-                    {Math.round(dayData.stressDurationInSeconds / 60)} minutes
-                </Text>
-            </View>
-
-            {/* Stress Level Chart Placeholder */}
-            <View style={styles.chartPlaceholder}>
-                <Text style={styles.chartText}>Stress Level Chart</Text>
-            </View>
+            {/* Stress Levels Breakdown */}
+            {pieData.map((item, index) => (
+                <View key={index} style={styles.infoBox}>
+                    <Text style={styles.label}>{item.label} Stress Duration</Text>
+                    <Text style={styles.value}>{item.value} minutes</Text>
+                </View>
+            ))}
         </ScrollView>
     );
 };
@@ -56,6 +68,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 16,
         color: '#333',
+    },
+    chartContainer: {
+        alignItems: 'center',
+        marginVertical: 20,
     },
     infoBox: {
         backgroundColor: '#ffffff',
@@ -78,17 +94,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#333',
-    },
-    chartPlaceholder: {
-        height: 200,
-        backgroundColor: '#eaeaea',
-        borderRadius: 12,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    chartText: {
-        fontSize: 16,
-        color: '#777',
     },
     noDataContainer: {
         flex: 1,
