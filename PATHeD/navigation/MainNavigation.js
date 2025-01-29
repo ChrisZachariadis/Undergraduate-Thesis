@@ -31,6 +31,7 @@ import HRDetailsScreen from "../screens/SmartwatchScreen/HRDetailsScreen/HRDetai
 import KcalDetailsScreen from "../screens/SmartwatchScreen/KcalDetailsScreen/KcalDetailsScreen";
 import StressDetailsScreen from "../screens/SmartwatchScreen/StressDetailsScreen/StressDetailsScreen";
 import HR2Details from "../screens/SmartwatchScreen/HR2Details/HR2Details";
+import SmartwatchMenuScreen from "../screens/SmartwatchScreen/SmartwatchMenuScreen/SmartwatchMenuScreen";
 import DailyChart from "../screens/SmartwatchScreen/components/DailyChart";
 
 const ICON_SIZE = scaleFontSize(25);
@@ -89,7 +90,7 @@ export const MyHealthStack = () => {
           <stack.Screen
               name={"SmartwatchDetailsScreen"}
               component={SmartwatchDetailsScreen}
-              options={{headerShown: true, headerTitle: 'Smartwatch Details Data'}}
+              options={{headerShown: true, headerTitle: 'Smartwatch Data'}}
           />
           <stack.Screen
               name={"StepsDetailsScreen"}
@@ -127,6 +128,11 @@ export const MyHealthStack = () => {
               name={"StressDetailsScreen"}
               component={StressDetailsScreen}
               options={{headerShown: true, headerTitle: 'Stress Details Data'}}
+          />
+          <stack.Screen
+              name={"SmartwatchMenuScreen"}
+              component={SmartwatchMenuScreen}
+              options={{headerShown: true, headerTitle: 'Smartwatch Menu'}}
           />
 
 

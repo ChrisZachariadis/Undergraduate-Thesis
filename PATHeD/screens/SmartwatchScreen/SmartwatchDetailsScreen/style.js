@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -155,11 +155,19 @@ export default StyleSheet.create({
         color: '#424242',
     },
 
+    /* Updated Styles */
+
+    topRightButtons: {
+        position: 'absolute',
+        top: 10, // Adjust as needed
+        right: 10, // Adjust as needed
+        flexDirection: 'row',
+        alignItems: 'center',
+        zIndex: 1000, // Ensure it appears on top
+    },
     syncButton: {
-        position: 'absolute', // Make it float on top
-        top: 10, // Distance from the top of the screen
-        right: 10, // Distance from the right of the screen
-        backgroundColor: '#023457',
+        // backgroundColor: '#023457',
+        backgroundColor: '#0B3F6B', // Optional: Add background if needed
         padding: 8, // Adjust size of the button
         borderRadius: 16, // Round button
         alignItems: 'center',
@@ -168,8 +176,23 @@ export default StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 4, // Shadow on Android
-        zIndex: 1000, // Ensure it appears on top of all other elements
+        marginRight: 12, // Space between Sync button and Smartwatch icon
     },
-
+    smartwatchButton: {
+        backgroundColor: '#ffffff', // Optional: Add background if needed
+        padding: 8, // Adjust padding as needed
+        borderRadius: 16, // Match the Sync button's style
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 4, // Shadow on Android
+    },
+    smartwatchIcon: {
+        width: 26, // Adjust size as needed
+        height: 26, // Adjust size as needed
+        resizeMode: 'contain',
+    },
 
 });

@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { ScrollView, Text, TouchableOpacity, View, Modal, Alert } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View, Modal, Alert, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHeart, faArrowLeft, faArrowRight, faFire, faBrain, faSync } from '@fortawesome/free-solid-svg-icons';
@@ -146,16 +146,31 @@ const SmartwatchDetailsScreen = () => {
     };
 
     return (
-        <View style={styles.container}>
-            {/* Sync Button to refresh the data */}
-            <TouchableOpacity
-                style={styles.syncButton}
-                onPress={syncButtonHandler}
-            >
-                <FontAwesomeIcon icon={faSync} size={24} color="#fff" />
-            </TouchableOpacity>
 
-            {/* If data has not been fetched yet, show Sync button at top-right */}
+        <View style={styles.container}>
+            {/* Top-Right Buttons Container */}
+            <View style={styles.topRightButtons}>
+                {/* Sync Button */}
+                <TouchableOpacity
+                    style={styles.syncButton}
+                    onPress={syncButtonHandler}
+                >
+                    <FontAwesomeIcon icon={faSync} size={24} color="#ffffff" />
+                </TouchableOpacity>
+
+                {/* Smartwatch Icon */}
+                <TouchableOpacity
+                    style={styles.smartwatchButton}
+                    onPress={() => navigation.navigate('SmartwatchMenuScreen')}
+                >
+                    <Image
+                        source={require('../assets/smartwatch.png')}
+                        style={styles.smartwatchIcon}
+                    />
+                </TouchableOpacity>
+            </View>
+
+            {/* If data has not been fetched yet, show message */}
             {!isDataFetched ? (
                 <Text style={styles.noDataText}>No data available. Please sync to load data.</Text>
             ) : (
@@ -257,8 +272,8 @@ const SmartwatchDetailsScreen = () => {
                                 <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
                             </View>
                             {/*<TouchableOpacity onPress={() => navigation.navigate('HRDetailsScreen', { dayData: selectedDayData })}>*/}
-                                <TouchableOpacity onPress={() => navigation.navigate('HR2Details')}>
-                            {/*<TouchableOpacity onPress={() => navigation.navigate('DailyChart')}>*/}
+                            <TouchableOpacity onPress={() => navigation.navigate('HR2Details')}>
+                                {/*<TouchableOpacity onPress={() => navigation.navigate('DailyChart')}>*/}
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
                             </TouchableOpacity>
                         </View>
@@ -315,6 +330,7 @@ const SmartwatchDetailsScreen = () => {
             )}
         </View>
     );
+
 };
 
 export default SmartwatchDetailsScreen;
