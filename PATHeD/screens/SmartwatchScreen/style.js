@@ -21,14 +21,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10, // Adds spacing between the two buttons
     },
-    fetchButton: {
-        backgroundColor: '#023457',
-        paddingVertical: 12,
-        paddingHorizontal: 16,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginBottom: 10, // Adds spacing between the two buttons
-    },
     connectButtonText: {
         color: '#fff',
         fontSize: 16,
@@ -45,9 +37,6 @@ export default StyleSheet.create({
         shadowRadius: 6,
         elevation: 4,
         marginVertical: 12,
-    },
-    todayMargin: {
-        marginTop: 40,
     },
     entryHeader: {
         flexDirection: 'row',
