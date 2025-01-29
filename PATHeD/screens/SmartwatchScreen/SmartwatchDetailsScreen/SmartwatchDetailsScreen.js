@@ -1,23 +1,40 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { ScrollView, Text, TouchableOpacity, View, Modal, Alert, Image } from 'react-native';
+import {
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+    Modal,
+    Alert,
+    Image
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHeart, faArrowLeft, faArrowRight, faFire, faBrain, faSync } from '@fortawesome/free-solid-svg-icons';
+import {
+    faHeart,
+    faArrowLeft,
+    faArrowRight,
+    faFire,
+    faBrain,
+    faSync
+} from '@fortawesome/free-solid-svg-icons';
 import { Calendar } from 'react-native-calendars';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
 import Frame from "../components/Frame";
+import {Routes} from "../../../navigation/Routes";
 
 const SmartwatchDetailsScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
-    const { calendarDate } = route.params || {};
+    const initialCalendarDate = route.params?.calendarDate || null; // Get calendarDate from route params or null
     const [isCalendarVisible, setIsCalendarVisible] = useState(false);
     const [allEntries, setAllEntries] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
     const [selectedDayData, setSelectedDayData] = useState(null);
+    const [currentCalendarDate, setCurrentCalendarDate] = useState(initialCalendarDate); // Local state for calendarDate
 
     // Function to load cached data
     const loadCachedData = async () => {
@@ -25,16 +42,28 @@ const SmartwatchDetailsScreen = () => {
             const cachedData = await AsyncStorage.getItem('@garminData');
             if (cachedData) {
                 const parsedData = JSON.parse(cachedData);
-                setAllEntries(parsedData.data || []);
+                const entries = parsedData.data || [];
+                setAllEntries(entries);
                 setIsDataFetched(true);
                 console.log('Cached data loaded successfully.');
 
-                // Set the initial day data based on the calendarDate
-                if (calendarDate) {
-                    const initialDayData = parsedData.data.find(
-                        (entry) => entry.calendarDate === calendarDate
+                if (currentCalendarDate) {
+                    // If a specific calendarDate is provided, use it
+                    const initialDayData = entries.find(
+                        (entry) => entry.calendarDate === currentCalendarDate
                     );
                     setSelectedDayData(initialDayData?.data || null);
+                } else {
+                    // If no calendarDate is provided, default to the latest date
+                    if (entries.length > 0) {
+                        // Assuming calendarDate is in 'YYYY-MM-DD' format
+                        const sortedEntries = [...entries].sort(
+                            (a, b) => new Date(b.calendarDate) - new Date(a.calendarDate)
+                        );
+                        const latestEntry = sortedEntries[0];
+                        setCurrentCalendarDate(latestEntry.calendarDate);
+                        setSelectedDayData(latestEntry.data || null);
+                    }
                 }
             } else {
                 console.log('No cached data found.');
@@ -77,9 +106,15 @@ const SmartwatchDetailsScreen = () => {
             await AsyncStorage.setItem('@garminData', JSON.stringify(data));
             Alert.alert('Success', 'Garmin data synced and cached successfully!');
 
-            // Update selectedDayData if current calendarDate exists in new data
-            const updatedDayData = data.data.find(entry => entry.calendarDate === calendarDate);
-            setSelectedDayData(updatedDayData?.data || null);
+            if (data.data && data.data.length > 0) {
+                // Find the latest date
+                const sortedEntries = [...data.data].sort(
+                    (a, b) => new Date(b.calendarDate) - new Date(a.calendarDate)
+                );
+                const latestEntry = sortedEntries[0];
+                setCurrentCalendarDate(latestEntry.calendarDate);
+                setSelectedDayData(latestEntry.data || null);
+            }
         } catch (error) {
             console.error('Garmin fetch error:', error);
             Alert.alert('Error', error.message);
@@ -91,10 +126,10 @@ const SmartwatchDetailsScreen = () => {
         loadCachedData();
     }, []);
 
-    // Find current index based on calendarDate
+    // Find current index based on currentCalendarDate
     const currentIndex = useMemo(
-        () => allEntries.findIndex(entry => entry.calendarDate === calendarDate),
-        [allEntries, calendarDate]
+        () => allEntries.findIndex(entry => entry.calendarDate === currentCalendarDate),
+        [allEntries, currentCalendarDate]
     );
 
     // Create an object of marked dates for the calendar
@@ -106,21 +141,21 @@ const SmartwatchDetailsScreen = () => {
                 dotColor: '#2196F3',
             };
         });
-        if (calendarDate) {
-            dates[calendarDate] = {
-                ...dates[calendarDate],
+        if (currentCalendarDate) {
+            dates[currentCalendarDate] = {
+                ...dates[currentCalendarDate],
                 selected: true,
                 selectedColor: '#2196F3',
             };
         }
         return dates;
-    }, [allEntries, calendarDate]);
+    }, [allEntries, currentCalendarDate]);
 
     const handleDateSelect = (day) => {
         const selectedEntry = allEntries.find(entry => entry.calendarDate === day.dateString);
         if (selectedEntry) {
             setSelectedDayData(selectedEntry.data); // Update selected day data
-            navigation.setParams({ calendarDate: selectedEntry.calendarDate }); // Update navigation params if needed
+            setCurrentCalendarDate(selectedEntry.calendarDate); // Update local calendarDate state
         }
         setIsCalendarVisible(false);
     };
@@ -130,7 +165,7 @@ const SmartwatchDetailsScreen = () => {
             const previousEntry = allEntries[currentIndex - 1];
             if (previousEntry) {
                 setSelectedDayData(previousEntry.data); // Update day data
-                navigation.setParams({ calendarDate: previousEntry.calendarDate });
+                setCurrentCalendarDate(previousEntry.calendarDate); // Update calendarDate
             }
         }
     };
@@ -140,13 +175,12 @@ const SmartwatchDetailsScreen = () => {
             const nextEntry = allEntries[currentIndex + 1];
             if (nextEntry) {
                 setSelectedDayData(nextEntry.data); // Update day data
-                navigation.setParams({ calendarDate: nextEntry.calendarDate });
+                setCurrentCalendarDate(nextEntry.calendarDate); // Update calendarDate
             }
         }
     };
 
     return (
-
         <View style={styles.container}>
             {/* Top-Right Buttons Container */}
             <View style={styles.topRightButtons}>
@@ -154,6 +188,8 @@ const SmartwatchDetailsScreen = () => {
                 <TouchableOpacity
                     style={styles.syncButton}
                     onPress={syncButtonHandler}
+                    accessibilityLabel="Sync Garmin Data"
+                    accessible={true}
                 >
                     <FontAwesomeIcon icon={faSync} size={24} color="#ffffff" />
                 </TouchableOpacity>
@@ -161,7 +197,8 @@ const SmartwatchDetailsScreen = () => {
                 {/* Smartwatch Icon */}
                 <TouchableOpacity
                     style={styles.smartwatchButton}
-                    onPress={() => navigation.navigate('SmartwatchMenuScreen')}
+                    // onPress={() => navigation.navigate('SmartwatchMenuScreen')}
+                    onPress={() => navigation.navigate(Routes.SmartwatchScreen)}
                 >
                     <Image
                         source={require('../assets/smartwatch.png')}
@@ -186,7 +223,7 @@ const SmartwatchDetailsScreen = () => {
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => setIsCalendarVisible(true)}>
-                            <Text style={styles.dateText}> Day: {calendarDate} </Text>
+                            <Text style={styles.dateText}> Day: {currentCalendarDate} </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={handleNextDay} disabled={currentIndex === allEntries.length - 1}>
@@ -224,6 +261,8 @@ const SmartwatchDetailsScreen = () => {
                                 <TouchableOpacity
                                     style={styles.closeButton}
                                     onPress={() => setIsCalendarVisible(false)}
+                                    accessibilityLabel="Close Calendar"
+                                    accessible={true}
                                 >
                                     <Text style={styles.closeButtonText}>Close</Text>
                                 </TouchableOpacity>
@@ -236,7 +275,7 @@ const SmartwatchDetailsScreen = () => {
                         <View style={styles.Frame}>
                             <ProgressCircle
                                 title="Steps"
-                                progress={selectedDayData?.steps / selectedDayData?.stepsGoal || 0}
+                                progress={(selectedDayData?.steps || 0) / (selectedDayData?.stepsGoal || 1)}
                                 value={selectedDayData?.steps || 0}
                                 goal={selectedDayData?.stepsGoal || 0}
                                 color="#0C6C79"
@@ -251,7 +290,7 @@ const SmartwatchDetailsScreen = () => {
                         <View style={styles.Frame}>
                             <ProgressCircle
                                 title="Floors Climbed"
-                                progress={selectedDayData?.floorsClimbed / selectedDayData?.floorsClimbedGoal || 0}
+                                progress={(selectedDayData?.floorsClimbed || 0) / (selectedDayData?.floorsClimbedGoal || 1)}
                                 value={selectedDayData?.floorsClimbed || 0}
                                 goal={selectedDayData?.floorsClimbedGoal || 0}
                                 color="#4CAF50"
@@ -271,9 +310,7 @@ const SmartwatchDetailsScreen = () => {
                                 <FontAwesomeIcon icon={faHeart} size={24} color="red" />
                                 <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
                             </View>
-                            {/*<TouchableOpacity onPress={() => navigation.navigate('HRDetailsScreen', { dayData: selectedDayData })}>*/}
                             <TouchableOpacity onPress={() => navigation.navigate('HR2Details')}>
-                                {/*<TouchableOpacity onPress={() => navigation.navigate('DailyChart')}>*/}
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
                             </TouchableOpacity>
                         </View>

@@ -166,8 +166,7 @@ export default StyleSheet.create({
         zIndex: 1000, // Ensure it appears on top
     },
     syncButton: {
-        // backgroundColor: '#023457',
-        backgroundColor: '#0B3F6B', // Optional: Add background if needed
+        backgroundColor: '#0B3F6B', // Changed background color for better visibility
         padding: 8, // Adjust size of the button
         borderRadius: 16, // Round button
         alignItems: 'center',
@@ -194,5 +193,4 @@ export default StyleSheet.create({
         height: 26, // Adjust size as needed
         resizeMode: 'contain',
     },
-
 });
