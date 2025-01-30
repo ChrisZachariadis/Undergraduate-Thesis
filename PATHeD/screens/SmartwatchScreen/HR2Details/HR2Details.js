@@ -1,7 +1,7 @@
 // HR2Details.js
 import React, {useEffect, useState} from 'react';
 import {View, Text, ActivityIndicator, Alert, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
-import {BarChart} from 'react-native-gifted-charts';
+import {BarChart, LineChart} from 'react-native-gifted-charts';
 import Frame from '../components/Frame';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -54,26 +54,61 @@ const HR2Details = () => {
     };
 
     // Function to process data for the specified day
-    const processDailyData = (data, day) => {
-        const formattedDay = day.format('YYYY-MM-DD');
-        const hourData = [];
+    // Function to process data for the specified day
+    const processDailyData = (data, dayMoment) => {
+        const formattedDay = dayMoment.format('YYYY-MM-DD');
 
-        for (let i = 0; i < 24; i++) {
-            const hour = i;
-            const hourLabel = `${hour}:00`;
-            const hourEntry = data.find(
-                (entry) => entry.calendarDate === formattedDay && entry.hour === hour
-            );
+        // Find the day's entry in 'data'
+        const dayEntry = data.find((item) => item.calendarDate === formattedDay);
 
-            hourData.push({
-                value: hourEntry ? hourEntry.data.averageHeartRateInBeatsPerMinute : 0,
-                label: hourLabel,
-                frontColor: hourEntry ? getBarColor(hourEntry.data.averageHeartRateInBeatsPerMinute) : 'lightgrey',
-            });
+        // If no entry for that day, just return 24 zero-values
+        if (!dayEntry) {
+            return Array.from({ length: 24 }, (_, hour) => ({
+                value: 0,
+                label: `${hour}:00`,
+                frontColor: 'lightgrey',
+            }));
         }
+
+        // Extract heart-rate samples map:
+        //   keys = second offsets, values = HR at that time
+        const { timeOffsetHeartRateSamples = {}, startTimeOffsetInSeconds = 0 } = dayEntry.data;
+
+        // Prepare arrays to accumulate sums & counts for each hour
+        const sums = new Array(24).fill(0);
+        const counts = new Array(24).fill(0);
+
+        // Convert each offset into an hour index (0–23)
+        for (const [offsetSecStr, heartRate] of Object.entries(timeOffsetHeartRateSamples)) {
+            const offsetSec = parseInt(offsetSecStr, 10);
+
+            // Adjust if needed by subtracting any startTimeOffsetInSeconds
+            // so that 0 <= hour < 24 aligns with the local day
+            const localSec = offsetSec - startTimeOffsetInSeconds;
+            const hour = Math.floor(localSec / 3600);
+
+            if (hour >= 0 && hour < 24) {
+                sums[hour] += heartRate;
+                counts[hour] += 1;
+            }
+        }
+
+        // Build the final array with averages
+        const hourData = sums.map((sum, hour) => {
+            const count = counts[hour];
+            const avgHR = count > 0 ? sum / count : 0;
+
+            return {
+                value: avgHR,
+                label: `${hour}:00`,
+                // Use your getBarColor() or custom color logic
+                frontColor: avgHR > 0 ? '#FF6347' : 'lightgrey',
+            };
+        });
 
         return hourData;
     };
+
 
     // Function to process data for the specified week
     const processWeeklyData = (data, weekStart) => {
@@ -292,37 +327,69 @@ const HR2Details = () => {
             <View style={styles.graphContainer}>
                 {chartData.length > 0 ? (
                     <ScrollView
-                        horizontal={selectedIndex === 2}
+                        horizontal={selectedIndex === 2} // Keep horizontal scrolling for Month only
                         showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={selectedIndex === 2 ? styles.scrollContainer : null}>
-                        <BarChart
-                            data={chartData}
-                            width={chartWidth}
-                            height={200}
-                            barWidth={dynamicBarWidth}
-                            spacing={dynamicSpacing}
-                            minHeight={3}
-                            barBorderRadius={3}
-                            noOfSections={4}
-                            yAxisThickness={0}
-                            xAxisThickness={1}
-                            xAxisLabelTextStyle={styles.axisLabel}
-                            yAxisLabelTextStyle={styles.axisLabel}
-                            isAnimated={false}
-                            dashGap={10}
-                            onPress={(item, index) => {
-                                Alert.alert(
-                                    selectedIndex === 0
-                                        ? `${item.label}`
-                                        : selectedIndex === 1
-                                            ? `${item.label}`
-                                            : `Day ${item.label}`,
-                                    `Average HR: ${item.value} bpm`,
-                                    [{text: 'OK'}],
-                                    {cancelable: true}
-                                );
-                            }}
-                        />
+                        contentContainerStyle={selectedIndex === 2 ? styles.scrollContainer : null}
+                    >
+                        {
+                            // If Day, show a LineChart; otherwise, show a BarChart
+                            selectedIndex === 0 ? (
+                                <LineChart
+                                    data={chartData}
+                                    width={chartWidth}
+                                    height={200}
+                                    spacing={dynamicSpacing}
+                                    // Provide a thickness and color for the line
+                                    thickness={2}
+                                    color="#FF6347"
+                                    // Show or hide data points:
+                                    hideDataPoints={false}
+                                    dataPointsColor="#FF6347"
+                                    // Optional: how large you want the data point circles
+                                    dataPointsRadius={3}
+                                    // Optional: handle press on a specific point
+                                    onPressPoint={(item, index) => {
+                                        Alert.alert(
+                                            `Time: ${item.label}`,
+                                            `Average HR: ${item.value} bpm`,
+                                            [{ text: 'OK' }],
+                                            { cancelable: true }
+                                        );
+                                    }}
+                                    // X and Y Axis Label style
+                                    xAxisLabelTextStyle={styles.axisLabel}
+                                    yAxisLabelTextStyle={styles.axisLabel}
+                                    // You can also add more props, e.g. showXAxisIndices, showYAxisIndices, etc.
+                                />
+                            ) : (
+                                <BarChart
+                                    data={chartData}
+                                    width={chartWidth}
+                                    height={200}
+                                    barWidth={dynamicBarWidth}
+                                    spacing={dynamicSpacing}
+                                    minHeight={3}
+                                    barBorderRadius={3}
+                                    noOfSections={4}
+                                    yAxisThickness={0}
+                                    xAxisThickness={1}
+                                    xAxisLabelTextStyle={styles.axisLabel}
+                                    yAxisLabelTextStyle={styles.axisLabel}
+                                    isAnimated={false}
+                                    dashGap={10}
+                                    onPress={(item, index) => {
+                                        Alert.alert(
+                                            selectedIndex === 1
+                                                ? `${item.label}`
+                                                : `Day ${item.label}`,
+                                            `Average HR: ${item.value} bpm`,
+                                            [{ text: 'OK' }],
+                                            { cancelable: true }
+                                        );
+                                    }}
+                                />
+                            )
+                        }
                     </ScrollView>
                 ) : (
                     <View style={styles.noDataContainer}>
@@ -330,6 +397,7 @@ const HR2Details = () => {
                     </View>
                 )}
             </View>
+
         </Frame>
 
     );

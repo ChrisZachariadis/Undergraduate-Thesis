@@ -197,8 +197,8 @@ const SmartwatchDetailsScreen = () => {
                 {/* Smartwatch Icon */}
                 <TouchableOpacity
                     style={styles.smartwatchButton}
-                    // onPress={() => navigation.navigate('SmartwatchMenuScreen')}
-                    onPress={() => navigation.navigate(Routes.SmartwatchScreen)}
+                    onPress={() => navigation.navigate('SmartwatchMenuScreen')}
+                    // onPress={() => navigation.navigate(Routes.SmartwatchScreen)}
                 >
                     <Image
                         source={require('../assets/smartwatch.png')}

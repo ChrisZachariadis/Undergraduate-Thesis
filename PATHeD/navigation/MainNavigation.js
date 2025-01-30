@@ -23,7 +23,6 @@ import ImmunizationScreen from '../screens/MedicalHistoryScreen/Contents/Immuniz
 import PlanOfCareScreen from '../screens/MedicalHistoryScreen/Contents/PlanOfCare/Screens/PlanOfCareScreen';
 import ShlScreen from '../screens/ShlScreen/ShlScreen';
 
-import SmartwatchScreen from "../screens/SmartwatchScreen/GarminDataScreen";
 import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen/SmartwatchDetailsScreen";
 import FloorsDetailsScreen from "../screens/SmartwatchScreen/FloorsDetailsScreen/FloorsDetailsScreen";
 import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen/StepsDetailsScreen";
@@ -82,11 +81,11 @@ export const MyHealthStack = () => {
           {/****/}
           {/*My SmartWatch Stack Screens*/}
           {/****/}
-          <stack.Screen
-              name={Routes.SmartwatchScreen}
-              component={SmartwatchScreen}
-              options={{headerShown: true, headerTitle: 'Smartwatch Data'}}
-          />
+          {/*<stack.Screen*/}
+          {/*    name={Routes.SmartwatchScreen}*/}
+          {/*    component={SmartwatchScreen}*/}
+          {/*    options={{headerShown: true, headerTitle: 'Smartwatch Data'}}*/}
+          {/*/>*/}
           <stack.Screen
               name={"SmartwatchDetailsScreen"}
               component={SmartwatchDetailsScreen}
