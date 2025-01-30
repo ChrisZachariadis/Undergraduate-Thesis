@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, {useMemo, useState, useEffect} from 'react';
 import {
     ScrollView,
     Text,
@@ -8,8 +8,8 @@ import {
     Alert,
     Image
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
     faHeart,
     faArrowLeft,
@@ -18,23 +18,21 @@ import {
     faBrain,
     faSync
 } from '@fortawesome/free-solid-svg-icons';
-import { Calendar } from 'react-native-calendars';
+import {Calendar} from 'react-native-calendars';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
 import Frame from "../components/Frame";
-import {Routes} from "../../../navigation/Routes";
 
 const SmartwatchDetailsScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
-    const initialCalendarDate = route.params?.calendarDate || null; // Get calendarDate from route params or null
     const [isCalendarVisible, setIsCalendarVisible] = useState(false);
     const [allEntries, setAllEntries] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
     const [selectedDayData, setSelectedDayData] = useState(null);
-    const [currentCalendarDate, setCurrentCalendarDate] = useState(initialCalendarDate); // Local state for calendarDate
+    const [currentCalendarDate, setCurrentCalendarDate] = useState(); // Local state for calendarDate
 
     // Function to load cached data
     const loadCachedData = async () => {
@@ -47,23 +45,12 @@ const SmartwatchDetailsScreen = () => {
                 setIsDataFetched(true);
                 console.log('Cached data loaded successfully.');
 
-                if (currentCalendarDate) {
-                    // If a specific calendarDate is provided, use it
-                    const initialDayData = entries.find(
-                        (entry) => entry.calendarDate === currentCalendarDate
-                    );
-                    setSelectedDayData(initialDayData?.data || null);
-                } else {
-                    // If no calendarDate is provided, default to the latest date
-                    if (entries.length > 0) {
-                        // Assuming calendarDate is in 'YYYY-MM-DD' format
-                        const sortedEntries = [...entries].sort(
-                            (a, b) => new Date(b.calendarDate) - new Date(a.calendarDate)
-                        );
-                        const latestEntry = sortedEntries[0];
-                        setCurrentCalendarDate(latestEntry.calendarDate);
-                        setSelectedDayData(latestEntry.data || null);
-                    }
+
+                // Always display the latest entry as the current Calendar Date
+                if (entries.length > 0) {
+                    const latestEntry = entries[0]; // Use the first entry as the latest
+                    setCurrentCalendarDate(latestEntry.calendarDate);
+                    setSelectedDayData(latestEntry.data || null);
                 }
             } else {
                 console.log('No cached data found.');
@@ -73,11 +60,11 @@ const SmartwatchDetailsScreen = () => {
         }
     };
 
-    // Sync Button Handler to fetch new data and update the cache
+    // Sync Button Handler that for now is the only way to fetch data with hardcoded Cookie.
     const syncButtonHandler = async () => {
         try {
             const response = await fetch(
-                'https://garmin-ucy.3ahealth.com/garmin/dailies?garminUserId=3cdf364a-da5b-453f-b0e7-6983f2f1e310',
+                'https://garmin-ucy.3ahealth.com/garmin/dailies',
                 {
                     method: 'GET',
                     headers: {
@@ -92,6 +79,7 @@ const SmartwatchDetailsScreen = () => {
                 return;
             }
 
+            // Save the response data to AsyncStorage
             const data = await response.json();
 
             if (data.error) {
@@ -99,19 +87,17 @@ const SmartwatchDetailsScreen = () => {
                 return;
             }
 
-            setAllEntries(data.data || []); // Update the fetched entries
-            setIsDataFetched(true); // Mark data as successfully fetched
+            // Update the fetched entries
+            setAllEntries(data.data || []);
+            // Mark data as successfully fetched
+            setIsDataFetched(true);
 
             // Save the new data to AsyncStorage
             await AsyncStorage.setItem('@garminData', JSON.stringify(data));
             Alert.alert('Success', 'Garmin data synced successfully!');
 
             if (data.data && data.data.length > 0) {
-                // Find the latest date
-                const sortedEntries = [...data.data].sort(
-                    (a, b) => new Date(b.calendarDate) - new Date(a.calendarDate)
-                );
-                const latestEntry = sortedEntries[0];
+                const latestEntry = data.data[0];
                 setCurrentCalendarDate(latestEntry.calendarDate);
                 setSelectedDayData(latestEntry.data || null);
             }
@@ -126,31 +112,34 @@ const SmartwatchDetailsScreen = () => {
         loadCachedData();
     }, []);
 
-    // Find current index based on currentCalendarDate
+
+    // currentIndex is used to navigate between different days
+    // and is based on the currentCalendarDate.
     const currentIndex = useMemo(
         () => allEntries.findIndex(entry => entry.calendarDate === currentCalendarDate),
         [allEntries, currentCalendarDate]
     );
 
-    // Create an object of marked dates for the calendar
+    // Create an object that marks the valid days for the calendar
     const markedDates = useMemo(() => {
         const dates = {};
         allEntries.forEach(entry => {
             dates[entry.calendarDate] = {
                 marked: true,
-                dotColor: '#2196F3',
+                dotColor: '#0C6C79',
             };
         });
         if (currentCalendarDate) {
             dates[currentCalendarDate] = {
                 ...dates[currentCalendarDate],
                 selected: true,
-                selectedColor: '#2196F3',
+                selectedColor: '#0C6C79',
             };
         }
         return dates;
     }, [allEntries, currentCalendarDate]);
 
+    // Function to handle and display data based on the date selection from the calendar
     const handleDateSelect = (day) => {
         const selectedEntry = allEntries.find(entry => entry.calendarDate === day.dateString);
         if (selectedEntry) {
@@ -191,7 +180,7 @@ const SmartwatchDetailsScreen = () => {
                     accessibilityLabel="Sync Garmin Data"
                     accessible={true}
                 >
-                    <FontAwesomeIcon icon={faSync} size={24} color="#ffffff" />
+                    <FontAwesomeIcon icon={faSync} size={24} color="#ffffff"/>
                 </TouchableOpacity>
 
                 {/* Smartwatch Icon */}
@@ -280,7 +269,7 @@ const SmartwatchDetailsScreen = () => {
                                 goal={selectedDayData?.stepsGoal || 0}
                                 color="#0C6C79"
                                 onPress={() =>
-                                    navigation.navigate('StepsDetailsScreen', { dayData: selectedDayData })
+                                    navigation.navigate('StepsDetailsScreen', {dayData: selectedDayData})
                                 }
                                 size={120}
                                 unit="steps"
@@ -295,7 +284,7 @@ const SmartwatchDetailsScreen = () => {
                                 goal={selectedDayData?.floorsClimbedGoal || 0}
                                 color="#4CAF50"
                                 onPress={() =>
-                                    navigation.navigate('FloorsDetailsScreen', { dayData: selectedDayData })
+                                    navigation.navigate('FloorsDetailsScreen', {dayData: selectedDayData})
                                 }
                                 size={120}
                                 unit="floors"
@@ -306,12 +295,12 @@ const SmartwatchDetailsScreen = () => {
                     {/* Average Heart Rate in a Rectangle Box */}
                     <Frame>
                         <View style={styles.heartRateHeader}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <FontAwesomeIcon icon={faHeart} size={24} color="red" />
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <FontAwesomeIcon icon={faHeart} size={24} color="red"/>
                                 <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
                             </View>
                             <TouchableOpacity onPress={() => navigation.navigate('HR2Details')}>
-                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
+                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.heartRateText}>
@@ -322,12 +311,13 @@ const SmartwatchDetailsScreen = () => {
                     {/* BMR Kilocalories in a Styled Box */}
                     <Frame>
                         <View style={styles.kcalHeader}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <FontAwesomeIcon icon={faFire} size={24} color="orange" />
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <FontAwesomeIcon icon={faFire} size={24} color="orange"/>
                                 <Text style={styles.kcalTitle}> BMR Kilocalories</Text>
                             </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('KcalDetailsScreen', { dayData: selectedDayData })}>
-                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('KcalDetailsScreen', {dayData: selectedDayData})}>
+                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.kcalText}>
@@ -338,12 +328,13 @@ const SmartwatchDetailsScreen = () => {
                     {/* Stress Levels in a Styled Box */}
                     <Frame>
                         <View style={styles.stressHeader}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <FontAwesomeIcon icon={faBrain} size={24} color="#8E44AD" />
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <FontAwesomeIcon icon={faBrain} size={24} color="#8E44AD"/>
                                 <Text style={styles.stressTitle}> Stress Levels</Text>
                             </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('StressDetailsScreen', { dayData: selectedDayData })}>
-                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('StressDetailsScreen', {dayData: selectedDayData})}>
+                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.stressDetailsContainer}>
