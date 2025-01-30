@@ -1,15 +1,14 @@
-import React, {useMemo, useState, useEffect} from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
     ScrollView,
     Text,
     TouchableOpacity,
     View,
-    Modal,
     Alert,
     Image
 } from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
     faHeart,
     faArrowLeft,
@@ -18,12 +17,11 @@ import {
     faBrain,
     faSync
 } from '@fortawesome/free-solid-svg-icons';
-import {Calendar} from 'react-native-calendars';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
 import Frame from "../components/Frame";
+import CalendarDays from '../components/CalendarDays/CalendarDays';
 
 const SmartwatchDetailsScreen = () => {
     const route = useRoute();
@@ -120,26 +118,6 @@ const SmartwatchDetailsScreen = () => {
         [allEntries, currentCalendarDate]
     );
 
-    // Create an object that marks the valid days for the calendar
-    const markedDates = useMemo(() => {
-        const dates = {};
-        allEntries.forEach(entry => {
-            dates[entry.calendarDate] = {
-                marked: true,
-                dotColor: '#0C6C79',
-            };
-        });
-        if (currentCalendarDate) {
-            dates[currentCalendarDate] = {
-                ...dates[currentCalendarDate],
-                selected: true,
-                selectedColor: '#0C6C79',
-            };
-        }
-        return dates;
-    }, [allEntries, currentCalendarDate]);
-
-    // Function to handle and display data based on the date selection from the calendar
     const handleDateSelect = (day) => {
         const selectedEntry = allEntries.find(entry => entry.calendarDate === day.dateString);
         if (selectedEntry) {
@@ -224,40 +202,13 @@ const SmartwatchDetailsScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Calendar Modal */}
-                    <Modal
-                        visible={isCalendarVisible}
-                        transparent={true}
-                        animationType="fade"
-                        onRequestClose={() => setIsCalendarVisible(false)}
-                    >
-                        <View style={styles.modalOverlay}>
-                            <View style={styles.calendarContainer}>
-                                <Calendar
-                                    markedDates={markedDates}
-                                    onDayPress={handleDateSelect}
-                                    theme={{
-                                        backgroundColor: '#ffffff',
-                                        calendarBackground: '#ffffff',
-                                        textSectionTitleColor: '#b6c1cd',
-                                        selectedDayBackgroundColor: '#2196F3',
-                                        selectedDayTextColor: '#ffffff',
-                                        todayTextColor: '#2196F3',
-                                        dayTextColor: '#2d4150',
-                                        textDisabledColor: '#d9e1e8',
-                                    }}
-                                />
-                                <TouchableOpacity
-                                    style={styles.closeButton}
-                                    onPress={() => setIsCalendarVisible(false)}
-                                    accessibilityLabel="Close Calendar"
-                                    accessible={true}
-                                >
-                                    <Text style={styles.closeButtonText}>Close</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </Modal>
+                    <CalendarDays
+                        isVisible={isCalendarVisible}
+                        onClose={() => setIsCalendarVisible(false)}
+                        allEntries={allEntries}
+                        currentCalendarDate={currentCalendarDate}
+                        onDateSelect={handleDateSelect}
+                    />
 
                     {/* Circles Row */}
                     <View style={styles.StepsFloorsContainer}>
