@@ -104,7 +104,7 @@ const SmartwatchDetailsScreen = () => {
 
             // Save the new data to AsyncStorage
             await AsyncStorage.setItem('@garminData', JSON.stringify(data));
-            Alert.alert('Success', 'Garmin data synced and cached successfully!');
+            Alert.alert('Success', 'Garmin data synced successfully!');
 
             if (data.data && data.data.length > 0) {
                 // Find the latest date
