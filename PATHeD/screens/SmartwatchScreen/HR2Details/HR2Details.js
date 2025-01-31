@@ -1,7 +1,6 @@
-// HR2Details.js
 import React, {useEffect, useState} from 'react';
 import {View, Text, ActivityIndicator, Alert, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
-import {BarChart, LineChart} from 'react-native-gifted-charts';
+import {LineChart} from 'react-native-gifted-charts';
 import Frame from '../components/Frame';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -35,17 +34,20 @@ const HR2Details = () => {
             let processedData = [];
             if (selectedIndex === 0) {
                 // Day View
-                processedData = processDailyData(parsedData.data, currentDay);
-            } else if (selectedIndex === 1) {
-                // Week View
-                processedData = processWeeklyData(parsedData.data, currentWeekStart);
-            } else if (selectedIndex === 2) {
-                // Month View
-                processedData = processMonthlyData(parsedData.data, currentMonthStart);
+                console.log(parsedData.data[0].calendarDate);
+                // processedData = processDailyData(parsedData.data, currentDay);
             }
+
+
+            // else if (selectedIndex === 1) {
+            //     // Week View
+            //     processedData = processWeeklyData(parsedData.data, currentWeekStart);
+            // } else if (selectedIndex === 2) {
+            //     // Month View
+            //     processedData = processMonthlyData(parsedData.data, currentMonthStart);
+            // }
             setChartData(processedData);
         } catch (err) {
-            console.error('Error fetching HR data:', err);
             setError('Failed to load data.');
             Alert.alert('Error', 'An error occurred while fetching data.');
         } finally {
@@ -53,7 +55,6 @@ const HR2Details = () => {
         }
     };
 
-    // Function to process data for the specified day
     // Function to process data for the specified day
     const processDailyData = (data, dayMoment) => {
         const formattedDay = dayMoment.format('YYYY-MM-DD');
@@ -133,12 +134,6 @@ const HR2Details = () => {
         return weekDays;
     };
 
-    // Function to determine bar color based on HR value
-    const getBarColor = (hr) => {
-        if (hr <= 20) return 'grey';
-        return '#FF6347';
-    };
-
     // Function to process data for the specified month (Display each day)
     const processMonthlyData = (data, monthStart) => {
         const daysInMonth = monthStart.daysInMonth();
@@ -157,6 +152,12 @@ const HR2Details = () => {
         }
 
         return monthData;
+    };
+
+    // Function to determine bar color based on HR value
+    const getBarColor = (hr) => {
+        if (hr <= 20) return 'grey';
+        return '#FF6347';
     };
 
     // Handlers for navigating periods (day, week, or month)
@@ -295,7 +296,8 @@ const HR2Details = () => {
     return (
         <Frame style={styles.container}>
             <View style={styles.headerContainer}>
-                {/* Previous Period Arrow */}
+
+                {/*HEADER TITLE WITH ARROWS*/}
                 <TouchableOpacity onPress={handlePrevious} style={styles.arrowButton}>
                     <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000"/>
                 </TouchableOpacity>
@@ -307,6 +309,7 @@ const HR2Details = () => {
                     <FontAwesomeIcon icon={faArrowRight} size={24} color="#000"/>
                 </TouchableOpacity>
             </View>
+
 
             {/* Date Range Display */}
             <Text style={styles.dateRangeText}>{getDateRange()}</Text>
@@ -325,77 +328,29 @@ const HR2Details = () => {
             />
 
             <View style={styles.graphContainer}>
-                {chartData.length > 0 ? (
-                    <ScrollView
-                        horizontal={selectedIndex === 2} // Keep horizontal scrolling for Month only
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={selectedIndex === 2 ? styles.scrollContainer : null}
-                    >
+                    <ScrollView showsHorizontalScrollIndicator={false} >
                         {
-                            // If Day, show a LineChart; otherwise, show a BarChart
+                            // If Day (index 0), show LineChart
                             selectedIndex === 0 ? (
                                 <LineChart
                                     data={chartData}
-                                    width={chartWidth}
-                                    height={200}
-                                    spacing={dynamicSpacing}
-                                    // Provide a thickness and color for the line
+                                    width={270}
+                                    height={300}
+                                    spacing={40}
                                     thickness={2}
                                     color="#FF6347"
-                                    // Show or hide data points:
                                     hideDataPoints={false}
+                                    dataPointsRadius={4}
                                     dataPointsColor="#FF6347"
-                                    // Optional: how large you want the data point circles
-                                    dataPointsRadius={3}
-                                    // Optional: handle press on a specific point
-                                    onPressPoint={(item, index) => {
-                                        Alert.alert(
-                                            `Time: ${item.label}`,
-                                            `Average HR: ${item.value} bpm`,
-                                            [{ text: 'OK' }],
-                                            { cancelable: true }
-                                        );
-                                    }}
                                     // X and Y Axis Label style
                                     xAxisLabelTextStyle={styles.axisLabel}
                                     yAxisLabelTextStyle={styles.axisLabel}
-                                    // You can also add more props, e.g. showXAxisIndices, showYAxisIndices, etc.
                                 />
                             ) : (
-                                <BarChart
-                                    data={chartData}
-                                    width={chartWidth}
-                                    height={200}
-                                    barWidth={dynamicBarWidth}
-                                    spacing={dynamicSpacing}
-                                    minHeight={3}
-                                    barBorderRadius={3}
-                                    noOfSections={4}
-                                    yAxisThickness={0}
-                                    xAxisThickness={1}
-                                    xAxisLabelTextStyle={styles.axisLabel}
-                                    yAxisLabelTextStyle={styles.axisLabel}
-                                    isAnimated={false}
-                                    dashGap={10}
-                                    onPress={(item, index) => {
-                                        Alert.alert(
-                                            selectedIndex === 1
-                                                ? `${item.label}`
-                                                : `Day ${item.label}`,
-                                            `Average HR: ${item.value} bpm`,
-                                            [{ text: 'OK' }],
-                                            { cancelable: true }
-                                        );
-                                    }}
-                                />
+                                <Text>Placeholder bar chart</Text>
                             )
                         }
                     </ScrollView>
-                ) : (
-                    <View style={styles.noDataContainer}>
-                        <Text style={styles.noDataText}>No heart rate data available for this period.</Text>
-                    </View>
-                )}
             </View>
 
         </Frame>

@@ -26,7 +26,7 @@ import ShlScreen from '../screens/ShlScreen/ShlScreen';
 import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen/SmartwatchDetailsScreen";
 import FloorsDetailsScreen from "../screens/SmartwatchScreen/FloorsDetailsScreen/FloorsDetailsScreen";
 import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen/StepsDetailsScreen";
-import HRDetailsScreen from "../screens/SmartwatchScreen/HRDetailsScreen/HRDetailsScreen";
+// import HRDetailsScreen from "../screens/SmartwatchScreen/HRDetailsScreen/HRDetailsScreen";
 import KcalDetailsScreen from "../screens/SmartwatchScreen/KcalDetailsScreen/KcalDetailsScreen";
 import StressDetailsScreen from "../screens/SmartwatchScreen/StressDetailsScreen/StressDetailsScreen";
 import HR2Details from "../screens/SmartwatchScreen/HR2Details/HR2Details";
@@ -101,11 +101,11 @@ export const MyHealthStack = () => {
               component={FloorsDetailsScreen}
               options={{headerShown: true, headerTitle: 'Floors Details Data'}}
           />
-          <stack.Screen
-              name={"HRDetailsScreen"}
-              component={HRDetailsScreen}
-              options={{headerShown: true, headerTitle: 'HR Details Data'}}
-          />
+          {/*<stack.Screen*/}
+          {/*    name={"HRDetailsScreen"}*/}
+          {/*    component={HRDetailsScreen}*/}
+          {/*    options={{headerShown: true, headerTitle: 'HR Details Data'}}*/}
+          {/*/>*/}
           {/*Alternative HR graph*/}
           <stack.Screen
               name={"HR2Details"}

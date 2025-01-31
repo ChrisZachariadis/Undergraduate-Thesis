@@ -56,15 +56,6 @@ export const styles = StyleSheet.create({
         fontSize: 12,
         color: 'grey',
     },
-    noDataContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 200,
-    },
-    noDataText: {
-        fontSize: 16,
-        color: 'grey',
-    },
     scrollContainer: {
         paddingHorizontal: 10,
     },

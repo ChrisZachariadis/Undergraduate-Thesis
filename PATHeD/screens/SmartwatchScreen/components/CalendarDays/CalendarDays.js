@@ -1,5 +1,3 @@
-// CalendarDays.js
-
 import React, { useMemo } from 'react';
 import { View, Modal, TouchableOpacity, Text } from 'react-native';
 import { Calendar } from 'react-native-calendars';
@@ -44,7 +42,7 @@ const CalendarDays = ({ isVisible, onClose, allEntries, currentCalendarDate, onD
                             textSectionTitleColor: '#b6c1cd',
                             selectedDayBackgroundColor: '#2196F3',
                             selectedDayTextColor: '#ffffff',
-                            todayTextColor: '#2196F3',
+                            todayTextColor: '#419bcd',
                             dayTextColor: '#2d4150',
                             textDisabledColor: '#d9e1e8',
                         }}

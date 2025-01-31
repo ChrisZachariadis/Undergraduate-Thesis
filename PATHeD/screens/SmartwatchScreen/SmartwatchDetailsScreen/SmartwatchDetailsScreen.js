@@ -1,22 +1,8 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import {
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
-    Alert,
-    Image
-} from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {
-    faHeart,
-    faArrowLeft,
-    faArrowRight,
-    faFire,
-    faBrain,
-    faSync
-} from '@fortawesome/free-solid-svg-icons';
+import React, {useMemo, useState, useEffect} from 'react';
+import {ScrollView, Text, TouchableOpacity, View, Alert, Image} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faHeart, faArrowLeft, faArrowRight, faFire, faBrain, faSync} from '@fortawesome/free-solid-svg-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
@@ -24,7 +10,6 @@ import Frame from "../components/Frame";
 import CalendarDays from '../components/CalendarDays/CalendarDays';
 
 const SmartwatchDetailsScreen = () => {
-    const route = useRoute();
     const navigation = useNavigation();
     const [isCalendarVisible, setIsCalendarVisible] = useState(false);
     const [allEntries, setAllEntries] = useState([]);
@@ -165,7 +150,6 @@ const SmartwatchDetailsScreen = () => {
                 <TouchableOpacity
                     style={styles.smartwatchButton}
                     onPress={() => navigation.navigate('SmartwatchMenuScreen')}
-                    // onPress={() => navigation.navigate(Routes.SmartwatchScreen)}
                 >
                     <Image
                         source={require('../assets/smartwatch.png')}
