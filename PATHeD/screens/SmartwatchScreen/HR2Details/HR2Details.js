@@ -35,7 +35,7 @@ const HR2Details = () => {
             if (selectedIndex === 0) {
                 // Day View
                 console.log(parsedData.data[0].calendarDate);
-                // processedData = processDailyData(parsedData.data, currentDay);
+                processedData = processDailyData(parsedData.data, currentDay);
             }
 
 
@@ -59,12 +59,13 @@ const HR2Details = () => {
     const processDailyData = (data, dayMoment) => {
         const formattedDay = dayMoment.format('YYYY-MM-DD');
 
-        // Find the day's entry in 'data'
+        // Find the day's entry data in the data file
         const dayEntry = data.find((item) => item.calendarDate === formattedDay);
 
-        // If no entry for that day, just return 24 zero-values
+        // // If no entry for that day, just return 24 zero-values
         if (!dayEntry) {
-            return Array.from({ length: 24 }, (_, hour) => ({
+
+            return Array.from({length: 24}, (_, hour) => ({
                 value: 0,
                 label: `${hour}:00`,
                 frontColor: 'lightgrey',
@@ -73,7 +74,7 @@ const HR2Details = () => {
 
         // Extract heart-rate samples map:
         //   keys = second offsets, values = HR at that time
-        const { timeOffsetHeartRateSamples = {}, startTimeOffsetInSeconds = 0 } = dayEntry.data;
+        const {timeOffsetHeartRateSamples = {}, startTimeOffsetInSeconds = 0} = dayEntry.data;
 
         // Prepare arrays to accumulate sums & counts for each hour
         const sums = new Array(24).fill(0);
@@ -214,35 +215,28 @@ const HR2Details = () => {
         // Reset loading state to fetch new data
         setIsLoading(true);
         // Reset currentWeekStart, currentMonthStart, or currentDay based on selection
-        if (index === 0) {
-            // Day View
+        if (index === 0) { // Day View
             const today = moment();
             setCurrentDay(today);
-        } else if (index === 1) {
-            // Week View
+        } else if (index === 1) { // Week View
             setCurrentWeekStart(moment().startOf('week'));
-        } else if (index === 2) {
-            // Month View
+        } else if (index === 2) {  // Month View
             setCurrentMonthStart(moment().startOf('month'));
         }
-        // Fetch data for the selected view
         setTimeout(() => {
             setIsLoading(false);
-        }, 500); // Simulate loading delay
+        }, 500); // loading delay so the graph data can properly load
     };
 
     // Format current date range for display based on selection
     const getDateRange = () => {
         if (selectedIndex === 0) {
-            // Day View
             return moment(currentDay).format('MMMM D, YYYY');
         } else if (selectedIndex === 1) {
-            // Week View
             const start = moment(currentWeekStart).format('MMM D');
             const end = moment(currentWeekStart).add(6, 'days').format('MMM D, YYYY');
             return `${start} - ${end}`;
         } else if (selectedIndex === 2) {
-            // Month View
             const monthName = moment(currentMonthStart).format('MMMM YYYY');
             return `${monthName}`;
         }
@@ -271,27 +265,22 @@ const HR2Details = () => {
     // Define dynamic bar width and spacing based on selectedIndex
     let dynamicBarWidth = 18;
     let dynamicSpacing = 20;
-    let chartWidth = 270; // Default width
+    let chartWidth = 270;
 
-    if (selectedIndex === 0) {
-        // Day View
-        dynamicBarWidth = 20;
-        dynamicSpacing = 10;
-        chartWidth = screenWidth - 40; // Adjust based on screen size
-    } else if (selectedIndex === 1) {
-        // Week View
+    if (selectedIndex === 1) {
         dynamicBarWidth = 18;
         dynamicSpacing = 20;
         chartWidth = 270;
     } else if (selectedIndex === 2) {
-        // Month View
         dynamicBarWidth = 10;
         dynamicSpacing = 10;
         chartWidth = chartData.length * (dynamicBarWidth + dynamicSpacing) + 50; // Dynamic width based on data points
         if (chartWidth < screenWidth - 40) {
-            chartWidth = screenWidth - 40; // Ensure minimum width
+            chartWidth = screenWidth - 40;
         }
     }
+
+
 
     return (
         <Frame style={styles.container}>
@@ -328,29 +317,29 @@ const HR2Details = () => {
             />
 
             <View style={styles.graphContainer}>
-                    <ScrollView showsHorizontalScrollIndicator={false} >
-                        {
-                            // If Day (index 0), show LineChart
-                            selectedIndex === 0 ? (
-                                <LineChart
-                                    data={chartData}
-                                    width={270}
-                                    height={300}
-                                    spacing={40}
-                                    thickness={2}
-                                    color="#FF6347"
-                                    hideDataPoints={false}
-                                    dataPointsRadius={4}
-                                    dataPointsColor="#FF6347"
-                                    // X and Y Axis Label style
-                                    xAxisLabelTextStyle={styles.axisLabel}
-                                    yAxisLabelTextStyle={styles.axisLabel}
-                                />
-                            ) : (
-                                <Text>Placeholder bar chart</Text>
-                            )
-                        }
-                    </ScrollView>
+                <ScrollView showsHorizontalScrollIndicator={false}>
+                    {
+                        // If Day (index 0), show LineChart
+                        selectedIndex === 0 ? (
+                            <LineChart
+                                data={chartData}
+                                width={270}
+                                height={300}
+                                spacing={40}
+                                thickness={2}
+                                color="#FF6347"
+                                hideDataPoints={false}
+                                dataPointsRadius={4}
+                                dataPointsColor="#FF6347"
+                                // X and Y Axis Label style
+                                xAxisLabelTextStyle={styles.axisLabel}
+                                yAxisLabelTextStyle={styles.axisLabel}
+                            />
+                        ) : (
+                            <Text>Placeholder bar chart</Text>
+                        )
+                    }
+                </ScrollView>
             </View>
 
         </Frame>
