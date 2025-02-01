@@ -28,6 +28,11 @@ const SmartwatchDetailsScreen = () => {
                 setIsDataFetched(true);
                 console.log('Cached data loaded successfully.');
 
+                // LOGGING THE WHOLE FILE TO CHECK IF THERE ARE ANY INCONSISTENCIES
+                // WITH THE WAY THE DATA ARE DISPLAYED.
+                // console.log("Raw Data:", JSON.stringify(JSON.parse(cachedData), null, 2));
+
+
 
                 // Always display the latest entry as the current Calendar Date
                 if (entries.length > 0) {

@@ -33,8 +33,7 @@ const HR2Details = () => {
             const parsedData = JSON.parse(storedData);
             let processedData = [];
             if (selectedIndex === 0) {
-                // Day View
-                console.log(parsedData.data[0].calendarDate);
+                // Day View – process the detailed heart rate samples to compute an hourly average.
                 processedData = processDailyData(parsedData.data, currentDay);
             }
 
@@ -55,59 +54,89 @@ const HR2Details = () => {
         }
     };
 
-    // Function to process data for the specified day
+
+
+    // Function to process data for the specified day:
+    // This groups the 15-second HR samples into 24 hourly buckets.
     const processDailyData = (data, dayMoment) => {
-        const formattedDay = dayMoment.format('YYYY-MM-DD');
+        const dayStr = dayMoment.format("YYYY-MM-DD");
+        const dayEntry = data.find((entry) => entry.calendarDate === dayStr);
 
-        // Find the day's entry data in the data file
-        const dayEntry = data.find((item) => item.calendarDate === formattedDay);
-
-        // // If no entry for that day, just return 24 zero-values
         if (!dayEntry) {
-
-            return Array.from({length: 24}, (_, hour) => ({
-                value: 0,
-                label: `${hour}:00`,
-                frontColor: 'lightgrey',
-            }));
+            console.log(`No data for ${dayStr}`);
+            // Return an array with 24 hours set to 0 if no data is found.
+            let emptyData = [];
+            for (let h = 0; h < 24; h++) {
+                emptyData.push({
+                    value: 0,
+                    label: h.toString(),
+                    frontColor: 'lightgrey'
+                });
+            }
+            return emptyData;
         }
 
-        // Extract heart-rate samples map:
-        //   keys = second offsets, values = HR at that time
-        const {timeOffsetHeartRateSamples = {}, startTimeOffsetInSeconds = 0} = dayEntry.data;
+        // Retrieve the heart rate samples and timing information.
+        const hrSamples = dayEntry.data.timeOffsetHeartRateSamples;
+        const startTime = dayEntry.data.startTimeInSeconds; // in seconds (UTC)
+        const startOffset = dayEntry.data.startTimeOffsetInSeconds; // in seconds (Athends Time)
 
-        // Prepare arrays to accumulate sums & counts for each hour
-        const sums = new Array(24).fill(0);
-        const counts = new Array(24).fill(0);
+        // Group samples by hour.
+        // We'll store each sample as an object { offset, hr }.
+        let hourlySamples = {}; // e.g. { 11: [ { offset: 33975, hr: 90 }, ... ] }
+        for (const offsetStr in hrSamples) {
+            if (hrSamples.hasOwnProperty(offsetStr)) {
+                const sampleValue = hrSamples[offsetStr];
+                const sampleOffset = parseInt(offsetStr, 10);
+                // Calculate the "Athends" timestamp in seconds.
+                // (Remember: our intended time = startTimeInSeconds (UTC) + startTimeOffsetInSeconds + sampleOffset)
+                const totalSeconds = startTime + startOffset + sampleOffset;
+                // Use Moment to force UTC so the device’s local time zone isn’t applied.
+                const sampleHour = moment.unix(totalSeconds).utc().hour();
 
-        // Convert each offset into an hour index (0–23)
-        for (const [offsetSecStr, heartRate] of Object.entries(timeOffsetHeartRateSamples)) {
-            const offsetSec = parseInt(offsetSecStr, 10);
-
-            // Adjust if needed by subtracting any startTimeOffsetInSeconds
-            // so that 0 <= hour < 24 aligns with the local day
-            const localSec = offsetSec - startTimeOffsetInSeconds;
-            const hour = Math.floor(localSec / 3600);
-
-            if (hour >= 0 && hour < 24) {
-                sums[hour] += heartRate;
-                counts[hour] += 1;
+                // Initialize the bucket if needed.
+                if (!hourlySamples[sampleHour]) {
+                    hourlySamples[sampleHour] = [];
+                }
+                // Push an object with both the raw offset and HR value.
+                hourlySamples[sampleHour].push({ offset: sampleOffset, hr: sampleValue });
             }
         }
 
-        // Build the final array with averages
-        const hourData = sums.map((sum, hour) => {
-            const count = counts[hour];
-            const avgHR = count > 0 ? sum / count : 0;
+        // DEBUG: For each hour, log all the samples (raw offset and HR).
+        console.log(dayEntry.calendarDate);
+        for (let h = 0; h < 24; h++) {
+            if (hourlySamples[h] && hourlySamples[h].length > 0) {
+                console.log(`Samples for hour ${h} (from ${h}:00 to ${h + 1}:00):`);
+                hourlySamples[h].forEach(sample => {
+                    console.log(`   Raw Offset: ${sample.offset} sec, HR: ${sample.hr}`);
+                });
+            } else {
+                console.log(`Hour ${h} (from ${h}:00 to ${h + 1}:00): No samples`);
+            }
+        }
 
-            return {
-                value: avgHR,
-                label: `${hour}:00`,
-                // Use your getBarColor() or custom color logic
-                frontColor: avgHR > 0 ? '#FF6347' : 'lightgrey',
-            };
-        });
-
+        // Now, compute the hourly average (and min/max if needed) for each hour.
+        let hourData = [];
+        for (let h = 0; h < 24; h++) {
+            let samples = hourlySamples[h] || [];
+            let avg = 0, min = 0, max = 0;
+            if (samples.length > 0) {
+                // Extract only the heart rate values.
+                const hrValues = samples.map(sample => sample.hr);
+                const sum = hrValues.reduce((acc, val) => acc + val, 0);
+                avg = Math.round(sum / hrValues.length);
+                min = Math.min(...hrValues);
+                max = Math.max(...hrValues);
+            }
+            hourData.push({
+                value: avg,
+                label: h.toString(), // e.g. "11" for 11:00 to 12:00
+                frontColor: getBarColor(avg),
+                min,
+                max
+            });
+        }
         return hourData;
     };
 
@@ -155,7 +184,8 @@ const HR2Details = () => {
         return monthData;
     };
 
-    // Function to determine bar color based on HR value
+    // Function to determine the bar (or point) color based on HR value.
+    // You can adjust the thresholds as needed.
     const getBarColor = (hr) => {
         if (hr <= 20) return 'grey';
         return '#FF6347';
@@ -214,11 +244,10 @@ const HR2Details = () => {
         setSelectedIndex(index);
         // Reset loading state to fetch new data
         setIsLoading(true);
-        // Reset currentWeekStart, currentMonthStart, or currentDay based on selection
-        if (index === 0) { // Day View
-            const today = moment();
-            setCurrentDay(today);
-        } else if (index === 1) { // Week View
+        // Reset current period based on selection
+        if (index === 0) {
+            setCurrentDay(moment());
+        } else if (index === 1) {
             setCurrentWeekStart(moment().startOf('week'));
         } else if (index === 2) {  // Month View
             setCurrentMonthStart(moment().startOf('month'));
@@ -237,8 +266,7 @@ const HR2Details = () => {
             const end = moment(currentWeekStart).add(6, 'days').format('MMM D, YYYY');
             return `${start} - ${end}`;
         } else if (selectedIndex === 2) {
-            const monthName = moment(currentMonthStart).format('MMMM YYYY');
-            return `${monthName}`;
+            return moment(currentMonthStart).format('MMMM YYYY');
         }
         return '';
     };
@@ -265,7 +293,8 @@ const HR2Details = () => {
     // Define dynamic bar width and spacing based on selectedIndex
     let dynamicBarWidth = 18;
     let dynamicSpacing = 20;
-    let chartWidth = 270;
+    let chartWidth = chartData.length * dynamicSpacing * 2 + 50 ;
+
 
     if (selectedIndex === 1) {
         dynamicBarWidth = 18;
@@ -317,28 +346,26 @@ const HR2Details = () => {
             />
 
             <View style={styles.graphContainer}>
-                <ScrollView showsHorizontalScrollIndicator={false}>
-                    {
-                        // If Day (index 0), show LineChart
-                        selectedIndex === 0 ? (
-                            <LineChart
-                                data={chartData}
-                                width={270}
-                                height={300}
-                                spacing={40}
-                                thickness={2}
-                                color="#FF6347"
-                                hideDataPoints={false}
-                                dataPointsRadius={4}
-                                dataPointsColor="#FF6347"
-                                // X and Y Axis Label style
-                                xAxisLabelTextStyle={styles.axisLabel}
-                                yAxisLabelTextStyle={styles.axisLabel}
-                            />
-                        ) : (
-                            <Text>Placeholder bar chart</Text>
-                        )
-                    }
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    {selectedIndex === 0 ? (
+                        <LineChart
+                            data={chartData}
+                            width={chartWidth}
+                            height={300}
+                            spacing={15}
+                            thickness={2}
+                            color="#FF6347"
+                            hideDataPoints={false}
+                            dataPointsRadius={4}
+                            dataPointsColor="#FF6347"
+                            xAxisLabelTextStyle={styles.axisLabel}
+                            yAxisLabelTextStyle={styles.axisLabel}
+                            noOfSections={6}
+
+                        />
+                    ) : (
+                        <Text>Placeholder bar chart</Text>
+                    )}
                 </ScrollView>
             </View>
 
