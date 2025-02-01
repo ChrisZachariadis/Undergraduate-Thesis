@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, ActivityIndicator, Alert, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
-import {LineChart} from 'react-native-gifted-charts';
+import {LineChart, BarChart} from 'react-native-gifted-charts';
 import Frame from '../components/Frame';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,10 +15,10 @@ const HR2Details = () => {
     // State variables
     const [chartData, setChartData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedIndex, setSelectedIndex] = useState(1); // Default to 'Week'
+    const [selectedIndex, setSelectedIndex] = useState(0); // Default to 'Day'
     const [error, setError] = useState(null);
-    const [currentWeekStart, setCurrentWeekStart] = useState(moment().startOf('week')); // Sunday as start
-    const [currentMonthStart, setCurrentMonthStart] = useState(moment().startOf('month')); // First day of month
+    const [currentWeekStart, setCurrentWeekStart] = useState(moment().startOf('week'));
+    const [currentMonthStart, setCurrentMonthStart] = useState(moment().startOf('month'));
     const [currentDay, setCurrentDay] = useState(moment()); // For Day view
 
     // Fetch HR data from AsyncStorage on component mount and when relevant state changes
@@ -38,13 +38,13 @@ const HR2Details = () => {
             }
 
 
-            // else if (selectedIndex === 1) {
-            //     // Week View
-            //     processedData = processWeeklyData(parsedData.data, currentWeekStart);
-            // } else if (selectedIndex === 2) {
-            //     // Month View
-            //     processedData = processMonthlyData(parsedData.data, currentMonthStart);
-            // }
+            else if (selectedIndex === 1) {
+                // Week View
+                processedData = processWeeklyData(parsedData.data, currentWeekStart);
+            } else if (selectedIndex === 2) {
+                // Month View
+                processedData = processMonthlyData(parsedData.data, currentMonthStart);
+            }
             setChartData(processedData);
         } catch (err) {
             setError('Failed to load data.');
@@ -88,10 +88,9 @@ const HR2Details = () => {
             if (hrSamples.hasOwnProperty(offsetStr)) {
                 const sampleValue = hrSamples[offsetStr];
                 const sampleOffset = parseInt(offsetStr, 10);
-                // Calculate the "Athends" timestamp in seconds.
-                // (Remember: our intended time = startTimeInSeconds (UTC) + startTimeOffsetInSeconds + sampleOffset)
+
+                // time = startTimeInSeconds (UTC) + startTimeOffsetInSeconds (Local) + sampleOffset)
                 const totalSeconds = startTime + startOffset + sampleOffset;
-                // Use Moment to force UTC so the device’s local time zone isn’t applied.
                 const sampleHour = moment.unix(totalSeconds).utc().hour();
 
                 // Initialize the bucket if needed.
@@ -116,30 +115,26 @@ const HR2Details = () => {
             }
         }
 
-        // Now, compute the hourly average (and min/max if needed) for each hour.
+        // Now, compute the hourly average for each hour.
         let hourData = [];
         for (let h = 0; h < 24; h++) {
             let samples = hourlySamples[h] || [];
-            let avg = 0, min = 0, max = 0;
+            let avg = 0;
             if (samples.length > 0) {
                 // Extract only the heart rate values.
                 const hrValues = samples.map(sample => sample.hr);
                 const sum = hrValues.reduce((acc, val) => acc + val, 0);
                 avg = Math.round(sum / hrValues.length);
-                min = Math.min(...hrValues);
-                max = Math.max(...hrValues);
+
             }
             hourData.push({
                 value: avg,
-                label: h.toString(), // e.g. "11" for 11:00 to 12:00
+                label: h.toString(),
                 frontColor: getBarColor(avg),
-                min,
-                max
             });
         }
         return hourData;
     };
-
 
     // Function to process data for the specified week
     const processWeeklyData = (data, weekStart) => {
@@ -295,18 +290,14 @@ const HR2Details = () => {
     let dynamicSpacing = 20;
     let chartWidth = chartData.length * dynamicSpacing * 2 + 50 ;
 
-
     if (selectedIndex === 1) {
         dynamicBarWidth = 18;
         dynamicSpacing = 20;
-        chartWidth = 270;
+        chartWidth = 300;
     } else if (selectedIndex === 2) {
         dynamicBarWidth = 10;
-        dynamicSpacing = 10;
-        chartWidth = chartData.length * (dynamicBarWidth + dynamicSpacing) + 50; // Dynamic width based on data points
-        if (chartWidth < screenWidth - 40) {
-            chartWidth = screenWidth - 40;
-        }
+        dynamicSpacing = 6;
+        chartWidth = 650;
     }
 
 
@@ -364,7 +355,32 @@ const HR2Details = () => {
 
                         />
                     ) : (
-                        <Text>Placeholder bar chart</Text>
+                        <BarChart
+                            data={chartData}
+                            width={chartWidth}
+                            height={200}
+                            barWidth={dynamicBarWidth}
+                            spacing={dynamicSpacing}
+                            minHeight={3}
+                            barBorderRadius={3}
+                            noOfSections={4}
+                            yAxisThickness={0}
+                            xAxisThickness={1}
+                            xAxisLabelTextStyle={styles.axisLabel}
+                            yAxisLabelTextStyle={styles.axisLabel}
+                            isAnimated={false}
+                            dashGap={10}
+                            onPress={(item, index) => {
+                                Alert.alert(
+                                    selectedIndex === 1
+                                        ? `${item.label}`
+                                        : `Day ${item.label}`,
+                                    `Average HR: ${item.value} bpm`,
+                                    [{ text: 'OK' }],
+                                    { cancelable: true }
+                                );
+                            }}
+                        />
                     )}
                 </ScrollView>
             </View>
