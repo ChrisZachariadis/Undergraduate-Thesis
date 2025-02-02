@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, ActivityIndicator, Alert, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
+import {View, Text, ActivityIndicator, Alert, TouchableOpacity, ScrollView, Dimensions, Modal} from 'react-native';
 import {LineChart, BarChart} from 'react-native-gifted-charts';
 import Frame from '../components/Frame';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
@@ -18,6 +18,28 @@ const HR2Details = () => {
     const [currentWeekStart, setCurrentWeekStart] = useState(moment().startOf('week'));
     const [currentMonthStart, setCurrentMonthStart] = useState(moment().startOf('month'));
     const [currentDay, setCurrentDay] = useState(moment()); // For Day view
+
+    // New state for tooltip modal
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const [tooltipData, setTooltipData] = useState(null);
+    const [tooltipLeft, setTooltipLeft] = useState(0);
+
+    // Chart settings (used for computing tooltip left offset)
+    let dynamicBarWidth = 18;
+    let dynamicSpacing = 20;
+    let initialSpacing = 1; // default for day view
+    let chartWidth = 365;
+
+    if (selectedIndex === 1) {
+        dynamicBarWidth = 28;
+        dynamicSpacing = 20;
+        chartWidth = 350;
+        initialSpacing = 10;
+    } else if (selectedIndex === 2) {
+        dynamicBarWidth = 10;
+        dynamicSpacing = 1;
+        chartWidth = 380;
+    }
 
     // Fetch HR data from AsyncStorage on component mount and when relevant state changes
     useEffect(() => {
@@ -112,7 +134,8 @@ const HR2Details = () => {
 
         // Now, compute the hourly average for each hour.
         let hourData = [];
-        for (let h = 1; h <= 24; h++) {
+        // Using indices 0 to 23 (so the first data point is at index 0)
+        for (let h = 0; h < 24; h++) {
             let samples = hourlySamples[h] || [];
             let avg = 0;
             if (samples.length > 0) {
@@ -124,8 +147,7 @@ const HR2Details = () => {
             }
             hourData.push({
                 value: avg,
-                // Only display the label for every 4th hour (0,4,8,...)
-                label: (h % 3 === 0 || h === 1) ? h.toString() : '',
+                label: (h % 3 === 0) ? h.toString() : '',
                 frontColor: getBarColor(avg)
             });
         }
@@ -168,7 +190,7 @@ const HR2Details = () => {
             monthData.push({
                 value: dayEntry ? dayEntry.data.averageHeartRateInBeatsPerMinute : 0,
                 // Show label only if it is the first day or (day number - 1) is divisible by 4
-                label: (i === 1 || (i - 1) % 3 === 0 || i === 31) ? day.format('D') : '',
+                label: (i === 1 || (i - 1) % 3 === 0 || i === daysInMonth) ? day.format('D') : '',
                 frontColor: dayEntry ? getBarColor(dayEntry.data.averageHeartRateInBeatsPerMinute) : 'lightgrey',
             });
         }
@@ -186,21 +208,17 @@ const HR2Details = () => {
     // Handlers for navigating periods (day, week, or month)
     const handlePrevious = () => {
         if (selectedIndex === 0) {
-            const previousDay = moment(currentDay).subtract(1, 'day');
-            setCurrentDay(previousDay);
+            setCurrentDay(moment(currentDay).subtract(1, 'day'));
         } else if (selectedIndex === 1) {
-            const previousWeek = moment(currentWeekStart).subtract(1, 'week');
-            setCurrentWeekStart(previousWeek);
+            setCurrentWeekStart(moment(currentWeekStart).subtract(1, 'week'));
         } else if (selectedIndex === 2) {
-            const previousMonth = moment(currentMonthStart).subtract(1, 'month');
-            setCurrentMonthStart(previousMonth);
+            setCurrentMonthStart(moment(currentMonthStart).subtract(1, 'month'));
         }
     };
 
     const handleNext = () => {
         if (selectedIndex === 0) {
             const nextDay = moment(currentDay).add(1, 'day');
-            // Prevent navigating to future days beyond today
             if (nextDay.isAfter(moment())) {
                 Alert.alert('Invalid Action', 'Cannot navigate to future days.');
                 return;
@@ -208,7 +226,6 @@ const HR2Details = () => {
             setCurrentDay(nextDay);
         } else if (selectedIndex === 1) {
             const nextWeek = moment(currentWeekStart).add(1, 'week');
-            // Prevent navigating to future weeks beyond the current week
             if (nextWeek.isAfter(moment().startOf('week'))) {
                 Alert.alert('Invalid Action', 'Cannot navigate to future weeks.');
                 return;
@@ -216,7 +233,6 @@ const HR2Details = () => {
             setCurrentWeekStart(nextWeek);
         } else if (selectedIndex === 2) {
             const nextMonth = moment(currentMonthStart).add(1, 'month');
-            // Prevent navigating to future months beyond the current month
             if (nextMonth.isAfter(moment().startOf('month'))) {
                 Alert.alert('Invalid Action', 'Cannot navigate to future months.');
                 return;
@@ -276,28 +292,8 @@ const HR2Details = () => {
         );
     }
 
-    // Define dynamic bar width and spacing based on selectedIndex
-    let dynamicBarWidth = 18;
-    let dynamicSpacing = 20;
-    let initialSpacing = 1;
-    let chartWidth = 365;
-
-    if (selectedIndex === 1) {
-        dynamicBarWidth = 28;
-        dynamicSpacing = 20;
-        chartWidth = 350;
-        initialSpacing = 10;
-    } else if (selectedIndex === 2) {
-        dynamicBarWidth = 10;
-        dynamicSpacing = 1;
-        chartWidth = 380;
-    }
-
-
     return (
-        <Frame padding={1}
-               marginHorizontal={3}
-               style={styles.container}>
+        <Frame padding={1} marginHorizontal={3} style={styles.container}>
             <View style={styles.headerContainer}>
 
                 {/*HEADER TITLE WITH ARROWS*/}
@@ -368,20 +364,51 @@ const HR2Details = () => {
                             isAnimated={false}
                             dashGap={35}
                             onPress={(item, index) => {
-                                Alert.alert(
-                                    selectedIndex === 1
-                                        ? `${item.label}`
-                                        : `Day ${item.label}`,
-                                    `Average HR: ${item.value} bpm`,
-                                    [{text: 'OK'}],
-                                    {cancelable: true}
-                                );
+                                // Compute left offset based on index
+                                const left = initialSpacing + index * (dynamicBarWidth + dynamicSpacing);
+                                setTooltipLeft(left);
+                                setTooltipData(item);
+                                setTooltipVisible(true);
                             }}
                         />
                     )}
                 </ScrollView>
             </View>
 
+            {/* Tooltip Modal */}
+            {tooltipVisible && tooltipData && (
+                <Modal transparent animationType="fade">
+                    <TouchableOpacity
+                        style={{ flex: 1 }}
+                        activeOpacity={1}
+                        onPress={() => setTooltipVisible(false)}
+                    >
+                        {/*
+              Adjust "bottom" as needed to position the tooltip above the bar.
+              Here we use a fixed value (e.g. bottom: 300) for demonstration.
+            */}
+                        <View
+                            style={{
+                                position: 'absolute',
+                                left: tooltipLeft,
+                                bottom: 300,
+                                backgroundColor: 'white',
+                                padding: 8,
+                                borderRadius: 4,
+                                borderWidth: 1,
+                                borderColor: '#e0e0e0',
+                                shadowColor: '#000',
+                                shadowOpacity: 0.2,
+                                shadowRadius: 4,
+                                elevation: 4,
+                            }}
+                        >
+                            <Text style={{ fontWeight: 'bold' }}>{`Day ${tooltipData.label}`}</Text>
+                            <Text>{`Average HR: ${tooltipData.value} bpm`}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </Modal>
+            )}
         </Frame>
 
     );
