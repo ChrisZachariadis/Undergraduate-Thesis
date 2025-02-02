@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import {
-    View,
-    Text,
-    ActivityIndicator,
-    Alert,
-    TouchableOpacity,
-    ScrollView,
-    Dimensions,
-    Modal
-} from 'react-native';
-import { LineChart, BarChart } from 'react-native-gifted-charts';
+import React, {useEffect, useState} from 'react';
+import { View, Text, ActivityIndicator, Alert, TouchableOpacity, ScrollView, Dimensions, Modal } from 'react-native';
+import {LineChart, BarChart} from 'react-native-gifted-charts';
 import Frame from '../components/Frame';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { styles } from './styles';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import {styles} from './styles';
 
 const HR2Details = () => {
     // State variables
@@ -98,7 +89,7 @@ const HR2Details = () => {
             for (let h = 0; h < 24; h++) {
                 emptyData.push({
                     value: 0,
-                    label: h % 3 === 0 ? h.toString() : '',
+                    label: (h % 3 === 0 || h === 23) ? h.toString() : '',
                     frontColor: 'lightgrey'
                 });
             }
@@ -160,7 +151,7 @@ const HR2Details = () => {
             hourData.push({
                 value: avg,
                 // Only display the label for every 3rd hour
-                label: (h %  3 === 0) ? h.toString() : '',
+                label: (h % 3 === 0 || h === 23) ? h.toString() : '',
                 frontColor: getBarColor(avg)
             });
         }
@@ -290,7 +281,7 @@ const HR2Details = () => {
     if (isLoading) {
         return (
             <Frame style={styles.loadingFrame}>
-                <ActivityIndicator size="large" color="#FF6347" />
+                <ActivityIndicator size="large" color="#FF6347"/>
                 <Text style={styles.loadingText}>Loading...</Text>
             </Frame>
         );
@@ -311,14 +302,14 @@ const HR2Details = () => {
 
                 {/*HEADER TITLE WITH ARROWS*/}
                 <TouchableOpacity onPress={handlePrevious} style={styles.arrowButton}>
-                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000" />
+                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000"/>
                 </TouchableOpacity>
 
                 <Text style={styles.title}>Heart Rate Summary</Text>
 
                 {/* Next Period Arrow */}
                 <TouchableOpacity onPress={handleNext} style={styles.arrowButton}>
-                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000" />
+                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000"/>
                 </TouchableOpacity>
             </View>
 
@@ -401,39 +392,49 @@ const HR2Details = () => {
             {tooltipVisible && tooltipData && (
                 <Modal transparent animationType="fade">
                     <TouchableOpacity
-                        style={{ flex: 1 }}
+                        style={{flex: 1}}
                         activeOpacity={1}
                         onPress={() => setTooltipVisible(false)}
                     >
-                        {/*
-              Adjust "bottom" as needed to position the tooltip above the bar/data point.
-              Here we use a fixed value (e.g. bottom: 300) for demonstration.
-            */}
-                        <View
-                            style={{
-                                position: 'absolute',
-                                left: tooltipLeft,
-                                bottom: 300,
-                                backgroundColor: 'white',
-                                padding: 8,
-                                borderRadius: 4,
-                                borderWidth: 1,
-                                borderColor: '#e0e0e0',
-                                shadowColor: '#000',
-                                shadowOpacity: 0.2,
-                                shadowRadius: 4,
-                                elevation: 4,
-                            }}
-                        >
-                            <Text style={{ fontWeight: 'bold' }}>
-                                {selectedIndex === 0
-                                    ? `Hour ${tooltipData.label || tooltipIndex}`
-                                    : selectedIndex === 1
-                                        ? `${tooltipData.label}`  // weekly labels are day names
-                                        : `Day ${tooltipData.label || tooltipIndex + 1}`}
-                            </Text>
-                            <Text>{`Average HR: ${tooltipData.value} bpm`}</Text>
-                        </View>
+                        {(() => {
+                            const screenWidth = Dimensions.get('window').width;
+                            const tooltipWidth = 155;
+                            let adjustedLeft = tooltipLeft;
+                            // Ensure tooltip is not offscreen on the left
+                            if (adjustedLeft < 0)
+                                adjustedLeft = 5;
+                            // Ensure tooltip is not offscreen on the right
+                            if (adjustedLeft + tooltipWidth > screenWidth)
+                                adjustedLeft = screenWidth - tooltipWidth - 5; // subtract 20 for padding
+                            return (
+                                <View
+                                    style={{
+                                        position: 'absolute',
+                                        left: adjustedLeft,
+                                        bottom: 350,
+                                        backgroundColor: 'white',
+                                        padding: 8,
+                                        borderRadius: 4,
+                                        borderWidth: 1,
+                                        borderColor: '#e0e0e0',
+                                        shadowColor: '#000',
+                                        shadowOpacity: 0.2,
+                                        shadowRadius: 4,
+                                        elevation: 4,
+                                        width: tooltipWidth
+                                    }}
+                                >
+                                    <Text style={{fontWeight: 'bold'}}>
+                                        {selectedIndex === 0
+                                            ? `Hour ${tooltipData.label || tooltipIndex}`
+                                            : selectedIndex === 1
+                                                ? `${tooltipData.label}`  // weekly labels are day names
+                                                : `Day ${tooltipData.label || tooltipIndex + 1}`}
+                                    </Text>
+                                    <Text>{`Average HR: ${tooltipData.value} bpm`}</Text>
+                                </View>
+                            );
+                        })()}
                     </TouchableOpacity>
                 </Modal>
             )}
