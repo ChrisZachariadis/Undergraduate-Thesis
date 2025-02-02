@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
     container: {
         marginTop: 50,
         alignItems: 'center', // Centers everything except the graph
+        backgroundColor: 'white',
     },
     loadingFrame: {
         marginTop: 100,
@@ -30,6 +31,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '80%',
         marginBottom: 10,
+        marginTop: 20,
     },
     arrowButton: {
         padding: 10,
@@ -51,12 +53,14 @@ export const styles = StyleSheet.create({
     },
     graphContainer: {
         alignSelf: 'stretch',
+        marginBottom: 10,
     },
     axisLabel: {
-        fontSize: 12,
+        fontSize: 9,
         color: 'grey',
     },
-    scrollContainer: {
-        paddingHorizontal: 10,
+    yaxisLabel: {
+        fontSize: 11,
+        color: 'grey',
     },
 });

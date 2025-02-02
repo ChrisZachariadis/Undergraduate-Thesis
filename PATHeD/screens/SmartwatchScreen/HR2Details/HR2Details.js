@@ -1,13 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, ActivityIndicator, Alert, TouchableOpacity, ScrollView, Dimensions, Modal} from 'react-native';
-import {LineChart, BarChart} from 'react-native-gifted-charts';
+import React, { useEffect, useState } from 'react';
+import {
+    View,
+    Text,
+    ActivityIndicator,
+    Alert,
+    TouchableOpacity,
+    ScrollView,
+    Dimensions,
+    Modal
+} from 'react-native';
+import { LineChart, BarChart } from 'react-native-gifted-charts';
 import Frame from '../components/Frame';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
-import {styles} from './styles';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { styles } from './styles';
 
 const HR2Details = () => {
     // State variables
@@ -23,12 +32,16 @@ const HR2Details = () => {
     const [tooltipVisible, setTooltipVisible] = useState(false);
     const [tooltipData, setTooltipData] = useState(null);
     const [tooltipLeft, setTooltipLeft] = useState(0);
+    const [tooltipIndex, setTooltipIndex] = useState(null);
 
     // Chart settings (used for computing tooltip left offset)
     let dynamicBarWidth = 18;
     let dynamicSpacing = 20;
     let initialSpacing = 1; // default for day view
-    let chartWidth = 365;
+    let chartWidth = 355;
+    // For line chart (Day view) we use different spacing values:
+    const lineSpacing = 14;
+    const lineInitialSpacing = 6;
 
     if (selectedIndex === 1) {
         dynamicBarWidth = 28;
@@ -85,7 +98,6 @@ const HR2Details = () => {
             for (let h = 0; h < 24; h++) {
                 emptyData.push({
                     value: 0,
-                    // Only show label if h is a multiple of 4
                     label: h % 3 === 0 ? h.toString() : '',
                     frontColor: 'lightgrey'
                 });
@@ -96,7 +108,7 @@ const HR2Details = () => {
         // Retrieve the heart rate samples and timing information.
         const hrSamples = dayEntry.data.timeOffsetHeartRateSamples;
         const startTime = dayEntry.data.startTimeInSeconds; // in seconds (UTC)
-        const startOffset = dayEntry.data.startTimeOffsetInSeconds; // in seconds (Athends Time)
+        const startOffset = dayEntry.data.startTimeOffsetInSeconds; // in seconds (Local)
 
         // Group samples by hour.
         // Using Moment in UTC mode to get the intended hour.
@@ -133,8 +145,8 @@ const HR2Details = () => {
         }
 
         // Now, compute the hourly average for each hour.
-        let hourData = [];
         // Using indices 0 to 23 (so the first data point is at index 0)
+        let hourData = [];
         for (let h = 0; h < 24; h++) {
             let samples = hourlySamples[h] || [];
             let avg = 0;
@@ -147,7 +159,8 @@ const HR2Details = () => {
             }
             hourData.push({
                 value: avg,
-                label: (h % 3 === 0) ? h.toString() : '',
+                // Only display the label for every 3rd hour
+                label: (h %  3 === 0) ? h.toString() : '',
                 frontColor: getBarColor(avg)
             });
         }
@@ -189,7 +202,7 @@ const HR2Details = () => {
 
             monthData.push({
                 value: dayEntry ? dayEntry.data.averageHeartRateInBeatsPerMinute : 0,
-                // Show label only if it is the first day or (day number - 1) is divisible by 4
+                // Show label only if it is the first day or (day number - 1) is divisible by 3 or last day
                 label: (i === 1 || (i - 1) % 3 === 0 || i === daysInMonth) ? day.format('D') : '',
                 frontColor: dayEntry ? getBarColor(dayEntry.data.averageHeartRateInBeatsPerMinute) : 'lightgrey',
             });
@@ -277,7 +290,7 @@ const HR2Details = () => {
     if (isLoading) {
         return (
             <Frame style={styles.loadingFrame}>
-                <ActivityIndicator size="large" color="#FF6347"/>
+                <ActivityIndicator size="large" color="#FF6347" />
                 <Text style={styles.loadingText}>Loading...</Text>
             </Frame>
         );
@@ -298,14 +311,14 @@ const HR2Details = () => {
 
                 {/*HEADER TITLE WITH ARROWS*/}
                 <TouchableOpacity onPress={handlePrevious} style={styles.arrowButton}>
-                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000"/>
+                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000" />
                 </TouchableOpacity>
 
                 <Text style={styles.title}>Heart Rate Summary</Text>
 
                 {/* Next Period Arrow */}
                 <TouchableOpacity onPress={handleNext} style={styles.arrowButton}>
-                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000"/>
+                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000" />
                 </TouchableOpacity>
             </View>
 
@@ -334,7 +347,7 @@ const HR2Details = () => {
                             width={chartWidth}
                             height={250}
                             spacing={14}
-                            initialSpacing={4}
+                            initialSpacing={lineInitialSpacing}
                             thickness={2}
                             color="#FF6347"
                             disableScroll={true}
@@ -343,7 +356,15 @@ const HR2Details = () => {
                             dataPointsColor="#FF6347"
                             xAxisLabelTextStyle={styles.axisLabel}
                             noOfSections={6}
-
+                            // onDataPointPress added for linear chart (same as for bar chart)
+                            onPress={(item, index) => {
+                                // For LineChart use line chart spacing values
+                                const left = lineInitialSpacing + index * lineSpacing - 20; // subtract 20 to center tooltip
+                                setTooltipLeft(left);
+                                setTooltipData(item);
+                                setTooltipIndex(index);
+                                setTooltipVisible(true);
+                            }}
                         />
                     ) : (
                         <BarChart
@@ -364,10 +385,11 @@ const HR2Details = () => {
                             isAnimated={false}
                             dashGap={35}
                             onPress={(item, index) => {
-                                // Compute left offset based on index
-                                const left = initialSpacing + index * (dynamicBarWidth + dynamicSpacing);
+                                // Compute left offset based on index for BarChart
+                                const left = initialSpacing + index * (dynamicBarWidth + dynamicSpacing) - 20; // subtract 20 to center tooltip
                                 setTooltipLeft(left);
                                 setTooltipData(item);
+                                setTooltipIndex(index);
                                 setTooltipVisible(true);
                             }}
                         />
@@ -384,7 +406,7 @@ const HR2Details = () => {
                         onPress={() => setTooltipVisible(false)}
                     >
                         {/*
-              Adjust "bottom" as needed to position the tooltip above the bar.
+              Adjust "bottom" as needed to position the tooltip above the bar/data point.
               Here we use a fixed value (e.g. bottom: 300) for demonstration.
             */}
                         <View
@@ -403,7 +425,13 @@ const HR2Details = () => {
                                 elevation: 4,
                             }}
                         >
-                            <Text style={{ fontWeight: 'bold' }}>{`Day ${tooltipData.label}`}</Text>
+                            <Text style={{ fontWeight: 'bold' }}>
+                                {selectedIndex === 0
+                                    ? `Hour ${tooltipData.label || tooltipIndex}`
+                                    : selectedIndex === 1
+                                        ? `${tooltipData.label}`  // weekly labels are day names
+                                        : `Day ${tooltipData.label || tooltipIndex + 1}`}
+                            </Text>
                             <Text>{`Average HR: ${tooltipData.value} bpm`}</Text>
                         </View>
                     </TouchableOpacity>
