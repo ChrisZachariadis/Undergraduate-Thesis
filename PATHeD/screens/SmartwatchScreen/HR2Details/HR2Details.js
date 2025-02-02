@@ -9,13 +9,11 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './styles';
 
-const screenWidth = Dimensions.get('window').width;
-
 const HR2Details = () => {
     // State variables
     const [chartData, setChartData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedIndex, setSelectedIndex] = useState(0); // Default to 'Day'
+    const [selectedIndex, setSelectedIndex] = useState(0); // 0: Day, 1: Week, 2: Month
     const [error, setError] = useState(null);
     const [currentWeekStart, setCurrentWeekStart] = useState(moment().startOf('week'));
     const [currentMonthStart, setCurrentMonthStart] = useState(moment().startOf('month'));
@@ -35,10 +33,7 @@ const HR2Details = () => {
             if (selectedIndex === 0) {
                 // Day View – process the detailed heart rate samples to compute an hourly average.
                 processedData = processDailyData(parsedData.data, currentDay);
-            }
-
-
-            else if (selectedIndex === 1) {
+            } else if (selectedIndex === 1) {
                 // Week View
                 processedData = processWeeklyData(parsedData.data, currentWeekStart);
             } else if (selectedIndex === 2) {
@@ -55,7 +50,6 @@ const HR2Details = () => {
     };
 
 
-
     // Function to process data for the specified day:
     // This groups the 15-second HR samples into 24 hourly buckets.
     const processDailyData = (data, dayMoment) => {
@@ -69,7 +63,8 @@ const HR2Details = () => {
             for (let h = 0; h < 24; h++) {
                 emptyData.push({
                     value: 0,
-                    label: h.toString(),
+                    // Only show label if h is a multiple of 4
+                    label: h % 3 === 0 ? h.toString() : '',
                     frontColor: 'lightgrey'
                 });
             }
@@ -82,8 +77,8 @@ const HR2Details = () => {
         const startOffset = dayEntry.data.startTimeOffsetInSeconds; // in seconds (Athends Time)
 
         // Group samples by hour.
-        // We'll store each sample as an object { offset, hr }.
-        let hourlySamples = {}; // e.g. { 11: [ { offset: 33975, hr: 90 }, ... ] }
+        // Using Moment in UTC mode to get the intended hour.
+        let hourlySamples = {};
         for (const offsetStr in hrSamples) {
             if (hrSamples.hasOwnProperty(offsetStr)) {
                 const sampleValue = hrSamples[offsetStr];
@@ -98,7 +93,7 @@ const HR2Details = () => {
                     hourlySamples[sampleHour] = [];
                 }
                 // Push an object with both the raw offset and HR value.
-                hourlySamples[sampleHour].push({ offset: sampleOffset, hr: sampleValue });
+                hourlySamples[sampleHour].push({offset: sampleOffset, hr: sampleValue});
             }
         }
 
@@ -117,7 +112,7 @@ const HR2Details = () => {
 
         // Now, compute the hourly average for each hour.
         let hourData = [];
-        for (let h = 0; h < 24; h++) {
+        for (let h = 1; h <= 24; h++) {
             let samples = hourlySamples[h] || [];
             let avg = 0;
             if (samples.length > 0) {
@@ -129,8 +124,9 @@ const HR2Details = () => {
             }
             hourData.push({
                 value: avg,
-                label: h.toString(),
-                frontColor: getBarColor(avg),
+                // Only display the label for every 4th hour (0,4,8,...)
+                label: (h % 3 === 0 || h === 1) ? h.toString() : '',
+                frontColor: getBarColor(avg)
             });
         }
         return hourData;
@@ -171,7 +167,8 @@ const HR2Details = () => {
 
             monthData.push({
                 value: dayEntry ? dayEntry.data.averageHeartRateInBeatsPerMinute : 0,
-                label: day.format('D'), // Day number, e.g., '1', '2', ..., '31'
+                // Show label only if it is the first day or (day number - 1) is divisible by 4
+                label: (i === 1 || (i - 1) % 3 === 0 || i === 31) ? day.format('D') : '',
                 frontColor: dayEntry ? getBarColor(dayEntry.data.averageHeartRateInBeatsPerMinute) : 'lightgrey',
             });
         }
@@ -189,15 +186,12 @@ const HR2Details = () => {
     // Handlers for navigating periods (day, week, or month)
     const handlePrevious = () => {
         if (selectedIndex === 0) {
-            // Day View
             const previousDay = moment(currentDay).subtract(1, 'day');
             setCurrentDay(previousDay);
         } else if (selectedIndex === 1) {
-            // Week View
             const previousWeek = moment(currentWeekStart).subtract(1, 'week');
             setCurrentWeekStart(previousWeek);
         } else if (selectedIndex === 2) {
-            // Month View
             const previousMonth = moment(currentMonthStart).subtract(1, 'month');
             setCurrentMonthStart(previousMonth);
         }
@@ -205,7 +199,6 @@ const HR2Details = () => {
 
     const handleNext = () => {
         if (selectedIndex === 0) {
-            // Day View
             const nextDay = moment(currentDay).add(1, 'day');
             // Prevent navigating to future days beyond today
             if (nextDay.isAfter(moment())) {
@@ -214,7 +207,6 @@ const HR2Details = () => {
             }
             setCurrentDay(nextDay);
         } else if (selectedIndex === 1) {
-            // Week View
             const nextWeek = moment(currentWeekStart).add(1, 'week');
             // Prevent navigating to future weeks beyond the current week
             if (nextWeek.isAfter(moment().startOf('week'))) {
@@ -223,7 +215,6 @@ const HR2Details = () => {
             }
             setCurrentWeekStart(nextWeek);
         } else if (selectedIndex === 2) {
-            // Month View
             const nextMonth = moment(currentMonthStart).add(1, 'month');
             // Prevent navigating to future months beyond the current month
             if (nextMonth.isAfter(moment().startOf('month'))) {
@@ -244,7 +235,7 @@ const HR2Details = () => {
             setCurrentDay(moment());
         } else if (index === 1) {
             setCurrentWeekStart(moment().startOf('week'));
-        } else if (index === 2) {  // Month View
+        } else if (index === 2) {
             setCurrentMonthStart(moment().startOf('month'));
         }
         setTimeout(() => {
@@ -288,22 +279,25 @@ const HR2Details = () => {
     // Define dynamic bar width and spacing based on selectedIndex
     let dynamicBarWidth = 18;
     let dynamicSpacing = 20;
-    let chartWidth = chartData.length * dynamicSpacing * 2 + 50 ;
+    let initialSpacing = 1;
+    let chartWidth = 365;
 
     if (selectedIndex === 1) {
-        dynamicBarWidth = 18;
+        dynamicBarWidth = 28;
         dynamicSpacing = 20;
-        chartWidth = 300;
+        chartWidth = 350;
+        initialSpacing = 10;
     } else if (selectedIndex === 2) {
         dynamicBarWidth = 10;
-        dynamicSpacing = 6;
-        chartWidth = 650;
+        dynamicSpacing = 1;
+        chartWidth = 380;
     }
 
 
-
     return (
-        <Frame style={styles.container}>
+        <Frame padding={1}
+               marginHorizontal={3}
+               style={styles.container}>
             <View style={styles.headerContainer}>
 
                 {/*HEADER TITLE WITH ARROWS*/}
@@ -342,15 +336,16 @@ const HR2Details = () => {
                         <LineChart
                             data={chartData}
                             width={chartWidth}
-                            height={300}
-                            spacing={15}
+                            height={250}
+                            spacing={14}
+                            initialSpacing={4}
                             thickness={2}
                             color="#FF6347"
+                            disableScroll={true}
                             hideDataPoints={false}
                             dataPointsRadius={4}
                             dataPointsColor="#FF6347"
                             xAxisLabelTextStyle={styles.axisLabel}
-                            yAxisLabelTextStyle={styles.axisLabel}
                             noOfSections={6}
 
                         />
@@ -358,26 +353,28 @@ const HR2Details = () => {
                         <BarChart
                             data={chartData}
                             width={chartWidth}
-                            height={200}
+                            height={250}
+                            disableScroll={true}
                             barWidth={dynamicBarWidth}
                             spacing={dynamicSpacing}
+                            initialSpacing={initialSpacing}
                             minHeight={3}
                             barBorderRadius={3}
                             noOfSections={4}
                             yAxisThickness={0}
-                            xAxisThickness={1}
+                            xAxisThickness={0}
                             xAxisLabelTextStyle={styles.axisLabel}
-                            yAxisLabelTextStyle={styles.axisLabel}
+                            yAxisTextStyle={styles.yaxisLabel}
                             isAnimated={false}
-                            dashGap={10}
+                            dashGap={35}
                             onPress={(item, index) => {
                                 Alert.alert(
                                     selectedIndex === 1
                                         ? `${item.label}`
                                         : `Day ${item.label}`,
                                     `Average HR: ${item.value} bpm`,
-                                    [{ text: 'OK' }],
-                                    { cancelable: true }
+                                    [{text: 'OK'}],
+                                    {cancelable: true}
                                 );
                             }}
                         />
