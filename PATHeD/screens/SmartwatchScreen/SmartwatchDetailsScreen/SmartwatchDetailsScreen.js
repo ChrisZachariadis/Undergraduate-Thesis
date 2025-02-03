@@ -2,7 +2,7 @@ import React, {useMemo, useState, useEffect} from 'react';
 import {ScrollView, Text, TouchableOpacity, View, Alert, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faHeart, faArrowLeft, faArrowRight, faFire, faBrain, faSync} from '@fortawesome/free-solid-svg-icons';
+import {faHeart, faArrowLeft, faArrowRight, faFire, faBrain, faSync, faBolt} from '@fortawesome/free-solid-svg-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
@@ -264,6 +264,38 @@ const SmartwatchDetailsScreen = () => {
                             {selectedDayData?.bmrKilocalories} kcal
                         </Text>
                     </Frame>
+
+                    {/* Intensity Frame */}
+                    <Frame>
+                        <View style={styles.intensityHeader}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <FontAwesomeIcon icon={faBolt} size={24} color="#F39C12" />
+                                <Text style={styles.intensityTitle}> Intensity</Text>
+                            </View>
+                            <TouchableOpacity onPress={() => navigation.navigate('IntensityDetailsScreen', { dayData: selectedDayData })}>
+                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.intensityDetailsContainer}>
+                            <View style={styles.intensityDetail}>
+                                <Text style={styles.intensityLabel}>Moderate</Text>
+                                <Text style={styles.intensityText}>
+                                    {selectedDayData?.moderateIntensityDurationInSeconds
+                                        ? Math.round(selectedDayData.moderateIntensityDurationInSeconds / 60)
+                                        : 0} min
+                                </Text>
+                            </View>
+                            <View style={styles.intensityDetail}>
+                                <Text style={styles.intensityLabel}>Vigorous</Text>
+                                <Text style={styles.intensityText}>
+                                    {selectedDayData?.vigorousIntensityDurationInSeconds
+                                        ? Math.round(selectedDayData.vigorousIntensityDurationInSeconds / 60)
+                                        : 0} min
+                                </Text>
+                            </View>
+                        </View>
+                    </Frame>
+
 
                     {/* Stress Levels in a Styled Box */}
                     <Frame>

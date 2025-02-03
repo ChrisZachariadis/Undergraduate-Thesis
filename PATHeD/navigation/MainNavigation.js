@@ -26,8 +26,8 @@ import ShlScreen from '../screens/ShlScreen/ShlScreen';
 import SmartwatchDetailsScreen from "../screens/SmartwatchScreen/SmartwatchDetailsScreen/SmartwatchDetailsScreen";
 import FloorsDetailsScreen from "../screens/SmartwatchScreen/FloorsDetailsScreen/FloorsDetailsScreen";
 import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen/StepsDetailsScreen";
-// import HRDetailsScreen from "../screens/SmartwatchScreen/HRDetailsScreen/HRDetailsScreen";
 import KcalDetailsScreen from "../screens/SmartwatchScreen/KcalDetailsScreen/KcalDetailsScreen";
+import IntensityDetailsScreen from "../screens/SmartwatchScreen/IntensityDetailsScreen/IntensityDetailsScreen";
 import StressDetailsScreen from "../screens/SmartwatchScreen/StressDetailsScreen/StressDetailsScreen";
 import HR2Details from "../screens/SmartwatchScreen/HR2Details/HR2Details";
 import SmartwatchMenuScreen from "../screens/SmartwatchScreen/SmartwatchMenuScreen/SmartwatchMenuScreen";
@@ -118,6 +118,11 @@ export const MyHealthStack = () => {
               options={{headerShown: true, headerTitle: 'Kcal Details Data'}}
           />
           <stack.Screen
+              name={"IntensityDetailsScreen"}
+              component={IntensityDetailsScreen}
+              options={{headerShown: true, headerTitle: 'Intensity Details Data'}}
+          />
+          <stack.Screen
               name={"StressDetailsScreen"}
               component={StressDetailsScreen}
               options={{headerShown: true, headerTitle: 'Stress Details Data'}}
@@ -127,7 +132,6 @@ export const MyHealthStack = () => {
               component={SmartwatchMenuScreen}
               options={{headerShown: true, headerTitle: 'Smartwatch Menu'}}
           />
-
 
           <stack.Screen
               name={Routes.MedicalHistory}

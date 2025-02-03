@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -92,6 +92,37 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#424242',
     },
+    intensityHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    intensityTitle: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#F39C12',
+    },
+    intensityDetailsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8,
+    },
+    intensityDetail: {
+        alignItems: 'center',
+        flex: 1,
+    },
+    intensityLabel: {
+        fontSize: 14,
+        color: '#666',
+        marginBottom: 4,
+    },
+    intensityText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#424242',
+    },
+
     stressHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',

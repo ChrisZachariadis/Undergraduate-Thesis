@@ -171,7 +171,7 @@ const ChartDetails = ({
                 }
             }
             setChartData(processedData);
-            updateSummary(processedData);
+            updateSummary(processedData,  parsedData.data);
         } catch (err) {
             setError('Failed to load data.');
             Alert.alert('Error', 'An error occurred while fetching data.');
@@ -181,25 +181,49 @@ const ChartDetails = ({
     };
 
 // Compute summary based on processed chartData.
-    const updateSummary = (processedData) => {
-        // Filter out any entries with a value of 0.
-        const validData = processedData.filter(item => item.value !== 0);
+    const updateSummary = (dataArr, rawData) => {
+        const dayStr = currentDay.format("YYYY-MM-DD");
 
+        if (dataType === 'hr' && currentSegment === 'Day') {
+            // For HR daily view, use the raw value from the data.
+            const dayEntry = rawData.find(entry => entry.calendarDate === dayStr);
+            if (dayEntry && dayEntry.data.averageHeartRateInBeatsPerMinute) {
+                onSummaryUpdate && onSummaryUpdate(
+                    {
+                        averageHeartRateInBeatsPerMinute: dayEntry.data.averageHeartRateInBeatsPerMinute,
+                        restingHeartRateInBeatsPerMinute: dayEntry.data.restingHeartRateInBeatsPerMinute,
+                        minHeartRateInBeatsPerMinute: dayEntry.data.minHeartRateInBeatsPerMinute,
+                        maxHeartRateInBeatsPerMinute: dayEntry.data.maxHeartRateInBeatsPerMinute
+                    });
+            }
+
+            return;
+        }
+
+        if (dataType === 'stress' && currentSegment === 'Day') {
+            // For stress daily view, compute the total stress duration and also send individual durations.
+            const dayEntry = rawData.find(entry => entry.calendarDate === dayStr);
+            if (dayEntry) {
+                onSummaryUpdate && onSummaryUpdate({
+                    restStressDurationInSeconds: dayEntry.data.restStressDurationInSeconds,
+                    lowStressDurationInSeconds: dayEntry.data.lowStressDurationInSeconds,
+                    mediumStressDurationInSeconds: dayEntry.data.mediumStressDurationInSeconds,
+                    highStressDurationInSeconds: dayEntry.data.highStressDurationInSeconds,
+                    maxStressLevel: dayEntry.data.maxStressLevel,
+                    averageStressLevel: dayEntry.data.averageStressLevel
+                });
+            }
+            return;
+        }
+        // For other cases, ignore entries with a value of 0.
+        const validData = dataArr.filter(item => item.value !== 0);
         let periodValue = 0;
         if (validData.length > 0) {
-            if (dataType === 'stress' && currentSegment === 'Day') {
-                // For stress daily (pie chart), display total stress duration.
-                periodValue = validData.reduce((acc, cur) => acc + cur.value, 0);
-            } else {
-                periodValue = validData.reduce((acc, cur) => acc + cur.value, 0) / validData.length;
-            }
+            periodValue = validData.reduce((acc, cur) => acc + cur.value, 0) / validData.length;
         }
         periodValue = Math.round(periodValue);
 
-        // Call the callback with the numeric value.
-        if (onSummaryUpdate) {
-            onSummaryUpdate(periodValue);
-        }
+        onSummaryUpdate && onSummaryUpdate(periodValue);
     };
 
 

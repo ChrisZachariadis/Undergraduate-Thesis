@@ -1,23 +1,44 @@
 // HR2Details.js
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text} from 'react-native';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
+import Frame from '../components/Frame';
+import {styles} from './styles';
 
 const HR2Details = () => {
-    const [summary, setSummary] = useState('');
+    const [summary, setSummary] = useState(null);
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
             <ChartDetails
                 title="Heart Rate Summary"
                 dataType="hr"
                 segments={['Day', 'Week', 'Month']}
                 chartColor="#FF6347"
-                onSummaryUpdate={(summaryLabel) => setSummary(summaryLabel)}
+                onSummaryUpdate={(value) => setSummary(value)}
             />
-            <View>
-                <Text>Average hr {summary}</Text>
-            </View>
+            <Frame>
+                {summary && typeof summary === 'object' ? (
+                    <>
+                        <Text>
+                            Average HR: {summary.averageHeartRateInBeatsPerMinute} bpm
+                        </Text>
+                        <Text>
+                            Resting HR: {summary.restingHeartRateInBeatsPerMinute} bpm
+                        </Text>
+                        <Text>
+                            Min HR: {summary.minHeartRateInBeatsPerMinute} bpm
+                        </Text>
+                        <Text>
+                            Max HR: {summary.maxHeartRateInBeatsPerMinute} bpm
+                        </Text>
+                    </>
+                ) : (
+                    <Text>
+                        Average HR: {summary} bpm
+                    </Text>
+                )}
+            </Frame>
         </View>
     );
 };
