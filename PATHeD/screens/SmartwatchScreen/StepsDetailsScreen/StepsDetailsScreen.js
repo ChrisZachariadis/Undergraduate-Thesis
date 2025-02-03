@@ -1,47 +1,17 @@
-// StepsDetailsScreen.jsx
-
+// StepsDetailsChart.js
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import ChartDetails from '../components/ChartDetails/ChartDetails';
 
-const StepsDetailsScreen = () => {
-    const route = useRoute();
-    const { dayData } = route.params || {};
-
+const StepsDetailsChart = () => {
+    // For steps, use only Week and Month views.
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Hello Steps!</Text>
-            {dayData ? (
-                <>
-                    <Text style={styles.text}>Steps: {dayData.steps}</Text>
-                    <Text style={styles.text}>Steps Goal: {dayData.stepsGoal}</Text>
-                    <Text style={styles.label}>Distance (m): {dayData.distanceInMeters}</Text>
-                    {/* Add more detailed information or charts as needed */}
-                </>
-            ) : (
-                <Text style={styles.text}>No steps data passed.</Text>
-            )}
-        </View>
+        <ChartDetails
+            title="Steps Summary"
+            dataType="steps"
+            segments={['Week', 'Month']}
+            chartColor="#00BFFF"
+        />
     );
 };
 
-export default StepsDetailsScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 16,
-    },
-    text: {
-        fontSize: 16,
-        marginVertical: 4,
-    },
-});
+export default StepsDetailsChart;
