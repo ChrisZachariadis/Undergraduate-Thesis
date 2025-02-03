@@ -1,5 +1,5 @@
 // ChartDetails.js
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     View,
     Text,
@@ -10,23 +10,29 @@ import {
     Dimensions,
     Modal
 } from 'react-native';
-import { LineChart, BarChart, PieChart } from 'react-native-gifted-charts';
+import {LineChart, BarChart, PieChart} from 'react-native-gifted-charts';
 import Frame from '../Frame';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { styles } from './styles';
-import { processHRDailyData, processStressDailyData, processWeeklyData, processMonthlyData, getHRBarColor } from './ProcessData';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import {styles} from './styles';
+import {
+    processHRDailyData,
+    processStressDailyData,
+    processWeeklyData,
+    processMonthlyData,
+    getHRBarColor
+} from './ProcessData';
 
 const ChartDetails = ({
                           title,
-                          dataType,   // "hr", "kcal", "steps", "floors", "stress"
-                          segments,   // For hr: ['Day','Week','Month']; for kcal/steps/floors: ['Week','Month'];
-                                      // For stress: ['Day','Week','Month'] (with Day showing a PieChart)
+                          dataType,
+                          segments,
                           chartColor,
-                          storageKey = '@garminData'
+                          storageKey = '@garminData',
+                          onSummaryUpdate
                       }) => {
     // State variables
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -165,6 +171,7 @@ const ChartDetails = ({
                 }
             }
             setChartData(processedData);
+            updateSummary(processedData);
         } catch (err) {
             setError('Failed to load data.');
             Alert.alert('Error', 'An error occurred while fetching data.');
@@ -173,6 +180,27 @@ const ChartDetails = ({
         }
     };
 
+// Compute summary based on processed chartData.
+    const updateSummary = (processedData) => {
+        // Filter out any entries with a value of 0.
+        const validData = processedData.filter(item => item.value !== 0);
+
+        let periodValue = 0;
+        if (validData.length > 0) {
+            if (dataType === 'stress' && currentSegment === 'Day') {
+                // For stress daily (pie chart), display total stress duration.
+                periodValue = validData.reduce((acc, cur) => acc + cur.value, 0);
+            } else {
+                periodValue = validData.reduce((acc, cur) => acc + cur.value, 0) / validData.length;
+            }
+        }
+        periodValue = Math.round(periodValue);
+
+        // Call the callback with the numeric value.
+        if (onSummaryUpdate) {
+            onSummaryUpdate(periodValue);
+        }
+    };
 
 
     // ─── NAVIGATION HANDLERS ─────────────────────────────────────────────
@@ -243,7 +271,7 @@ const ChartDetails = ({
     if (isLoading) {
         return (
             <Frame style={styles.loadingFrame}>
-                <ActivityIndicator size="large" color={chartColor} />
+                <ActivityIndicator size="large" color={chartColor}/>
                 <Text style={styles.loadingText}>Loading...</Text>
             </Frame>
         );
@@ -261,11 +289,11 @@ const ChartDetails = ({
         <Frame padding={1} marginHorizontal={3} style={styles.container}>
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={handlePrevious} style={styles.arrowButton}>
-                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000" />
+                    <FontAwesomeIcon icon={faArrowLeft} size={24} color="#000"/>
                 </TouchableOpacity>
                 <Text style={styles.title}>{title}</Text>
                 <TouchableOpacity onPress={handleNext} style={styles.arrowButton}>
-                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000" />
+                    <FontAwesomeIcon icon={faArrowRight} size={24} color="#000"/>
                 </TouchableOpacity>
             </View>
             <Text style={styles.dateRangeText}>{getDateRange()}</Text>
@@ -350,7 +378,7 @@ const ChartDetails = ({
             )}
             {!(dataType === 'stress' && currentSegment === 'Day') && tooltipVisible && tooltipData && (
                 <Modal transparent animationType="fade">
-                    <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={() => setTooltipVisible(false)}>
+                    <TouchableOpacity style={{flex: 1}} activeOpacity={1} onPress={() => setTooltipVisible(false)}>
                         {(() => {
                             const screenWidth = Dimensions.get('window').width;
                             const tooltipWidth = 155;
@@ -410,7 +438,7 @@ const ChartDetails = ({
                                         width: tooltipWidth
                                     }}
                                 >
-                                    <Text style={{ fontWeight: 'bold' }}>{tooltipText}</Text>
+                                    <Text style={{fontWeight: 'bold'}}>{tooltipText}</Text>
                                 </View>
                             );
                         })()}

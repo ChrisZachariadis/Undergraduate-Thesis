@@ -1,16 +1,24 @@
 // KcalDetails.js
-import React from 'react';
+import React, {useState} from 'react';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
+import {Text, View} from "react-native";
 
 const KcalDetails = () => {
-    // For kilocalories, only Week and Month views are supported.
+    const [summary, setSummary] = useState('');
+
     return (
-        <ChartDetails
-            title="Kilocalories Summary"
-            dataType="kcal"
-            segments={['Week', 'Month']}
-            chartColor="#FFA500"
-        />
+        <View style={{flex: 1}}>
+            <ChartDetails
+                title="Kilocalories Summary"
+                dataType="kcal"
+                segments={['Week', 'Month']}
+                chartColor="#FFA500"
+                onSummaryUpdate={(summaryLabel) => setSummary(summaryLabel)}
+            />
+            <View>
+                <Text>Average kcal {summary}</Text>
+            </View>
+        </View>
     );
 };
 
