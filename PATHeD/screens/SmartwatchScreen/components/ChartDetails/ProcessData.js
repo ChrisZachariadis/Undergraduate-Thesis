@@ -1,5 +1,6 @@
 import moment from "moment/moment";
 
+// HR Daily: Groups 15-sec HR samples into hourly averages.
 const processHRDailyData = (data, dayMoment) => {
     const dayStr = dayMoment.format("YYYY-MM-DD");
     const dayEntry = data.find((entry) => entry.calendarDate === dayStr);
@@ -47,4 +48,77 @@ const processHRDailyData = (data, dayMoment) => {
     return hourData;
 };
 
-export { processHRDailyData };
+// If getHRBarColor is defined elsewhere in the file, ensure it's available.
+const getHRBarColor = (hr) => {
+    return hr <= 20 ? 'grey' : '#FF6347';
+};
+
+
+// Stress Daily: Process stress durations into pie chart data.
+const processStressDailyData = (data, dayMoment) => {
+    const dayStr = dayMoment.format("YYYY-MM-DD");
+    const dayEntry = data.find((entry) => entry.calendarDate === dayStr);
+    if (!dayEntry) return [];
+    const d = dayEntry.data;
+    const rest = Math.round(d.restStressDurationInSeconds / 60);
+    const low = Math.round(d.lowStressDurationInSeconds / 60);
+    const medium = Math.round(d.mediumStressDurationInSeconds / 60);
+    const high = Math.round(d.highStressDurationInSeconds / 60);
+    return [
+        { value: rest, label: 'Rest', color: '#1976D2' },
+        { value: low, label: 'Low', color: '#FFB74D' },
+        { value: medium, label: 'Medium', color: '#FB8C00' },
+        { value: high, label: 'High', color: '#E65100' }
+    ];
+};
+
+
+// Combined weekly processing for hr, kcal, steps, floors, and stress (average).
+const processWeeklyData = (data, weekStart, field, colorOption) => {
+    const weekDays = [];
+    for (let i = 0; i < 7; i++) {
+        const day = moment(weekStart).add(i, 'days');
+        const dayName = day.format('ddd');
+        const dayData = data.find((entry) => entry.calendarDate === day.format('YYYY-MM-DD'));
+        let value = dayData ? dayData.data[field] : 0;
+        let frontColor = 'lightgrey';
+        if (dayData) {
+            frontColor =
+                typeof colorOption === 'function'
+                    ? colorOption(dayData.data[field])
+                    : colorOption;
+        }
+        weekDays.push({
+            value,
+            label: dayName,
+            frontColor
+        });
+    }
+    return weekDays;
+};
+
+// Combined monthly processing for hr, kcal, steps, floors, and stress (average).
+const processMonthlyData = (data, monthStart, field, colorOption) => {
+    const daysInMonth = monthStart.daysInMonth();
+    const monthData = [];
+    for (let i = 1; i <= daysInMonth; i++) {
+        const day = moment(monthStart).date(i);
+        const dayData = data.find((entry) => entry.calendarDate === day.format('YYYY-MM-DD'));
+        let value = dayData ? dayData.data[field] : 0;
+        let frontColor = 'lightgrey';
+        if (dayData) {
+            frontColor =
+                typeof colorOption === 'function'
+                    ? colorOption(dayData.data[field])
+                    : colorOption;
+        }
+        monthData.push({
+            value,
+            label: (i === 1 || (i - 1) % 3 === 0 || i === daysInMonth) ? day.format('D') : '',
+            frontColor
+        });
+    }
+    return monthData;
+};
+
+export { processHRDailyData, processStressDailyData, processWeeklyData, processMonthlyData, getHRBarColor };
