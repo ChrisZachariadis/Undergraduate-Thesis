@@ -118,7 +118,7 @@ const ChartDetails = ({
                         parsedData.data,
                         currentWeekStart,
                         "steps",
-                        "#00BFFF"
+                        "#0B3F6B"
                     );
                 } else if (currentSegment === 'Month') {
                     processedData = processMonthlyData(
@@ -295,7 +295,7 @@ const ChartDetails = ({
             ) : (
                 <View style={styles.graphContainer}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        {currentSegment === 'Day' ? (
+                        {dataType === 'hr' && currentSegment === 'Day' ? (
                             <LineChart
                                 data={chartData}
                                 width={chartWidth}
@@ -361,11 +361,11 @@ const ChartDetails = ({
                             let tooltipText = '';
                             if (dataType === 'hr') {
                                 if (currentSegment === 'Day') {
-                                    tooltipText = `Hour ${tooltipData.label || tooltipIndex}\nAvg HR: ${tooltipData.value} bpm`;
+                                    tooltipText = `Hour ${tooltipData.label || tooltipIndex}\nAverage HR: ${tooltipData.value} bpm`;
                                 } else if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nAvg HR: ${tooltipData.value} bpm`;
+                                    tooltipText = `${tooltipData.label}\nAverage HR: ${tooltipData.value} bpm`;
                                 } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nAvg HR: ${tooltipData.value} bpm`;
+                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nAverage HR: ${tooltipData.value} bpm`;
                                 }
                             } else if (dataType === 'kcal') {
                                 if (currentSegment === 'Week') {
@@ -387,9 +387,9 @@ const ChartDetails = ({
                                 }
                             } else if (dataType === 'stress') {
                                 if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nAvg Stress: ${tooltipData.value}`;
+                                    tooltipText = `${tooltipData.label}\nAverage Stress: ${tooltipData.value}`;
                                 } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nAvg Stress: ${tooltipData.value}`;
+                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nAverage Stress: ${tooltipData.value}`;
                                 }
                             }
                             return (

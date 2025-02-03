@@ -9,7 +9,7 @@ const StepsDetailsChart = () => {
             title="Steps Summary"
             dataType="steps"
             segments={['Week', 'Month']}
-            chartColor="#00BFFF"
+            chartColor="#0B3F6B"
         />
     );
 };

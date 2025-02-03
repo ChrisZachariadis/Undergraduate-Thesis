@@ -10,7 +10,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 16,
-        marginTop: 60,
+        marginTop: 65,
     },
     arrow: {
         fontSize: 24,

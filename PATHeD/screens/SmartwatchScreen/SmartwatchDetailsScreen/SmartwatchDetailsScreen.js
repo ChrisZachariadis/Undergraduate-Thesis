@@ -170,11 +170,11 @@ const SmartwatchDetailsScreen = () => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {/* Date with Navigation Arrows */}
                     <View style={styles.dateContainer}>
-                        <TouchableOpacity onPress={handlePreviousDay} disabled={currentIndex === 0}>
+                        <TouchableOpacity onPress={handleNextDay} disabled={currentIndex === allEntries.length - 1}>
                             <FontAwesomeIcon
                                 icon={faArrowLeft}
                                 size={24}
-                                color={currentIndex === 0 ? 'gray' : 'black'}
+                                color={currentIndex === allEntries.length - 1 ? 'gray' : 'black'}
                             />
                         </TouchableOpacity>
 
@@ -182,11 +182,11 @@ const SmartwatchDetailsScreen = () => {
                             <Text style={styles.dateText}> Day: {currentCalendarDate} </Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={handleNextDay} disabled={currentIndex === allEntries.length - 1}>
+                            <TouchableOpacity onPress={handlePreviousDay} disabled={currentIndex === 0}>
                             <FontAwesomeIcon
                                 icon={faArrowRight}
                                 size={24}
-                                color={currentIndex === allEntries.length - 1 ? 'gray' : 'black'}
+                                color={currentIndex === 0 ? 'gray' : 'black'}
                             />
                         </TouchableOpacity>
                     </View>
