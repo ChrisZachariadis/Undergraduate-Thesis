@@ -23,7 +23,7 @@ import {
     processStressDailyData,
     processWeeklyData,
     processMonthlyData,
-    getHRBarColor
+    getHRBarColor, processIntensityMonthlyData, processIntensityWeeklyData
 } from './ProcessData';
 
 const ChartDetails = ({
@@ -134,6 +134,20 @@ const ChartDetails = ({
                         "#0B3F6B"
                     );
                 }
+            } else if (dataType === 'intensity') {
+                if (currentSegment === 'Week') {
+                    processedData = processIntensityWeeklyData(
+                        parsedData.data,
+                        currentWeekStart,
+                        "#0B3F6B"
+                    );
+                } else if (currentSegment === 'Month') {
+                    processedData = processIntensityMonthlyData(
+                        parsedData.data,
+                        currentMonthStart,
+                        "#0B3F6B"
+                    );
+                }
             } else if (dataType === 'floors') {
                 if (currentSegment === 'Week') {
                     processedData = processWeeklyData(
@@ -215,6 +229,36 @@ const ChartDetails = ({
             }
             return;
         }
+
+        if (dataType === 'intensity') {
+            // For Week and Month, compute averages over the period.
+            let start, end;
+            if (currentSegment === 'Week') {
+                start = moment(currentWeekStart);
+                end = moment(currentWeekStart).add(6, 'days');
+            } else if (currentSegment === 'Month') {
+                start = moment(currentMonthStart);
+                end = moment(currentMonthStart).endOf('month');
+            }
+            // Filter rawData to only include entries within the current period.
+            const filtered = rawData.filter(entry => {
+                const entryDate = moment(entry.calendarDate);
+                return entryDate.isSameOrAfter(start, 'day') && entryDate.isSameOrBefore(end, 'day');
+            });
+            // Sum the intensities over the filtered days.
+            const totalVigorous = filtered.reduce((sum, entry) => sum + (entry.data.vigorousIntensityDurationInSeconds || 0), 0);
+            const totalModerate = filtered.reduce((sum, entry) => sum + (entry.data.moderateIntensityDurationInSeconds || 0), 0);
+            const daysCount = filtered.length;
+            // Compute average (if there is any data; otherwise 0).
+            const avgVigorous = daysCount > 0 ? Math.round(totalVigorous / daysCount) : 0;
+            const avgModerate = daysCount > 0 ? Math.round(totalModerate / daysCount) : 0;
+            onSummaryUpdate && onSummaryUpdate({
+                vigorousIntensityDurationInSeconds: avgVigorous,
+                moderateIntensityDurationInSeconds: avgModerate
+            });
+            return;
+        }
+
         // For other cases, ignore entries with a value of 0.
         const validData = dataArr.filter(item => item.value !== 0);
         let periodValue = 0;
@@ -447,6 +491,12 @@ const ChartDetails = ({
                                     tooltipText = `${tooltipData.label}\nAverage Stress: ${tooltipData.value}`;
                                 } else if (currentSegment === 'Month') {
                                     tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nAverage Stress: ${tooltipData.value}`;
+                                }
+                            } else if (dataType === 'intensity') {
+                                if (currentSegment === 'Week') {
+                                    tooltipText = `${tooltipData.label}\nTotal intensity: ${tooltipData.value}`;
+                                } else if (currentSegment === 'Month') {
+                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nTotal intensity: ${tooltipData.value}`;
                                 }
                             }
                             return (

@@ -7,7 +7,7 @@ const FloorsDetailsChart = () => (
         title="Floors Summary"
         dataType="floors"
         segments={['Week', 'Month']}
-        chartColor="#8BC34A"
+        chartColor="#34511e"
     />
 );
 
