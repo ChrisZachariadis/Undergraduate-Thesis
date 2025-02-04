@@ -131,7 +131,7 @@ const ChartDetails = ({
                         parsedData.data,
                         currentMonthStart,
                         "steps",
-                        "#00BFFF"
+                        "#0B3F6B"
                     );
                 }
             } else if (dataType === 'floors') {
@@ -140,14 +140,14 @@ const ChartDetails = ({
                         parsedData.data,
                         currentWeekStart,
                         "floorsClimbed",
-                        "#8BC34A"
+                        "#34511e"
                     );
                 } else if (currentSegment === 'Month') {
                     processedData = processMonthlyData(
                         parsedData.data,
                         currentMonthStart,
                         "floorsClimbed",
-                        "#8BC34A"
+                        "#34511e"
                     );
                 }
             } else if (dataType === 'stress') {
@@ -331,19 +331,24 @@ const ChartDetails = ({
                 inactiveTextColor="#000"
             />
             {dataType === 'stress' && currentSegment === 'Day' ? (
-                // For stress daily view, render a PieChart.
-                <View style={styles.chartContainer}>
-                    <PieChart
-                        donut
-                        innerRadius={60}
-                        radius={80}
-                        data={chartData}
-                        showText
-                        textColor="white"
-                        textSize={14}
-                        width={Dimensions.get('window').width - 40}
-                    />
-                </View>
+                chartData && chartData.length > 0 ? (
+                    <View style={styles.chartContainer}>
+                        <PieChart
+                            donut
+                            innerRadius={60}
+                            radius={80}
+                            data={chartData}
+                            showText
+                            textColor="white"
+                            textSize={14}
+                            width={Dimensions.get('window').width - 40}
+                        />
+                    </View>
+                ) : (
+                    <View style={styles.chartContainer}>
+                        <Text style={styles.noDataText}>No stress data available</Text>
+                    </View>
+                )
             ) : (
                 <View style={styles.graphContainer}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -379,7 +384,7 @@ const ChartDetails = ({
                                 barWidth={dynamicBarWidth}
                                 spacing={dynamicSpacing}
                                 initialSpacing={initialSpacing}
-                                minHeight={3}
+                                minHeight={4}
                                 barBorderRadius={3}
                                 noOfSections={4}
                                 yAxisThickness={0}

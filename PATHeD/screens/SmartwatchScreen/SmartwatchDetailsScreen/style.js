@@ -4,13 +4,14 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f5f5f5',
+        marginBottom: 15,
     },
     dateContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 16,
-        marginTop: 65,
+        marginTop: 75,
     },
     arrow: {
         fontSize: 24,
@@ -31,18 +32,7 @@ export default StyleSheet.create({
     StepsFloorsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginVertical: 8,
-    },
-    Frame: {
-        borderWidth: 0.5,
-        borderColor: '#eae9e9',
-        borderRadius: 8,
-        padding: 18,
-        backgroundColor: '#ffffff',
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 2,
+        marginVertical: 4,
     },
     noDataContainer: {
         flex: 1,
@@ -154,8 +144,6 @@ export default StyleSheet.create({
         color: '#424242',
     },
 
-    /* Updated Styles */
-
     topRightButtons: {
         position: 'absolute',
         top: 10, // Adjust as needed
@@ -185,11 +173,11 @@ export default StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 4, // Shadow on Android
+        elevation: 4,
     },
     smartwatchIcon: {
-        width: 26, // Adjust size as needed
-        height: 26, // Adjust size as needed
+        width: 26,
+        height: 26,
         resizeMode: 'contain',
     },
 });

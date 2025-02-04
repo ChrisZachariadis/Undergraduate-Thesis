@@ -55,6 +55,12 @@ export const styles = StyleSheet.create({
         alignSelf: 'stretch',
         marginBottom: 10,
     },
+    chartContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+        marginBottom: 40,
+    },
     axisLabel: {
         fontSize: 9,
         color: 'grey',

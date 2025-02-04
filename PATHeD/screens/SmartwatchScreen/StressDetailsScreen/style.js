@@ -13,10 +13,10 @@ export const styles = StyleSheet.create({
         marginVertical: 16,
         color: '#333',
     },
-    chartContainer: {
-        alignItems: 'center',
-        marginVertical: 20,
-    },
+    // chartContainer: {
+    //     alignItems: 'center',
+    //     marginVertical: 20,
+    // },
     infoBox: {
         backgroundColor: '#ffffff',
         borderWidth: 1,

@@ -33,7 +33,6 @@ const SmartwatchDetailsScreen = () => {
                 // console.log("Raw Data:", JSON.stringify(JSON.parse(cachedData), null, 2));
 
 
-
                 // Always display the latest entry as the current Calendar Date
                 if (entries.length > 0) {
                     const latestEntry = entries[0]; // Use the first entry as the latest
@@ -146,6 +145,7 @@ const SmartwatchDetailsScreen = () => {
                     style={styles.syncButton}
                     onPress={syncButtonHandler}
                     accessibilityLabel="Sync Garmin Data"
+
                     accessible={true}
                 >
                     <FontAwesomeIcon icon={faSync} size={24} color="#ffffff"/>
@@ -182,7 +182,7 @@ const SmartwatchDetailsScreen = () => {
                             <Text style={styles.dateText}> Day: {currentCalendarDate} </Text>
                         </TouchableOpacity>
 
-                            <TouchableOpacity onPress={handlePreviousDay} disabled={currentIndex === 0}>
+                        <TouchableOpacity onPress={handlePreviousDay} disabled={currentIndex === 0}>
                             <FontAwesomeIcon
                                 icon={faArrowRight}
                                 size={24}
@@ -201,7 +201,7 @@ const SmartwatchDetailsScreen = () => {
 
                     {/* Circles Row */}
                     <View style={styles.StepsFloorsContainer}>
-                        <View style={styles.Frame}>
+                        <Frame>
                             <ProgressCircle
                                 title="Steps"
                                 progress={(selectedDayData?.steps || 0) / (selectedDayData?.stepsGoal || 1)}
@@ -214,9 +214,9 @@ const SmartwatchDetailsScreen = () => {
                                 size={120}
                                 unit="steps"
                             />
-                        </View>
+                        </Frame>
 
-                        <View style={styles.Frame}>
+                        <Frame>
                             <ProgressCircle
                                 title="Floors Climbed"
                                 progress={(selectedDayData?.floorsClimbed || 0) / (selectedDayData?.floorsClimbedGoal || 1)}
@@ -229,7 +229,7 @@ const SmartwatchDetailsScreen = () => {
                                 size={120}
                                 unit="floors"
                             />
-                        </View>
+                        </Frame>
                     </View>
 
                     {/* Average Heart Rate in a Rectangle Box */}
@@ -268,12 +268,13 @@ const SmartwatchDetailsScreen = () => {
                     {/* Intensity Frame */}
                     <Frame>
                         <View style={styles.intensityHeader}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <FontAwesomeIcon icon={faBolt} size={24} color="#F39C12" />
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <FontAwesomeIcon icon={faBolt} size={24} color="#F39C12"/>
                                 <Text style={styles.intensityTitle}> Intensity</Text>
                             </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('IntensityDetailsScreen', { dayData: selectedDayData })}>
-                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black" />
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('IntensityDetailsScreen', {dayData: selectedDayData})}>
+                                <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.intensityDetailsContainer}>
