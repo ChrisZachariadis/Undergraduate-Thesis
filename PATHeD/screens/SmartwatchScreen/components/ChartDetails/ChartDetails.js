@@ -303,21 +303,21 @@ const ChartDetails = ({
         if (currentSegment === 'Day') {
             const nextDay = moment(currentDay).add(1, 'day');
             if (nextDay.isAfter(moment())) {
-                Alert.alert('Invalid Action', 'Cannot navigate to future days.');
+                Alert.alert('Navigation Error', 'Cannot navigate to future days.');
                 return;
             }
             setCurrentDay(nextDay);
         } else if (currentSegment === 'Week') {
             const nextWeek = moment(currentWeekStart).add(1, 'week');
             if (nextWeek.isAfter(moment().startOf('week'))) {
-                Alert.alert('Invalid Action', 'Cannot navigate to future weeks.');
+                Alert.alert('Navigation Error', 'Cannot navigate to future weeks.');
                 return;
             }
             setCurrentWeekStart(nextWeek);
         } else if (currentSegment === 'Month') {
             const nextMonth = moment(currentMonthStart).add(1, 'month');
             if (nextMonth.isAfter(moment().startOf('month'))) {
-                Alert.alert('Invalid Action', 'Cannot navigate to future months.');
+                Alert.alert('Navigation Error', 'Cannot navigate to future months.');
                 return;
             }
             setCurrentMonthStart(nextMonth);
@@ -388,23 +388,29 @@ const ChartDetails = ({
                 selectedIndex={selectedIndex}
                 onChange={(event) => handleSegmentChange(event.nativeEvent.selectedSegmentIndex)}
                 tintColor={chartColor}
-                activeTextColor="#fff"
-                inactiveTextColor="#000"
+                backgroundColor="lightgray"
             />
             {dataType === 'stress' && currentSegment === 'Day' ? (
                 chartData && chartData.length > 0 ? (
-                    <View style={styles.chartContainer}>
-                        <PieChart
-                            donut
-                            innerRadius={60}
-                            radius={80}
-                            data={chartData}
-                            showText
-                            textColor="white"
-                            textSize={14}
-                            width={Dimensions.get('window').width - 40}
-                        />
-                    </View>
+                    // Check if every metric in the chartData has a value of 0.
+                    chartData.every(item => item.value === 0) ? (
+                        <View style={styles.chartContainer}>
+                            <Text style={styles.noDataText}>Not enough data available</Text>
+                        </View>
+                    ) : (
+                        <View style={styles.chartContainer}>
+                            <PieChart
+                                donut
+                                innerRadius={60}
+                                radius={80}
+                                data={chartData}
+                                showText
+                                textColor="white"
+                                textSize={14}
+                                width={Dimensions.get('window').width - 40}
+                            />
+                        </View>
+                    )
                 ) : (
                     <View style={styles.chartContainer}>
                         <Text style={styles.noDataText}>No stress data available</Text>

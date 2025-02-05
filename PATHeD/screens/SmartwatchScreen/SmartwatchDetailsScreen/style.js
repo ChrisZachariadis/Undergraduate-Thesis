@@ -33,6 +33,8 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginVertical: 4,
+        marginHorizontal: 8,
+
     },
     noDataContainer: {
         flex: 1,
@@ -146,28 +148,28 @@ export default StyleSheet.create({
 
     topRightButtons: {
         position: 'absolute',
-        top: 10, // Adjust as needed
-        right: 10, // Adjust as needed
+        top: 10,
+        right: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        zIndex: 1000, // Ensure it appears on top
+        zIndex: 1000,
     },
     syncButton: {
-        backgroundColor: '#0B3F6B', // Changed background color for better visibility
-        padding: 8, // Adjust size of the button
-        borderRadius: 16, // Round button
+        backgroundColor: '#0B3F6B',
+        padding: 8,
+        borderRadius: 16,
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 4, // Shadow on Android
-        marginRight: 12, // Space between Sync button and Smartwatch icon
+        elevation: 4,
+        marginRight: 12,
     },
     smartwatchButton: {
-        backgroundColor: '#ffffff', // Optional: Add background if needed
-        padding: 8, // Adjust padding as needed
-        borderRadius: 16, // Match the Sync button's style
+        backgroundColor: '#ffffff',
+        padding: 8,
+        borderRadius: 16,
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: '#000',

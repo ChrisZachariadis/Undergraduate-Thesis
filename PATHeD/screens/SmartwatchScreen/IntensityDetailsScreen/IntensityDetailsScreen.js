@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBolt, faPersonRunning, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
 
-const IntensityMetricCard = ({ title, value, unit, icon }) => (
+const IntensityMetricCard = ({ title, value, icon }) => (
     <View style={styles.metricCard}>
         <View style={styles.mainContent}>
             <View style={styles.textContainer}>
@@ -119,11 +119,6 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: 'bold',
         color: '#333',
-    },
-    unit: {
-        fontSize: 16,
-        color: '#666',
-        marginLeft: 6,
     },
     iconContainer: {
         width: 48,

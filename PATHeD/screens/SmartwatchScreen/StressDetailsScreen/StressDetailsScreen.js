@@ -94,7 +94,7 @@ const StressDetailsChart = () => {
                 ) : (
                     <View style={styles.row}>
                         <StressMetricCard
-                            title="Average"
+                            title="Average Stress"
                             value={summary}
                             unit=""
                             icon={faBrain}

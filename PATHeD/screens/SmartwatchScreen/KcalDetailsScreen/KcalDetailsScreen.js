@@ -19,7 +19,7 @@ const KcalSummaryCard = ({ value }) => (
             </View>
         </View>
 
-        <View style={styles.divider} />
+        {/*<View style={styles.divider} />*/}
 
     </View>
 );

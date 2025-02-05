@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPersonWalking, faMedal, faStopwatch, faRankingStar } from '@fortawesome/free-solid-svg-icons';
+import { faPersonWalking } from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
 
 const StepsMetricCard = ({ title, value, unit, icon }) => (
