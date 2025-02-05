@@ -8,7 +8,7 @@ const KcalSummaryCard = ({ value }) => (
     <View style={styles.card}>
         <View style={styles.mainContent}>
             <View style={styles.textContainer}>
-                <Text style={styles.label}>Daily Average</Text>
+                <Text style={styles.label}>Average kilocalories burned</Text>
                 <View style={styles.valueContainer}>
                     <Text style={styles.value}>{value}</Text>
                     <Text style={styles.unit}>kcal</Text>
@@ -21,10 +21,6 @@ const KcalSummaryCard = ({ value }) => (
 
         <View style={styles.divider} />
 
-        <View style={styles.footer}>
-            <Text style={styles.recommendedLabel}>Recommended</Text>
-            <Text style={styles.recommendedValue}>2,000 kcal</Text>
-        </View>
     </View>
 );
 

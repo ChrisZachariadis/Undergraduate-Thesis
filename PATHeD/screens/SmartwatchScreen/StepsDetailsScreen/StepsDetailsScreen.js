@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     metricCard: {
         flex: 1,
-        marginHorizontal: 6,
+        marginHorizontal: 0,
         padding: 16,
         backgroundColor: 'white',
         borderRadius: 12,

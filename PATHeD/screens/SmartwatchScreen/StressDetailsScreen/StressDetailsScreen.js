@@ -44,14 +44,14 @@ const StressDetailsChart = () => {
                     <>
                         <View style={styles.row}>
                             <StressMetricCard
-                                title="Rest Stress"
+                                title="Rest"
                                 value={getTimeInMinutes(summary.restStressDurationInSeconds)}
                                 unit="min"
                                 icon={faBrain}
                                 color="#1976D2"
                             />
                             <StressMetricCard
-                                title="Low Stress"
+                                title="Low"
                                 value={getTimeInMinutes(summary.lowStressDurationInSeconds)}
                                 unit="min"
                                 icon={faPersonRunning}
@@ -60,14 +60,14 @@ const StressDetailsChart = () => {
                         </View>
                         <View style={styles.row}>
                             <StressMetricCard
-                                title="Medium Stress"
+                                title="Medium"
                                 value={getTimeInMinutes(summary.mediumStressDurationInSeconds)}
                                 unit="min"
                                 icon={faFaceMeh}
                                 color="#FB8C00"
                             />
                             <StressMetricCard
-                                title="High Stress"
+                                title="High"
                                 value={getTimeInMinutes(summary.highStressDurationInSeconds)}
                                 unit="min"
                                 icon={faFaceAngry}
@@ -83,7 +83,7 @@ const StressDetailsChart = () => {
                                 color="#673AB7"
                             />
                             <StressMetricCard
-                                title="Avg Level"
+                                title="Average Level"
                                 value={summary.averageStressLevel}
                                 unit=""
                                 icon={faFaceMeh}
@@ -94,7 +94,7 @@ const StressDetailsChart = () => {
                 ) : (
                     <View style={styles.row}>
                         <StressMetricCard
-                            title="Average Stress"
+                            title="Average"
                             value={summary}
                             unit=""
                             icon={faBrain}
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
     },
     metricsContainer: {
-        padding: 16,
+        padding: 4,
     },
     row: {
         flexDirection: 'row',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     },
     metricCard: {
         flex: 1,
-        marginHorizontal: 6,
+        marginHorizontal: 4,
         padding: 16,
         backgroundColor: 'white',
         borderRadius: 12,
