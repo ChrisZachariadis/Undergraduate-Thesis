@@ -185,7 +185,7 @@ const ChartDetails = ({
                 }
             }
             setChartData(processedData);
-            updateSummary(processedData,  parsedData.data);
+            updateSummary(processedData, parsedData.data);
         } catch (err) {
             setError('Failed to load data.');
             Alert.alert('Error', 'An error occurred while fetching data.');
@@ -199,36 +199,53 @@ const ChartDetails = ({
         const dayStr = currentDay.format("YYYY-MM-DD");
 
         if (dataType === 'hr' && currentSegment === 'Day') {
-            // For HR daily view, use the raw value from the data.
             const dayEntry = rawData.find(entry => entry.calendarDate === dayStr);
-            if (dayEntry && dayEntry.data.averageHeartRateInBeatsPerMinute) {
-                onSummaryUpdate && onSummaryUpdate(
-                    {
-                        averageHeartRateInBeatsPerMinute: dayEntry.data.averageHeartRateInBeatsPerMinute,
-                        restingHeartRateInBeatsPerMinute: dayEntry.data.restingHeartRateInBeatsPerMinute,
-                        minHeartRateInBeatsPerMinute: dayEntry.data.minHeartRateInBeatsPerMinute,
-                        maxHeartRateInBeatsPerMinute: dayEntry.data.maxHeartRateInBeatsPerMinute
-                    });
+            if (dayEntry) {
+                onSummaryUpdate && onSummaryUpdate({
+                    averageHeartRateInBeatsPerMinute: dayEntry.data.averageHeartRateInBeatsPerMinute || 0,
+                    restingHeartRateInBeatsPerMinute: dayEntry.data.restingHeartRateInBeatsPerMinute || 0,
+                    minHeartRateInBeatsPerMinute: dayEntry.data.minHeartRateInBeatsPerMinute || 0,
+                    maxHeartRateInBeatsPerMinute: dayEntry.data.maxHeartRateInBeatsPerMinute || 0
+                });
+            } else {
+                // Return 0 for all summary values when there's no day entry.
+                onSummaryUpdate && onSummaryUpdate({
+                    averageHeartRateInBeatsPerMinute: 0,
+                    restingHeartRateInBeatsPerMinute: 0,
+                    minHeartRateInBeatsPerMinute: 0,
+                    maxHeartRateInBeatsPerMinute: 0
+                });
             }
-
             return;
         }
+
 
         if (dataType === 'stress' && currentSegment === 'Day') {
             // For stress daily view, compute the total stress duration and also send individual durations.
             const dayEntry = rawData.find(entry => entry.calendarDate === dayStr);
             if (dayEntry) {
                 onSummaryUpdate && onSummaryUpdate({
-                    restStressDurationInSeconds: dayEntry.data.restStressDurationInSeconds,
-                    lowStressDurationInSeconds: dayEntry.data.lowStressDurationInSeconds,
-                    mediumStressDurationInSeconds: dayEntry.data.mediumStressDurationInSeconds,
-                    highStressDurationInSeconds: dayEntry.data.highStressDurationInSeconds,
-                    maxStressLevel: dayEntry.data.maxStressLevel,
-                    averageStressLevel: dayEntry.data.averageStressLevel
+                    restStressDurationInSeconds: dayEntry.data.restStressDurationInSeconds || 0,
+                    lowStressDurationInSeconds: dayEntry.data.lowStressDurationInSeconds || 0,
+                    mediumStressDurationInSeconds: dayEntry.data.mediumStressDurationInSeconds || 0,
+                    highStressDurationInSeconds: dayEntry.data.highStressDurationInSeconds || 0,
+                    maxStressLevel: dayEntry.data.maxStressLevel || 0,
+                    averageStressLevel: dayEntry.data.averageStressLevel || 0
+                });
+            } else {
+                // If no data is available for the day, return 0 for each summary field.
+                onSummaryUpdate && onSummaryUpdate({
+                    restStressDurationInSeconds: 0,
+                    lowStressDurationInSeconds: 0,
+                    mediumStressDurationInSeconds: 0,
+                    highStressDurationInSeconds: 0,
+                    maxStressLevel: 0,
+                    averageStressLevel: 0
                 });
             }
             return;
         }
+
 
         if (dataType === 'intensity') {
             // For Week and Month, compute averages over the period.

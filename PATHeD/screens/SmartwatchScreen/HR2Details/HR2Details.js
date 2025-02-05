@@ -1,20 +1,28 @@
-// HR2Details.js
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHeartPulse, faHeart, faHeartCircleMinus, faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
+
+const MetricCard = ({ title, value, unit, icon }) => (
+    <View style={styles.metricCard}>
+        <View style={styles.mainContent}>
+            <View style={styles.textContainer}>
+                <Text style={styles.label}>{title}</Text>
+                <View style={styles.valueContainer}>
+                    <Text style={styles.value}>{value}</Text>
+                    <Text style={styles.unit}>{unit}</Text>
+                </View>
+            </View>
+            <View style={styles.iconContainer}>
+                <FontAwesomeIcon icon={icon} size={22} color="#FF6347" />
+            </View>
+        </View>
+    </View>
+);
 
 const HR2Details = () => {
     const [summary, setSummary] = useState(null);
-
-    // Render a single metric box with a title above and value below.
-    const renderMetric = (title, value, unit) => (
-        <View style={styles.metricBox} key={title}>
-            <Text style={styles.metricTitle}>{title}</Text>
-            <Text style={styles.metricValue}>
-                {value} {unit}
-            </Text>
-        </View>
-    );
 
     return (
         <ScrollView style={styles.container}>
@@ -25,21 +33,47 @@ const HR2Details = () => {
                 chartColor="#FF6347"
                 onSummaryUpdate={(value) => setSummary(value)}
             />
+
             <View style={styles.metricsContainer}>
                 {summary && typeof summary === 'object' ? (
                     <>
-                        <View style={styles.metricRow}>
-                            {renderMetric('Average Heart Rate', summary.averageHeartRateInBeatsPerMinute, 'bpm')}
-                            {renderMetric('Resting Heart Rate', summary.restingHeartRateInBeatsPerMinute, 'bpm')}
+                        <View style={styles.row}>
+                            <MetricCard
+                                title="Average Heart Rate"
+                                value={summary.averageHeartRateInBeatsPerMinute}
+                                unit="bpm"
+                                icon={faHeartPulse}
+                            />
+                            <MetricCard
+                                title="Resting Heart Rate"
+                                value={summary.restingHeartRateInBeatsPerMinute}
+                                unit="bpm"
+                                icon={faHeart}
+                            />
                         </View>
-                        <View style={styles.metricRow}>
-                            {renderMetric('Min Hear Rate', summary.minHeartRateInBeatsPerMinute, 'bpm')}
-                            {renderMetric('Max Heart Rate', summary.maxHeartRateInBeatsPerMinute, 'bpm')}
+                        <View style={styles.row}>
+                            <MetricCard
+                                title="Min Heart Rate"
+                                value={summary.minHeartRateInBeatsPerMinute}
+                                unit="bpm"
+                                icon={faHeartCircleMinus}
+                            />
+                            <MetricCard
+                                title="Max Heart Rate"
+                                value={summary.maxHeartRateInBeatsPerMinute}
+                                unit="bpm"
+                                icon={faHeartCirclePlus}
+                            />
                         </View>
                     </>
                 ) : (
-                    <View style={styles.metricRow}>
-                        {renderMetric('Average Heart Rate', summary, 'bpm')}
+                    <View style={styles.row}>
+                        <MetricCard
+                            title="Average Heart Rate"
+                            value={summary}
+                            unit="bpm"
+                            icon={faHeartPulse}
+                        />
                     </View>
                 )}
             </View>
@@ -49,41 +83,65 @@ const HR2Details = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 5,
         flex: 1,
-        backgroundColor: '#F3F4F6',
+        backgroundColor: '#f5f5f5',
     },
     metricsContainer: {
-        marginTop: 6,
-        marginHorizontal: 16,
-        marginBottom: 36,
+        padding: 6,
     },
-    metricRow: {
+    row: {
+        flexDirection: 'row',
+        marginBottom: 16,
+    },
+    metricCard: {
+        flex: 1,
+        marginHorizontal: 4,
+        padding: 16,
+        backgroundColor: 'white',
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    mainContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginVertical: 12,
-        marginHorizontal: 0,
-    },
-    metricBox: {
-        flex: 1,
         alignItems: 'center',
-        paddingVertical: 10,
-        marginHorizontal: 4,
-        borderWidth: 1.5,
-        borderColor: '#ddd',
-        borderRadius: 12,
-        backgroundColor: '#F9FAFB',
     },
-    metricTitle: {
+    textContainer: {
+        flex: 1,
+    },
+    label: {
         fontSize: 14,
-        color: '#888',
+        color: '#666',
         marginBottom: 4,
-        fontWeight: '500',
     },
-    metricValue: {
-        fontSize: 20,
-        color: '#333',
+    valueContainer: {
+        flexDirection: 'row',
+        alignItems: 'baseline',
+    },
+    value: {
+        fontSize: 24,
         fontWeight: 'bold',
+        color: '#333',
+    },
+    unit: {
+        fontSize: 14,
+        color: '#666',
+        marginLeft: 4,
+    },
+    iconContainer: {
+        width: 40,
+        height: 40,
+        backgroundColor: 'rgba(255, 99, 71, 0.1)',
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

@@ -1,25 +1,33 @@
-// StressDetailsChart.js
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faBrain, faPersonRunning, faFaceMeh, faFaceAngry } from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
+
+const StressMetricCard = ({ title, value, unit, icon, color }) => (
+    <View style={styles.metricCard}>
+        <View style={styles.mainContent}>
+            <View style={styles.textContainer}>
+                <View style={styles.titleContainer}>
+                    <View style={[styles.colorIndicator, { backgroundColor: color }]} />
+                    <Text style={styles.label}>{title}</Text>
+                </View>
+                <View style={styles.valueContainer}>
+                    <Text style={styles.value}>{value}</Text>
+                    <Text style={styles.unit}>{unit}</Text>
+                </View>
+            </View>
+            <View style={[styles.iconContainer, { backgroundColor: `${color}20` }]}>
+                <FontAwesomeIcon icon={icon} size={22} color={color} />
+            </View>
+        </View>
+    </View>
+);
 
 const StressDetailsChart = () => {
     const [summary, setSummary] = useState(null);
 
-    // Render a single metric box with a colored indicator next to the title.
-    const renderMetric = (title, value, unit = '', indicatorColor) => (
-        <View style={styles.metricBox} key={title}>
-            <View style={styles.metricHeader}>
-                {indicatorColor && (
-                    <View style={[styles.colorIndicator, { backgroundColor: indicatorColor }]} />
-                )}
-                <Text style={styles.metricTitle}>{title}</Text>
-            </View>
-            <Text style={styles.metricValue}>
-                {value} {unit}
-            </Text>
-        </View>
-    );
+    const getTimeInMinutes = (seconds) => Math.round(seconds / 60);
 
     return (
         <ScrollView style={styles.container}>
@@ -30,45 +38,68 @@ const StressDetailsChart = () => {
                 chartColor="#673AB7"
                 onSummaryUpdate={(value) => setSummary(value)}
             />
+
             <View style={styles.metricsContainer}>
                 {summary && typeof summary === 'object' ? (
                     <>
-                        <View style={styles.metricRow}>
-                            {renderMetric(
-                                'Rest Stress',
-                                Math.round(summary.restStressDurationInSeconds / 60),
-                                'min',
-                                '#1976D2'
-                            )}
-                            {renderMetric(
-                                'Low Stress',
-                                Math.round(summary.lowStressDurationInSeconds / 60),
-                                'min',
-                                '#FFB74D'
-                            )}
+                        <View style={styles.row}>
+                            <StressMetricCard
+                                title="Rest Stress"
+                                value={getTimeInMinutes(summary.restStressDurationInSeconds)}
+                                unit="min"
+                                icon={faBrain}
+                                color="#1976D2"
+                            />
+                            <StressMetricCard
+                                title="Low Stress"
+                                value={getTimeInMinutes(summary.lowStressDurationInSeconds)}
+                                unit="min"
+                                icon={faPersonRunning}
+                                color="#FFB74D"
+                            />
                         </View>
-                        <View style={styles.metricRow}>
-                            {renderMetric(
-                                'Medium Stress',
-                                Math.round(summary.mediumStressDurationInSeconds / 60),
-                                'min',
-                                '#FB8C00'
-                            )}
-                            {renderMetric(
-                                'High Stress',
-                                Math.round(summary.highStressDurationInSeconds / 60),
-                                'min',
-                                '#E65100'
-                            )}
+                        <View style={styles.row}>
+                            <StressMetricCard
+                                title="Medium Stress"
+                                value={getTimeInMinutes(summary.mediumStressDurationInSeconds)}
+                                unit="min"
+                                icon={faFaceMeh}
+                                color="#FB8C00"
+                            />
+                            <StressMetricCard
+                                title="High Stress"
+                                value={getTimeInMinutes(summary.highStressDurationInSeconds)}
+                                unit="min"
+                                icon={faFaceAngry}
+                                color="#E65100"
+                            />
                         </View>
-                        <View style={styles.metricRow}>
-                            {renderMetric('Max Level', summary.maxStressLevel, '', '#673AB7')}
-                            {renderMetric('Avg Level', summary.averageStressLevel, '', '#673AB7')}
+                        <View style={styles.row}>
+                            <StressMetricCard
+                                title="Max Level"
+                                value={summary.maxStressLevel}
+                                unit=""
+                                icon={faFaceAngry}
+                                color="#673AB7"
+                            />
+                            <StressMetricCard
+                                title="Avg Level"
+                                value={summary.averageStressLevel}
+                                unit=""
+                                icon={faFaceMeh}
+                                color="#673AB7"
+                            />
                         </View>
                     </>
                 ) : (
-                    <View style={styles.metricRow}>
-                        {renderMetric('Average Stress', summary, '', '#673AB7')}
+                    <View style={styles.row}>
+                        <StressMetricCard
+                            title="Average Stress"
+                            value={summary}
+                            unit=""
+                            icon={faBrain}
+                            color="#673AB7"
+                        />
                     </View>
                 )}
             </View>
@@ -79,48 +110,73 @@ const StressDetailsChart = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F3F4F6',
+        backgroundColor: '#f5f5f5',
     },
     metricsContainer: {
-        marginTop: 20,
-        marginHorizontal: 20,
-        marginBottom: 40,
+        padding: 16,
     },
-    metricRow: {
+    row: {
+        flexDirection: 'row',
+        marginBottom: 16,
+    },
+    metricCard: {
+        flex: 1,
+        marginHorizontal: 6,
+        padding: 16,
+        backgroundColor: 'white',
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    mainContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginVertical: 16,
-    },
-    metricBox: {
-        flex: 1,
         alignItems: 'center',
-        paddingVertical: 24,
-        marginHorizontal: 12,
-        borderWidth: 1.5,
-        borderColor: '#ddd',
-        borderRadius: 12,
-        backgroundColor: '#F9FAFB',
     },
-    metricHeader: {
+    textContainer: {
+        flex: 1,
+    },
+    titleContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 8,
+        marginBottom: 4,
     },
     colorIndicator: {
-        width: 12,
-        height: 12,
-        borderRadius: 6,
-        marginRight: 6,
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        marginRight: 8,
     },
-    metricTitle: {
-        fontSize: 16,
-        color: '#888',
-        fontWeight: '500',
+    label: {
+        fontSize: 14,
+        color: '#666',
     },
-    metricValue: {
+    valueContainer: {
+        flexDirection: 'row',
+        alignItems: 'baseline',
+    },
+    value: {
         fontSize: 24,
-        color: '#333',
         fontWeight: 'bold',
+        color: '#333',
+    },
+    unit: {
+        fontSize: 14,
+        color: '#666',
+        marginLeft: 4,
+    },
+    iconContainer: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

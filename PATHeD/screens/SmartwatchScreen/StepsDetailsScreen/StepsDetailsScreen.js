@@ -1,20 +1,28 @@
-// StepsDetailsChart.js
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPersonWalking, faMedal, faStopwatch, faRankingStar } from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
+
+const StepsMetricCard = ({ title, value, unit, icon }) => (
+    <View style={styles.metricCard}>
+        <View style={styles.mainContent}>
+            <View style={styles.textContainer}>
+                <Text style={styles.label}>{title}</Text>
+                <View style={styles.valueContainer}>
+                    <Text style={styles.value}>{value.toLocaleString()}</Text>
+                    <Text style={styles.unit}>{unit}</Text>
+                </View>
+            </View>
+            <View style={styles.iconContainer}>
+                <FontAwesomeIcon icon={icon} size={22} color="#0B3F6B" />
+            </View>
+        </View>
+    </View>
+);
 
 const StepsDetailsChart = () => {
     const [summary, setSummary] = useState(null);
-
-    // Render a single metric box with a title above and the value below.
-    const renderMetric = (title, value, unit = '') => (
-        <View style={styles.metricBox} key={title}>
-            <Text style={styles.metricTitle}>{title}</Text>
-            <Text style={styles.metricValue}>
-                {value} {unit}
-            </Text>
-        </View>
-    );
 
     return (
         <ScrollView style={styles.container}>
@@ -25,11 +33,19 @@ const StepsDetailsChart = () => {
                 chartColor="#0B3F6B"
                 onSummaryUpdate={(value) => setSummary(value)}
             />
+
             <View style={styles.metricsContainer}>
                 {summary !== null && (
-                    <View style={styles.metricRow}>
-                        {renderMetric('Average Steps', summary, '')}
-                    </View>
+                    <>
+                        <View style={styles.row}>
+                            <StepsMetricCard
+                                title="Average Steps"
+                                value={summary}
+                                unit="steps"
+                                icon={faPersonWalking}
+                            />
+                        </View>
+                    </>
                 )}
             </View>
         </ScrollView>
@@ -39,38 +55,64 @@ const StepsDetailsChart = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F3F4F6',
+        backgroundColor: '#f5f5f5',
     },
     metricsContainer: {
-        marginTop: 20,
-        marginHorizontal: 20,
-        marginBottom: 40,
+        padding: 16,
     },
-    metricRow: {
+    row: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 16,
+        marginBottom: 16,
     },
-    metricBox: {
+    metricCard: {
         flex: 1,
-        alignItems: 'center',
-        paddingVertical: 24,
-        marginHorizontal: 12,
-        borderWidth: 1.5,
-        borderColor: '#ddd',
+        marginHorizontal: 6,
+        padding: 16,
+        backgroundColor: 'white',
         borderRadius: 12,
-        backgroundColor: '#F9FAFB',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
-    metricTitle: {
-        fontSize: 16,
-        color: '#888',
-        marginBottom: 8,
-        fontWeight: '500',
+    mainContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
-    metricValue: {
+    textContainer: {
+        flex: 1,
+    },
+    label: {
+        fontSize: 14,
+        color: '#666',
+        marginBottom: 4,
+    },
+    valueContainer: {
+        flexDirection: 'row',
+        alignItems: 'baseline',
+    },
+    value: {
         fontSize: 24,
-        color: '#333',
         fontWeight: 'bold',
+        color: '#333',
+    },
+    unit: {
+        fontSize: 14,
+        color: '#666',
+        marginLeft: 4,
+    },
+    iconContainer: {
+        width: 40,
+        height: 40,
+        backgroundColor: 'rgba(11, 63, 107, 0.1)',
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

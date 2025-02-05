@@ -1,20 +1,28 @@
-// IntensityDetailsScreen.js
-import React, {useState} from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faBolt, faPersonRunning, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
+
+const IntensityMetricCard = ({ title, value, unit, icon }) => (
+    <View style={styles.metricCard}>
+        <View style={styles.mainContent}>
+            <View style={styles.textContainer}>
+                <Text style={styles.label}>{title}</Text>
+                <View style={styles.valueContainer}>
+                    <Text style={styles.value}>{Math.round(value / 60)}</Text>
+                    <Text style={styles.unit}>min</Text>
+                </View>
+            </View>
+            <View style={styles.iconContainer}>
+                <FontAwesomeIcon icon={icon} size={22} color="#0B3F6B" />
+            </View>
+        </View>
+    </View>
+);
 
 const IntensityDetailsScreen = () => {
     const [summary, setSummary] = useState(null);
-
-    // Render a single metric box with a title above and value below.
-    const renderMetric = (title, value, unit = '') => (
-        <View style={styles.metricBox} key={title}>
-            <Text style={styles.metricTitle}>{title}</Text>
-            <Text style={styles.metricValue}>
-                {value} {unit}
-            </Text>
-        </View>
-    );
 
     return (
         <ScrollView style={styles.container}>
@@ -25,20 +33,37 @@ const IntensityDetailsScreen = () => {
                 chartColor="#0B3F6B"
                 onSummaryUpdate={(value) => setSummary(value)}
             />
+
             <View style={styles.metricsContainer}>
                 {summary && typeof summary === 'object' ? (
                     <>
-                        <View style={styles.metricRow}>
-                            {renderMetric('Average Vigorous Intensity', summary.vigorousIntensityDurationInSeconds, 'sec')}
-                            {renderMetric('Average Moderate Intensity', summary.moderateIntensityDurationInSeconds, 'sec')}
+                        <View style={styles.row}>
+                            <IntensityMetricCard
+                                title="Vigorous Intensity"
+                                value={summary.vigorousIntensityDurationInSeconds}
+                                icon={faDumbbell}
+                            />
+                            <IntensityMetricCard
+                                title="Moderate Intensity"
+                                value={summary.moderateIntensityDurationInSeconds}
+                                icon={faPersonRunning}
+                            />
                         </View>
-                        <View style={styles.metricRow}>
-                            {renderMetric('Average Total Intensity', summary.moderateIntensityDurationInSeconds + summary.vigorousIntensityDurationInSeconds, 'sec')}
+                        <View style={styles.row}>
+                            <IntensityMetricCard
+                                title="Total Intensity"
+                                value={summary.moderateIntensityDurationInSeconds + summary.vigorousIntensityDurationInSeconds}
+                                icon={faBolt}
+                            />
                         </View>
                     </>
                 ) : (
-                    <View style={styles.metricRow}>
-                        {renderMetric('Intensity', summary, 'sec')}
+                    <View style={styles.row}>
+                        <IntensityMetricCard
+                            title="Intensity"
+                            value={summary || 0}
+                            icon={faBolt}
+                        />
                     </View>
                 )}
             </View>
@@ -49,38 +74,64 @@ const IntensityDetailsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F3F4F6',
+        backgroundColor: '#f5f5f5',
     },
     metricsContainer: {
-        marginTop: 20,
-        marginHorizontal: 20,
-        marginBottom: 40,
+        padding: 16,
     },
-    metricRow: {
+    row: {
+        flexDirection: 'row',
+        marginBottom: 16,
+    },
+    metricCard: {
+        flex: 1,
+        marginHorizontal: 6,
+        padding: 20,
+        backgroundColor: 'white',
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    mainContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginVertical: 16,
-    },
-    metricBox: {
-        flex: 1,
         alignItems: 'center',
-        paddingVertical: 24,
-        marginHorizontal: 12,
-        borderWidth: 1.5,
-        borderColor: '#ddd',
-        borderRadius: 12,
-        backgroundColor: '#F9FAFB',
     },
-    metricTitle: {
+    textContainer: {
+        flex: 1,
+    },
+    label: {
         fontSize: 16,
-        color: '#888',
+        color: '#666',
         marginBottom: 8,
-        fontWeight: '500',
     },
-    metricValue: {
-        fontSize: 24,
-        color: '#333',
+    valueContainer: {
+        flexDirection: 'row',
+        alignItems: 'baseline',
+    },
+    value: {
+        fontSize: 28,
         fontWeight: 'bold',
+        color: '#333',
+    },
+    unit: {
+        fontSize: 16,
+        color: '#666',
+        marginLeft: 6,
+    },
+    iconContainer: {
+        width: 48,
+        height: 48,
+        backgroundColor: 'rgba(11, 63, 107, 0.1)',
+        borderRadius: 24,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 
