@@ -517,9 +517,9 @@ const ChartDetails = ({
                                 }
                             } else if (dataType === 'intensity') {
                                 if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nTotal intensity: ${tooltipData.value}`;
+                                    tooltipText = `${tooltipData.label}\nTotal intensity: ${tooltipData.value} s`;
                                 } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nTotal intensity: ${tooltipData.value}`;
+                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nTotal intensity: ${tooltipData.value} s`;
                                 }
                             }
                             return (

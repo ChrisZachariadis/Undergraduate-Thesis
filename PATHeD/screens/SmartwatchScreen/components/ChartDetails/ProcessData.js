@@ -81,6 +81,9 @@ const processWeeklyData = (data, weekStart, field, colorOption) => {
         const dayName = day.format('ddd');
         const dayData = data.find((entry) => entry.calendarDate === day.format('YYYY-MM-DD'));
         let value = dayData ? dayData.data[field] : 0;
+        // For stress weekly view, ignore negative averageStressLevel values.
+        if (field === "averageStressLevel")
+            value = Math.max(0, value);
         let frontColor = 'lightgrey';
         if (dayData) {
             frontColor =
@@ -105,6 +108,9 @@ const processMonthlyData = (data, monthStart, field, colorOption) => {
         const day = moment(monthStart).date(i);
         const dayData = data.find((entry) => entry.calendarDate === day.format('YYYY-MM-DD'));
         let value = dayData ? dayData.data[field] : 0;
+        // For stress monthly view, ignore negative averageStressLevel values.
+        if (field === "averageStressLevel")
+            value = Math.max(0, value);
         let frontColor = 'lightgrey';
         if (dayData) {
             frontColor =
