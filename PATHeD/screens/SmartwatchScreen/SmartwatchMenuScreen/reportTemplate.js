@@ -21,20 +21,13 @@ export const getReportHTML = (fromDate, toDate, filteredEntries) => {
             <tr>
               <th>Calendar Date (outer)</th>
               <th>Steps</th>
-<!--              <th>Steps Goal</th>-->
               <th>Floors Climbed</th>
               <th>Max Stress Level</th>
               <th>BMR Kilocalories</th>
               <th>Floors Climbed Goal</th>
               <th>Average Stress Level</th>
-<!--              <th>Start Time (s)</th>-->
-<!--              <th>Start Time Offset (s)</th>-->
-<!--              <th>Low Stress Duration (s)</th>-->
-<!--              <th>High Stress Duration (s)</th>-->
-<!--              <th>Rest Stress Duration (s)</th>-->
               <th>Max HR (bpm)</th>
               <th>Min HR (bpm)</th>
-<!--              <th>Medium Stress Duration (s)</th>-->
               <th>Average HR (bpm)</th>
               <th>Resting HR (bpm)</th>
               <th>Moderate Intensity (s)</th>
@@ -49,20 +42,13 @@ export const getReportHTML = (fromDate, toDate, filteredEntries) => {
                   <tr>
                     <td>${entry.calendarDate}</td>
                     <td>${d.steps}</td>
-<!--                    <td>${d.stepsGoal}</td>-->
                     <td>${d.floorsClimbed}</td>
                     <td>${d.maxStressLevel}</td>
                     <td>${d.bmrKilocalories}</td>
                     <td>${d.floorsClimbedGoal}</td>
                     <td>${d.averageStressLevel}</td>
-<!--                    <td>${d.startTimeInSeconds}</td>-->
-<!--                    <td>${d.startTimeOffsetInSeconds}</td>-->
-<!--                     <td>${d.lowStressDurationInSeconds}</td>-->
-<!--                     <td>${d.highStressDurationInSeconds}</td>-->
-<!--                     <td>${d.restStressDurationInSeconds}</td>-->
                     <td>${d.maxHeartRateInBeatsPerMinute}</td>
                     <td>${d.minHeartRateInBeatsPerMinute}</td>
-<!--                    <td>${d.mediumStressDurationInSeconds}</td>-->
                     <td>${d.averageHeartRateInBeatsPerMinute}</td>
                     <td>${d.restingHeartRateInBeatsPerMinute}</td>
                     <td>${d.moderateIntensityDurationInSeconds}</td>
