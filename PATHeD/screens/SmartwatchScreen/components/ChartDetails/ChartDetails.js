@@ -353,6 +353,95 @@ const ChartDetails = ({
         return '';
     };
 
+    // Generate tooltip text based on dataType and currentSegment
+    const generateTooltipText = (data, index) => {
+        if (!data) return '';
+
+        const getDateLabel = () => {
+            if (currentSegment === 'Day') {
+                const hourLabel = data.label || index;
+                return moment().startOf('day').add(hourLabel, 'hours').format('HH:mm');
+            } else if (currentSegment === 'Week') {
+                return moment(data.label, 'ddd').format('dddd');
+            } else if (currentSegment === 'Month') {
+                const dayNum = data.label || index + 1;
+                return moment(currentMonthStart).date(dayNum).format('D MMMM');
+            }
+            return '';
+        };
+
+        const dateLabel = getDateLabel();
+        let valueLabel = '';
+
+        // Determine value label based on data type
+        switch(dataType) {
+            case 'hr':
+                valueLabel = `Average HR: ${data.value} bpm`;
+                break;
+            case 'kcal':
+                valueLabel = `Kcal: ${data.value}`;
+                break;
+            case 'steps':
+                valueLabel = `Steps: ${data.value}`;
+                break;
+            case 'floors':
+                valueLabel = `Floors: ${data.value}`;
+                break;
+            case 'stress':
+                valueLabel = `Average Stress: ${data.value}`;
+                break;
+            case 'intensity':
+                valueLabel = `Total intensity: ${data.value} s`;
+                break;
+            default:
+                valueLabel = `Value: ${data.value}`;
+        }
+
+        return `${dateLabel}\n${valueLabel}`;
+    };
+
+    // Render tooltip component with dynamic positioning
+    const renderTooltip = () => {
+        if (!tooltipVisible || !tooltipData) return null;
+
+        const screenWidth = Dimensions.get('window').width;
+        const tooltipWidth = 155;
+        let adjustedLeft = tooltipLeft;
+
+        // Adjust tooltip position to stay within screen bounds
+        if (adjustedLeft < 0) adjustedLeft = 5;
+        if (adjustedLeft + tooltipWidth > screenWidth)
+            adjustedLeft = screenWidth - tooltipWidth - 5;
+
+        const tooltipText = generateTooltipText(tooltipData, tooltipIndex);
+
+        return (
+            <Modal transparent animationType="fade">
+                <TouchableOpacity style={{flex: 1}} activeOpacity={1} onPress={() => setTooltipVisible(false)}>
+                    <View
+                        style={{
+                            position: 'absolute',
+                            left: adjustedLeft,
+                            bottom: 350,
+                            backgroundColor: 'white',
+                            padding: 8,
+                            borderRadius: 4,
+                            borderWidth: 1,
+                            borderColor: '#e0e0e0',
+                            shadowColor: '#000',
+                            shadowOpacity: 0.2,
+                            shadowRadius: 4,
+                            elevation: 4,
+                            width: tooltipWidth
+                        }}
+                    >
+                        <Text style={{fontWeight: 'bold'}}>{tooltipText}</Text>
+                    </View>
+                </TouchableOpacity>
+            </Modal>
+        );
+    };
+
     if (isLoading) {
         return (
             <Frame style={styles.loadingFrame}>
@@ -472,83 +561,10 @@ const ChartDetails = ({
                     </ScrollView>
                 </View>
             )}
-            {!(dataType === 'stress' && currentSegment === 'Day') && tooltipVisible && tooltipData && (
-                <Modal transparent animationType="fade">
-                    <TouchableOpacity style={{flex: 1}} activeOpacity={1} onPress={() => setTooltipVisible(false)}>
-                        {(() => {
-                            const screenWidth = Dimensions.get('window').width;
-                            const tooltipWidth = 155;
-                            let adjustedLeft = tooltipLeft;
-                            if (adjustedLeft < 0) adjustedLeft = 5;
-                            if (adjustedLeft + tooltipWidth > screenWidth)
-                                adjustedLeft = screenWidth - tooltipWidth - 5;
-                            let tooltipText = '';
-                            if (dataType === 'hr') {
-                                if (currentSegment === 'Day') {
-                                    tooltipText = `Hour ${tooltipData.label || tooltipIndex}\nAverage HR: ${tooltipData.value} bpm`;
-                                } else if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nAverage HR: ${tooltipData.value} bpm`;
-                                } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nAverage HR: ${tooltipData.value} bpm`;
-                                }
-                            } else if (dataType === 'kcal') {
-                                if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nKcal: ${tooltipData.value}`;
-                                } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nKcal: ${tooltipData.value}`;
-                                }
-                            } else if (dataType === 'steps') {
-                                if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nSteps: ${tooltipData.value}`;
-                                } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nSteps: ${tooltipData.value}`;
-                                }
-                            } else if (dataType === 'floors') {
-                                if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nFloors: ${tooltipData.value}`;
-                                } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nFloors: ${tooltipData.value}`;
-                                }
-                            } else if (dataType === 'stress') {
-                                if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nAverage Stress: ${tooltipData.value}`;
-                                } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nAverage Stress: ${tooltipData.value}`;
-                                }
-                            } else if (dataType === 'intensity') {
-                                if (currentSegment === 'Week') {
-                                    tooltipText = `${tooltipData.label}\nTotal intensity: ${tooltipData.value} s`;
-                                } else if (currentSegment === 'Month') {
-                                    tooltipText = `Day ${tooltipData.label || tooltipIndex + 1}\nTotal intensity: ${tooltipData.value} s`;
-                                }
-                            }
-                            return (
-                                <View
-                                    style={{
-                                        position: 'absolute',
-                                        left: adjustedLeft,
-                                        bottom: 350,
-                                        backgroundColor: 'white',
-                                        padding: 8,
-                                        borderRadius: 4,
-                                        borderWidth: 1,
-                                        borderColor: '#e0e0e0',
-                                        shadowColor: '#000',
-                                        shadowOpacity: 0.2,
-                                        shadowRadius: 4,
-                                        elevation: 4,
-                                        width: tooltipWidth
-                                    }}
-                                >
-                                    <Text style={{fontWeight: 'bold'}}>{tooltipText}</Text>
-                                </View>
-                            );
-                        })()}
-                    </TouchableOpacity>
-                </Modal>
-            )}
+            {!(dataType === 'stress' && currentSegment === 'Day') && renderTooltip()}
         </Frame>
     );
 };
 
 export default ChartDetails;
+

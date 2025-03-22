@@ -2,66 +2,75 @@ import {StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        marginTop: 50,
-        alignItems: 'center', // Centers everything except the graph
-        backgroundColor: 'white',
+        flex: 1,
+        backgroundColor: '#f5f5f5',
     },
-    loadingFrame: {
-        marginTop: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
+
+    metricsContainer: {
+        padding: 6,
     },
-    loadingText: {
-        marginTop: 10,
-        fontSize: 16,
-        color: '#555',
-    },
-    errorFrame: {
-        marginTop: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    errorText: {
-        fontSize: 16,
-        color: 'red',
-    },
-    headerContainer: {
+
+    row: {
         flexDirection: 'row',
-        alignItems: 'center',
+        marginBottom: 8,
+    },
+
+    metricCard: {
+        flex: 1,
+        marginHorizontal: 4,
+        padding: 16,
+        backgroundColor: 'white',
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+
+    mainContent: {
+        flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '80%',
-        marginBottom: 10,
-        marginTop: 20,
+        alignItems: 'center',
     },
-    arrowButton: {
-        padding: 10,
+
+    textContainer: {
+        flex: 1,
     },
-    title: {
-        fontSize: 20,
+
+    label: {
+        fontSize: 14,
+        color: '#666',
+        marginBottom: 4,
+    },
+
+    valueContainer: {
+        flexDirection: 'row',
+        alignItems: 'baseline',
+    },
+
+    value: {
+        fontSize: 24,
         fontWeight: 'bold',
-        textAlign: 'center',
+        color: '#333',
     },
-    dateRangeText: {
-        fontSize: 16,
-        color: '#555',
-        marginBottom: 10,
-        textAlign: 'center',
+
+    unit: {
+        fontSize: 14,
+        color: '#666',
+        marginLeft: 4,
     },
-    segmentedControl: {
-        width: '80%',
-        marginBottom: 20,
-    },
-    graphContainer: {
-        alignSelf: 'stretch',
-        marginBottom: 10,
-    },
-    axisLabel: {
-        fontSize: 9,
-        color: 'grey',
-    },
-    yaxisLabel: {
-        fontSize: 11,
-        color: 'grey',
+
+    iconContainer: {
+        width: 40,
+        height: 40,
+        backgroundColor: 'rgba(255, 99, 71, 0.1)',
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
 });

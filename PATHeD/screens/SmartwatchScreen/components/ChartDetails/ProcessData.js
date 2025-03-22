@@ -1,6 +1,6 @@
 import moment from "moment/moment";
 
-// HR Daily: Groups 15-sec HR samples into hourly averages.
+// Group 15-sec HR samples into hourly averages.
 const processHRDailyData = (data, dayMoment) => {
     const dayStr = dayMoment.format("YYYY-MM-DD");
     const dayEntry = data.find((entry) => entry.calendarDate === dayStr);
@@ -8,9 +8,7 @@ const processHRDailyData = (data, dayMoment) => {
         let emptyData = [];
         for (let h = 0; h < 24; h++) {
             emptyData.push({
-                value: 0,
-                label: (h % 3 === 0 || h === 23) ? h.toString() : '',
-                frontColor: 'lightgrey'
+                value: 0, label: (h % 3 === 0 || h === 23) ? h.toString() : '', frontColor: 'lightgrey'
             });
         }
         return emptyData;
@@ -28,7 +26,7 @@ const processHRDailyData = (data, dayMoment) => {
             if (!hourlySamples[sampleHour]) {
                 hourlySamples[sampleHour] = [];
             }
-            hourlySamples[sampleHour].push({ offset: sampleOffset, hr: sampleValue });
+            hourlySamples[sampleHour].push({offset: sampleOffset, hr: sampleValue});
         }
     }
     let hourData = [];
@@ -40,21 +38,18 @@ const processHRDailyData = (data, dayMoment) => {
             avg = Math.round(sum / samples.length);
         }
         hourData.push({
-            value: avg,
-            label: (h % 3 === 0 || h === 23) ? h.toString() : '',
-            frontColor: getHRBarColor(avg)
+            value: avg, label: (h % 3 === 0 || h === 23) ? h.toString() : '', frontColor: getHRBarColor(avg)
         });
     }
     return hourData;
 };
 
-// If getHRBarColor is defined elsewhere in the file, ensure it's available.
 const getHRBarColor = (hr) => {
     return hr <= 20 ? 'grey' : '#FF6347';
 };
 
 
-// Stress Daily: Process stress durations into pie chart data.
+// Process stress durations into pie chart data.
 const processStressDailyData = (data, dayMoment) => {
     const dayStr = dayMoment.format("YYYY-MM-DD");
     const dayEntry = data.find((entry) => entry.calendarDate === dayStr);
@@ -64,12 +59,9 @@ const processStressDailyData = (data, dayMoment) => {
     const low = Math.round(d.lowStressDurationInSeconds / 60);
     const medium = Math.round(d.mediumStressDurationInSeconds / 60);
     const high = Math.round(d.highStressDurationInSeconds / 60);
-    return [
-        { value: rest, label: 'Rest', color: '#1976D2' },
-        { value: low, label: 'Low', color: '#FFB74D' },
-        { value: medium, label: 'Medium', color: '#FB8C00' },
-        { value: high, label: 'High', color: '#E65100' }
-    ];
+    return [{value: rest, label: 'Rest', color: '#1976D2'}, {
+        value: low, label: 'Low', color: '#FFB74D'
+    }, {value: medium, label: 'Medium', color: '#FB8C00'}, {value: high, label: 'High', color: '#E65100'}];
 };
 
 
@@ -81,26 +73,19 @@ const processWeeklyData = (data, weekStart, field, colorOption) => {
         const dayName = day.format('ddd');
         const dayData = data.find((entry) => entry.calendarDate === day.format('YYYY-MM-DD'));
         let value = dayData ? dayData.data[field] : 0;
-        // For stress weekly view, ignore negative averageStressLevel values.
-        if (field === "averageStressLevel")
-            value = Math.max(0, value);
+        if (field === "averageStressLevel") value = Math.max(0, value);
         let frontColor = 'lightgrey';
         if (dayData) {
-            frontColor =
-                typeof colorOption === 'function'
-                    ? colorOption(dayData.data[field])
-                    : colorOption;
+            frontColor = typeof colorOption === 'function' ? colorOption(dayData.data[field]) : colorOption;
         }
         weekDays.push({
-            value,
-            label: dayName,
-            frontColor
+            value, label: dayName, frontColor
         });
     }
     return weekDays;
 };
 
-// Combined monthly processing for hr, kcal, steps, floors, and stress (average).
+// Combined monthly processing for hr, kcal, steps, floors, and stress.
 const processMonthlyData = (data, monthStart, field, colorOption) => {
     const daysInMonth = monthStart.daysInMonth();
     const monthData = [];
@@ -108,20 +93,13 @@ const processMonthlyData = (data, monthStart, field, colorOption) => {
         const day = moment(monthStart).date(i);
         const dayData = data.find((entry) => entry.calendarDate === day.format('YYYY-MM-DD'));
         let value = dayData ? dayData.data[field] : 0;
-        // For stress monthly view, ignore negative averageStressLevel values.
-        if (field === "averageStressLevel")
-            value = Math.max(0, value);
+        if (field === "averageStressLevel") value = Math.max(0, value);
         let frontColor = 'lightgrey';
         if (dayData) {
-            frontColor =
-                typeof colorOption === 'function'
-                    ? colorOption(dayData.data[field])
-                    : colorOption;
+            frontColor = typeof colorOption === 'function' ? colorOption(dayData.data[field]) : colorOption;
         }
         monthData.push({
-            value,
-            label: (i === 1 || (i - 1) % 3 === 0 || i === daysInMonth) ? day.format('D') : '',
-            frontColor
+            value, label: (i === 1 || (i - 1) % 3 === 0 || i === daysInMonth) ? day.format('D') : '', frontColor
         });
     }
     return monthData;
@@ -139,21 +117,16 @@ const processIntensityWeeklyData = (data, weekStart, colorOption) => {
         const total = vigorous + moderate;
         let frontColor = 'lightgrey';
         if (dayData) {
-            frontColor =
-                typeof colorOption === 'function'
-                    ? colorOption(total)
-                    : colorOption;
+            frontColor = typeof colorOption === 'function' ? colorOption(total) : colorOption;
         }
         weekDays.push({
-            value: total,
-            label: dayName,
-            frontColor
+            value: total, label: dayName, frontColor
         });
     }
     return weekDays;
 };
 
-// New function: Process intensity data for a month by summing vigorous and moderate durations.
+// Process intensity data by summing vigorous and moderate durations.
 const processIntensityMonthlyData = (data, monthStart, colorOption) => {
     const daysInMonth = monthStart.daysInMonth();
     const monthData = [];
@@ -165,15 +138,10 @@ const processIntensityMonthlyData = (data, monthStart, colorOption) => {
         const total = vigorous + moderate;
         let frontColor = 'lightgrey';
         if (dayData) {
-            frontColor =
-                typeof colorOption === 'function'
-                    ? colorOption(total)
-                    : colorOption;
+            frontColor = typeof colorOption === 'function' ? colorOption(total) : colorOption;
         }
         monthData.push({
-            value: total,
-            label: (i === 1 || (i - 1) % 3 === 0 || i === daysInMonth) ? day.format('D') : '',
-            frontColor
+            value: total, label: (i === 1 || (i - 1) % 3 === 0 || i === daysInMonth) ? day.format('D') : '', frontColor
         });
     }
     return monthData;

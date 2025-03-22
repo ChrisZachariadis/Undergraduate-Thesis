@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     },
     graphContainer: {
         alignSelf: 'stretch',
-        marginBottom: 10,
+        marginBottom: 4,
     },
     chartContainer: {
         alignItems: 'center',
