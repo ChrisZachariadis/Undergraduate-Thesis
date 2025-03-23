@@ -1,4 +1,3 @@
-// ChartDetails.js
 import React, {useEffect, useState} from 'react';
 import {
     View,
@@ -56,7 +55,7 @@ const ChartDetails = ({
     let dynamicSpacing = 20;
     let initialSpacing = 1;
     let chartWidth = 355;
-    // For line charts (typically used in the daily view for HR)
+    // For line charts
     const lineSpacing = 14;
     const lineInitialSpacing = 6;
 

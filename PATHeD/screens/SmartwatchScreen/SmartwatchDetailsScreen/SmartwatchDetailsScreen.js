@@ -238,7 +238,7 @@ const SmartwatchDetailsScreen = () => {
                                 <FontAwesomeIcon icon={faHeart} size={24} color="red"/>
                                 <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
                             </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('HR2Details')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('HRDetails')}>
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>

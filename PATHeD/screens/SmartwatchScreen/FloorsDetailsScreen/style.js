@@ -1,20 +1,22 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from "react-native";
+
 
 export const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: '#f5f5f5',
     },
     metricsContainer: {
-        padding: 4,
+        padding: 16,
     },
     row: {
         flexDirection: 'row',
-        marginBottom: 10,
+        marginBottom: 16,
     },
     metricCard: {
         flex: 1,
-        marginHorizontal: 4,
+        marginHorizontal: 0,
         padding: 16,
         backgroundColor: 'white',
         borderRadius: 12,
@@ -35,20 +37,10 @@ export const styles = StyleSheet.create({
     textContainer: {
         flex: 1,
     },
-    titleContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 4,
-    },
-    colorIndicator: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        marginRight: 8,
-    },
     label: {
         fontSize: 14,
         color: '#666',
+        marginBottom: 4,
     },
     valueContainer: {
         flexDirection: 'row',
@@ -67,8 +59,11 @@ export const styles = StyleSheet.create({
     iconContainer: {
         width: 40,
         height: 40,
+        backgroundColor: 'rgba(52, 81, 30, 0.1)',
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
     },
 });
+
+export default styles;

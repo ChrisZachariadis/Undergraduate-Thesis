@@ -29,7 +29,7 @@ import StepsDetailsScreen from "../screens/SmartwatchScreen/StepsDetailsScreen/S
 import KcalDetailsScreen from "../screens/SmartwatchScreen/KcalDetailsScreen/KcalDetailsScreen";
 import IntensityDetailsScreen from "../screens/SmartwatchScreen/IntensityDetailsScreen/IntensityDetailsScreen";
 import StressDetailsScreen from "../screens/SmartwatchScreen/StressDetailsScreen/StressDetailsScreen";
-import HR2Details from "../screens/SmartwatchScreen/HR2Details/HR2Details";
+import HRDetails from "../screens/SmartwatchScreen/HRDetails/./HRDetails";
 import SmartwatchMenuScreen from "../screens/SmartwatchScreen/SmartwatchMenuScreen/SmartwatchMenuScreen";
 
 const ICON_SIZE = scaleFontSize(25);
@@ -108,7 +108,7 @@ export const MyHealthStack = () => {
           {/*Alternative HR graph*/}
           <stack.Screen
               name={"HR2Details"}
-              component={HR2Details}
+              component={HRDetails}
               options={{headerShown: true, headerTitle: 'HR Details Data'}}
           />
 

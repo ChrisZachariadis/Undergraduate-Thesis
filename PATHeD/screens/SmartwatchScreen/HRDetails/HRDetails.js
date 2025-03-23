@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faHeartPulse, faHeart, faHeartCircleMinus, faHeartCirclePlus} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
 import {styles} from './styles';
+
 
 // Display the metrics in a card format
 const MetricCard = ({title, value, unit, icon}) => (
@@ -23,7 +24,7 @@ const MetricCard = ({title, value, unit, icon}) => (
     </View>
 );
 
-const HR2Details = () => {
+const HRDetails = () => {
     // useSTate for the heart rate details below the graph
     const [summary, setSummary] = useState(null);
 
@@ -85,4 +86,4 @@ const HR2Details = () => {
     );
 };
 
-export default HR2Details;
+export default HRDetails;

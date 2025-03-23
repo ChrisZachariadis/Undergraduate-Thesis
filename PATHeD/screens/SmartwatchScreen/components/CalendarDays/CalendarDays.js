@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { styles } from './style';
 
 const CalendarDays = ({ isVisible, onClose, allEntries, currentCalendarDate, onDateSelect }) => {
-    // Create an object that marks the valid days for the calendar
     const markedDates = useMemo(() => {
         const dates = {};
         allEntries.forEach(entry => {

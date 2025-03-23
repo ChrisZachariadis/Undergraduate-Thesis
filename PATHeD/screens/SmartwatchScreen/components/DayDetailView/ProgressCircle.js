@@ -1,7 +1,5 @@
-// ProgressCircle.jsx
-
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import * as Progress from 'react-native-progress';
 import PropTypes from 'prop-types';
 
@@ -19,7 +17,7 @@ const ProgressCircle = ({
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
             <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
-                <View style={[styles.circleWrapper, { width: size, height: size }]}>
+                <View style={[styles.circleWrapper, {width: size, height: size}]}>
                     <Progress.Circle
                         size={size}
                         progress={progress}

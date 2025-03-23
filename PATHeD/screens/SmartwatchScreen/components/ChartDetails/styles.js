@@ -3,7 +3,7 @@ import {StyleSheet} from "react-native";
 export const styles = StyleSheet.create({
     container: {
         marginTop: 50,
-        alignItems: 'center', // Centers everything except the graph
+        alignItems: 'center',
         backgroundColor: 'white',
     },
     loadingFrame: {
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20,
-        marginBottom: 40,
+        marginBottom: 28,
     },
     axisLabel: {
         fontSize: 9,

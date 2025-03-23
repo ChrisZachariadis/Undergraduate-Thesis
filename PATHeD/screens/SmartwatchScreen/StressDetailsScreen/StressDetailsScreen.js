@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBrain, faPersonRunning, faFaceMeh, faFaceAngry } from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
+import {View, Text, ScrollView} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faBrain, faPersonRunning, faFaceMeh, faFaceAngry} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
+import {styles} from './style';
 
-const StressMetricCard = ({ title, value, unit, icon, color }) => (
+const StressMetricCard = ({title, value, unit, icon, color}) => (
     <View style={styles.metricCard}>
         <View style={styles.mainContent}>
             <View style={styles.textContainer}>
                 <View style={styles.titleContainer}>
-                    <View style={[styles.colorIndicator, { backgroundColor: color }]} />
+                    <View style={[styles.colorIndicator, {backgroundColor: color}]}/>
                     <Text style={styles.label}>{title}</Text>
                 </View>
                 <View style={styles.valueContainer}>
@@ -17,8 +18,8 @@ const StressMetricCard = ({ title, value, unit, icon, color }) => (
                     <Text style={styles.unit}>{unit}</Text>
                 </View>
             </View>
-            <View style={[styles.iconContainer, { backgroundColor: `${color}20` }]}>
-                <FontAwesomeIcon icon={icon} size={22} color={color} />
+            <View style={[styles.iconContainer, {backgroundColor: `${color}20`}]}>
+                <FontAwesomeIcon icon={icon} size={22} color={color}/>
             </View>
         </View>
     </View>
@@ -106,78 +107,5 @@ const StressDetailsChart = () => {
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f5f5f5',
-    },
-    metricsContainer: {
-        padding: 4,
-    },
-    row: {
-        flexDirection: 'row',
-        marginBottom: 16,
-    },
-    metricCard: {
-        flex: 1,
-        marginHorizontal: 4,
-        padding: 16,
-        backgroundColor: 'white',
-        borderRadius: 12,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    mainContent: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    textContainer: {
-        flex: 1,
-    },
-    titleContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 4,
-    },
-    colorIndicator: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        marginRight: 8,
-    },
-    label: {
-        fontSize: 14,
-        color: '#666',
-    },
-    valueContainer: {
-        flexDirection: 'row',
-        alignItems: 'baseline',
-    },
-    value: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#333',
-    },
-    unit: {
-        fontSize: 14,
-        color: '#666',
-        marginLeft: 4,
-    },
-    iconContainer: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
 
 export default StressDetailsChart;
