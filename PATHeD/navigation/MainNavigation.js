@@ -31,6 +31,7 @@ import IntensityDetailsScreen from "../screens/SmartwatchScreen/IntensityDetails
 import StressDetailsScreen from "../screens/SmartwatchScreen/StressDetailsScreen/StressDetailsScreen";
 import HRDetails from "../screens/SmartwatchScreen/HRDetails/./HRDetails";
 import SmartwatchMenuScreen from "../screens/SmartwatchScreen/SmartwatchMenuScreen/SmartwatchMenuScreen";
+import Webview from "../screens/SmartwatchScreen/SmartwatchMenuScreen/Webview";
 
 const ICON_SIZE = scaleFontSize(25);
 const INACTIVE_COLOR = '#A4A4A4';
@@ -126,6 +127,11 @@ export const MyHealthStack = () => {
               name={"StressDetailsScreen"}
               component={StressDetailsScreen}
               options={{headerShown: true, headerTitle: 'Stress Details Data'}}
+          />
+          <stack.Screen
+              name={"Webview"}
+              component={Webview}
+              options={{headerShown: true, headerTitle: ' '}}
           />
           <stack.Screen
               name={"SmartwatchMenuScreen"}

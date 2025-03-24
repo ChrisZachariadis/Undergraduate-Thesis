@@ -47,18 +47,11 @@ export default StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-    disconnectButton: {
+
+    generateReportButton: {
         backgroundColor: '#fff',
         borderColor: '#023457',
         borderWidth: 1,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 160,
-        height: 40,
-    },
-    generateReportButton: {
-        backgroundColor: '#023457',
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
@@ -73,9 +66,9 @@ export default StyleSheet.create({
 
     modalContainer: {
         flex: 1,
-        justifyContent: 'center', // Center vertically
-        alignItems: 'center', // Center horizontally
-        backgroundColor: 'rgba(0,0,0,0.5)', // Semi-transparent background
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modalContent: {
         width: '90%',

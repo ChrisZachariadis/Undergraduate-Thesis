@@ -1,21 +1,34 @@
 import React, {useEffect, useState} from 'react';
-import RNFS from 'react-native-fs'; // Add this import at the top
-import {Linking, Pressable, Text, View, Image, Modal, SafeAreaView, Alert, Platform} from 'react-native';
+import RNFS from 'react-native-fs';
+import RNHTMLtoPDF from 'react-native-html-to-pdf'; // PDF conversion library
+import {
+    Linking,
+    Pressable,
+    Text,
+    View,
+    Image,
+    Modal,
+    SafeAreaView,
+    Alert,
+    Platform
+} from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import { getReportHTML } from './reportTemplate'; // Import the HTML template function
+import {getReportHTML} from './reportTemplate'; // Import the HTML template function
 import styles from './style';
-import {useRoute} from "@react-navigation/native";
+import {useRoute, useNavigation} from "@react-navigation/native";
 
 const SmartwatchMenuScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-
+    const navigation = useNavigation();
 
     const handleGarminConnect = () => {
-        Linking.openURL(
-            'https://garmin-ucy.3ahealth.com/garmin/login?userId=3cdf364a-da5b-453f-b0e7-6983f2f1e310'
-        );
+        navigation.navigate('Webview');
+
+        // Linking.openURL(
+        //     'https://garmin-ucy.3ahealth.com/garmin/login?userId=3cdf364a-da5b-453f-b0e7-6983f2f1e310'
+        // );
     };
 
     const handleGarminDisconnect = () => {
@@ -77,18 +90,20 @@ const SmartwatchMenuScreen = () => {
         // Build the HTML report using our template function
         const htmlData = getReportHTML(fromDate, toDate, filteredEntries);
 
-        const fileName = `report_${fromDate}_${toDate}.html`;
-        const directoryPath = Platform.OS === 'android'
-            ? RNFS.DownloadDirectoryPath
-            : RNFS.DocumentDirectoryPath;
-        const filePath = `${directoryPath}/${fileName}`;
-
         try {
-            await RNFS.writeFile(filePath, htmlData, 'utf8');
-            console.log('HTML file written at:', filePath);
-            Alert.alert('Success', `Report exported downloads folder as ${fileName}`);
+            if (!RNHTMLtoPDF || typeof RNHTMLtoPDF.convert !== 'function') {
+                throw new Error('RNHTMLtoPDF is not properly initialized');
+            }
+            let options = {
+                html: htmlData,
+                fileName: `report_${fromDate}_${toDate}`,
+                directory: Platform.OS === 'android' ? 'Download' : 'Documents',
+            };
+            let file = await RNHTMLtoPDF.convert(options);
+            console.log('PDF file created at:', file.filePath);
+            Alert.alert('Success', `Report exported to folder as ${file.filePath}`);
         } catch (error) {
-            console.error('Error writing HTML file:', error);
+            console.error('Error creating PDF file:', error);
             Alert.alert('Error', 'Failed to export report.');
         }
 
@@ -96,13 +111,13 @@ const SmartwatchMenuScreen = () => {
     };
 
 
-
     // Data for the report.
     const route = useRoute();
     const payload = route.params?.payload || [];
 
     useEffect(() => {
-        console.log('Received payload:', payload);
+        // Check if the json file is properly sent.
+        // console.log('Received payload:', payload);
     }, [payload]);
 
 
@@ -140,6 +155,11 @@ const SmartwatchMenuScreen = () => {
             </Modal>
 
             <View>
+                <View>
+                    <Text>
+                        Device Connected:
+                    </Text>
+                </View>
                 <View style={styles.infoFrame}>
                     <Image
                         source={require('../assets/watch-menu.png')}
@@ -148,9 +168,7 @@ const SmartwatchMenuScreen = () => {
                     <Text style={styles.deviceName}>Garmin Vivoactive 5</Text>
                 </View>
 
-                <Pressable style={styles.generateReportButton} onPress={handleGenerateReport}>
-                    <Text style={styles.connectButtonText}>Generate Report</Text>
-                </Pressable>
+
             </View>
 
 
@@ -159,8 +177,11 @@ const SmartwatchMenuScreen = () => {
                 <Pressable style={styles.connectButton} onPress={handleGarminConnect}>
                     <Text style={styles.connectButtonText}>Connect</Text>
                 </Pressable>
-                <Pressable style={styles.disconnectButton} onPress={handleGarminDisconnect}>
-                    <Text style={styles.disconnectButtonText}>Disconnect</Text>
+                {/*<Pressable style={styles.disconnectButton} onPress={handleGarminDisconnect}>*/}
+                {/*    <Text style={styles.disconnectButtonText}>Disconnect</Text>*/}
+                {/*</Pressable>*/}
+                <Pressable style={styles.generateReportButton} onPress={handleGenerateReport}>
+                    <Text style={styles.disconnectButtonText}>Generate Report</Text>
                 </Pressable>
             </View>
         </SafeAreaView>

@@ -26,7 +26,6 @@ const SmartwatchDetailsScreen = () => {
                 const entries = parsedData.data || [];
                 setAllEntries(entries);
                 setIsDataFetched(true);
-                console.log('Cached data loaded successfully.');
 
                 // LOGGING THE WHOLE FILE TO CHECK IF THERE ARE ANY INCONSISTENCIES
                 // WITH THE WAY THE DATA ARE DISPLAYED.
@@ -54,15 +53,11 @@ const SmartwatchDetailsScreen = () => {
                 'https://garmin-ucy.3ahealth.com/garmin/dailies',
                 {
                     method: 'GET',
-                    headers: {
-                        Cookie: 'garmin-ucy-3ahealth=MTc0MTYwNDU5OXxEWDhFQVFMX2dBQUJFQUVRQUFEX2dQLUFBQUlHYzNSeWFXNW5EQmdBRm1kaGNtMXBibFJ2YTJWdVEzSmxaR1Z1ZEdsaGJITXNaMmwwYUhWaUxtTnZiUzluYjIxdlpIVnNaUzl2WVhWMGFERXZiMkYxZEdndVEzSmxaR1Z1ZEdsaGJIUF9nUU1CQVF0RGNtVmtaVzUwYVdGc2N3SF9nZ0FCQWdFRlZHOXJaVzRCREFBQkJsTmxZM0psZEFFTUFBQUFfNVhfZ2t3QkpEQm1aak13TVRFMUxXTmhNMlF0TkdSa1lTMDROalk0TFRBMVkyWTNOMk5rWldFd1l3RWpkbGxMU1RObVluQTNjRE5tVFdGUFp6Smlla0pSY2sxUmRIcGpSelJhWWpaVU9UUUFCbk4wY21sdVp3d09BQXhuWVhKdGFXNVZjMlZ5U1dRR2MzUnlhVzVuRENZQUpESmtZVFUzTldGakxUZGxOVFl0TkdFM09TMDVZbU5tTFRjNE9ESXhNekE1Tm1Fd05RPT18yso-XQyL6G37LoNZsmxR9VjVB_v0hCJlcEhd0N0CFS0=',
-                        'Content-Type': 'application/json',
-                    },
                 }
             );
 
             if (!response.ok) {
-                Alert.alert('Error', `Failed to fetch data: ${response.status}`);
+                Alert.alert('Error syncing device', 'Please connect to Garmin through the menu first.');
                 return;
             }
 
