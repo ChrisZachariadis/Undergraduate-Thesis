@@ -10,8 +10,8 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 16,
-        marginTop: 75,
+        marginBottom: 12,
+        marginTop: 70,
     },
     arrow: {
         fontSize: 24,
@@ -32,7 +32,6 @@ export default StyleSheet.create({
     StepsFloorsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginVertical: 4,
         marginHorizontal: 8,
 
     },
@@ -148,8 +147,8 @@ export default StyleSheet.create({
 
     topRightButtons: {
         position: 'absolute',
-        top: 10,
-        right: 10,
+        top: 15,
+        right: 15,
         flexDirection: 'row',
         alignItems: 'center',
         zIndex: 1000,

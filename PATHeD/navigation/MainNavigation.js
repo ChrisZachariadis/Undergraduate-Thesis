@@ -108,7 +108,7 @@ export const MyHealthStack = () => {
           {/*/>*/}
           {/*Alternative HR graph*/}
           <stack.Screen
-              name={"HR2Details"}
+              name={"HRDetails"}
               component={HRDetails}
               options={{headerShown: true, headerTitle: 'HR Details Data'}}
           />

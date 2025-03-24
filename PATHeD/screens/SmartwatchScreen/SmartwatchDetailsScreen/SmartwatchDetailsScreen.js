@@ -15,7 +15,7 @@ const SmartwatchDetailsScreen = () => {
     const [allEntries, setAllEntries] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
     const [selectedDayData, setSelectedDayData] = useState(null);
-    const [currentCalendarDate, setCurrentCalendarDate] = useState(); // Local state for calendarDate
+    const [currentCalendarDate, setCurrentCalendarDate] = useState();
 
     // Function to load cached data
     const loadCachedData = async () => {
@@ -26,11 +26,6 @@ const SmartwatchDetailsScreen = () => {
                 const entries = parsedData.data || [];
                 setAllEntries(entries);
                 setIsDataFetched(true);
-
-                // LOGGING THE WHOLE FILE TO CHECK IF THERE ARE ANY INCONSISTENCIES
-                // WITH THE WAY THE DATA ARE DISPLAYED.
-                // console.log("Raw Data:", JSON.stringify(JSON.parse(cachedData), null, 2));
-
 
                 // Always display the latest entry as the current Calendar Date
                 if (entries.length > 0) {
@@ -46,7 +41,7 @@ const SmartwatchDetailsScreen = () => {
         }
     };
 
-    // Sync Button Handler that for now is the only way to fetch data with hardcoded Cookie.
+    // Sync Button Handler to fetch data
     const syncButtonHandler = async () => {
         try {
             const response = await fetch(
@@ -157,7 +152,7 @@ const SmartwatchDetailsScreen = () => {
                 </TouchableOpacity>
             </View>
 
-            {/* If data has not been fetched yet, show message */}
+            {/* If no data, show message */}
             {!isDataFetched ? (
                 <Text style={styles.noDataText}>No data available. Please sync to load data.</Text>
             ) : (
