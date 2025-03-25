@@ -1,17 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import RNFS from 'react-native-fs';
+import {Linking, Pressable, Text, View, Image, Modal, SafeAreaView, Alert, Platform} from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf'; // PDF conversion library
-import {
-    Linking,
-    Pressable,
-    Text,
-    View,
-    Image,
-    Modal,
-    SafeAreaView,
-    Alert,
-    Platform
-} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {getReportHTML} from './reportTemplate'; // Import the HTML template function
 import styles from './style';
@@ -29,11 +18,6 @@ const SmartwatchMenuScreen = () => {
         // Linking.openURL(
         //     'https://garmin-ucy.3ahealth.com/garmin/login?userId=3cdf364a-da5b-453f-b0e7-6983f2f1e310'
         // );
-    };
-
-    const handleGarminDisconnect = () => {
-        // Add your disconnect logic here
-        console.log('Garmin disconnected');
     };
 
     const handleGenerateReport = () => {
@@ -94,10 +78,13 @@ const SmartwatchMenuScreen = () => {
             if (!RNHTMLtoPDF || typeof RNHTMLtoPDF.convert !== 'function') {
                 throw new Error('RNHTMLtoPDF is not properly initialized');
             }
+            // Modify the options so that the PDF is saved to the "Download" folder.
             let options = {
                 html: htmlData,
                 fileName: `report_${fromDate}_${toDate}`,
-                directory: Platform.OS === 'android' ? 'Download' : 'Documents',
+                // Force saving to the Download folder.
+                // For Android, "Download" is used; on iOS, if you need a similar behavior, further configuration may be required.
+                directory: 'Documents',
             };
             let file = await RNHTMLtoPDF.convert(options);
             console.log('PDF file created at:', file.filePath);
@@ -123,7 +110,7 @@ const SmartwatchMenuScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* Modal */}
+            {/* Modal for selecting report period */}
             <Modal
                 animationType="fade"
                 transparent={true}
@@ -156,9 +143,7 @@ const SmartwatchMenuScreen = () => {
 
             <View>
                 <View>
-                    <Text>
-                        Device Connected:
-                    </Text>
+                    <Text>Device Connected:</Text>
                 </View>
                 <View style={styles.infoFrame}>
                     <Image
@@ -177,9 +162,6 @@ const SmartwatchMenuScreen = () => {
                 <Pressable style={styles.connectButton} onPress={handleGarminConnect}>
                     <Text style={styles.connectButtonText}>Connect</Text>
                 </Pressable>
-                {/*<Pressable style={styles.disconnectButton} onPress={handleGarminDisconnect}>*/}
-                {/*    <Text style={styles.disconnectButtonText}>Disconnect</Text>*/}
-                {/*</Pressable>*/}
                 <Pressable style={styles.generateReportButton} onPress={handleGenerateReport}>
                     <Text style={styles.disconnectButtonText}>Generate Report</Text>
                 </Pressable>
