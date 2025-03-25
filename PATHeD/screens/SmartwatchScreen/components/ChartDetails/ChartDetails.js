@@ -31,7 +31,8 @@ const ChartDetails = ({
                           segments,
                           chartColor,
                           storageKey = '@garminData',
-                          onSummaryUpdate
+                          onSummaryUpdate,
+                          initialDate
                       }) => {
     // State variables
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -39,10 +40,13 @@ const ChartDetails = ({
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Initialize with passed initialDate or current date
+    const initDate = initialDate ? moment(initialDate) : moment();
+
     // Period states
-    const [currentDay, setCurrentDay] = useState(moment());
-    const [currentWeekStart, setCurrentWeekStart] = useState(moment().startOf('week'));
-    const [currentMonthStart, setCurrentMonthStart] = useState(moment().startOf('month'));
+    const [currentDay, setCurrentDay] = useState(initDate);
+    const [currentWeekStart, setCurrentWeekStart] = useState(initDate.clone().startOf('week'));
+    const [currentMonthStart, setCurrentMonthStart] = useState(initDate.clone().startOf('month'));
 
     // Tooltip state (used for bar/line charts)
     const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -327,13 +331,18 @@ const ChartDetails = ({
         setSelectedIndex(index);
         setIsLoading(true);
         const seg = segments[index];
+
+        // When changing segments, maintain the selected date context
         if (seg === 'Day') {
-            setCurrentDay(moment());
+            // Keep the currentDay as is since it was initialized with the selected date
         } else if (seg === 'Week') {
-            setCurrentWeekStart(moment().startOf('week'));
+            // Set to the week containing the selected day
+            setCurrentWeekStart(currentDay.clone().startOf('week'));
         } else if (seg === 'Month') {
-            setCurrentMonthStart(moment().startOf('month'));
+            // Set to the month containing the selected day
+            setCurrentMonthStart(currentDay.clone().startOf('month'));
         }
+
         setTimeout(() => {
             setIsLoading(false);
         }, 500);

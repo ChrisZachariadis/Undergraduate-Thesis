@@ -24,7 +24,10 @@ const MetricCard = ({title, value, unit, icon}) => (
     </View>
 );
 
-const HRDetails = () => {
+const HRDetails = ({ route }) => {
+    // Get the selectedDate from route params if available
+    const selectedDate = route.params?.selectedDate;
+
     // useSTate for the heart rate details below the graph
     const [summary, setSummary] = useState(null);
 
@@ -37,6 +40,7 @@ const HRDetails = () => {
                 segments={['Day', 'Week', 'Month']}
                 chartColor="#FF6347"
                 onSummaryUpdate={(value) => setSummary(value)}
+                initialDate={selectedDate} // Pass the selected date to ChartDetails
             />
 
             <View style={styles.metricsContainer}>

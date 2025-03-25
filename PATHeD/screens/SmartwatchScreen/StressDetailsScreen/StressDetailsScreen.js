@@ -25,7 +25,9 @@ const StressMetricCard = ({title, value, unit, icon, color}) => (
     </View>
 );
 
-const StressDetailsChart = () => {
+const StressDetailsChart = ({ route }) => {
+    // Get the selectedDate from route params if available
+    const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState(null);
 
     const getTimeInMinutes = (seconds) => Math.round(seconds / 60);
@@ -38,6 +40,7 @@ const StressDetailsChart = () => {
                 segments={['Day', 'Week', 'Month']}
                 chartColor="#673AB7"
                 onSummaryUpdate={(value) => setSummary(value)}
+                initialDate={selectedDate} // Pass the selected date to ChartDetails
             />
 
             <View style={styles.metricsContainer}>
@@ -109,3 +112,4 @@ const StressDetailsChart = () => {
 };
 
 export default StressDetailsChart;
+

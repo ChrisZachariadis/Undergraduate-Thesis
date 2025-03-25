@@ -21,7 +21,9 @@ const IntensityMetricCard = ({ title, value, icon }) => (
     </View>
 );
 
-const IntensityDetailsScreen = () => {
+const IntensityDetailsScreen = ({ route }) => {
+    // Get the selectedDate from route params if available
+    const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState(null);
 
     return (
@@ -32,6 +34,7 @@ const IntensityDetailsScreen = () => {
                 segments={['Week', 'Month']}
                 chartColor="#0B3F6B"
                 onSummaryUpdate={(value) => setSummary(value)}
+                initialDate={selectedDate} // Pass the selected date to ChartDetails
             />
 
             <View style={styles.metricsContainer}>

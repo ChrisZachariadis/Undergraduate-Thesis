@@ -198,7 +198,10 @@ const SmartwatchDetailsScreen = () => {
                                 goal={selectedDayData?.stepsGoal || 0}
                                 color="#0C6C79"
                                 onPress={() =>
-                                    navigation.navigate('StepsDetailsScreen', {dayData: selectedDayData})
+                                    navigation.navigate('StepsDetailsScreen', {
+                                        dayData: selectedDayData,
+                                        selectedDate: currentCalendarDate
+                                    })
                                 }
                                 size={120}
                                 unit="steps"
@@ -213,7 +216,10 @@ const SmartwatchDetailsScreen = () => {
                                 goal={selectedDayData?.floorsClimbedGoal || 0}
                                 color="#4CAF50"
                                 onPress={() =>
-                                    navigation.navigate('FloorsDetailsScreen', {dayData: selectedDayData})
+                                    navigation.navigate('FloorsDetailsScreen', {
+                                        dayData: selectedDayData,
+                                        selectedDate: currentCalendarDate
+                                    })
                                 }
                                 size={120}
                                 unit="floors"
@@ -228,7 +234,7 @@ const SmartwatchDetailsScreen = () => {
                                 <FontAwesomeIcon icon={faHeart} size={24} color="red"/>
                                 <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
                             </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('HRDetails')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('HRDetails', { selectedDate: currentCalendarDate })}>
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>
@@ -245,7 +251,10 @@ const SmartwatchDetailsScreen = () => {
                                 <Text style={styles.kcalTitle}> BMR Kilocalories</Text>
                             </View>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('KcalDetailsScreen', {dayData: selectedDayData})}>
+                                onPress={() => navigation.navigate('KcalDetailsScreen', {
+                                    dayData: selectedDayData,
+                                    selectedDate: currentCalendarDate
+                                })}>
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>
@@ -262,7 +271,10 @@ const SmartwatchDetailsScreen = () => {
                                 <Text style={styles.intensityTitle}> Intensity</Text>
                             </View>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('IntensityDetailsScreen', {dayData: selectedDayData})}>
+                                onPress={() => navigation.navigate('IntensityDetailsScreen', {
+                                    dayData: selectedDayData,
+                                    selectedDate: currentCalendarDate
+                                })}>
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>
@@ -295,7 +307,10 @@ const SmartwatchDetailsScreen = () => {
                                 <Text style={styles.stressTitle}> Stress Levels</Text>
                             </View>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('StressDetailsScreen', {dayData: selectedDayData})}>
+                                onPress={() => navigation.navigate('StressDetailsScreen', {
+                                    dayData: selectedDayData,
+                                    selectedDate: currentCalendarDate
+                                })}>
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
                             </TouchableOpacity>
                         </View>
@@ -324,3 +339,4 @@ const SmartwatchDetailsScreen = () => {
 };
 
 export default SmartwatchDetailsScreen;
+

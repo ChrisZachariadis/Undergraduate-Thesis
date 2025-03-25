@@ -22,7 +22,9 @@ const FloorsMetricCard = ({title, value, unit, icon}) => (
     </View>
 );
 
-const FloorsDetailsChart = () => {
+const FloorsDetailsChart = ({ route }) => {
+    // Get the selectedDate from route params if available
+    const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState(null);
 
     return (
@@ -33,6 +35,7 @@ const FloorsDetailsChart = () => {
                 segments={['Week', 'Month']}
                 chartColor="#34511e"
                 onSummaryUpdate={(value) => setSummary(value)}
+                initialDate={selectedDate} // Pass the selected date to ChartDetails
             />
 
             <View style={styles.metricsContainer}>
@@ -51,3 +54,4 @@ const FloorsDetailsChart = () => {
     );
 };
 export default FloorsDetailsChart;
+

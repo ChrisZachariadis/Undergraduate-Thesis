@@ -24,7 +24,9 @@ const KcalSummaryCard = ({ value }) => (
     </View>
 );
 
-const KcalDetails = () => {
+const KcalDetails = ({ route }) => {
+    // Get the selectedDate from route params if available
+    const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState('');
 
     return (
@@ -35,6 +37,7 @@ const KcalDetails = () => {
                 segments={['Week', 'Month']}
                 chartColor="#FFA500"
                 onSummaryUpdate={(summaryLabel) => setSummary(summaryLabel)}
+                initialDate={selectedDate} // Pass the selected date to ChartDetails
             />
             <KcalSummaryCard value={summary} />
         </View>
@@ -117,3 +120,4 @@ const styles = StyleSheet.create({
 });
 
 export default KcalDetails;
+
