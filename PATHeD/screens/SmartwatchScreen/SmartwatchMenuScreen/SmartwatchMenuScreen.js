@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Linking, Pressable, Text, View, Image, Modal, SafeAreaView, Alert, Platform} from 'react-native';
+import { Pressable, Text, View, Image, Modal, SafeAreaView, Alert } from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf'; // PDF conversion library
 import {Calendar} from 'react-native-calendars';
 import {getReportHTML} from './reportTemplate'; // Import the HTML template function
@@ -14,10 +14,6 @@ const SmartwatchMenuScreen = () => {
 
     const handleGarminConnect = () => {
         navigation.navigate('Webview');
-
-        // Linking.openURL(
-        //     'https://garmin-ucy.3ahealth.com/garmin/login?userId=3cdf364a-da5b-453f-b0e7-6983f2f1e310'
-        // );
     };
 
     const handleGenerateReport = () => {
