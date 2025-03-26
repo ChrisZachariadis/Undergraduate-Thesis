@@ -30,7 +30,25 @@ const StressDetailsChart = ({ route }) => {
     const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState(null);
 
-    const getTimeInMinutes = (seconds) => Math.round(seconds / 60);
+    // Format time from seconds to either minutes or hours
+    const formatTimeFromSeconds = (seconds) => {
+        if (!seconds) return { value: 0, unit: 'min' };
+
+        const minutes = Math.round(seconds / 60);
+
+        // If duration is more than 60 minutes (1 hour), convert to hours
+        if (minutes >= 60) {
+            return {
+                value: (minutes / 60).toFixed(1),
+                unit: 'hr'
+            };
+        }
+
+        return {
+            value: minutes,
+            unit: 'min'
+        };
+    };
 
     return (
         <ScrollView style={styles.container}>
@@ -47,36 +65,60 @@ const StressDetailsChart = ({ route }) => {
                 {summary && typeof summary === 'object' ? (
                     <>
                         <View style={styles.row}>
-                            <StressMetricCard
-                                title="Rest"
-                                value={getTimeInMinutes(summary.restStressDurationInSeconds)}
-                                unit="min"
-                                icon={faBrain}
-                                color="#1976D2"
-                            />
-                            <StressMetricCard
-                                title="Low"
-                                value={getTimeInMinutes(summary.lowStressDurationInSeconds)}
-                                unit="min"
-                                icon={faPersonRunning}
-                                color="#FFB74D"
-                            />
+                            {/* Rest Stress */}
+                            {(() => {
+                                const { value, unit } = formatTimeFromSeconds(summary.restStressDurationInSeconds);
+                                return (
+                                    <StressMetricCard
+                                        title="Rest"
+                                        value={value}
+                                        unit={unit}
+                                        icon={faBrain}
+                                        color="#1976D2"
+                                    />
+                                );
+                            })()}
+                            {/* Low Stress */}
+                            {(() => {
+                                const { value, unit } = formatTimeFromSeconds(summary.lowStressDurationInSeconds);
+                                return (
+                                    <StressMetricCard
+                                        title="Low"
+                                        value={value}
+                                        unit={unit}
+                                        icon={faPersonRunning}
+                                        color="#FFB74D"
+                                    />
+                                );
+                            })()}
                         </View>
                         <View style={styles.row}>
-                            <StressMetricCard
-                                title="Medium"
-                                value={getTimeInMinutes(summary.mediumStressDurationInSeconds)}
-                                unit="min"
-                                icon={faFaceMeh}
-                                color="#FB8C00"
-                            />
-                            <StressMetricCard
-                                title="High"
-                                value={getTimeInMinutes(summary.highStressDurationInSeconds)}
-                                unit="min"
-                                icon={faFaceAngry}
-                                color="#E65100"
-                            />
+                            {/* Medium Stress */}
+                            {(() => {
+                                const { value, unit } = formatTimeFromSeconds(summary.mediumStressDurationInSeconds);
+                                return (
+                                    <StressMetricCard
+                                        title="Medium"
+                                        value={value}
+                                        unit={unit}
+                                        icon={faFaceMeh}
+                                        color="#FB8C00"
+                                    />
+                                );
+                            })()}
+                            {/* High Stress */}
+                            {(() => {
+                                const { value, unit } = formatTimeFromSeconds(summary.highStressDurationInSeconds);
+                                return (
+                                    <StressMetricCard
+                                        title="High"
+                                        value={value}
+                                        unit={unit}
+                                        icon={faFaceAngry}
+                                        color="#E65100"
+                                    />
+                                );
+                            })()}
                         </View>
                         <View style={styles.row}>
                             <StressMetricCard
@@ -112,4 +154,3 @@ const StressDetailsChart = ({ route }) => {
 };
 
 export default StressDetailsChart;
-
