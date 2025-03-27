@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBrain, faPersonRunning, faFaceMeh, faFaceAngry} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
 import {styles} from './style';
+import {formatTimeFromSeconds} from '../utils/timeUtils';
 
 const StressMetricCard = ({title, value, unit, icon, color}) => (
     <View style={styles.metricCard}>
@@ -29,26 +30,6 @@ const StressDetailsChart = ({ route }) => {
     // Get the selectedDate from route params if available
     const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState(null);
-
-    // Format time from seconds to either minutes or hours
-    const formatTimeFromSeconds = (seconds) => {
-        if (!seconds) return { value: 0, unit: 'min' };
-
-        const minutes = Math.round(seconds / 60);
-
-        // If duration is more than 60 minutes (1 hour), convert to hours
-        if (minutes >= 60) {
-            return {
-                value: (minutes / 60).toFixed(1),
-                unit: 'hr'
-            };
-        }
-
-        return {
-            value: minutes,
-            unit: 'min'
-        };
-    };
 
     return (
         <ScrollView style={styles.container}>
@@ -130,7 +111,7 @@ const StressDetailsChart = ({ route }) => {
                             />
                             <StressMetricCard
                                 title="Average Level"
-                                value={summary.averageStressLevel}
+                                value={summary.averageStressLevel < 0 ? 0 : summary.averageStressLevel}
                                 unit=""
                                 icon={faFaceMeh}
                                 color="#673AB7"

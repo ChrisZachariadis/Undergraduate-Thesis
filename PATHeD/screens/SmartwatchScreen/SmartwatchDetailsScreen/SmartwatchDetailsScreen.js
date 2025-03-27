@@ -3,11 +3,12 @@ import {ScrollView, Text, TouchableOpacity, View, Alert, Image} from 'react-nati
 import {useNavigation} from '@react-navigation/native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faHeart, faArrowLeft, faArrowRight, faFire, faBrain, faSync, faBolt} from '@fortawesome/free-solid-svg-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import ProgressCircle from '../components/DayDetailView/ProgressCircle';
 import Frame from "../components/Frame";
 import CalendarDays from '../components/CalendarDays/CalendarDays';
+import {formatTimeFromSeconds} from '../utils/timeUtils';
+import {loadGarminCachedData, syncGarminData} from '../utils/garminDataUtils';
 
 const SmartwatchDetailsScreen = () => {
     const navigation = useNavigation();
@@ -17,77 +18,48 @@ const SmartwatchDetailsScreen = () => {
     const [selectedDayData, setSelectedDayData] = useState(null);
     const [currentCalendarDate, setCurrentCalendarDate] = useState();
 
+
+    // Load cached data on component mount (when page loads).
+    useEffect(() => {
+        loadCachedData();
+    }, []);
+
     // Function to load cached data
     const loadCachedData = async () => {
-        try {
-            const cachedData = await AsyncStorage.getItem('@garminData');
-            if (cachedData) {
-                const parsedData = JSON.parse(cachedData);
-                const entries = parsedData.data || [];
-                setAllEntries(entries);
-                setIsDataFetched(true);
+        const {entries, success, error} = await loadGarminCachedData();
+        if (success) {
+            setAllEntries(entries);
+            setIsDataFetched(true);
 
-                // Always display the latest entry as the current Calendar Date
-                if (entries.length > 0) {
-                    const latestEntry = entries[0]; // Use the first entry as the latest
-                    setCurrentCalendarDate(latestEntry.calendarDate);
-                    setSelectedDayData(latestEntry.data || null);
-                }
-            } else {
-                console.log('No cached data found.');
+            // Always display the latest entry as the current Calendar Date
+            if (entries.length > 0) {
+                const latestEntry = entries[0];
+                setCurrentCalendarDate(latestEntry.calendarDate);
+                setSelectedDayData(latestEntry.data || null);
             }
-        } catch (error) {
-            console.error('Error loading cached data:', error);
         }
     };
 
     // Sync Button Handler to fetch data
     const syncButtonHandler = async () => {
-        try {
-            const response = await fetch(
-                'https://garmin-ucy.3ahealth.com/garmin/dailies',
-                {
-                    method: 'GET',
-                }
-            );
+        const {success, entries, error, message} = await syncGarminData();
 
-            if (!response.ok) {
-                Alert.alert('Error syncing device', 'Please connect to Garmin through the menu first.');
-                return;
-            }
+        if (!success) {
+            Alert.alert('Error', error);
+            return;
+        }
 
-            // Save the response data to AsyncStorage
-            const data = await response.json();
+        setAllEntries(entries);
+        setIsDataFetched(true);
+        Alert.alert('Success', message);
 
-            if (data.error) {
-                Alert.alert('Error', data.error);
-                return;
-            }
-
-            // Update the fetched entries
-            setAllEntries(data.data || []);
-            // Mark data as successfully fetched
-            setIsDataFetched(true);
-
-            // Save the new data to AsyncStorage
-            await AsyncStorage.setItem('@garminData', JSON.stringify(data));
-            Alert.alert('Success', 'Garmin data synced successfully!');
-
-            if (data.data && data.data.length > 0) {
-                const latestEntry = data.data[0];
-                setCurrentCalendarDate(latestEntry.calendarDate);
-                setSelectedDayData(latestEntry.data || null);
-            }
-        } catch (error) {
-            console.error('Garmin fetch error:', error);
-            Alert.alert('Error', error.message);
+        if (entries.length > 0) {
+            const latestEntry = entries[0];
+            setCurrentCalendarDate(latestEntry.calendarDate);
+            setSelectedDayData(latestEntry.data || null);
         }
     };
 
-    // Load cached data on component mount
-    useEffect(() => {
-        loadCachedData();
-    }, []);
 
 
     // currentIndex is used to navigate between different days
@@ -135,9 +107,7 @@ const SmartwatchDetailsScreen = () => {
                     style={styles.syncButton}
                     onPress={syncButtonHandler}
                     accessibilityLabel="Sync Garmin Data"
-
-                    accessible={true}
-                >
+                    accessible={true} >
                     <FontAwesomeIcon icon={faSync} size={24} color="#ffffff"/>
                 </TouchableOpacity>
 
@@ -147,8 +117,7 @@ const SmartwatchDetailsScreen = () => {
                     onPress={() => navigation.navigate('SmartwatchMenuScreen', { payload: allEntries })}>
                     <Image
                         source={require('../assets/smartwatch.png')}
-                        style={styles.smartwatchIcon}
-                    />
+                        style={styles.smartwatchIcon} />
                 </TouchableOpacity>
             </View>
 
@@ -163,8 +132,7 @@ const SmartwatchDetailsScreen = () => {
                             <FontAwesomeIcon
                                 icon={faArrowLeft}
                                 size={24}
-                                color={currentIndex === allEntries.length - 1 ? 'gray' : 'black'}
-                            />
+                                color={currentIndex === allEntries.length - 1 ? 'gray' : 'black'} />
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => setIsCalendarVisible(true)}>
@@ -175,8 +143,7 @@ const SmartwatchDetailsScreen = () => {
                             <FontAwesomeIcon
                                 icon={faArrowRight}
                                 size={24}
-                                color={currentIndex === 0 ? 'gray' : 'black'}
-                            />
+                                color={currentIndex === 0 ? 'gray' : 'black'} />
                         </TouchableOpacity>
                     </View>
 
@@ -185,8 +152,7 @@ const SmartwatchDetailsScreen = () => {
                         onClose={() => setIsCalendarVisible(false)}
                         allEntries={allEntries}
                         currentCalendarDate={currentCalendarDate}
-                        onDateSelect={handleDateSelect}
-                    />
+                        onDateSelect={handleDateSelect} />
 
                     {/* Circles Row */}
                     <View style={styles.StepsFloorsContainer}>
@@ -204,8 +170,7 @@ const SmartwatchDetailsScreen = () => {
                                     })
                                 }
                                 size={120}
-                                unit="steps"
-                            />
+                                unit="steps" />
                         </Frame>
 
                         <Frame>
@@ -222,8 +187,7 @@ const SmartwatchDetailsScreen = () => {
                                     })
                                 }
                                 size={120}
-                                unit="floors"
-                            />
+                                unit="floors" />
                         </Frame>
                     </View>
 
@@ -283,16 +247,20 @@ const SmartwatchDetailsScreen = () => {
                                 <Text style={styles.intensityLabel}>Moderate</Text>
                                 <Text style={styles.intensityText}>
                                     {selectedDayData?.moderateIntensityDurationInSeconds
-                                        ? Math.round(selectedDayData.moderateIntensityDurationInSeconds / 60)
-                                        : 0} min
+                                        ? formatTimeFromSeconds(selectedDayData.moderateIntensityDurationInSeconds).value
+                                        : 0} {selectedDayData?.moderateIntensityDurationInSeconds
+                                    ? formatTimeFromSeconds(selectedDayData.moderateIntensityDurationInSeconds).unit
+                                    : 'min'}
                                 </Text>
                             </View>
                             <View style={styles.intensityDetail}>
                                 <Text style={styles.intensityLabel}>Vigorous</Text>
                                 <Text style={styles.intensityText}>
                                     {selectedDayData?.vigorousIntensityDurationInSeconds
-                                        ? Math.round(selectedDayData.vigorousIntensityDurationInSeconds / 60)
-                                        : 0} min
+                                        ? formatTimeFromSeconds(selectedDayData.vigorousIntensityDurationInSeconds).value
+                                        : 0} {selectedDayData?.vigorousIntensityDurationInSeconds
+                                    ? formatTimeFromSeconds(selectedDayData.vigorousIntensityDurationInSeconds).unit
+                                    : 'min'}
                                 </Text>
                             </View>
                         </View>
@@ -317,7 +285,10 @@ const SmartwatchDetailsScreen = () => {
                         <View style={styles.stressDetailsContainer}>
                             <View style={styles.stressDetail}>
                                 <Text style={styles.stressLabel}>Average</Text>
-                                <Text style={styles.stressText}>{selectedDayData?.averageStressLevel}</Text>
+                                {/* Try not to display negative stress level */}
+                                <Text style={styles.stressText}>
+                                    {selectedDayData?.averageStressLevel < 0 ? 0 : selectedDayData?.averageStressLevel}
+                                </Text>
                             </View>
                             <View style={styles.stressDetail}>
                                 <Text style={styles.stressLabel}>Maximum</Text>
@@ -326,7 +297,9 @@ const SmartwatchDetailsScreen = () => {
                             <View style={styles.stressDetail}>
                                 <Text style={styles.stressLabel}>Duration</Text>
                                 <Text style={styles.stressText}>
-                                    {selectedDayData ? Math.round(selectedDayData.stressDurationInSeconds / 60) : 0} min
+                                    {selectedDayData
+                                        ? `${formatTimeFromSeconds(selectedDayData.stressDurationInSeconds).value} ${formatTimeFromSeconds(selectedDayData.stressDurationInSeconds).unit}`
+                                        : '0 min'}
                                 </Text>
                             </View>
                         </View>
