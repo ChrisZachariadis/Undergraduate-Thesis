@@ -80,16 +80,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
     },
     metricsContainer: {
-        padding: 16,
+        padding: 4,
     },
     row: {
         flexDirection: 'row',
-        marginBottom: 16,
+        marginBottom: 8,
     },
     metricCard: {
         flex: 1,
         marginHorizontal: 6,
-        padding: 20,
+        padding: 12,
         backgroundColor: 'white',
         borderRadius: 12,
         shadowColor: '#000',
