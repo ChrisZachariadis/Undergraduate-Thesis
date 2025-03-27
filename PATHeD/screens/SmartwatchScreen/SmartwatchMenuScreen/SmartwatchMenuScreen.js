@@ -57,6 +57,14 @@ const SmartwatchMenuScreen = () => {
         return markedDates;
     };
 
+    const handleCaptureInBackground = (fromDate) => {
+        navigation.navigate('HRDetails', {
+            captureOnGenerate: true,
+            segmentType: 'Month',
+            selectedDate: fromDate,
+            headless: true
+        });
+    };
 
     const handleConfirmPeriod = async () => {
         const fromDate = startDate;
@@ -90,6 +98,11 @@ const SmartwatchMenuScreen = () => {
             Alert.alert('Error', 'Failed to export report.');
         }
 
+        navigation.navigate('HRDetails', {
+            captureOnGenerate: true,
+            segmentType: 'Month',
+            selectedDate: fromDate
+        });
         setModalVisible(false);
     };
 
@@ -146,7 +159,7 @@ const SmartwatchMenuScreen = () => {
                         source={require('../assets/watch-menu.png')}
                         style={styles.watchIcon}
                     />
-                    <Text style={styles.deviceName}>Garmin Vivoactive 5</Text>
+                    <Text style={styles.deviceName}>Garminnn Vivoactive 5</Text>
                 </View>
 
 
@@ -167,3 +180,4 @@ const SmartwatchMenuScreen = () => {
 };
 
 export default SmartwatchMenuScreen;
+
