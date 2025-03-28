@@ -26,7 +26,7 @@ const MetricCard = ({title, value, unit, icon}) => (
 );
 
 const HRDetails = ({ route, navigation }) => {
-    const { selectedDate, segmentType, captureOnGenerate, headless } = route.params || {};
+    const { selectedDate, segmentType, captureOnGenerate, headless, onCaptureDone } = route.params || {};
 
     // useSTate for the heart rate details below the graph
     const [summary, setSummary] = useState(null);
@@ -35,37 +35,68 @@ const HRDetails = ({ route, navigation }) => {
 
     const captureChart = async () => {
         if (chartRef.current) {
-            const uri = await chartRef.current.capture();
-            console.log('Chart captured at:', uri);
-            // Save file if needed (e.g., using react-native-fs)
-            // The captured chart is saved at the URI specified in the console log.
             try {
-                const destPath = '/storage/emulated/0/Android/data/com.pathed/files/Documents/monthly_segment.jpg';
+                const uri = await chartRef.current.capture();
+                console.log('Chart captured at:', uri);
+
+                // Ensure directory exists
+                const dirPath = '/storage/emulated/0/Android/data/com.pathed/files/Documents';
+                const dirExists = await RNFS.exists(dirPath);
+                if (!dirExists) {
+                    await RNFS.mkdir(dirPath);
+                }
+
+                const destPath = `${dirPath}/monthly_segment.jpg`;
                 await RNFS.copyFile(uri, destPath);
                 console.log('Monthly segment chart saved at:', destPath);
+                return true;
             } catch (err) {
                 console.error('Error saving monthly segment chart:', err);
+                return false;
             }
         }
+        return false;
     };
 
     useEffect(() => {
         if (captureOnGenerate) {
-            captureChart().then(() => {
+            const handleCapture = async () => {
+                const success = await captureChart();
+
                 if (headless) {
+                    if (onCaptureDone && typeof onCaptureDone === 'function') {
+                        // Call the callback function if provided
+                        onCaptureDone(success);
+                    }
                     navigation.goBack();
                 }
-            });
+            };
+
+            handleCapture();
         }
-    }, [captureOnGenerate]);
+    }, [captureOnGenerate, headless, navigation, onCaptureDone]);
 
     if (headless) {
-        return null; // Hide entire UI if headless
+        // Return a minimal view that can still be captured
+        return (
+            <View style={{position: 'absolute', opacity: 0, width: '100%', height: '100%'}}>
+                <ViewShot ref={chartRef} options={{ format: 'jpg', quality: 0.9 }}>
+                    <ChartDetails
+                        title="Heart Rate Summary"
+                        dataType="hr"
+                        segments={segmentType === 'Month' ? ['Month'] : ['Day', 'Week', 'Month']}
+                        chartColor="#FF6347"
+                        onSummaryUpdate={(value) => setSummary(value)}
+                        initialDate={selectedDate}
+                    />
+                </ViewShot>
+            </View>
+        );
     }
 
     return (
         <ScrollView style={styles.container}>
-            <ViewShot ref={chartRef} options={{ format: 'png', quality: 0.9 }}>
+            <ViewShot ref={chartRef} options={{ format: 'jpg', quality: 0.9 }}>
                 <ChartDetails
                     title="Heart Rate Summary"
                     dataType="hr"

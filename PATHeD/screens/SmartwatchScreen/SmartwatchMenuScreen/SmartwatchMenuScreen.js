@@ -75,37 +75,57 @@ const SmartwatchMenuScreen = () => {
             return item.calendarDate >= fromDate && item.calendarDate <= toDate;
         });
 
-        // Build the HTML report using our template function
-        const htmlData = getReportHTML(fromDate, toDate, filteredEntries);
+        // First capture the HR chart in headless mode
+        setModalVisible(false);
 
         try {
-            if (!RNHTMLtoPDF || typeof RNHTMLtoPDF.convert !== 'function') {
-                throw new Error('RNHTMLtoPDF is not properly initialized');
-            }
-            // Modify the options so that the PDF is saved to the "Download" folder.
-            let options = {
-                html: htmlData,
-                fileName: `report_${fromDate}_${toDate}`,
-                // Force saving to the Download folder.
-                // For Android, "Download" is used; on iOS, if you need a similar behavior, further configuration may be required.
-                directory: 'Documents',
-            };
-            let file = await RNHTMLtoPDF.convert(options);
-            console.log('PDF file created at:', file.filePath);
-            Alert.alert('Success', `Report exported to folder as ${file.filePath}`);
+            // Navigate to HRDetails in headless mode first to capture the chart
+            navigation.navigate('HRDetails', {
+                captureOnGenerate: true,
+                segmentType: 'Month',
+                selectedDate: fromDate,
+                headless: true,
+                onCaptureDone: async (hrSuccess) => {
+                    // After HR chart is captured, capture the steps chart
+                    navigation.navigate('StepsDetailsScreen', {
+                        captureOnGenerate: true,
+                        segmentType: 'Month',
+                        selectedDate: fromDate,
+                        headless: true,
+                        onCaptureDone: async (stepsSuccess) => {
+                            // After both charts are captured, continue with PDF generation
+                            const htmlData = getReportHTML(fromDate, toDate, filteredEntries);
+
+                            try {
+                                if (!RNHTMLtoPDF || typeof RNHTMLtoPDF.convert !== 'function') {
+                                    throw new Error('RNHTMLtoPDF is not properly initialized');
+                                }
+
+                                // Save PDF to the same location as the chart images
+                                let options = {
+                                    html: htmlData,
+                                    fileName: `report_${fromDate}_${toDate}`,
+                                    directory: 'Download',
+                                    base64: false,
+                                    filePath: `/storage/emulated/0/Android/data/com.pathed/files/Documents/report_${fromDate}_${toDate}.pdf`
+                                };
+
+                                let file = await RNHTMLtoPDF.convert(options);
+                                console.log('PDF file created at:', file.filePath);
+                                Alert.alert('Success', `Report exported to: ${file.filePath}`);
+                            } catch (error) {
+                                console.error('Error creating PDF file:', error);
+                                Alert.alert('Error', 'Failed to export report.');
+                            }
+                        }
+                    });
+                }
+            });
         } catch (error) {
-            console.error('Error creating PDF file:', error);
-            Alert.alert('Error', 'Failed to export report.');
+            console.error('Error in chart capture process:', error);
+            Alert.alert('Error', 'Failed to generate report components.');
         }
-
-        navigation.navigate('HRDetails', {
-            captureOnGenerate: true,
-            segmentType: 'Month',
-            selectedDate: fromDate
-        });
-        setModalVisible(false);
     };
-
 
     // Data for the report.
     const route = useRoute();
@@ -159,7 +179,7 @@ const SmartwatchMenuScreen = () => {
                         source={require('../assets/watch-menu.png')}
                         style={styles.watchIcon}
                     />
-                    <Text style={styles.deviceName}>Garminnn Vivoactive 5</Text>
+                    <Text style={styles.deviceName}>Garminn Vivoactive 5</Text>
                 </View>
 
 

@@ -19,8 +19,9 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     watchIcon: {
-        width: 55,
+        width: 45,
         height: 55,
+        marginHorizontal: 5,
     },
     deviceName: {
         fontSize: 17,
