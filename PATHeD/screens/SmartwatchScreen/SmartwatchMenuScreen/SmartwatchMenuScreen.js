@@ -16,7 +16,10 @@ const SmartwatchMenuScreen = () => {
     const [capturedCharts, setCapturedCharts] = useState({
         hr: false,
         steps: false,
-        floors: false
+        floors: false,
+        stress: false,
+        intensity: false,
+        kcal: false
     });
 
     const navigation = useNavigation();
@@ -82,7 +85,10 @@ const SmartwatchMenuScreen = () => {
         setCapturedCharts({
             hr: false,
             steps: false,
-            floors: false
+            floors: false,
+            stress: false,
+            intensity: false,
+            kcal: false
         });
 
         setFilteredEntries(filteredEntries); // set it for later
@@ -90,7 +96,13 @@ const SmartwatchMenuScreen = () => {
 
     // Check if all charts have been captured
     useEffect(() => {
-        if (renderChart && capturedCharts.hr && capturedCharts.steps && capturedCharts.floors) {
+        if (renderChart &&
+            capturedCharts.hr &&
+            capturedCharts.steps &&
+            capturedCharts.floors &&
+            capturedCharts.stress &&
+            capturedCharts.intensity &&
+            capturedCharts.kcal) {
             setRenderChart(false);
             generatePdfReport();
         }
@@ -218,6 +230,30 @@ const SmartwatchMenuScreen = () => {
                         dataType="floors"
                         title="Floors Summary"
                         chartColor="#34511e"
+                        onDone={handleChartCapture}
+                    />
+                    <ChartCapture
+                        selectedDate={startDate}
+                        segmentType="Month"
+                        dataType="stress"
+                        title="Stress Summary"
+                        chartColor="#673AB7"
+                        onDone={handleChartCapture}
+                    />
+                    <ChartCapture
+                        selectedDate={startDate}
+                        segmentType="Month"
+                        dataType="intensity"
+                        title="Intensity Summary"
+                        chartColor="#0B3F6B"
+                        onDone={handleChartCapture}
+                    />
+                    <ChartCapture
+                        selectedDate={startDate}
+                        segmentType="Month"
+                        dataType="kcal"
+                        title="Kilocalories Summary"
+                        chartColor="#FFA500"
                         onDone={handleChartCapture}
                     />
                 </>

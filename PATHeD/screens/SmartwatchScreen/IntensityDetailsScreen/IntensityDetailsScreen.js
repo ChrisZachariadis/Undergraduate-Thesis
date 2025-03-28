@@ -1,30 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { faBolt, faPersonRunning, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
-
-const IntensityMetricCard = ({ title, value, icon }) => (
-    <View style={styles.metricCard}>
-        <View style={styles.mainContent}>
-            <View style={styles.textContainer}>
-                <Text style={styles.label}>{title}</Text>
-                <View style={styles.valueContainer}>
-                    <Text style={styles.value}>{Math.round(value / 60)}</Text>
-                    <Text style={styles.unit}>min</Text>
-                </View>
-            </View>
-            <View style={styles.iconContainer}>
-                <FontAwesomeIcon icon={icon} size={22} color="#0B3F6B" />
-            </View>
-        </View>
-    </View>
-);
+import MetricCard from '../components/MetricCard';
 
 const IntensityDetailsScreen = ({ route }) => {
     // Get the selectedDate from route params if available
     const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState(null);
+
+    // Convert seconds to minutes for display
+    const formatMinutes = (seconds) => Math.round(seconds / 60);
 
     return (
         <ScrollView style={styles.container}>
@@ -41,31 +27,39 @@ const IntensityDetailsScreen = ({ route }) => {
                 {summary && typeof summary === 'object' ? (
                     <>
                         <View style={styles.row}>
-                            <IntensityMetricCard
+                            <MetricCard
                                 title="Vigorous Intensity"
-                                value={summary.vigorousIntensityDurationInSeconds}
+                                value={formatMinutes(summary.vigorousIntensityDurationInSeconds)}
+                                unit="min"
                                 icon={faDumbbell}
+                                color="#0B3F6B"
                             />
-                            <IntensityMetricCard
+                            <MetricCard
                                 title="Moderate Intensity"
-                                value={summary.moderateIntensityDurationInSeconds}
+                                value={formatMinutes(summary.moderateIntensityDurationInSeconds)}
+                                unit="min"
                                 icon={faPersonRunning}
+                                color="#0B3F6B"
                             />
                         </View>
                         <View style={styles.row}>
-                            <IntensityMetricCard
+                            <MetricCard
                                 title="Total Intensity"
-                                value={summary.moderateIntensityDurationInSeconds + summary.vigorousIntensityDurationInSeconds}
+                                value={formatMinutes(summary.moderateIntensityDurationInSeconds + summary.vigorousIntensityDurationInSeconds)}
+                                unit="min"
                                 icon={faBolt}
+                                color="#0B3F6B"
                             />
                         </View>
                     </>
                 ) : (
                     <View style={styles.row}>
-                        <IntensityMetricCard
+                        <MetricCard
                             title="Intensity"
-                            value={summary || 0}
+                            value={formatMinutes(summary || 0)}
+                            unit="min"
                             icon={faBolt}
+                            color="#0B3F6B"
                         />
                     </View>
                 )}
@@ -80,56 +74,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
     },
     metricsContainer: {
-        padding: 4,
+        padding: 8,
     },
     row: {
         flexDirection: 'row',
         marginBottom: 8,
-    },
-    metricCard: {
-        flex: 1,
-        marginHorizontal: 6,
-        padding: 12,
-        backgroundColor: 'white',
-        borderRadius: 12,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    mainContent: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    textContainer: {
-        flex: 1,
-    },
-    label: {
-        fontSize: 16,
-        color: '#666',
-        marginBottom: 8,
-    },
-    valueContainer: {
-        flexDirection: 'row',
-        alignItems: 'baseline',
-    },
-    value: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#333',
-    },
-    iconContainer: {
-        width: 48,
-        height: 48,
-        backgroundColor: 'rgba(11, 63, 107, 0.1)',
-        borderRadius: 24,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });
 
