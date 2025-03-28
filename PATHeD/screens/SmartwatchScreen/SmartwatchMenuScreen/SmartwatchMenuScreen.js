@@ -1,15 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import { Pressable, Text, View, Image, Modal, SafeAreaView, Alert } from 'react-native';
+import {Pressable, Text, View, Image, Modal, SafeAreaView, Alert} from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf'; // PDF conversion library
 import {Calendar} from 'react-native-calendars';
 import {getReportHTML} from './reportTemplate'; // Import the HTML template function
 import styles from './style';
 import {useRoute, useNavigation} from "@react-navigation/native";
+import HRChartCapture from "../components/HRChartCapture";
 
 const SmartwatchMenuScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [renderChart, setRenderChart] = useState(false);
+    const [filteredEntries, setFilteredEntries] = useState([]);
+
     const navigation = useNavigation();
 
     const handleGarminConnect = () => {
@@ -57,75 +61,26 @@ const SmartwatchMenuScreen = () => {
         return markedDates;
     };
 
-    const handleCaptureInBackground = (fromDate) => {
-        navigation.navigate('HRDetails', {
-            captureOnGenerate: true,
-            segmentType: 'Month',
-            selectedDate: fromDate,
-            headless: true
-        });
-    };
 
     const handleConfirmPeriod = async () => {
         const fromDate = startDate;
         const toDate = endDate || startDate;
         // Ensure we are filtering the correct array (payload.data if payload is an object)
         const entries = Array.isArray(payload) ? payload : payload.data || [];
-        const filteredEntries = entries.filter(item => {
-            return item.calendarDate >= fromDate && item.calendarDate <= toDate;
-        });
 
-        // First capture the HR chart in headless mode
+        const filteredEntries = entries.filter(item =>
+            item.calendarDate >= fromDate && item.calendarDate <= toDate
+        );
+
         setModalVisible(false);
+        setRenderChart(true);
 
-        try {
-            // Navigate to HRDetails in headless mode first to capture the chart
-            navigation.navigate('HRDetails', {
-                captureOnGenerate: true,
-                segmentType: 'Month',
-                selectedDate: fromDate,
-                headless: true,
-                onCaptureDone: async (hrSuccess) => {
-                    // After HR chart is captured, capture the steps chart
-                    navigation.navigate('StepsDetailsScreen', {
-                        captureOnGenerate: true,
-                        segmentType: 'Month',
-                        selectedDate: fromDate,
-                        headless: true,
-                        onCaptureDone: async (stepsSuccess) => {
-                            // After both charts are captured, continue with PDF generation
-                            const htmlData = getReportHTML(fromDate, toDate, filteredEntries);
-
-                            try {
-                                if (!RNHTMLtoPDF || typeof RNHTMLtoPDF.convert !== 'function') {
-                                    throw new Error('RNHTMLtoPDF is not properly initialized');
-                                }
-
-                                // Save PDF to the same location as the chart images
-                                let options = {
-                                    html: htmlData,
-                                    fileName: `report_${fromDate}_${toDate}`,
-                                    directory: 'Download',
-                                    base64: false,
-                                    filePath: `/storage/emulated/0/Android/data/com.pathed/files/Documents/report_${fromDate}_${toDate}.pdf`
-                                };
-
-                                let file = await RNHTMLtoPDF.convert(options);
-                                console.log('PDF file created at:', file.filePath);
-                                Alert.alert('Success', `Report exported to: ${file.filePath}`);
-                            } catch (error) {
-                                console.error('Error creating PDF file:', error);
-                                Alert.alert('Error', 'Failed to export report.');
-                            }
-                        }
-                    });
-                }
-            });
-        } catch (error) {
-            console.error('Error in chart capture process:', error);
-            Alert.alert('Error', 'Failed to generate report components.');
-        }
+        setTimeout(() => {
+            setRenderChart(false);
+        }, 3000); // Unmount after capture
+        setFilteredEntries(filteredEntries); // set it for later
     };
+
 
     // Data for the report.
     const route = useRoute();
@@ -179,7 +134,7 @@ const SmartwatchMenuScreen = () => {
                         source={require('../assets/watch-menu.png')}
                         style={styles.watchIcon}
                     />
-                    <Text style={styles.deviceName}>Garminn Vivoactive 5</Text>
+                    <Text style={styles.deviceName}>Garmin Vivoactive 5</Text>
                 </View>
 
 
@@ -195,8 +150,44 @@ const SmartwatchMenuScreen = () => {
                     <Text style={styles.disconnectButtonText}>Generate Report</Text>
                 </Pressable>
             </View>
+
+            {/* Background Capture Renderer */}
+            {renderChart && (
+                <HRChartCapture
+                    selectedDate={startDate}
+                    segmentType="Month"
+                    onDone={async (success) => {
+                        console.log('HR chart captured:', success);
+                        setRenderChart(false);
+
+                        if (success) {
+                            try {
+                                const htmlData = getReportHTML(startDate, endDate || startDate, filteredEntries);
+                                let options = {
+                                    html: htmlData,
+                                    fileName: `report_${startDate}_${endDate || startDate}`,
+                                    directory: 'Documents',
+                                    base64: false,
+                                    filePath: `/storage/emulated/0/Android/data/com.pathed/files/Documents/report_${startDate}_${endDate || startDate}.pdf`
+                                };
+
+                                const file = await RNHTMLtoPDF.convert(options);
+                                console.log('PDF file created at:', file.filePath);
+                                Alert.alert('Success', `Report exported to: ${file.filePath}`);
+                            } catch (error) {
+                                console.error('Error creating PDF file:', error);
+                                Alert.alert('Error', 'Failed to export report.');
+                            }
+                        } else {
+                            Alert.alert('Error', 'Chart capture failed. Report not generated.');
+                        }
+                    }}
+
+                />
+            )}
         </SafeAreaView>
     );
+
 };
 
 export default SmartwatchMenuScreen;
