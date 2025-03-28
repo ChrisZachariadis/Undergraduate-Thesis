@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import {faBuilding} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
-import {styles} from './style';
 import MetricCard from '../components/MetricCard';
 
 const FloorsDetailsChart = ({ route }) => {
@@ -37,4 +36,17 @@ const FloorsDetailsChart = ({ route }) => {
         </ScrollView>
     );
 };
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+    },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 8,
+    },
+});
+
 export default FloorsDetailsChart;

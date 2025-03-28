@@ -1,8 +1,7 @@
 import React, {useState } from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import {faHeartPulse, faHeart, faHeartCircleMinus, faHeartCirclePlus} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
-import {styles} from './styles';
 import MetricCard from '../components/MetricCard';
 
 const HRDetails = ({route}) => {
@@ -10,7 +9,6 @@ const HRDetails = ({route}) => {
 
     // useSTate for the heart rate details below the graph
     const [summary, setSummary] = useState(null);
-
 
     return (
         <ScrollView style={styles.container}>
@@ -74,5 +72,16 @@ const HRDetails = ({route}) => {
         </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+    },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 8,
+    },
+});
 
 export default HRDetails;
