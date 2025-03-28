@@ -5,7 +5,7 @@ import {Calendar} from 'react-native-calendars';
 import {getReportHTML} from './reportTemplate'; // Import the HTML template function
 import styles from './style';
 import {useRoute, useNavigation} from "@react-navigation/native";
-import HRChartCapture from "../components/HRChartCapture";
+import ChartCapture from "../components/ChartCapture";
 
 const SmartwatchMenuScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -13,6 +13,11 @@ const SmartwatchMenuScreen = () => {
     const [endDate, setEndDate] = useState(null);
     const [renderChart, setRenderChart] = useState(false);
     const [filteredEntries, setFilteredEntries] = useState([]);
+    const [capturedCharts, setCapturedCharts] = useState({
+        hr: false,
+        steps: false,
+        floors: false
+    });
 
     const navigation = useNavigation();
 
@@ -74,13 +79,50 @@ const SmartwatchMenuScreen = () => {
 
         setModalVisible(false);
         setRenderChart(true);
+        setCapturedCharts({
+            hr: false,
+            steps: false,
+            floors: false
+        });
 
-        setTimeout(() => {
-            setRenderChart(false);
-        }, 3000); // Unmount after capture
         setFilteredEntries(filteredEntries); // set it for later
     };
 
+    // Check if all charts have been captured
+    useEffect(() => {
+        if (renderChart && capturedCharts.hr && capturedCharts.steps && capturedCharts.floors) {
+            setRenderChart(false);
+            generatePdfReport();
+        }
+    }, [capturedCharts]);
+
+    const handleChartCapture = (success, chartType) => {
+        // console.log(`${chartType} chart captured:`, success);
+        setCapturedCharts(prev => ({
+            ...prev,
+            [chartType]: true
+        }));
+    };
+
+    const generatePdfReport = async () => {
+        try {
+            const htmlData = getReportHTML(startDate, endDate || startDate, filteredEntries);
+            let options = {
+                html: htmlData,
+                fileName: `report_${startDate}_${endDate || startDate}`,
+                directory: 'Documents',
+                base64: false,
+                filePath: `/storage/emulated/0/Android/data/com.pathed/files/Documents/report_${startDate}_${endDate || startDate}.pdf`
+            };
+
+            const file = await RNHTMLtoPDF.convert(options);
+            console.log('PDF file created at:', file.filePath);
+            Alert.alert('Success', `Report exported to: ${file.filePath}`);
+        } catch (error) {
+            console.error('Error creating PDF file:', error);
+            Alert.alert('Error', 'Failed to export report.');
+        }
+    };
 
     // Data for the report.
     const route = useRoute();
@@ -151,39 +193,34 @@ const SmartwatchMenuScreen = () => {
                 </Pressable>
             </View>
 
-            {/* Background Capture Renderer */}
+            {/* Background Capture Renderer for all chart types */}
             {renderChart && (
-                <HRChartCapture
-                    selectedDate={startDate}
-                    segmentType="Month"
-                    onDone={async (success) => {
-                        console.log('HR chart captured:', success);
-                        setRenderChart(false);
-
-                        if (success) {
-                            try {
-                                const htmlData = getReportHTML(startDate, endDate || startDate, filteredEntries);
-                                let options = {
-                                    html: htmlData,
-                                    fileName: `report_${startDate}_${endDate || startDate}`,
-                                    directory: 'Documents',
-                                    base64: false,
-                                    filePath: `/storage/emulated/0/Android/data/com.pathed/files/Documents/report_${startDate}_${endDate || startDate}.pdf`
-                                };
-
-                                const file = await RNHTMLtoPDF.convert(options);
-                                console.log('PDF file created at:', file.filePath);
-                                Alert.alert('Success', `Report exported to: ${file.filePath}`);
-                            } catch (error) {
-                                console.error('Error creating PDF file:', error);
-                                Alert.alert('Error', 'Failed to export report.');
-                            }
-                        } else {
-                            Alert.alert('Error', 'Chart capture failed. Report not generated.');
-                        }
-                    }}
-
-                />
+                <>
+                    <ChartCapture
+                        selectedDate={startDate}
+                        segmentType="Month"
+                        dataType="hr"
+                        title="Heart Rate Summary"
+                        chartColor="#FF6347"
+                        onDone={handleChartCapture}
+                    />
+                    <ChartCapture
+                        selectedDate={startDate}
+                        segmentType="Month"
+                        dataType="steps"
+                        title="Steps Summary"
+                        chartColor="#0B3F6B"
+                        onDone={handleChartCapture}
+                    />
+                    <ChartCapture
+                        selectedDate={startDate}
+                        segmentType="Month"
+                        dataType="floors"
+                        title="Floors Summary"
+                        chartColor="#34511e"
+                        onDone={handleChartCapture}
+                    />
+                </>
             )}
         </SafeAreaView>
     );

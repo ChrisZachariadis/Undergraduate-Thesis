@@ -3,7 +3,6 @@ import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPersonWalking} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
-import ViewShot from 'react-native-view-shot';
 
 const StepsMetricCard = ({title, value, unit, icon}) => (
     <View style={styles.metricCard}>
@@ -22,14 +21,13 @@ const StepsMetricCard = ({title, value, unit, icon}) => (
     </View>
 );
 
-const StepsDetailsChart = ({route, navigation}) => {
+const StepsDetailsChart = ({route}) => {
     const {selectedDate, segmentType} = route.params || {};
     const chartRef = useRef(null);
     const [summary, setSummary] = useState(null);
 
     return (
         <ScrollView style={styles.container}>
-            <ViewShot ref={chartRef} options={{format: 'jpg', quality: 0.9}}>
                 <ChartDetails
                     title="Steps Summary"
                     dataType="steps"
@@ -38,8 +36,6 @@ const StepsDetailsChart = ({route, navigation}) => {
                     onSummaryUpdate={(value) => setSummary(value)}
                     initialDate={selectedDate}
                 />
-            </ViewShot>
-
             <View style={styles.metricsContainer}>
                 {summary !== null && (
                     <>

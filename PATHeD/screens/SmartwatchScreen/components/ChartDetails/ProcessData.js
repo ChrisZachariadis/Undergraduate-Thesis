@@ -111,7 +111,7 @@ const processIntensityWeeklyData = (data, weekStart, colorOption) => {
         const day = moment(weekStart).add(i, 'days');
         const dayName = day.format('ddd');
         const dayData = data.find(entry => entry.calendarDate === day.format('YYYY-MM-DD'));
-        // Sum the two intensity durations. If no data exists, default to 0.
+        // Sum the two intensity durations.
         const vigorous = dayData ? (dayData.data.vigorousIntensityDurationInSeconds || 0) : 0;
         const moderate = dayData ? (dayData.data.moderateIntensityDurationInSeconds || 0) : 0;
         const total = vigorous + moderate;
