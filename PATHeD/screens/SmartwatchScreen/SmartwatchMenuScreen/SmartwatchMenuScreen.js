@@ -77,11 +77,43 @@ const SmartwatchMenuScreen = () => {
         return markedDates;
     };
 
+    const getMonthsBetweenDates = (startDate, endDate) => {
+        // If endDate is not provided, use startDate
+        const end = endDate || startDate;
+
+        // Create date objects
+        const startDateObj = new Date(startDate);
+        const endDateObj = new Date(end);
+
+        // Initialize array to hold month strings
+        const months = [];
+
+        // Start with the first month
+        let currentDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), 1);
+
+        // Loop until we reach or exceed the end date
+        while (currentDate <= endDateObj) {
+            // Format as YYYY-MM
+            const monthStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+            months.push(monthStr);
+
+            // Move to next month
+            currentDate.setMonth(currentDate.getMonth() + 1);
+        }
+
+        return months;
+    };
+
 
     const handleConfirmPeriod = async () => {
         const fromDate = startDate;
         const toDate = endDate || startDate;
-        // Ensure we are filtering the correct array (payload.data if payload is an object)
+
+        // Get all months between the selected dates
+        const months = getMonthsBetweenDates(fromDate, toDate);
+        console.log('Months between selected dates:', months);
+
+        // Rest of your existing code...
         const entries = Array.isArray(payload) ? payload : payload.data || [];
 
         const filteredEntries = entries.filter(item =>
@@ -99,7 +131,7 @@ const SmartwatchMenuScreen = () => {
             kcal: false
         });
 
-        setFilteredEntries(filteredEntries); // set it for later
+        setFilteredEntries(filteredEntries);
     };
 
     // Check if all charts have been captured
