@@ -21,6 +21,14 @@ const SmartwatchMenuScreen = () => {
         intensity: false,
         kcal: false
     });
+    const [chartImages, setChartImages] = useState({
+        hr: null,
+        steps: null,
+        floors: null,
+        stress: null,
+        intensity: null,
+        kcal: null
+    });
 
     const navigation = useNavigation();
 
@@ -108,17 +116,24 @@ const SmartwatchMenuScreen = () => {
         }
     }, [capturedCharts]);
 
-    const handleChartCapture = (success, chartType) => {
+    const handleChartCapture = (success, chartType, uri) => {
         // console.log(`${chartType} chart captured:`, success);
         setCapturedCharts(prev => ({
             ...prev,
             [chartType]: true
         }));
+
+        if (success && uri) {
+            setChartImages(prev => ({
+                ...prev,
+                [chartType]: uri
+            }));
+        }
     };
 
     const generatePdfReport = async () => {
         try {
-            const htmlData = getReportHTML(startDate, endDate || startDate, filteredEntries);
+            const htmlData = getReportHTML(startDate, endDate || startDate, filteredEntries, chartImages);
             let options = {
                 html: htmlData,
                 fileName: `report_${startDate}_${endDate || startDate}`,

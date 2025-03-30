@@ -1,4 +1,4 @@
-export const getReportHTML = (fromDate, toDate, filteredEntries) => {
+export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {}) => {
     return `
     <!DOCTYPE html>
     <html>
@@ -11,6 +11,29 @@ export const getReportHTML = (fromDate, toDate, filteredEntries) => {
           h2 { color: #555; }
           /* Ensure a page break after the first section */
           .first-page { page-break-after: always; }
+          .chart-section { margin-top: 30px; }
+          .chart-container { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 20px;
+            margin-top: 20px;
+          }
+          .chart-item {
+            width: 45%;
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+          }
+          .chart-item img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+          }
+          .chart-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
           table { border-collapse: collapse; width: 100%; font-size: 12px; }
           th, td { border: 1px solid #ddd; padding: 4px; text-align: left; }
           th { background-color: #f2f2f2; }
@@ -69,6 +92,48 @@ export const getReportHTML = (fromDate, toDate, filteredEntries) => {
         .join('')}
             </tbody>
           </table>
+          
+          <!-- Charts Section -->
+          <div class="chart-section">
+            <h2>Charts and Visualizations</h2>
+            <div class="chart-container">
+              ${chartImages.hr ? `
+                <div class="chart-item">
+                  <div class="chart-title">Heart Rate Summary</div>
+                  <img src="${chartImages.hr}" alt="Heart Rate Chart" />
+                </div>` : ''}
+              
+              ${chartImages.steps ? `
+                <div class="chart-item">
+                  <div class="chart-title">Steps Summary</div>
+                  <img src="${chartImages.steps}" alt="Steps Chart" />
+                </div>` : ''}
+              
+              ${chartImages.floors ? `
+                <div class="chart-item">
+                  <div class="chart-title">Floors Summary</div>
+                  <img src="${chartImages.floors}" alt="Floors Chart" />
+                </div>` : ''}
+              
+              ${chartImages.stress ? `
+                <div class="chart-item">
+                  <div class="chart-title">Stress Summary</div>
+                  <img src="${chartImages.stress}" alt="Stress Chart" />
+                </div>` : ''}
+              
+              ${chartImages.intensity ? `
+                <div class="chart-item">
+                  <div class="chart-title">Intensity Summary</div>
+                  <img src="${chartImages.intensity}" alt="Intensity Chart" />
+                </div>` : ''}
+              
+              ${chartImages.kcal ? `
+                <div class="chart-item">
+                  <div class="chart-title">Kilocalories Summary</div>
+                  <img src="${chartImages.kcal}" alt="Kilocalories Chart" />
+                </div>` : ''}
+            </div>
+          </div>
         </div>
       </body>
     </html>

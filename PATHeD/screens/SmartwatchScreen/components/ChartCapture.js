@@ -2,7 +2,6 @@
 import React, { useRef, useEffect } from 'react';
 import ViewShot from 'react-native-view-shot';
 import ChartDetails from './ChartDetails/ChartDetails';
-import RNFS from 'react-native-fs';
 import { View } from 'react-native';
 
 const ChartCapture = React.forwardRef(({
@@ -19,15 +18,8 @@ const ChartCapture = React.forwardRef(({
         const capture = async () => {
             try {
                 const uri = await chartRef.current.capture();
-                const dirPath = '/storage/emulated/0/Android/data/com.pathed/files/Documents';
-                const destPath = `${dirPath}/${dataType}_monthly_segment.jpg`;
-
-                const exists = await RNFS.exists(dirPath);
-                if (!exists) await RNFS.mkdir(dirPath);
-
-                await RNFS.copyFile(uri, destPath);
-                // console.log(`Saved ${dataType} chart to:`, destPath);
-                onDone && onDone(true, dataType);
+                // Return the URI instead of saving to file
+                onDone && onDone(true, dataType, uri);
             } catch (err) {
                 console.error(`${dataType} chart capture failed:`, err);
                 onDone && onDone(false, dataType);
@@ -35,7 +27,7 @@ const ChartCapture = React.forwardRef(({
         };
 
         // Add slight delay for rendering before capture
-        setTimeout(capture, 200);
+        setTimeout(capture, 100);
     }, [dataType]);
 
     return (
