@@ -6,6 +6,7 @@ import { View } from 'react-native';
 
 const ChartCapture = React.forwardRef(({
     selectedDate,
+    selectedMonth, // Add new prop for specific month
     segmentType = 'Month',
     dataType = 'hr',
     title = 'Chart Summary',
@@ -18,17 +19,20 @@ const ChartCapture = React.forwardRef(({
         const capture = async () => {
             try {
                 const uri = await chartRef.current.capture();
-                // Return the URI instead of saving to file
-                onDone && onDone(true, dataType, uri);
+                // Return the URI with month information
+                onDone && onDone(true, dataType, uri, selectedMonth);
             } catch (err) {
-                console.error(`${dataType} chart capture failed:`, err);
-                onDone && onDone(false, dataType);
+                console.error(`${dataType} chart capture failed for ${selectedMonth}:`, err);
+                onDone && onDone(false, dataType, null, selectedMonth);
             }
         };
 
         // Add slight delay for rendering before capture
         setTimeout(capture, 100);
-    }, [dataType]);
+    }, [dataType, selectedMonth]);
+
+    // Use the specific month date instead of selectedDate if provided
+    const dateToUse = selectedMonth ? `${selectedMonth}-01` : selectedDate;
 
     return (
         <View style={{ position: 'absolute', opacity: 0 }}>
@@ -38,7 +42,7 @@ const ChartCapture = React.forwardRef(({
                     dataType={dataType}
                     segments={['Month']}
                     chartColor={chartColor}
-                    initialDate={selectedDate}
+                    initialDate={dateToUse}
                 />
             </ViewShot>
         </View>

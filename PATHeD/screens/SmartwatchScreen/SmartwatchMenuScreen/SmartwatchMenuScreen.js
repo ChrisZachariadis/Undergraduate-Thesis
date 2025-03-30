@@ -13,22 +13,21 @@ const SmartwatchMenuScreen = () => {
     const [endDate, setEndDate] = useState(null);
     const [renderChart, setRenderChart] = useState(false);
     const [filteredEntries, setFilteredEntries] = useState([]);
-    const [capturedCharts, setCapturedCharts] = useState({
-        hr: false,
-        steps: false,
-        floors: false,
-        stress: false,
-        intensity: false,
-        kcal: false
-    });
+    const [selectedMonths, setSelectedMonths] = useState([]);
+    const [capturedCharts, setCapturedCharts] = useState({});
+    const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
     const [chartImages, setChartImages] = useState({
-        hr: null,
-        steps: null,
-        floors: null,
-        stress: null,
-        intensity: null,
-        kcal: null
+        hr: {},
+        steps: {},
+        floors: {},
+        stress: {},
+        intensity: {},
+        kcal: {}
     });
+
+    // Track total charts to capture and completed charts
+    const [totalChartsToCapture, setTotalChartsToCapture] = useState(0);
+    const [completedCharts, setCompletedCharts] = useState(0);
 
     const navigation = useNavigation();
 
@@ -104,7 +103,6 @@ const SmartwatchMenuScreen = () => {
         return months;
     };
 
-
     const handleConfirmPeriod = async () => {
         const fromDate = startDate;
         const toDate = endDate || startDate;
@@ -112,6 +110,7 @@ const SmartwatchMenuScreen = () => {
         // Get all months between the selected dates
         const months = getMonthsBetweenDates(fromDate, toDate);
         console.log('Months between selected dates:', months);
+        setSelectedMonths(months);
 
         // Rest of your existing code...
         const entries = Array.isArray(payload) ? payload : payload.data || [];
@@ -121,51 +120,87 @@ const SmartwatchMenuScreen = () => {
         );
 
         setModalVisible(false);
-        setRenderChart(true);
-        setCapturedCharts({
-            hr: false,
-            steps: false,
-            floors: false,
-            stress: false,
-            intensity: false,
-            kcal: false
+
+        // Reset charts and prepare for capture
+        let initialCapturedState = {};
+        months.forEach(month => {
+            initialCapturedState[month] = {
+                hr: false,
+                steps: false,
+                floors: false,
+                stress: false,
+                intensity: false,
+                kcal: false
+            };
         });
 
+        setCapturedCharts(initialCapturedState);
+        setChartImages({
+            hr: {},
+            steps: {},
+            floors: {},
+            stress: {},
+            intensity: {},
+            kcal: {}
+        });
+
+        // Calculate total charts to capture (6 chart types × number of months)
+        setTotalChartsToCapture(6 * months.length);
+        setCompletedCharts(0);
+
+        setRenderChart(true);
         setFilteredEntries(filteredEntries);
     };
 
     // Check if all charts have been captured
     useEffect(() => {
-        if (renderChart &&
-            capturedCharts.hr &&
-            capturedCharts.steps &&
-            capturedCharts.floors &&
-            capturedCharts.stress &&
-            capturedCharts.intensity &&
-            capturedCharts.kcal) {
+        if (renderChart && completedCharts === totalChartsToCapture && totalChartsToCapture > 0) {
             setRenderChart(false);
             generatePdfReport();
         }
-    }, [capturedCharts]);
+    }, [completedCharts, totalChartsToCapture, renderChart]);
 
-    const handleChartCapture = (success, chartType, uri) => {
-        // console.log(`${chartType} chart captured:`, success);
+    const handleChartCapture = (success, chartType, uri, month) => {
+        console.log(`${chartType} chart captured for ${month}:`, success);
+
+        // Update completed charts count
+        setCompletedCharts(prevCount => prevCount + 1);
+
+        // Update captured status
         setCapturedCharts(prev => ({
             ...prev,
-            [chartType]: true
+            [month]: {
+                ...(prev[month] || {}),
+                [chartType]: true
+            }
         }));
 
         if (success && uri) {
+            // Store chart image with month information
             setChartImages(prev => ({
                 ...prev,
-                [chartType]: uri
+                [chartType]: {
+                    ...prev[chartType],
+                    [month]: uri
+                }
             }));
         }
     };
 
     const generatePdfReport = async () => {
         try {
-            const htmlData = getReportHTML(startDate, endDate || startDate, filteredEntries, chartImages);
+            // Show generating message
+            setIsGeneratingPdf(true);
+            Alert.alert('Generating', 'Creating your PDF report, please wait...');
+
+            const htmlData = getReportHTML(
+                startDate,
+                endDate || startDate,
+                filteredEntries,
+                chartImages,
+                selectedMonths
+            );
+
             let options = {
                 html: htmlData,
                 fileName: `report_${startDate}_${endDate || startDate}`,
@@ -176,9 +211,13 @@ const SmartwatchMenuScreen = () => {
 
             const file = await RNHTMLtoPDF.convert(options);
             console.log('PDF file created at:', file.filePath);
+
+            // Update with success message
+            setIsGeneratingPdf(false);
             Alert.alert('Success', `Report exported to: ${file.filePath}`);
         } catch (error) {
             console.error('Error creating PDF file:', error);
+            setIsGeneratingPdf(false);
             Alert.alert('Error', 'Failed to export report.');
         }
     };
@@ -253,10 +292,11 @@ const SmartwatchMenuScreen = () => {
             </View>
 
             {/* Background Capture Renderer for all chart types */}
-            {renderChart && (
-                <>
+            {renderChart && selectedMonths.map(month => (
+                <React.Fragment key={month}>
                     <ChartCapture
                         selectedDate={startDate}
+                        selectedMonth={month}
                         segmentType="Month"
                         dataType="hr"
                         title="Heart Rate Summary"
@@ -265,6 +305,7 @@ const SmartwatchMenuScreen = () => {
                     />
                     <ChartCapture
                         selectedDate={startDate}
+                        selectedMonth={month}
                         segmentType="Month"
                         dataType="steps"
                         title="Steps Summary"
@@ -273,6 +314,7 @@ const SmartwatchMenuScreen = () => {
                     />
                     <ChartCapture
                         selectedDate={startDate}
+                        selectedMonth={month}
                         segmentType="Month"
                         dataType="floors"
                         title="Floors Summary"
@@ -281,6 +323,7 @@ const SmartwatchMenuScreen = () => {
                     />
                     <ChartCapture
                         selectedDate={startDate}
+                        selectedMonth={month}
                         segmentType="Month"
                         dataType="stress"
                         title="Stress Summary"
@@ -289,6 +332,7 @@ const SmartwatchMenuScreen = () => {
                     />
                     <ChartCapture
                         selectedDate={startDate}
+                        selectedMonth={month}
                         segmentType="Month"
                         dataType="intensity"
                         title="Intensity Summary"
@@ -297,14 +341,15 @@ const SmartwatchMenuScreen = () => {
                     />
                     <ChartCapture
                         selectedDate={startDate}
+                        selectedMonth={month}
                         segmentType="Month"
                         dataType="kcal"
                         title="Kilocalories Summary"
                         chartColor="#FFA500"
                         onDone={handleChartCapture}
                     />
-                </>
-            )}
+                </React.Fragment>
+            ))}
         </SafeAreaView>
     );
 

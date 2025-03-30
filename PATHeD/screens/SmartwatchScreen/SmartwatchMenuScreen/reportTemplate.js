@@ -1,4 +1,61 @@
-export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {}) => {
+export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {}, selectedMonths = []) => {
+    // Format month for display (YYYY-MM to Month YYYY)
+    const formatMonthDisplay = (monthStr) => {
+        const [year, month] = monthStr.split('-');
+        const date = new Date(parseInt(year), parseInt(month) - 1, 1);
+        return date.toLocaleString('default', { month: 'long', year: 'numeric' });
+    };
+
+    // Generate the chart sections for each month
+    const generateMonthlyChartSections = () => {
+        return selectedMonths.map(month => {
+            const formattedMonth = formatMonthDisplay(month);
+            return `
+            <div class="month-section">
+                <h2>${formattedMonth} Charts</h2>
+                <div class="chart-container">
+                    ${chartImages.hr && chartImages.hr[month] ? `
+                    <div class="chart-item">
+                        <div class="chart-title">Heart Rate Summary</div>
+                        <img src="${chartImages.hr[month]}" alt="Heart Rate Chart for ${formattedMonth}" />
+                    </div>` : ''}
+                    
+                    ${chartImages.steps && chartImages.steps[month] ? `
+                    <div class="chart-item">
+                        <div class="chart-title">Steps Summary</div>
+                        <img src="${chartImages.steps[month]}" alt="Steps Chart for ${formattedMonth}" />
+                    </div>` : ''}
+                    
+                    ${chartImages.floors && chartImages.floors[month] ? `
+                    <div class="chart-item">
+                        <div class="chart-title">Floors Summary</div>
+                        <img src="${chartImages.floors[month]}" alt="Floors Chart for ${formattedMonth}" />
+                    </div>` : ''}
+                    
+                    ${chartImages.stress && chartImages.stress[month] ? `
+                    <div class="chart-item">
+                        <div class="chart-title">Stress Summary</div>
+                        <img src="${chartImages.stress[month]}" alt="Stress Chart for ${formattedMonth}" />
+                    </div>` : ''}
+                    
+                    ${chartImages.intensity && chartImages.intensity[month] ? `
+                    <div class="chart-item">
+                        <div class="chart-title">Intensity Summary</div>
+                        <img src="${chartImages.intensity[month]}" alt="Intensity Chart for ${formattedMonth}" />
+                    </div>` : ''}
+                    
+                    ${chartImages.kcal && chartImages.kcal[month] ? `
+                    <div class="chart-item">
+                        <div class="chart-title">Kilocalories Summary</div>
+                        <img src="${chartImages.kcal[month]}" alt="Kilocalories Chart for ${formattedMonth}" />
+                    </div>` : ''}
+                </div>
+            </div>
+            <div class="page-break"></div>
+            `;
+        }).join('');
+    };
+
     return `
     <!DOCTYPE html>
     <html>
@@ -11,7 +68,11 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
           h2 { color: #555; }
           /* Ensure a page break after the first section */
           .first-page { page-break-after: always; }
-          .chart-section { margin-top: 30px; }
+          .page-break { page-break-after: always; }
+          .month-section { 
+            margin-top: 30px; 
+            page-break-inside: avoid;
+          }
           .chart-container { 
             display: flex; 
             flex-wrap: wrap; 
@@ -45,14 +106,16 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
         <div class="first-page">
           <h1>Smartwatch metrics report</h1>
           <h2>from ${fromDate} to ${toDate}</h2>
+          <h3>Analyzed Months: ${selectedMonths.map(formatMonthDisplay).join(', ')}</h3>
         </div>
 
         <!-- Second page: Table with report data -->
         <div class="second-page">
+          <h2>Data Summary</h2>
           <table>
             <thead>
               <tr>
-                <th>Calendar Date (outer)</th>
+                <th>Calendar Date</th>
                 <th>Steps</th>
                 <th>Floors Climbed</th>
                 <th>Max Stress Level</th>
@@ -69,9 +132,9 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
             </thead>
             <tbody>
               ${filteredEntries
-        .map(entry => {
-            const d = entry.data;
-            return `
+                .map(entry => {
+                    const d = entry.data;
+                    return `
                     <tr>
                       <td>${entry.calendarDate}</td>
                       <td>${d.steps}</td>
@@ -88,53 +151,15 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
                       <td>${d.vigorousIntensityDurationInSeconds}</td>
                     </tr>
                   `;
-        })
-        .join('')}
+                })
+                .join('')}
             </tbody>
           </table>
-          
-          <!-- Charts Section -->
-          <div class="chart-section">
-            <h2>Charts and Visualizations</h2>
-            <div class="chart-container">
-              ${chartImages.hr ? `
-                <div class="chart-item">
-                  <div class="chart-title">Heart Rate Summary</div>
-                  <img src="${chartImages.hr}" alt="Heart Rate Chart" />
-                </div>` : ''}
-              
-              ${chartImages.steps ? `
-                <div class="chart-item">
-                  <div class="chart-title">Steps Summary</div>
-                  <img src="${chartImages.steps}" alt="Steps Chart" />
-                </div>` : ''}
-              
-              ${chartImages.floors ? `
-                <div class="chart-item">
-                  <div class="chart-title">Floors Summary</div>
-                  <img src="${chartImages.floors}" alt="Floors Chart" />
-                </div>` : ''}
-              
-              ${chartImages.stress ? `
-                <div class="chart-item">
-                  <div class="chart-title">Stress Summary</div>
-                  <img src="${chartImages.stress}" alt="Stress Chart" />
-                </div>` : ''}
-              
-              ${chartImages.intensity ? `
-                <div class="chart-item">
-                  <div class="chart-title">Intensity Summary</div>
-                  <img src="${chartImages.intensity}" alt="Intensity Chart" />
-                </div>` : ''}
-              
-              ${chartImages.kcal ? `
-                <div class="chart-item">
-                  <div class="chart-title">Kilocalories Summary</div>
-                  <img src="${chartImages.kcal}" alt="Kilocalories Chart" />
-                </div>` : ''}
-            </div>
-          </div>
         </div>
+        
+        <!-- Monthly Charts Sections -->
+        <div class="page-break"></div>
+        ${generateMonthlyChartSections()}
       </body>
     </html>
   `;
