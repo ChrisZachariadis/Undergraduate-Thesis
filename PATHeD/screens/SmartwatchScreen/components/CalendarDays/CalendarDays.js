@@ -1,10 +1,12 @@
-import React, { useMemo } from 'react';
-import { View, Modal, TouchableOpacity, Text } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import React, {useMemo} from 'react';
+import {View, Modal, TouchableOpacity, Text} from 'react-native';
+import {Calendar} from 'react-native-calendars';
 import PropTypes from 'prop-types';
-import { styles } from './style';
+import {styles} from './style';
+import {faArrowLeft, faArrowRight,} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
-const CalendarDays = ({ isVisible, onClose, allEntries, currentCalendarDate, onDateSelect }) => {
+const CalendarDays = ({isVisible, onClose, allEntries, currentCalendarDate, onDateSelect}) => {
     const markedDates = useMemo(() => {
         const dates = {};
         allEntries.forEach(entry => {
@@ -44,7 +46,15 @@ const CalendarDays = ({ isVisible, onClose, allEntries, currentCalendarDate, onD
                             todayTextColor: '#419bcd',
                             dayTextColor: '#2d4150',
                             textDisabledColor: '#d9e1e8',
+                            arrowColor: '#2d4150', // Main blue color used in your app
                         }}
+                        renderArrow={(direction) => (
+                            <FontAwesomeIcon
+                                icon={direction === 'left' ? faArrowLeft : faArrowRight}
+                                size={24}
+                            />
+
+                        )}
                     />
                     <TouchableOpacity
                         style={styles.closeButton}

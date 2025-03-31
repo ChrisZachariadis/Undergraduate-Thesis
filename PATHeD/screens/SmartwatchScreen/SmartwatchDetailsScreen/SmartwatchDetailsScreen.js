@@ -61,7 +61,6 @@ const SmartwatchDetailsScreen = () => {
     };
 
 
-
     // currentIndex is used to navigate between different days
     // and is based on the currentCalendarDate.
     const currentIndex = useMemo(
@@ -107,17 +106,17 @@ const SmartwatchDetailsScreen = () => {
                     style={styles.syncButton}
                     onPress={syncButtonHandler}
                     accessibilityLabel="Sync Garmin Data"
-                    accessible={true} >
+                    accessible={true}>
                     <FontAwesomeIcon icon={faSync} size={24} color="#ffffff"/>
                 </TouchableOpacity>
 
                 {/* Smartwatch Icon */}
                 <TouchableOpacity
                     style={styles.smartwatchButton}
-                    onPress={() => navigation.navigate('SmartwatchMenuScreen', { payload: allEntries })}>
+                    onPress={() => navigation.navigate('SmartwatchMenuScreen', {payload: allEntries})}>
                     <Image
                         source={require('../assets/images/smartwatch.png')}
-                        style={styles.smartwatchIcon} />
+                        style={styles.smartwatchIcon}/>
                 </TouchableOpacity>
             </View>
 
@@ -132,7 +131,7 @@ const SmartwatchDetailsScreen = () => {
                             <FontAwesomeIcon
                                 icon={faArrowLeft}
                                 size={24}
-                                color={currentIndex === allEntries.length - 1 ? 'gray' : 'black'} />
+                                color={currentIndex === allEntries.length - 1 ? 'gray' : 'black'}/>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => setIsCalendarVisible(true)}>
@@ -143,7 +142,7 @@ const SmartwatchDetailsScreen = () => {
                             <FontAwesomeIcon
                                 icon={faArrowRight}
                                 size={24}
-                                color={currentIndex === 0 ? 'gray' : 'black'} />
+                                color={currentIndex === 0 ? 'gray' : 'black'}/>
                         </TouchableOpacity>
                     </View>
 
@@ -152,162 +151,179 @@ const SmartwatchDetailsScreen = () => {
                         onClose={() => setIsCalendarVisible(false)}
                         allEntries={allEntries}
                         currentCalendarDate={currentCalendarDate}
-                        onDateSelect={handleDateSelect} />
+                        onDateSelect={handleDateSelect}/>
 
                     {/* Circles Row */}
-                    <View style={styles.StepsFloorsContainer}>
-                        <Frame>
-                            <ProgressCircle
-                                title="Steps"
-                                progress={(selectedDayData?.steps || 0) / (selectedDayData?.stepsGoal || 1)}
-                                value={selectedDayData?.steps || 0}
-                                goal={selectedDayData?.stepsGoal || 0}
-                                color="#0C6C79"
-                                onPress={() =>
-                                    navigation.navigate('StepsDetailsScreen', {
-                                        dayData: selectedDayData,
-                                        selectedDate: currentCalendarDate
-                                    })
-                                }
-                                size={120}
-                                unit="steps" />
-                        </Frame>
 
-                        <Frame>
-                            <ProgressCircle
-                                title="Floors Climbed"
-                                progress={(selectedDayData?.floorsClimbed || 0) / (selectedDayData?.floorsClimbedGoal || 1)}
-                                value={selectedDayData?.floorsClimbed || 0}
-                                goal={selectedDayData?.floorsClimbedGoal || 0}
-                                color="#4CAF50"
-                                onPress={() =>
-                                    navigation.navigate('FloorsDetailsScreen', {
-                                        dayData: selectedDayData,
-                                        selectedDate: currentCalendarDate
-                                    })
-                                }
-                                size={120}
-                                unit="floors" />
-                        </Frame>
+                    <View style={styles.StepsFloorsContainer}>
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={() => navigation.navigate('StepsDetailsScreen', {
+                                dayData: selectedDayData,
+                                selectedDate: currentCalendarDate
+                            })}>
+                            <Frame>
+                                <ProgressCircle
+                                    title="Steps"
+                                    progress={(selectedDayData?.steps || 0) / (selectedDayData?.stepsGoal || 1)}
+                                    value={selectedDayData?.steps || 0}
+                                    goal={selectedDayData?.stepsGoal || 0}
+                                    color="#0C6C79"
+
+                                    size={120}
+                                    unit="steps"/>
+                            </Frame>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={() => navigation.navigate('FloorsDetailsScreen', {
+                                dayData: selectedDayData,
+                                selectedDate: currentCalendarDate
+                            })}>
+                            <Frame>
+                                <ProgressCircle
+                                    title="Floors Climbed"
+                                    progress={(selectedDayData?.floorsClimbed || 0) / (selectedDayData?.floorsClimbedGoal || 1)}
+                                    value={selectedDayData?.floorsClimbed || 0}
+                                    goal={selectedDayData?.floorsClimbedGoal || 0}
+                                    color="#4CAF50"
+
+                                    size={120}
+                                    unit="floors"/>
+                            </Frame>
+                        </TouchableOpacity>
                     </View>
 
                     {/* Average Heart Rate in a Rectangle Box */}
-                    <Frame>
-                        <View style={styles.heartRateHeader}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <FontAwesomeIcon icon={faHeart} size={24} color="red"/>
-                                <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
-                            </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('HRDetails', { selectedDate: currentCalendarDate })}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => navigation.navigate('HRDetails', {selectedDate: currentCalendarDate})}>
+                        <Frame>
+                            <View style={styles.heartRateHeader}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <FontAwesomeIcon icon={faHeart} size={24} color="red"/>
+                                    <Text style={styles.heartRateTitle}> Average Heart Rate</Text>
+                                </View>
+
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
-                            </TouchableOpacity>
-                        </View>
-                        <Text style={styles.heartRateText}>
-                            {selectedDayData?.averageHeartRateInBeatsPerMinute} bpm
-                        </Text>
-                    </Frame>
+                            </View>
+                            <Text style={styles.heartRateText}>
+                                {selectedDayData?.averageHeartRateInBeatsPerMinute} bpm
+                            </Text>
+                        </Frame>
+                    </TouchableOpacity>
+
 
                     {/* BMR Kilocalories in a Styled Box */}
-                    <Frame>
-                        <View style={styles.kcalHeader}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <FontAwesomeIcon icon={faFire} size={24} color="orange"/>
-                                <Text style={styles.kcalTitle}> BMR Kilocalories</Text>
-                            </View>
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('KcalDetailsScreen', {
-                                    dayData: selectedDayData,
-                                    selectedDate: currentCalendarDate
-                                })}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => navigation.navigate('KcalDetailsScreen', {
+                            dayData: selectedDayData,
+                            selectedDate: currentCalendarDate
+                        })}>
+                        <Frame>
+                            <View style={styles.kcalHeader}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <FontAwesomeIcon icon={faFire} size={24} color="orange"/>
+                                    <Text style={styles.kcalTitle}> BMR Kilocalories</Text>
+                                </View>
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
-                            </TouchableOpacity>
-                        </View>
-                        <Text style={styles.kcalText}>
-                            {selectedDayData?.bmrKilocalories} kcal
-                        </Text>
-                    </Frame>
+                            </View>
+                            <Text style={styles.kcalText}>
+                                {selectedDayData?.bmrKilocalories} kcal
+                            </Text>
+                        </Frame>
+                    </TouchableOpacity>
+
 
                     {/* Intensity Frame */}
-                    <Frame>
-                        <View style={styles.intensityHeader}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <FontAwesomeIcon icon={faBolt} size={24} color="#F39C12"/>
-                                <Text style={styles.intensityTitle}> Intensity</Text>
-                            </View>
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('IntensityDetailsScreen', {
-                                    dayData: selectedDayData,
-                                    selectedDate: currentCalendarDate
-                                })}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => navigation.navigate('IntensityDetailsScreen', {
+                            dayData: selectedDayData,
+                            selectedDate: currentCalendarDate
+                        })}>
+                        <Frame>
+                            <View style={styles.intensityHeader}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <FontAwesomeIcon icon={faBolt} size={24} color="#F39C12"/>
+                                    <Text style={styles.intensityTitle}> Intensity</Text>
+                                </View>
+
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.intensityDetailsContainer}>
-                            <View style={styles.intensityDetail}>
-                                <Text style={styles.intensityLabel}>Moderate</Text>
-                                <Text style={styles.intensityText}>
-                                    {selectedDayData?.moderateIntensityDurationInSeconds
-                                        ? formatTimeFromSeconds(selectedDayData.moderateIntensityDurationInSeconds).value
-                                        : 0} {selectedDayData?.moderateIntensityDurationInSeconds
-                                    ? formatTimeFromSeconds(selectedDayData.moderateIntensityDurationInSeconds).unit
-                                    : 'min'}
-                                </Text>
                             </View>
-                            <View style={styles.intensityDetail}>
-                                <Text style={styles.intensityLabel}>Vigorous</Text>
-                                <Text style={styles.intensityText}>
-                                    {selectedDayData?.vigorousIntensityDurationInSeconds
-                                        ? formatTimeFromSeconds(selectedDayData.vigorousIntensityDurationInSeconds).value
-                                        : 0} {selectedDayData?.vigorousIntensityDurationInSeconds
-                                    ? formatTimeFromSeconds(selectedDayData.vigorousIntensityDurationInSeconds).unit
-                                    : 'min'}
-                                </Text>
+                            <View style={styles.intensityDetailsContainer}>
+                                <View style={styles.intensityDetail}>
+                                    <Text style={styles.intensityLabel}>Moderate</Text>
+                                    <Text style={styles.intensityText}>
+                                        {selectedDayData?.moderateIntensityDurationInSeconds
+                                            ? formatTimeFromSeconds(selectedDayData.moderateIntensityDurationInSeconds).value
+                                            : 0} {selectedDayData?.moderateIntensityDurationInSeconds
+                                        ? formatTimeFromSeconds(selectedDayData.moderateIntensityDurationInSeconds).unit
+                                        : 'min'}
+                                    </Text>
+                                </View>
+                                <View style={styles.intensityDetail}>
+                                    <Text style={styles.intensityLabel}>Vigorous</Text>
+                                    <Text style={styles.intensityText}>
+                                        {selectedDayData?.vigorousIntensityDurationInSeconds
+                                            ? formatTimeFromSeconds(selectedDayData.vigorousIntensityDurationInSeconds).value
+                                            : 0} {selectedDayData?.vigorousIntensityDurationInSeconds
+                                        ? formatTimeFromSeconds(selectedDayData.vigorousIntensityDurationInSeconds).unit
+                                        : 'min'}
+                                    </Text>
+                                </View>
                             </View>
-                        </View>
-                    </Frame>
+                        </Frame>
+                    </TouchableOpacity>
 
 
                     {/* Stress Levels in a Styled Box */}
-                    <Frame>
-                        <View style={styles.stressHeader}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <FontAwesomeIcon icon={faBrain} size={24} color="#8E44AD"/>
-                                <Text style={styles.stressTitle}> Stress Levels</Text>
-                            </View>
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('StressDetailsScreen', {
-                                    dayData: selectedDayData,
-                                    selectedDate: currentCalendarDate
-                                })}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => navigation.navigate('StressDetailsScreen', {
+                            dayData: selectedDayData,
+                            selectedDate: currentCalendarDate
+                        })}>
+                        <Frame>
+                            <View style={styles.stressHeader}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <FontAwesomeIcon icon={faBrain} size={24} color="#8E44AD"/>
+                                    <Text style={styles.stressTitle}> Stress Levels</Text>
+                                </View>
+
                                 <FontAwesomeIcon icon={faArrowRight} size={24} color="black"/>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.stressDetailsContainer}>
-                            <View style={styles.stressDetail}>
-                                <Text style={styles.stressLabel}>Average</Text>
-                                {/* Try not to display negative stress level */}
-                                <Text style={styles.stressText}>
-                                    {selectedDayData?.averageStressLevel < 0 ? 0 : selectedDayData?.averageStressLevel}
-                                </Text>
                             </View>
-                            <View style={styles.stressDetail}>
-                                <Text style={styles.stressLabel}>Maximum</Text>
-                                <Text style={styles.stressText}>{selectedDayData?.maxStressLevel}</Text>
+                            <View style={styles.stressDetailsContainer}>
+                                <View style={styles.stressDetail}>
+                                    <Text style={styles.stressLabel}>Average</Text>
+                                    {/* Try not to display negative stress level */}
+                                    <Text style={styles.stressText}>
+                                        {selectedDayData?.averageStressLevel < 0 ? 0 : selectedDayData?.averageStressLevel}
+                                    </Text>
+                                </View>
+                                <View style={styles.stressDetail}>
+                                    <Text style={styles.stressLabel}>Maximum</Text>
+                                    <Text style={styles.stressText}>{selectedDayData?.maxStressLevel}</Text>
+                                </View>
+                                <View style={styles.stressDetail}>
+                                    <Text style={styles.stressLabel}>Duration</Text>
+                                    <Text style={styles.stressText}>
+                                        {selectedDayData
+                                            ? `${formatTimeFromSeconds(selectedDayData.stressDurationInSeconds).value} ${formatTimeFromSeconds(selectedDayData.stressDurationInSeconds).unit}`
+                                            : '0 min'}
+                                    </Text>
+                                </View>
                             </View>
-                            <View style={styles.stressDetail}>
-                                <Text style={styles.stressLabel}>Duration</Text>
-                                <Text style={styles.stressText}>
-                                    {selectedDayData
-                                        ? `${formatTimeFromSeconds(selectedDayData.stressDurationInSeconds).value} ${formatTimeFromSeconds(selectedDayData.stressDurationInSeconds).unit}`
-                                        : '0 min'}
-                                </Text>
-                            </View>
-                        </View>
-                    </Frame>
+                        </Frame>
+                    </TouchableOpacity>
                 </ScrollView>
-            )}
+            )
+            }
         </View>
-    );
+    )
+        ;
 
 };
 
