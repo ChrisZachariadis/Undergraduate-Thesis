@@ -1,8 +1,9 @@
-import React, {useState } from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, ScrollView} from 'react-native';
 import {faHeartPulse, faHeart, faHeartCircleMinus, faHeartCirclePlus} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
 import MetricCard from '../components/MetricCard';
+import styles from '../assets/styles/smartwatchStyle';
 
 const HRDetails = ({route}) => {
     const {selectedDate, segmentType} = route.params || {};
@@ -72,16 +73,4 @@ const HRDetails = ({route}) => {
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f5f5f5',
-    },
-    row: {
-        flexDirection: 'row',
-        marginBottom: 8,
-    },
-});
-
 export default HRDetails;

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { faFire } from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
+import {View} from 'react-native';
+import {faFire} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
 import MetricCard from '../components/MetricCard';
+import styles from '../assets/styles/smartwatchStyle'
 
-const KcalDetails = ({ route }) => {
-    // Get the selectedDate from route params if available
+const KcalDetails = ({route}) => {
     const selectedDate = route.params?.selectedDate;
-    const [summary, setSummary] = useState('');
+    const [summary, setSummary] = useState(null);
 
     return (
         <View style={styles.container}>
@@ -16,31 +16,24 @@ const KcalDetails = ({ route }) => {
                 dataType="kcal"
                 segments={['Week', 'Month']}
                 chartColor="#FFA500"
-                onSummaryUpdate={(summaryLabel) => setSummary(summaryLabel)}
-                initialDate={selectedDate} // Pass the selected date to ChartDetails
+                onSummaryUpdate={(value) => setSummary(value)}
+                initialDate={selectedDate}
             />
-            <View style={styles.cardContainer}>
-                <MetricCard
-                    title="Average kilocalories burned"
-                    value={summary}
-                    unit="kcal"
-                    icon={faFire}
-                    color="#FFA500"
-                    size={24}
-                />
+            <View style={styles.metricsContainer}>
+                {summary !== null && (
+                    <View style={styles.row}>
+                        <MetricCard
+                            title="Average kilocalories burned"
+                            value={summary}
+                            unit="kcal"
+                            icon={faFire}
+                            color="#FFA500"
+                            size={24}
+                        />
+                    </View>
+                )}
             </View>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f5f5f5',
-    },
-    cardContainer: {
-        padding: 16,
-    }
-});
-
 export default KcalDetails;

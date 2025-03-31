@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
-import { faBolt, faPersonRunning, faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
+import {View, ScrollView} from 'react-native';
+import {faBolt, faPersonRunning, faDumbbell} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
 import MetricCard from '../components/MetricCard';
+import styles from '../assets/styles/smartwatchStyle.js';
 
-const IntensityDetailsScreen = ({ route }) => {
-    // Get the selectedDate from route params if available
+const IntensityDetailsScreen = ({route}) => {
     const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState(null);
 
@@ -20,7 +20,7 @@ const IntensityDetailsScreen = ({ route }) => {
                 segments={['Week', 'Month']}
                 chartColor="#0B3F6B"
                 onSummaryUpdate={(value) => setSummary(value)}
-                initialDate={selectedDate} // Pass the selected date to ChartDetails
+                initialDate={selectedDate}
             />
 
             <View style={styles.metricsContainer}>
@@ -67,19 +67,4 @@ const IntensityDetailsScreen = ({ route }) => {
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f5f5f5',
-    },
-    metricsContainer: {
-        padding: 8,
-    },
-    row: {
-        flexDirection: 'row',
-        marginBottom: 8,
-    },
-});
-
 export default IntensityDetailsScreen;

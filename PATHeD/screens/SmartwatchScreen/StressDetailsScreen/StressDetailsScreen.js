@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import {faBrain, faPersonRunning, faFaceMeh, faFaceAngry} from '@fortawesome/free-solid-svg-icons';
 import ChartDetails from '../components/ChartDetails/ChartDetails';
-import {styles} from './style';
 import {formatTimeFromSeconds} from '../utils/timeUtils';
 import MetricCard from '../components/MetricCard';
+import smartwatchStyle from "../assets/styles/smartwatchStyle";
 
-const StressDetailsChart = ({ route }) => {
-    // Get the selectedDate from route params if available
+const StressDetailsChart = ({route}) => {
     const selectedDate = route.params?.selectedDate;
     const [summary, setSummary] = useState(null);
 
@@ -19,23 +18,23 @@ const StressDetailsChart = ({ route }) => {
     );
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={smartwatchStyle.container}>
             <ChartDetails
                 title="Stress Summary"
                 dataType="stress"
                 segments={['Day', 'Week', 'Month']}
                 chartColor="#673AB7"
                 onSummaryUpdate={(value) => setSummary(value)}
-                initialDate={selectedDate} // Pass the selected date to ChartDetails
+                initialDate={selectedDate}
             />
 
             <View style={styles.metricsContainer}>
                 {summary && typeof summary === 'object' ? (
                     <>
-                        <View style={styles.row}>
+                        <View style={smartwatchStyle.row}>
                             {/* Rest Stress */}
                             {(() => {
-                                const { value, unit } = formatTimeFromSeconds(summary.restStressDurationInSeconds);
+                                const {value, unit} = formatTimeFromSeconds(summary.restStressDurationInSeconds);
                                 return (
                                     <MetricCard
                                         title="Rest"
@@ -49,7 +48,7 @@ const StressDetailsChart = ({ route }) => {
                             })()}
                             {/* Low Stress */}
                             {(() => {
-                                const { value, unit } = formatTimeFromSeconds(summary.lowStressDurationInSeconds);
+                                const {value, unit} = formatTimeFromSeconds(summary.lowStressDurationInSeconds);
                                 return (
                                     <MetricCard
                                         title="Low"
@@ -62,10 +61,10 @@ const StressDetailsChart = ({ route }) => {
                                 );
                             })()}
                         </View>
-                        <View style={styles.row}>
+                        <View style={smartwatchStyle.row}>
                             {/* Medium Stress */}
                             {(() => {
-                                const { value, unit } = formatTimeFromSeconds(summary.mediumStressDurationInSeconds);
+                                const {value, unit} = formatTimeFromSeconds(summary.mediumStressDurationInSeconds);
                                 return (
                                     <MetricCard
                                         title="Medium"
@@ -79,7 +78,7 @@ const StressDetailsChart = ({ route }) => {
                             })()}
                             {/* High Stress */}
                             {(() => {
-                                const { value, unit } = formatTimeFromSeconds(summary.highStressDurationInSeconds);
+                                const {value, unit} = formatTimeFromSeconds(summary.highStressDurationInSeconds);
                                 return (
                                     <MetricCard
                                         title="High"
@@ -92,7 +91,7 @@ const StressDetailsChart = ({ route }) => {
                                 );
                             })()}
                         </View>
-                        <View style={styles.row}>
+                        <View style={smartwatchStyle.row}>
                             <MetricCard
                                 title="Max Level"
                                 value={summary.maxStressLevel}
@@ -110,7 +109,7 @@ const StressDetailsChart = ({ route }) => {
                         </View>
                     </>
                 ) : (
-                    <View style={styles.row}>
+                    <View style={smartwatchStyle.row}>
                         <MetricCard
                             title="Average Stress"
                             value={summary}
@@ -124,5 +123,19 @@ const StressDetailsChart = ({ route }) => {
         </ScrollView>
     );
 };
+
+export const styles = StyleSheet.create({
+    titleContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 4,
+    },
+    colorIndicator: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        marginRight: 8,
+    },
+});
 
 export default StressDetailsChart;
