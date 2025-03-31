@@ -10,49 +10,76 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
     const generateMonthlyChartSections = () => {
         return selectedMonths.map(month => {
             const formattedMonth = formatMonthDisplay(month);
-            return `
-            <div class="month-section">
-                <h2>${formattedMonth} Charts</h2>
+            let chartSections = `<h2>${formattedMonth} Charts</h2>`;
+
+            // Add each chart in its own section with page break
+            if (chartImages.hr && chartImages.hr[month]) {
+                chartSections += `
                 <div class="chart-container">
-                    ${chartImages.hr && chartImages.hr[month] ? `
                     <div class="chart-item">
                         <div class="chart-title">Heart Rate Summary</div>
                         <img src="${chartImages.hr[month]}" alt="Heart Rate Chart for ${formattedMonth}" />
-                    </div>` : ''}
-                    
-                    ${chartImages.steps && chartImages.steps[month] ? `
+                    </div>
+                </div>
+                <div class="page-break"></div>`;
+            }
+
+            if (chartImages.steps && chartImages.steps[month]) {
+                chartSections += `
+                <div class="chart-container">
                     <div class="chart-item">
                         <div class="chart-title">Steps Summary</div>
                         <img src="${chartImages.steps[month]}" alt="Steps Chart for ${formattedMonth}" />
-                    </div>` : ''}
-                    
-                    ${chartImages.floors && chartImages.floors[month] ? `
+                    </div>
+                </div>
+                <div class="page-break"></div>`;
+            }
+
+            if (chartImages.floors && chartImages.floors[month]) {
+                chartSections += `
+                <div class="chart-container">
                     <div class="chart-item">
                         <div class="chart-title">Floors Summary</div>
                         <img src="${chartImages.floors[month]}" alt="Floors Chart for ${formattedMonth}" />
-                    </div>` : ''}
-                    
-                    ${chartImages.stress && chartImages.stress[month] ? `
+                    </div>
+                </div>
+                <div class="page-break"></div>`;
+            }
+
+            if (chartImages.stress && chartImages.stress[month]) {
+                chartSections += `
+                <div class="chart-container">
                     <div class="chart-item">
                         <div class="chart-title">Stress Summary</div>
                         <img src="${chartImages.stress[month]}" alt="Stress Chart for ${formattedMonth}" />
-                    </div>` : ''}
-                    
-                    ${chartImages.intensity && chartImages.intensity[month] ? `
+                    </div>
+                </div>
+                <div class="page-break"></div>`;
+            }
+
+            if (chartImages.intensity && chartImages.intensity[month]) {
+                chartSections += `
+                <div class="chart-container">
                     <div class="chart-item">
                         <div class="chart-title">Intensity Summary</div>
                         <img src="${chartImages.intensity[month]}" alt="Intensity Chart for ${formattedMonth}" />
-                    </div>` : ''}
-                    
-                    ${chartImages.kcal && chartImages.kcal[month] ? `
+                    </div>
+                </div>
+                <div class="page-break"></div>`;
+            }
+
+            if (chartImages.kcal && chartImages.kcal[month]) {
+                chartSections += `
+                <div class="chart-container">
                     <div class="chart-item">
                         <div class="chart-title">Kilocalories Summary</div>
                         <img src="${chartImages.kcal[month]}" alt="Kilocalories Chart for ${formattedMonth}" />
-                    </div>` : ''}
+                    </div>
                 </div>
-            </div>
-            <div class="page-break"></div>
-            `;
+                ${month !== selectedMonths[selectedMonths.length-1] ? '<div class="page-break"></div>' : ''}`;
+            }
+
+            return chartSections;
         }).join('');
     };
 
@@ -63,49 +90,129 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
         <meta charset="utf-8" />
         <title>Smartwatch metrics report from ${fromDate} to ${toDate}</title>
         <style>
-          body { font-family: Arial, sans-serif; margin: 20px; }
-          h1 { color: #333; }
-          h2 { color: #555; }
-          /* Ensure a page break after the first section */
-          .first-page { page-break-after: always; }
+          body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+          h1 { color: #2c3e50; }
+          h2 { color: #154360; }
+          h3 { color: #555; }
+          
+          /* Cover page styling */
+          .first-page { 
+            page-break-after: always; 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            border: 2px solid #154360;
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 40px;
+            max-width: 800px;
+            background-color: #f9f9f9;
+          }
+          
+          .first-page h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+          }
+          
+          .first-page h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #154360;
+          }
+          
+          .first-page h3 {
+            font-size: 20px;
+            color: #7f8c8d;
+          }
+          
           .page-break { page-break-after: always; }
+          
+          .second-page {
+            margin-top: 40px;
+            margin-bottom: 40px;
+          }
+          
           .month-section { 
-            margin-top: 30px; 
+            margin-top: 40px; 
             page-break-inside: avoid;
           }
+          
           .chart-container { 
             display: flex; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            gap: 20px;
-            margin-top: 20px;
+            flex-direction: column;
+            align-items: center; 
+            height: 90vh;
+            min-height: 800px;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
           }
+          
           .chart-item {
-            width: 45%;
-            margin-bottom: 20px;
+            width: 90%;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
             page-break-inside: avoid;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            background-color: white;
           }
+          
           .chart-item img {
             max-width: 100%;
-            height: auto;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             border: 1px solid #ddd;
+            border-radius: 5px;
+            flex-grow: 1;
           }
+          
           .chart-title {
             text-align: center;
             font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            padding: 5px;
           }
-          table { border-collapse: collapse; width: 100%; font-size: 12px; }
-          th, td { border: 1px solid #ddd; padding: 4px; text-align: left; }
-          th { background-color: #f2f2f2; }
+          
+          table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            font-size: 12px; 
+            margin-top: 20px;
+          }
+          
+          th, td { 
+            border: 1px solid #ddd; 
+            padding: 8px; 
+            text-align: left; 
+          }
+          
+          th { 
+            background-color: #154360; 
+            color: white;
+          }
+          
+          tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+          
           pre { white-space: pre-wrap; word-wrap: break-word; }
         </style>
       </head>
       <body>
         <!-- First page: Cover page with title and date period -->
         <div class="first-page">
-          <h1>Smartwatch metrics report</h1>
-          <h2>from ${fromDate} to ${toDate}</h2>
+          <h1>Smartwatch Metrics Report</h1>
+          <h2>From ${fromDate} to ${toDate}</h2>
           <h3>Analyzed Months: ${selectedMonths.map(formatMonthDisplay).join(', ')}</h3>
         </div>
 
@@ -164,3 +271,4 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
     </html>
   `;
 };
+
