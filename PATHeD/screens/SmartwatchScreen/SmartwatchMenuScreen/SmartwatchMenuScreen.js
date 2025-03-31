@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, View, Image, Modal, SafeAreaView, Alert} from 'react-native';
+import {Pressable, Text, View, Image, Modal, SafeAreaView, Alert, ActivityIndicator} from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf'; // PDF conversion library
 import {Calendar} from 'react-native-calendars';
 import {getReportHTML} from './reportTemplate'; // Import the HTML template function
@@ -9,13 +9,13 @@ import ChartCapture from "../components/ChartCapture";
 
 const SmartwatchMenuScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [loadingVisible, setLoadingVisible] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [renderChart, setRenderChart] = useState(false);
     const [filteredEntries, setFilteredEntries] = useState([]);
     const [selectedMonths, setSelectedMonths] = useState([]);
     const [capturedCharts, setCapturedCharts] = useState({});
-    const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
     const [chartImages, setChartImages] = useState({
         hr: {},
         steps: {},
@@ -57,7 +57,7 @@ const SmartwatchMenuScreen = () => {
     const getMarkedDates = (start, end) => {
         let markedDates = {};
         if (start) {
-            markedDates[start] = {startingDay: true, color: '#70d7c7', textColor: 'white'};
+            markedDates[start] = {startingDay: true, color: '#023050', textColor: 'white'};
         }
         if (start && end) {
             let startDateObj = new Date(start);
@@ -67,11 +67,11 @@ const SmartwatchMenuScreen = () => {
             while (currentDate <= endDateObj) {
                 const dateString = currentDate.toISOString().split('T')[0];
                 if (dateString !== start && dateString !== end) {
-                    markedDates[dateString] = {color: '#70d7c7', textColor: 'white'};
+                    markedDates[dateString] = {color: '#023457', textColor: 'white'};
                 }
                 currentDate.setDate(currentDate.getDate() + 1);
             }
-            markedDates[end] = {endingDay: true, color: '#70d7c7', textColor: 'white'};
+            markedDates[end] = {endingDay: true, color: '#023457', textColor: 'white'};
         }
         return markedDates;
     };
@@ -106,6 +106,9 @@ const SmartwatchMenuScreen = () => {
     const handleConfirmPeriod = async () => {
         const fromDate = startDate;
         const toDate = endDate || startDate;
+
+        // Show loading indicator
+        setLoadingVisible(true);
 
         // Get all months between the selected dates
         const months = getMonthsBetweenDates(fromDate, toDate);
@@ -189,9 +192,6 @@ const SmartwatchMenuScreen = () => {
 
     const generatePdfReport = async () => {
         try {
-            // Show generating message
-            setIsGeneratingPdf(true);
-            Alert.alert('Generating', 'Creating your PDF report, please wait...');
 
             const htmlData = getReportHTML(
                 startDate,
@@ -212,12 +212,16 @@ const SmartwatchMenuScreen = () => {
             const file = await RNHTMLtoPDF.convert(options);
             console.log('PDF file created at:', file.filePath);
 
+            // Hide loading indicator before showing success alert
+            setLoadingVisible(false);
+
             // Update with success message
-            setIsGeneratingPdf(false);
             Alert.alert('Success', `Report exported to: ${file.filePath}`);
         } catch (error) {
+            // Hide loading indicator in case of error
+            setLoadingVisible(false);
+
             console.error('Error creating PDF file:', error);
-            setIsGeneratingPdf(false);
             Alert.alert('Error', 'Failed to export report.');
         }
     };
@@ -265,13 +269,28 @@ const SmartwatchMenuScreen = () => {
                 </View>
             </Modal>
 
+            {/* Loading Modal */}
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={loadingVisible}
+                onRequestClose={() => {
+                }}>
+                <View style={styles.modalContainer}>
+                    <View style={styles.loadingContent}>
+                        <ActivityIndicator size="large" color="#023457"/>
+                        <Text style={styles.loadingText}>Generating PDF report...</Text>
+                    </View>
+                </View>
+            </Modal>
+
             <View>
                 <View>
                     <Text>Device Connected:</Text>
                 </View>
                 <View style={styles.infoFrame}>
                     <Image
-                        source={require('../assets/watch-menu.png')}
+                        source={require('../assets/images/watch-menu.png')}
                         style={styles.watchIcon}
                     />
                     <Text style={styles.deviceName}>Garmin Vivoactive 5</Text>
