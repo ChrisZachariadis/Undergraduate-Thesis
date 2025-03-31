@@ -148,8 +148,6 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
             height: 90vh;
             min-height: 800px;
             justify-content: center;
-            margin: 0;
-            padding: 0;
           }
           
           .chart-item {
@@ -158,10 +156,7 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
             display: flex;
             flex-direction: column;
             page-break-inside: avoid;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 10px;
-            border-radius: 8px;
-            background-color: white;
           }
           
           .chart-item img {
@@ -169,7 +164,6 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            border: 1px solid #ddd;
             border-radius: 5px;
             flex-grow: 1;
           }
@@ -177,7 +171,7 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
           .chart-title {
             text-align: center;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 10px;
             color: #2c3e50;
             padding: 5px;
@@ -225,12 +219,9 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
                 <th>Calendar Date</th>
                 <th>Steps</th>
                 <th>Floors Climbed</th>
-                <th>Max Stress Level</th>
                 <th>BMR Kilocalories</th>
-                <th>Floors Climbed Goal</th>
                 <th>Average Stress Level</th>
-                <th>Max HR (bpm)</th>
-                <th>Min HR (bpm)</th>
+                <th>Max Stress Level</th>
                 <th>Average HR (bpm)</th>
                 <th>Resting HR (bpm)</th>
                 <th>Moderate Intensity (s)</th>
@@ -246,12 +237,9 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
                       <td>${entry.calendarDate}</td>
                       <td>${d.steps}</td>
                       <td>${d.floorsClimbed}</td>
-                      <td>${d.maxStressLevel}</td>
                       <td>${d.bmrKilocalories}</td>
-                      <td>${d.floorsClimbedGoal}</td>
                       <td>${d.averageStressLevel}</td>
-                      <td>${d.maxHeartRateInBeatsPerMinute}</td>
-                      <td>${d.minHeartRateInBeatsPerMinute}</td>
+                       <td>${d.maxStressLevel}</td>
                       <td>${d.averageHeartRateInBeatsPerMinute}</td>
                       <td>${d.restingHeartRateInBeatsPerMinute}</td>
                       <td>${d.moderateIntensityDurationInSeconds}</td>
