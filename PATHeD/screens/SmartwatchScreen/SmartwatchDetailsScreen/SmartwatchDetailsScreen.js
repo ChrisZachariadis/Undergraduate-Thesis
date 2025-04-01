@@ -8,7 +8,7 @@ import ProgressCircle from '../components/DayDetailView/ProgressCircle';
 import Frame from "../components/Frame";
 import CalendarDays from '../components/CalendarDays/CalendarDays';
 import {formatTimeFromSeconds} from '../utils/timeUtils';
-import {loadGarminCachedData, syncGarminData} from '../utils/garminDataUtils';
+import {loadGarminCachedData, syncGarminData, retrieveLastSyncTime, saveLastSyncTime, retrieveConnectionStatus, saveConnectionStatus} from '../utils/garminDataUtils';
 
 const SmartwatchDetailsScreen = () => {
     const navigation = useNavigation();
@@ -17,11 +17,15 @@ const SmartwatchDetailsScreen = () => {
     const [isDataFetched, setIsDataFetched] = useState(false);
     const [selectedDayData, setSelectedDayData] = useState(null);
     const [currentCalendarDate, setCurrentCalendarDate] = useState();
+    const [lastSyncTime, setLastSyncTime] = useState(null);
+    const [isConnected, setIsConnected] = useState(false);
 
 
     // Load cached data on component mount (when page loads).
     useEffect(() => {
         loadCachedData();
+        retrieveLastSyncTime().then(setLastSyncTime);
+        retrieveConnectionStatus().then(setIsConnected);
     }, []);
 
     // Function to load cached data
@@ -46,11 +50,21 @@ const SmartwatchDetailsScreen = () => {
 
         if (!success) {
             Alert.alert('Error', error);
+            setIsConnected(false);
+            await saveConnectionStatus(false);
             return;
         }
 
         setAllEntries(entries);
         setIsDataFetched(true);
+
+        const currentTime = new Date();
+        setLastSyncTime(currentTime);
+        await saveLastSyncTime(currentTime);
+
+        setIsConnected(true);
+        await saveConnectionStatus(true);
+
         Alert.alert('Success', message);
 
         if (entries.length > 0) {
@@ -113,7 +127,10 @@ const SmartwatchDetailsScreen = () => {
                 {/* Smartwatch Icon */}
                 <TouchableOpacity
                     style={styles.smartwatchButton}
-                    onPress={() => navigation.navigate('SmartwatchMenuScreen', {payload: allEntries})}>
+                    onPress={() => navigation.navigate('SmartwatchMenuScreen', {
+                        payload: allEntries,
+                        lastSyncTime: lastSyncTime?.toISOString()
+                    })}>
                     <Image
                         source={require('../assets/images/smartwatch.png')}
                         style={styles.smartwatchIcon}/>

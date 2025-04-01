@@ -8,6 +8,7 @@ import {getReportHTML} from './reportTemplate'; // Import the HTML template func
 import styles from './style';
 import {useRoute, useNavigation} from "@react-navigation/native";
 import ChartCapture from "../components/ChartCapture";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SmartwatchMenuScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +34,22 @@ const SmartwatchMenuScreen = () => {
 
     const navigation = useNavigation();
 
+    // Add a state to track device connection status
+    const [isConnected, setIsConnected] = useState(false);
+
+    useEffect(() => {
+        retrieveConnectionStatus();
+    }, []);
+
+    const retrieveConnectionStatus = async () => {
+        const savedConnectionStatus = await AsyncStorage.getItem('connectionStatus');
+        if (savedConnectionStatus) {
+            setIsConnected(JSON.parse(savedConnectionStatus));
+        }
+    };
+
     const handleGarminConnect = () => {
+        setIsConnected(true);
         navigation.navigate('Webview');
     };
 
@@ -253,6 +269,42 @@ const SmartwatchMenuScreen = () => {
     // Data for the report.
     const route = useRoute();
     const payload = route.params?.payload || [];
+    const lastSyncTimeString = route.params?.lastSyncTime || null;
+    const lastSyncTime = lastSyncTimeString ? new Date(lastSyncTimeString) : null;
+
+
+    // Format the last sync time for display
+    const formatLastSyncTime = () => {
+        if (!lastSyncTime) {
+            return "Never synced";
+        }
+
+        const syncDate = new Date(lastSyncTime);
+        const now = new Date();
+
+        // If sync happened today
+        if (syncDate.toDateString() === now.toDateString()) {
+            return `Today, ${syncDate.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}`;
+        }
+
+        // If sync happened yesterday
+        const yesterday = new Date(now);
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (syncDate.toDateString() === yesterday.toDateString()) {
+            return `Yesterday, ${syncDate.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}`;
+        }
+
+        // Otherwise show the date
+        return `${syncDate.toLocaleDateString()} ${syncDate.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        })}`;
+    };
+
+    // Dummy data for UI display purposes, but using real sync time
+    const deviceStats = {
+        lastSync: formatLastSyncTime(),
+    };
 
     useEffect(() => {
         // Check if the json file is properly sent.
@@ -270,7 +322,7 @@ const SmartwatchMenuScreen = () => {
                 onRequestClose={() => setModalVisible(false)}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Specify period to generate report</Text>
+                        <Text style={styles.modalTitle}>Select Report Period</Text>
                         <Calendar
                             onDayPress={onDayPress}
                             markingType={'period'}
@@ -308,16 +360,25 @@ const SmartwatchMenuScreen = () => {
                 </View>
             </Modal>
 
-            <View>
-                <View>
-                    <Text>Device Connected:</Text>
-                </View>
-                <View style={styles.infoFrame}>
-                    <Image
-                        source={require('../assets/images/watch-menu.png')}
-                        style={styles.watchIcon}
-                    />
-                    <Text style={styles.deviceName}>Garmin Vivoactive 5</Text>
+            {/* Device Information Card */}
+            <View style={styles.headerSection}>
+                <Text style={styles.sectionTitle}>My Device</Text>
+                <View style={styles.deviceCard}>
+                    <View style={styles.deviceHeader}>
+                        <Image
+                            source={require('../assets/images/watch-menu.png')}
+                            style={styles.watchIcon}
+                        />
+                        <View style={styles.deviceInfo}>
+                            <Text style={styles.deviceName}>Garmin Vivoactive 5</Text>
+                            <Text style={styles.deviceSubtitle}>Last sync: {deviceStats.lastSync}</Text>
+                            <View style={styles.statusContainer}>
+                                <View
+                                    style={[styles.statusIndicator, isConnected ? styles.statusConnected : styles.statusDisconnected]}/>
+                                <Text style={styles.statusText}>{isConnected ? 'Connected' : 'Disconnected'}</Text>
+                            </View>
+                        </View>
+                    </View>
                 </View>
 
 
@@ -325,13 +386,15 @@ const SmartwatchMenuScreen = () => {
 
 
             {/* Bottom Section: Buttons Row */}
-            <View style={styles.buttonsRow}>
-                <Pressable style={styles.connectButton} onPress={handleGarminConnect}>
-                    <Text style={styles.connectButtonText}>Connect</Text>
-                </Pressable>
-                <Pressable style={styles.generateReportButton} onPress={handleGenerateReport}>
-                    <Text style={styles.disconnectButtonText}>Generate Report</Text>
-                </Pressable>
+            <View style={styles.buttonsContainer}>
+                <View style={styles.buttonsRow}>
+                    <Pressable style={styles.connectButton} onPress={handleGarminConnect}>
+                        <Text style={styles.connectButtonText}>Connect</Text>
+                    </Pressable>
+                    <Pressable style={styles.generateReportButton} onPress={handleGenerateReport}>
+                        <Text style={styles.disconnectButtonText}>Generate Report</Text>
+                    </Pressable>
+                </View>
             </View>
 
             {/* Background Capture Renderer for all chart types */}
