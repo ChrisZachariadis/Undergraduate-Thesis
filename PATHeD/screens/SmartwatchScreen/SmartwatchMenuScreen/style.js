@@ -10,6 +10,7 @@ export default StyleSheet.create({
         marginTop: 55,
     },
     headerSection: {
+        marginTop: 5,
         marginBottom: 25,
     },
     sectionTitle: {
@@ -33,7 +34,6 @@ export default StyleSheet.create({
     deviceHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 12,
     },
     deviceInfo: {
         flex: 1,
@@ -51,6 +51,7 @@ export default StyleSheet.create({
     statusContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginVertical: 4, // Consistent margin for top and bottom
     },
     statusIndicator: {
         width: 10,
@@ -72,57 +73,6 @@ export default StyleSheet.create({
         width: 55,
         height: 65,
         marginRight: 12,
-    },
-    statsRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-    statItem: {
-        alignItems: 'center',
-    },
-    statValue: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#023457',
-    },
-    statLabel: {
-        fontSize: 12,
-        color: '#666',
-        marginTop: 2,
-    },
-    actionCardsContainer: {
-        marginBottom: 20,
-    },
-    actionCard: {
-        backgroundColor: '#fff',
-        borderRadius: 16,
-        padding: 16,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-        elevation: 2,
-    },
-    actionIcon: {
-        width: 36,
-        height: 36,
-        marginRight: 14,
-    },
-    actionTextContainer: {
-        flex: 1,
-    },
-    actionTitle: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: '#023457',
-    },
-    actionDescription: {
-        fontSize: 13,
-        color: '#666',
-        marginTop: 2,
     },
     buttonsContainer: {
         marginTop: 10,
@@ -199,6 +149,7 @@ export default StyleSheet.create({
         borderRadius: 12,
         marginBottom: 20,
         borderWidth: 1,
+        width: 300,
         borderColor: '#e0e0e0',
     },
     modalButtons: {
@@ -245,4 +196,3 @@ export default StyleSheet.create({
         color: '#023457',
     },
 });
-
