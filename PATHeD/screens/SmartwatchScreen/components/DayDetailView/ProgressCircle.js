@@ -9,14 +9,12 @@ const ProgressCircle = ({
                             value,
                             goal,
                             color,
-                            onPress,
                             unit = '', // Optional unit (e.g., 'steps', 'floors')
                             size = 120, // Default size
                         }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-            <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
                 <View style={[styles.circleWrapper, {width: size, height: size}]}>
                     <Progress.Circle
                         size={size}
@@ -32,7 +30,6 @@ const ProgressCircle = ({
                         <Text style={styles.goalText}>{`${goal} ${unit}`}</Text>
                     </View>
                 </View>
-            </TouchableOpacity>
         </View>
     );
 };
@@ -43,7 +40,6 @@ ProgressCircle.propTypes = {
     value: PropTypes.number.isRequired,
     goal: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
-    onPress: PropTypes.func.isRequired,
     unit: PropTypes.string,
     size: PropTypes.number,
 };

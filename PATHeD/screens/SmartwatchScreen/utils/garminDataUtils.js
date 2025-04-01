@@ -66,3 +66,21 @@ export const syncGarminData = async () => {
         };
     }
 };
+
+export const retrieveLastSyncTime = async () => {
+    const savedSyncTime = await AsyncStorage.getItem('lastSyncTime');
+    return savedSyncTime ? new Date(savedSyncTime) : null;
+};
+
+export const saveLastSyncTime = async (time) => {
+    await AsyncStorage.setItem('lastSyncTime', time.toISOString());
+};
+
+export const retrieveConnectionStatus = async () => {
+    const savedConnectionStatus = await AsyncStorage.getItem('connectionStatus');
+    return savedConnectionStatus ? JSON.parse(savedConnectionStatus) : false;
+};
+
+export const saveConnectionStatus = async (status) => {
+    await AsyncStorage.setItem('connectionStatus', JSON.stringify(status));
+};
