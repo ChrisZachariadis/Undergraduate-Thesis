@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Pressable, Text, View, Image, Modal, SafeAreaView, Alert, ActivityIndicator} from 'react-native';
-import RNHTMLtoPDF from 'react-native-html-to-pdf'; // PDF conversion library
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNFS from 'react-native-fs';
+import {PermissionsAndroid, Platform} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {getReportHTML} from './reportTemplate'; // Import the HTML template function
 import styles from './style';
@@ -192,7 +194,6 @@ const SmartwatchMenuScreen = () => {
 
     const generatePdfReport = async () => {
         try {
-
             const htmlData = getReportHTML(
                 startDate,
                 endDate || startDate,
@@ -201,30 +202,53 @@ const SmartwatchMenuScreen = () => {
                 selectedMonths
             );
 
-            let options = {
+            // 1. Generate PDF in internal storage
+            const options = {
                 html: htmlData,
                 fileName: `report_${startDate}_${endDate || startDate}`,
-                directory: 'Documents',
                 base64: false,
-                filePath: `/storage/emulated/0/Android/data/com.pathed/files/Documents/report_${startDate}_${endDate || startDate}.pdf`
             };
 
             const file = await RNHTMLtoPDF.convert(options);
-            console.log('PDF file created at:', file.filePath);
+            const internalPath = file.filePath;
+            console.log('PDF generated at:', internalPath);
 
-            // Hide loading indicator before showing success alert
+            // 2. Get public Downloads path
+            const downloadDir = RNFS.DownloadDirectoryPath;
+            const fileName = `report_${startDate}_${endDate || startDate}.pdf`;
+            const downloadPath = `${downloadDir}/${fileName}`;
+
+            // 3. Ask for permission (only Android < 10)
+            if (Platform.OS === 'android' && Platform.Version < 29) {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                    {
+                        title: 'Storage Permission',
+                        message: 'App needs access to your storage to save reports.',
+                        buttonNeutral: 'Ask Me Later',
+                        buttonNegative: 'Cancel',
+                        buttonPositive: 'OK',
+                    }
+                );
+
+                if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+                    throw new Error('Storage permission denied');
+                }
+            }
+
+            // 4. Move PDF to Downloads
+            await RNFS.moveFile(internalPath, downloadPath);
+            console.log('PDF moved to:', downloadPath);
+
             setLoadingVisible(false);
-
-            // Update with success message
-            Alert.alert('Success', `Report exported to: ${file.filePath}`);
+            Alert.alert('Success', `Report exported to: ${downloadPath}`);
         } catch (error) {
-            // Hide loading indicator in case of error
             setLoadingVisible(false);
-
-            console.error('Error creating PDF file:', error);
+            console.error('Error exporting PDF:', error);
             Alert.alert('Error', 'Failed to export report.');
         }
     };
+
 
     // Data for the report.
     const route = useRoute();

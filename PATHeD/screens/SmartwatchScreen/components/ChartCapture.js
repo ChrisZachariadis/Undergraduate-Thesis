@@ -28,7 +28,7 @@ const ChartCapture = React.forwardRef(({
         };
 
         // Add slight delay for rendering before capture
-        setTimeout(capture, 100);
+        setTimeout(capture, 150);
     }, [dataType, selectedMonth]);
 
     // Use the specific month date instead of selectedDate if provided
