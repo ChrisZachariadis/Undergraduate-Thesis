@@ -17,6 +17,6 @@ The goal of this project is to develop a mobile application that connects to a G
 
 > Full thesis document: [`/thesis/Zachariadis_Christos_BSc_Thesis.pdf`](./thesis/Zachariadis_Christos_BSc_Thesis.pdf)
 
-> Project: [`PATHeD/screens/SmartwatchScreen/SmartwatchDetailsScreen`](./PATHeD/screens/SmartwatchScreen/SmartwatchDetailsScreen)
+> Project: [`PATHeD/screens/SmartwatchScreen`](./PATHeD/screens/SmartwatchScreen)
 
 ---
