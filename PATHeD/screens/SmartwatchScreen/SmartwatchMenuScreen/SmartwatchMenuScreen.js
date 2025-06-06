@@ -4,7 +4,7 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import RNFS from 'react-native-fs';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import {getReportHTML} from './reportTemplate'; // Import the HTML template function
+import {getReportHTML} from './reportTemplate';
 import styles from './style';
 import {useRoute, useNavigation} from "@react-navigation/native";
 import ChartCapture from "../components/ChartCapture";
@@ -28,13 +28,13 @@ const SmartwatchMenuScreen = () => {
         kcal: {}
     });
 
-    // Track total charts to capture and completed charts
+    // Track total charts to capture, and completed charts
     const [totalChartsToCapture, setTotalChartsToCapture] = useState(0);
     const [completedCharts, setCompletedCharts] = useState(0);
 
     const navigation = useNavigation();
 
-    // Add a state to track device connection status
+    // State to track device connection status
     const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
@@ -108,7 +108,7 @@ const SmartwatchMenuScreen = () => {
         // Start with the first month
         let currentDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), 1);
 
-        // Loop until we reach or exceed the end date
+        // Loop until we reach the end date
         while (currentDate <= endDateObj) {
             // Format as YYYY-MM
             const monthStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
@@ -133,7 +133,6 @@ const SmartwatchMenuScreen = () => {
         console.log('Months between selected dates:', months);
         setSelectedMonths(months);
 
-        // Rest of your existing code...
         const entries = Array.isArray(payload) ? payload : payload.data || [];
 
         const filteredEntries = entries.filter(item =>
@@ -218,7 +217,7 @@ const SmartwatchMenuScreen = () => {
                 selectedMonths
             );
 
-            // 1. Generate PDF in internal storage
+            // Generate PDF in internal storage
             const options = {
                 html: htmlData,
                 fileName: `report_${startDate}_${endDate || startDate}`,
@@ -229,12 +228,12 @@ const SmartwatchMenuScreen = () => {
             const internalPath = file.filePath;
             console.log('PDF generated at:', internalPath);
 
-            // 2. Get public Downloads path
+            // Get public Downloads path
             const downloadDir = RNFS.DownloadDirectoryPath;
             const fileName = `report_${startDate}_${endDate || startDate}.pdf`;
             const downloadPath = `${downloadDir}/${fileName}`;
 
-            // 3. Ask for permission (only Android < 10)
+            // Ask for permission
             if (Platform.OS === 'android' && Platform.Version < 29) {
                 const granted = await PermissionsAndroid.request(
                     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -252,7 +251,7 @@ const SmartwatchMenuScreen = () => {
                 }
             }
 
-            // 4. Move PDF to Downloads
+            // Move PDF to Downloads
             await RNFS.moveFile(internalPath, downloadPath);
             console.log('PDF moved to:', downloadPath);
 
@@ -266,7 +265,7 @@ const SmartwatchMenuScreen = () => {
     };
 
 
-    // Data for the report.
+    // Data for the report
     const route = useRoute();
     const payload = route.params?.payload || [];
     const lastSyncTimeString = route.params?.lastSyncTime || null;
@@ -385,7 +384,7 @@ const SmartwatchMenuScreen = () => {
             </View>
 
 
-            {/* Bottom Section: Buttons Row */}
+            {/* Buttons Row */}
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonsRow}>
                     <Pressable style={styles.connectButton} onPress={handleGarminConnect}>

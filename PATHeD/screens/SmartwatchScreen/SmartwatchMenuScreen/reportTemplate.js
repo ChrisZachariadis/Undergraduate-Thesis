@@ -115,8 +115,6 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
         <meta charset="utf-8" />
         <title>Smartwatch metrics report from ${fromDate} to ${toDate}</title>
         <style>
-          /* Global Styles (Google Fonts and CSS Variables removed) */
-          
           body { 
             font-family: Arial, sans-serif; 
             margin: 0; 
@@ -131,7 +129,6 @@ export const getReportHTML = (fromDate, toDate, filteredEntries, chartImages = {
             padding: 20px;
           }
           
-          /* Header */
           .report-header {
             text-align: center;
             padding: 40px 20px;

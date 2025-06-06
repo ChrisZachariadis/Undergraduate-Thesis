@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
-const Frame = ({ children, style, padding = 20, marginHorizontal = 12 }) => {
+const Frame = ({children, style, padding = 20, marginHorizontal = 12}) => {
     return (
-        <View style={[styles.card, { padding, marginHorizontal }, style]}>
+        <View style={[styles.card, {padding, marginHorizontal}, style]}>
             {children}
         </View>
     );

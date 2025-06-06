@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import * as Progress from 'react-native-progress';
 import PropTypes from 'prop-types';
 
@@ -9,34 +9,34 @@ const ProgressCircle = ({
                             value,
                             goal,
                             color,
-                            unit = '', // Optional unit (e.g., 'steps', 'floors')
-                            size = 120, // Default size
+                            unit = '', // Optional unit ('steps', 'floors', etc)
+                            size = 120,
                         }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-                <View style={[styles.circleWrapper, {width: size, height: size}]}>
-                    <Progress.Circle
-                        size={size}
-                        progress={progress}
-                        thickness={8}
-                        color={color}
-                        unfilledColor="#f0f0f0"
-                        borderWidth={0}
-                        showsText={false}
-                    />
-                    <View style={styles.overlayTextContainer}>
-                        <Text style={styles.valueText}>{value}</Text>
-                        <Text style={styles.goalText}>{`${goal} ${unit}`}</Text>
-                    </View>
+            <View style={[styles.circleWrapper, {width: size, height: size}]}>
+                <Progress.Circle
+                    size={size}
+                    progress={progress}
+                    thickness={8}
+                    color={color}
+                    unfilledColor="#f0f0f0"
+                    borderWidth={0}
+                    showsText={false}
+                />
+                <View style={styles.overlayTextContainer}>
+                    <Text style={styles.valueText}>{value}</Text>
+                    <Text style={styles.goalText}>{`${goal} ${unit}`}</Text>
                 </View>
+            </View>
         </View>
     );
 };
 
 ProgressCircle.propTypes = {
     title: PropTypes.string.isRequired,
-    progress: PropTypes.number.isRequired, // Should be between 0 and 1
+    progress: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
     goal: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,

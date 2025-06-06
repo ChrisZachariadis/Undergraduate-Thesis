@@ -1,18 +1,18 @@
-// ChartCapture.js - Generic component for capturing any chart type
-import React, { useRef, useEffect } from 'react';
+import React, {useRef, useEffect} from 'react';
 import ViewShot from 'react-native-view-shot';
 import ChartDetails from './ChartDetails/ChartDetails';
-import { View } from 'react-native';
+import {View} from 'react-native';
 
+// ChartCapture component captures a chart and returns its URI
 const ChartCapture = React.forwardRef(({
-    selectedDate,
-    selectedMonth, // Add new prop for specific month
-    segmentType = 'Month',
-    dataType = 'hr',
-    title = 'Chart Summary',
-    chartColor = '#FF6347',
-    onDone
-}, ref) => {
+                                           selectedDate,
+                                           selectedMonth,
+                                           segmentType = 'Month',
+                                           dataType = 'hr',
+                                           title = 'Chart Summary',
+                                           chartColor = '#FF6347',
+                                           onDone
+                                       }, ref) => {
     const chartRef = useRef();
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const ChartCapture = React.forwardRef(({
             }
         };
 
-        // Add slight delay for rendering before capture
+        // Add slight delay for rendering before capturing
         setTimeout(capture, 150);
     }, [dataType, selectedMonth]);
 
@@ -35,8 +35,8 @@ const ChartCapture = React.forwardRef(({
     const dateToUse = selectedMonth ? `${selectedMonth}-01` : selectedDate;
 
     return (
-        <View style={{ position: 'absolute', opacity: 0 }}>
-            <ViewShot ref={chartRef} options={{ format: 'jpg', quality: 0.9 }}>
+        <View style={{position: 'absolute', opacity: 0}}>
+            <ViewShot ref={chartRef} options={{format: 'jpg', quality: 0.9}}>
                 <ChartDetails
                     title={title}
                     dataType={dataType}

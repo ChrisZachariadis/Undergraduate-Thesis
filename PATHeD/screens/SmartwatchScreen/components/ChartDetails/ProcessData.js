@@ -65,7 +65,7 @@ const processStressDailyData = (data, dayMoment) => {
 };
 
 
-// Combined weekly processing for hr, kcal, steps, floors, and stress (average).
+// Combined weekly processing for hr, kcal, steps, floors, and stress
 const processWeeklyData = (data, weekStart, field, colorOption) => {
     const weekDays = [];
     for (let i = 0; i < 7; i++) {
@@ -85,7 +85,7 @@ const processWeeklyData = (data, weekStart, field, colorOption) => {
     return weekDays;
 };
 
-// Combined monthly processing for hr, kcal, steps, floors, and stress.
+// Combined monthly processing for hr, kcal, steps, floors, and stress
 const processMonthlyData = (data, monthStart, field, colorOption) => {
     const daysInMonth = monthStart.daysInMonth();
     const monthData = [];
@@ -111,7 +111,7 @@ const processIntensityWeeklyData = (data, weekStart, colorOption) => {
         const day = moment(weekStart).add(i, 'days');
         const dayName = day.format('ddd');
         const dayData = data.find(entry => entry.calendarDate === day.format('YYYY-MM-DD'));
-        // Sum the two intensity durations.
+        // Sum the two intensity durations
         const vigorous = dayData ? (dayData.data.vigorousIntensityDurationInSeconds || 0) : 0;
         const moderate = dayData ? (dayData.data.moderateIntensityDurationInSeconds || 0) : 0;
         const total = vigorous + moderate;
@@ -126,7 +126,7 @@ const processIntensityWeeklyData = (data, weekStart, colorOption) => {
     return weekDays;
 };
 
-// Process intensity data by summing vigorous and moderate durations.
+// Process intensity data by summing vigorous and moderate durations
 const processIntensityMonthlyData = (data, monthStart, colorOption) => {
     const daysInMonth = monthStart.daysInMonth();
     const monthData = [];

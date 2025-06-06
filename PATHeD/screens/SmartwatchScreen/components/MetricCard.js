@@ -1,16 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {View, Text, StyleSheet} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
-const MetricCard = ({ 
-    title, 
-    value, 
-    unit, 
-    icon, 
-    color, 
-    size = 22,
-    titleContainer = null 
-}) => (
+const MetricCard = ({
+                        title,
+                        value,
+                        unit,
+                        icon,
+                        color,
+                        size = 22,
+                        titleContainer = null
+                    }) => (
     <View style={styles.metricCard}>
         <View style={styles.mainContent}>
             <View style={styles.textContainer}>
@@ -26,8 +26,8 @@ const MetricCard = ({
                     <Text style={styles.unit}>{unit}</Text>
                 </View>
             </View>
-            <View style={[styles.iconContainer, { backgroundColor: `${color}20` }]}>
-                <FontAwesomeIcon icon={icon} size={size} color={color} />
+            <View style={[styles.iconContainer, {backgroundColor: `${color}20`}]}>
+                <FontAwesomeIcon icon={icon} size={size} color={color}/>
             </View>
         </View>
     </View>

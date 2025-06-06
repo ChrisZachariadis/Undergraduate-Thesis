@@ -8,7 +8,14 @@ import ProgressCircle from '../components/DayDetailView/ProgressCircle';
 import Frame from "../components/Frame";
 import CalendarDays from '../components/CalendarDays/CalendarDays';
 import {formatTimeFromSeconds} from '../utils/timeUtils';
-import {loadGarminCachedData, syncGarminData, retrieveLastSyncTime, saveLastSyncTime, retrieveConnectionStatus, saveConnectionStatus} from '../utils/garminDataUtils';
+import {
+    loadGarminCachedData,
+    syncGarminData,
+    retrieveLastSyncTime,
+    saveLastSyncTime,
+    retrieveConnectionStatus,
+    saveConnectionStatus
+} from '../utils/garminDataUtils';
 
 const SmartwatchDetailsScreen = () => {
     const navigation = useNavigation();
@@ -85,8 +92,10 @@ const SmartwatchDetailsScreen = () => {
     const handleDateSelect = (day) => {
         const selectedEntry = allEntries.find(entry => entry.calendarDate === day.dateString);
         if (selectedEntry) {
-            setSelectedDayData(selectedEntry.data); // Update selected day data
-            setCurrentCalendarDate(selectedEntry.calendarDate); // Update local calendarDate state
+            // Update selected day data
+            setSelectedDayData(selectedEntry.data);
+            // Update local calendarDate state
+            setCurrentCalendarDate(selectedEntry.calendarDate);
         }
         setIsCalendarVisible(false);
     };
@@ -95,8 +104,10 @@ const SmartwatchDetailsScreen = () => {
         if (currentIndex > 0) {
             const previousEntry = allEntries[currentIndex - 1];
             if (previousEntry) {
-                setSelectedDayData(previousEntry.data); // Update day data
-                setCurrentCalendarDate(previousEntry.calendarDate); // Update calendarDate
+                // Update day data
+                setSelectedDayData(previousEntry.data);
+                // Update calendarDate
+                setCurrentCalendarDate(previousEntry.calendarDate);
             }
         }
     };
@@ -105,8 +116,8 @@ const SmartwatchDetailsScreen = () => {
         if (currentIndex !== -1 && currentIndex < allEntries.length - 1) {
             const nextEntry = allEntries[currentIndex + 1];
             if (nextEntry) {
-                setSelectedDayData(nextEntry.data); // Update day data
-                setCurrentCalendarDate(nextEntry.calendarDate); // Update calendarDate
+                setSelectedDayData(nextEntry.data);
+                setCurrentCalendarDate(nextEntry.calendarDate);
             }
         }
     };
@@ -124,7 +135,7 @@ const SmartwatchDetailsScreen = () => {
                     <FontAwesomeIcon icon={faSync} size={24} color="#ffffff"/>
                 </TouchableOpacity>
 
-                {/* Smartwatch Icon */}
+                {/* Smartwatch Button */}
                 <TouchableOpacity
                     style={styles.smartwatchButton}
                     onPress={() => navigation.navigate('SmartwatchMenuScreen', {
@@ -137,7 +148,6 @@ const SmartwatchDetailsScreen = () => {
                 </TouchableOpacity>
             </View>
 
-            {/* If no data, show message */}
             {!isDataFetched ? (
                 <Text style={styles.noDataText}>No data available. Please sync to load data.</Text>
             ) : (
@@ -171,7 +181,6 @@ const SmartwatchDetailsScreen = () => {
                         onDateSelect={handleDateSelect}/>
 
                     {/* Circles Row */}
-
                     <View style={styles.StepsFloorsContainer}>
                         <TouchableOpacity
                             activeOpacity={1}
@@ -212,7 +221,7 @@ const SmartwatchDetailsScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Average Heart Rate in a Rectangle Box */}
+                    {/* Average Heart Rate */}
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={() => navigation.navigate('HRDetails', {selectedDate: currentCalendarDate})}>
@@ -232,7 +241,7 @@ const SmartwatchDetailsScreen = () => {
                     </TouchableOpacity>
 
 
-                    {/* BMR Kilocalories in a Styled Box */}
+                    {/* BMR Kilocalories */}
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={() => navigation.navigate('KcalDetailsScreen', {
@@ -254,7 +263,7 @@ const SmartwatchDetailsScreen = () => {
                     </TouchableOpacity>
 
 
-                    {/* Intensity Frame */}
+                    {/* Intensity */}
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={() => navigation.navigate('IntensityDetailsScreen', {
@@ -296,7 +305,7 @@ const SmartwatchDetailsScreen = () => {
                     </TouchableOpacity>
 
 
-                    {/* Stress Levels in a Styled Box */}
+                    {/* Stress Levels */}
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={() => navigation.navigate('StressDetailsScreen', {
@@ -315,7 +324,6 @@ const SmartwatchDetailsScreen = () => {
                             <View style={styles.stressDetailsContainer}>
                                 <View style={styles.stressDetail}>
                                     <Text style={styles.stressLabel}>Average</Text>
-                                    {/* Try not to display negative stress level */}
                                     <Text style={styles.stressText}>
                                         {selectedDayData?.averageStressLevel < 0 ? 0 : selectedDayData?.averageStressLevel}
                                     </Text>

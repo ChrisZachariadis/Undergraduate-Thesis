@@ -382,7 +382,7 @@ const ChartDetails = ({
         let valueLabel = '';
 
         // Determine value label based on data type
-        switch(dataType) {
+        switch (dataType) {
             case 'hr':
                 valueLabel = `Average HR: ${data.value} bpm`;
                 break;
